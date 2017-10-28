@@ -1,7 +1,6 @@
 package models;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -96,9 +95,16 @@ public class ClientWithResponseHandler {
             };
             String responseBody = httpclient.execute(httpget, responseHandler);
             System.out.println("----------------------------------------");
-            System.out.println(responseBody);
+            System.out.println(responseBody);                   
             return responseBody;
-        } finally {
+        } 
+        
+        catch (IOException e) {
+        	System.out.println("Can't connect to the dataservice. It is either offline, or you need to run it locally.");
+        	return null;
+		}	
+        
+        finally {
             httpclient.close();
         }
     }
