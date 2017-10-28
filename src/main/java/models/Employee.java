@@ -1,6 +1,5 @@
 package models;
 
-import java.util.List;
 import java.util.Map;
 
 public class Employee {
@@ -11,6 +10,7 @@ public class Employee {
 	private String titleOfCourtesy;
 	private String reportsTo;
 	
+	// "Caching"
 	private static Map<Integer, Employee> employees;
 	
 	public static Map<Integer, Employee> getEmployees() {
