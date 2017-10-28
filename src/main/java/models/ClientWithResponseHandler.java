@@ -23,10 +23,13 @@ import models.Employee;
 //https://www.mkyong.com/java/jackson-2-convert-java-object-to-from-json/
 
 public class ClientWithResponseHandler {
+	
+	// API endpoint -- CHANGE the port if needed, when running the dataservice locally
 	private static String rawSource = "http://localhost:56254/api/employees/";
 	
 	private static ObjectMapper mapper = new ObjectMapper();
 	
+	// Get an employee by ID
 	public static Employee getEmployee(Integer employeeID) {
 		try {			
 			String JSONEmp = getEmployees(employeeID, null, new URL(rawSource));
@@ -39,9 +42,10 @@ public class ClientWithResponseHandler {
 		}
 	}	
 	
+	// Get all employees working for specified manager
 	public static List<Employee> getEmployeesByManager(Integer managerID) {
 		try {
-			String JSONEmps = getEmployees(null, managerID, new URL(rawSource));
+			String JSONEmps = getEmployees(null, managerID, new URL(rawSource + "m"));
 			return mapper.readValue(JSONEmps, new TypeReference<List<Employee>>(){});
 			
 		} catch (Exception e) {
@@ -51,6 +55,7 @@ public class ClientWithResponseHandler {
 		}		
 	}	
 	
+	// Get all employees
 	public static Map<Integer, Employee> getEmployees() {
 		try {
 			String JSONEmps = getEmployees(null, null, new URL(rawSource));
