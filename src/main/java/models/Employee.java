@@ -2,6 +2,8 @@ package models;
 
 import java.util.Map;
 
+import dataAccess.EmployeeAccess;
+
 public class Employee {
 	private int employeeID;
 	private String lastName;
@@ -15,7 +17,7 @@ public class Employee {
 	
 	public static Map<Integer, Employee> getEmployees() {
 		if (employees == null) {			
-			employees = ClientWithResponseHandler.getEmployees();
+			employees = EmployeeAccess.getEmployees();
 		}
 		return employees;
 	}

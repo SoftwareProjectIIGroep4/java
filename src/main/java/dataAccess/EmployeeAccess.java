@@ -1,4 +1,4 @@
-package models;
+package dataAccess;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,9 +22,26 @@ import models.Employee;
 //SOURCES: https://hc.apache.org/httpcomponents-client-4.5.x/httpclient/examples/org/apache/http/examples/client/ClientWithResponseHandler.java
 //https://www.mkyong.com/java/jackson-2-convert-java-object-to-from-json/
 
-public class ClientWithResponseHandler {
+public class EmployeeAccess {
 	
-	// API endpoint -- CHANGE the port if needed, when running the dataservice locally
+	//Handles the REST request response
+	private static ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+
+        @Override
+        public String handleResponse(
+                final HttpResponse response) throws ClientProtocolException, IOException {
+            int status = response.getStatusLine().getStatusCode();
+            if (status >= 200 && status < 300) {
+                HttpEntity entity = response.getEntity();
+                return entity != null ? EntityUtils.toString(entity) : null;
+            } else {
+                throw new ClientProtocolException("Unexpected response status: " + status);
+            }
+        }
+
+    };
+	
+    // API endpoint -- CHANGE the port if needed when running the dataservice locally
 	private static String rawSource = "http://localhost:56254/api/employees/";
 	
 	private static ObjectMapper mapper = new ObjectMapper();
@@ -82,22 +99,8 @@ public class ClientWithResponseHandler {
             }
             System.out.println("Executing request " + httpget.getRequestLine());
 
-            // Create a custom response handler
-            ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
-
-                @Override
-                public String handleResponse(
-                        final HttpResponse response) throws ClientProtocolException, IOException {
-                    int status = response.getStatusLine().getStatusCode();
-                    if (status >= 200 && status < 300) {
-                        HttpEntity entity = response.getEntity();
-                        return entity != null ? EntityUtils.toString(entity) : null;
-                    } else {
-                        throw new ClientProtocolException("Unexpected response status: " + status);
-                    }
-                }
-
-            };
+            
+            
             String responseBody = httpclient.execute(httpget, responseHandler);
             System.out.println("----------------------------------------");
             System.out.println(responseBody);                   
