@@ -29,6 +29,17 @@ public class Address {
 		this.country = country;
 	}
 	
+	public Address(String administrativeArea, String locality, int postalCode, String streetAddress, String premise,
+			String country) {
+		super();
+		this.administrativeArea = administrativeArea;
+		this.locality = locality;
+		this.postalCode = postalCode;
+		this.streetAddress = streetAddress;
+		this.premise = premise;
+		this.country = country;
+	}
+	
 	public int getAddressId() {
 		return addressId;
 	}

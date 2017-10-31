@@ -1,20 +1,25 @@
 package dataAccess;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import models.Address;
 
-public class AddressAccess implements GetRequestResponseHandler {
+public class AddressAccess implements GetRequestResponseHandler  {
 	
     private static ObjectMapper mapper = new ObjectMapper();
 	
@@ -22,7 +27,7 @@ public class AddressAccess implements GetRequestResponseHandler {
 	
 	public static Address getAddress(Integer addressId) {
 		try {			
-			String JSONAdr = getAddresses(addressId, new URL(rawSource));
+			String JSONAdr = getAddresses(new URI(rawSource + addressId));
 			return mapper.readValue(JSONAdr, Address.class);
 			
 		} catch (Exception e) {
@@ -34,7 +39,7 @@ public class AddressAccess implements GetRequestResponseHandler {
 	
 	public static Map<Integer, Address> getAllAddresses() {
 		try {
-			String JSONAdr = getAddresses(null, new URL(rawSource));
+			String JSONAdr = getAddresses(new URI(rawSource));
 			List<Address> addresses = mapper.readValue(JSONAdr, new TypeReference<List<Address>>(){});
 			
 			Map<Integer, Address> addressesMap = new HashMap<Integer, Address>();
@@ -50,21 +55,13 @@ public class AddressAccess implements GetRequestResponseHandler {
 		}
 	}
 	
-	private static String getAddresses(Integer addressId,URL source) throws Exception {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
+	private static String getAddresses(URI source) throws Exception {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
         try {        	
-            HttpGet httpget = null;
-            if (addressId == null) {
-            	httpget = new HttpGet(source.toString());
-            }
-            else {			
-				httpget = new HttpGet(source.toString() + addressId); 
-			}
-            System.out.println("Executing request " + httpget.getRequestLine());
-
+            HttpGet httpGet = new HttpGet(source);
+            System.out.println("Executing request " + httpGet.getRequestLine());         
             
-            
-            String responseBody = httpclient.execute(httpget, responseHandler);
+            String responseBody = httpClient.execute(httpGet, responseHandler);
             System.out.println("----------------------------------------");
             System.out.println(responseBody);                   
             return responseBody;
@@ -72,11 +69,42 @@ public class AddressAccess implements GetRequestResponseHandler {
         
         catch (IOException e) {
         	System.out.println("Can't connect to the dataservice. It is either offline, or you need to run it locally.");
-        	return null;
-		}	
+        }	
         
         finally {
-            httpclient.close();
+            httpClient.close();
         }
+        return null;
     }
+
+	public static String addAddress(Address address) throws Exception{
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		try {
+			//Convert address obj to JSON
+			String objString = mapper.writeValueAsString(address);
+			StringEntity requestEntity = new StringEntity(
+				    objString,
+				    ContentType.APPLICATION_JSON);
+			
+			HttpPost httpPost = new HttpPost(new URI(rawSource)) ;
+			httpPost.setEntity(requestEntity);
+			System.out.println("Executing request " + httpPost.getRequestLine());    
+			
+			String responseBody = httpClient.execute(httpPost, responseHandler);
+			System.out.println("----------------------------------------");
+            System.out.println(responseBody);                   
+            return responseBody;
+		}
+		
+		catch (JsonProcessingException e) {
+			System.out.println(e.getMessage());
+		} 
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}		
+		finally {
+			httpClient.close();
+		}
+		return null;
+	}
 }
