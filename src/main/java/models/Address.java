@@ -1,22 +1,40 @@
-package dataAccess;
+package models;
+
+import java.util.Map;
+
+import dataAccess.AddressAccess;
 
 public class Address {
+	private int addressId;
 	private String administrativeArea;
 	private String locality;
-	private int PostalCode;
+	private int postalCode;
 	private String streetAddress;
-	private String Premise;
-	private String Country;
+	private String premise;
+	private String country;
 	
-	public Address(String administrativeArea, String locality, int postalCode, String streetAddress, String premise,
+	public Address() {
+		super();
+	}
+
+	public Address(int addressId, String administrativeArea, String locality, int postalCode, String streetAddress, String premise,
 			String country) {
 		super();
+		this.addressId = addressId;
 		this.administrativeArea = administrativeArea;
 		this.locality = locality;
-		PostalCode = postalCode;
+		this.postalCode = postalCode;
 		this.streetAddress = streetAddress;
-		Premise = premise;
-		Country = country;
+		this.premise = premise;
+		this.country = country;
+	}
+	
+	public int getAddressId() {
+		return addressId;
+	}
+	
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
 	}
 
 	public String getAdministrativeArea() {
@@ -36,11 +54,11 @@ public class Address {
 	}
 
 	public int getPostalCode() {
-		return PostalCode;
+		return postalCode;
 	}
 
 	public void setPostalCode(int postalCode) {
-		PostalCode = postalCode;
+		this.postalCode = postalCode;
 	}
 
 	public String getStreetAddress() {
@@ -52,19 +70,19 @@ public class Address {
 	}
 
 	public String getPremise() {
-		return Premise;
+		return premise;
 	}
 
 	public void setPremise(String premise) {
-		Premise = premise;
+		this.premise = premise;
 	}
 
 	public String getCountry() {
-		return Country;
+		return country;
 	}
 
 	public void setCountry(String country) {
-		Country = country;
+		this.country = country;
 	}
 
 }
