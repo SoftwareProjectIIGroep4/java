@@ -2,9 +2,8 @@ package dataAccess;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -50,10 +49,10 @@ public class EmployeeAccess extends RestRequest {
 	}	
 	
 	// Get all employees
-	public static Map<Integer, Employee> getAllEmployees() {
+	public static HashMap<Integer, Employee> getAllEmployees() {
 		try {
 			String JSONEmps = getEmployees(null, null, new URL(rawSource));
-			return mapper.readValue(JSONEmps, new TypeReference<Map<Integer, Employee>>(){});
+			return mapper.readValue(JSONEmps, new TypeReference<HashMap<Integer, Employee>>(){});
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

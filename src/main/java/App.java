@@ -1,23 +1,12 @@
-import dataAccess.AddressAccess;
-import dataAccess.Cache;
+import dataAccess.Employees;
+import models.Address;
 
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
-
-    public static void main(String[] args) {      
-       System.out.println(AddressAccess.removeAddress(9));
-       System.out.println("---------------------------");
-       Cache.getAddress(9);
-       System.out.println("hey");
-//       try {		
-//    	 address.saveAddress();
-//		//address = new ObjectMapper().readValue(AddressAccess.postAddress(address), Address.class);
-//		System.out.println(address);
-//       } catch (Exception e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//       }
+    public static void main(String[] args) {
+    	Address address = new Address(Employees.getAddress(7));
+    	address.setCountry("France");
+    	System.out.println(Employees.getAddress(7));
+    	Employees.addAddress(address);
+    	System.out.println(Employees.getAddress(7));
     }
 }

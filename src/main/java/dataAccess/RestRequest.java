@@ -10,6 +10,7 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -64,6 +65,25 @@ public abstract class RestRequest {
 			System.out.println("Executing request " + httpPost.getRequestLine());    
 			
 			String responseBody = httpClient.execute(httpPost, responseHandler);
+			System.out.println("----------------------------------------");
+            System.out.println(responseBody);                   
+            return responseBody;
+		}
+	}
+    
+    static String putObject(Object object, URI source) throws URISyntaxException, IOException {		
+		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+			//Convert obj to JSON
+			String objString = mapper.writeValueAsString(object);
+			StringEntity requestEntity = new StringEntity(
+				    objString,
+				    ContentType.APPLICATION_JSON);
+			
+			HttpPut httpPut = new HttpPut(source) ;
+			httpPut.setEntity(requestEntity);
+			System.out.println("Executing request " + httpPut.getRequestLine());    
+			
+			String responseBody = httpClient.execute(httpPut, responseHandler);
 			System.out.println("----------------------------------------");
             System.out.println(responseBody);                   
             return responseBody;

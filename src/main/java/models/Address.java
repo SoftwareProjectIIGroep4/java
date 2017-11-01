@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 import dataAccess.AddressAccess;
 
 public class Address {
@@ -13,6 +15,10 @@ public class Address {
 	
 	public Address() {
 		super();
+	}
+	
+	public Address(Address address) {
+		this(address.addressId, address.administrativeArea, address.locality, address.postalCode, address.streetAddress, address.premise, address.country);
 	}
 
 	public Address(int addressId, String administrativeArea, String locality, int postalCode, String streetAddress, String premise,
@@ -115,4 +121,34 @@ public class Address {
 		sb.append("Country: " + country + "\n");
 		return sb.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			System.out.println("EQUAL 1");
+			return true;
+		}
+		if (obj == null) {
+			System.out.println("NOT EQUAL 2");
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			System.out.println("NOT EQUAL 3");
+			return false;
+		}
+		Address o = (Address) obj;
+		return addressId == o.addressId && 
+				postalCode == o.postalCode &&
+				Objects.equals(administrativeArea, o.administrativeArea) &&
+				Objects.equals(locality, o.locality) &&
+				Objects.equals(streetAddress, o.streetAddress) &&
+				Objects.equals(premise, o.premise) &&
+				Objects.equals(country, o.country);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(addressId, administrativeArea, locality, postalCode, streetAddress, premise, country);
+	}
+
 }
