@@ -18,7 +18,6 @@ public class AddressAccess extends RestRequest  {
 		try {			
 			String JSONAdr = getAllOrOne(new URI(rawSource + addressId));
 			Address address = mapper.readValue(JSONAdr, Address.class);
-			Employees.addAddress(address);
 			return address;		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -36,8 +35,7 @@ public class AddressAccess extends RestRequest  {
 			
 			for (Address address : addresses) {
 				addressesMap.put(address.getAddressId(), address);
-			}			
-			Employees.setAddresses(addressesMap);
+			}
 			return addressesMap;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -48,7 +46,7 @@ public class AddressAccess extends RestRequest  {
 	
 	public static Address addAddress(Address address) {
 		try {
-			String JSONAdr = postObject(address, new URI(rawSource));
+			String JSONAdr = postObject(address, new URI(rawSource));			
 			return mapper.readValue(JSONAdr, Address.class);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -59,6 +57,7 @@ public class AddressAccess extends RestRequest  {
 	public static Address updateAddress(Address address) {
 		try {
 			String JSONAdr = putObject(address, new URI(rawSource + address.getAddressId()));
+			Cache.addressCache.invalidate(address.getAddressId());
 			return mapper.readValue(JSONAdr, Address.class);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -70,9 +69,8 @@ public class AddressAccess extends RestRequest  {
 		String JSONAdr;
 		try {
 			JSONAdr = deleteObject(id, new URI(rawSource + id));
-			Address address = mapper.readValue(JSONAdr, Address.class);
-			Employees.removeAddress(id);
-			return address;
+			Cache.addressCache.invalidate(id);
+			return mapper.readValue(JSONAdr, Address.class);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

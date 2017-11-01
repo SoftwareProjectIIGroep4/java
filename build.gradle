@@ -36,8 +36,10 @@ dependencies {
     compile (
     [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.0'],
     [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.0'],
-    [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0']
-)
+    [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'])
+    
+    //Caching
+    compile 'com.google.guava:guava:23.0'
 }
 
 // Define the main class for the application
