@@ -1,28 +1,40 @@
 package dataAccess;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import models.Address;
-import models.Employee;
 
 public class Cache {
 	
-	private static Map<Integer, Employee> employees;
+	//Regions
+	//private static Map<Integer, Employee> employees;	
+	private static Map<Integer, Address> Addresses = new HashMap<Integer, Address>();
 	
-	public static Map<Integer, Employee> getEmployees() {
-		if (employees == null) {			
-			employees = EmployeeAccess.getAllEmployees();
-		}
-		return employees;
-	}
-	
-	private static Map<Integer, Address> Addresses;
-	
+	//Addresses
 	public static Map<Integer, Address> getAddresses() {
-		if (Addresses == null) {			
-			Addresses = AddressAccess.getAllAddresses();
-		}
 		return Addresses;
-	}	
-	
+	}
+	public static void setAddresses(Map<Integer, Address> addresses) {
+		Addresses = addresses;
+	}
+	public static void addAddress(Address address) {
+		if (address != null) {
+			if (address.equals(Addresses.get(address.getAddressId()))) {
+				return;
+			}
+			Addresses.put(address.getAddressId(), address);
+		}
+	}
+	public static void removeAddress(int id) {
+		Addresses.remove(id);
+	}
+	public static Address getAddress(int id) {
+		if (Addresses.containsKey(id)) {
+			return Addresses.get(id);
+		}
+		else {
+			return AddressAccess.getAddress(id);
+		}
+	}
 }

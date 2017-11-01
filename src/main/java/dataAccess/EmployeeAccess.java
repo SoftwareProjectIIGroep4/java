@@ -16,7 +16,7 @@ import models.Employee;
 //SOURCES: https://hc.apache.org/httpcomponents-client-4.5.x/httpclient/examples/org/apache/http/examples/client/ClientWithResponseHandler.java
 //https://www.mkyong.com/java/jackson-2-convert-java-object-to-from-json/
 
-public class EmployeeAccess implements GetRequestResponseHandler {
+public class EmployeeAccess extends RestRequest {
 	
     private static ObjectMapper mapper = new ObjectMapper();
 	

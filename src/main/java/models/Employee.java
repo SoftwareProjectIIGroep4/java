@@ -1,9 +1,5 @@
 package models;
 
-import java.util.Map;
-
-import dataAccess.EmployeeAccess;
-
 public class Employee {
 	private int employeeID;
 	private String lastName;

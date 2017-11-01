@@ -1,7 +1,5 @@
 package models;
 
-import java.util.Map;
-
 import dataAccess.AddressAccess;
 
 public class Address {
@@ -11,7 +9,7 @@ public class Address {
 	private int postalCode;
 	private String streetAddress;
 	private String premise;
-	private String country;
+	private String country;	
 	
 	public Address() {
 		super();
@@ -38,6 +36,15 @@ public class Address {
 		this.streetAddress = streetAddress;
 		this.premise = premise;
 		this.country = country;
+	}
+	
+	public void saveAddress() {
+		try {
+			this.setAddressId(AddressAccess.addAddress(this).getAddressId());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public int getAddressId() {
@@ -96,4 +103,16 @@ public class Address {
 		this.country = country;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Address ID: " + addressId + "\n");
+		sb.append("Administrative area: " + administrativeArea + "\n");
+		sb.append("Locality: " + locality + "\n");
+		sb.append("Postal code: " + postalCode + "\n");
+		sb.append("Street address: " + streetAddress + "\n");
+		sb.append("Premise: " + premise + "\n");
+		sb.append("Country: " + country + "\n");
+		return sb.toString();
+	}
 }
