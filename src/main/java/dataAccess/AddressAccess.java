@@ -9,30 +9,29 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import models.Address;
 
-public class AddressAccess extends RestRequest  {	   
-	private static String rawSource = "http://localhost:56254/api/addresses/";	
-	
-	
-	
+public class AddressAccess extends RestRequest {
+	private static String rawSource = "http://localhost:56254/api/addresses/";
+
 	public static Address getAddress(Integer addressId) {
-		try {			
+		try {
 			String JSONAdr = getAllOrOne(new URI(rawSource + addressId));
 			Address address = mapper.readValue(JSONAdr, Address.class);
-			return address;		
+			return address;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
-	}	
-	
+	}
+
 	public static HashMap<Integer, Address> getAllAddresses() {
 		try {
 			String JSONAdr = getAllOrOne(new URI(rawSource));
-			List<Address> addresses = mapper.readValue(JSONAdr, new TypeReference<List<Address>>(){});
-			
+			List<Address> addresses = mapper.readValue(JSONAdr, new TypeReference<List<Address>>() {
+			});
+
 			HashMap<Integer, Address> addressesMap = new HashMap<Integer, Address>();
-			
+
 			for (Address address : addresses) {
 				addressesMap.put(address.getAddressId(), address);
 			}
@@ -43,10 +42,25 @@ public class AddressAccess extends RestRequest  {
 			return null;
 		}
 	}
-	
-	public static Address addAddress(Address address) {
+
+	public static Address addAddress(Address address) throws IOException {
+		String JSONAdr;
 		try {
-			String JSONAdr = postObject(address, new URI(rawSource));			
+			JSONAdr = postObject(address, new URI(rawSource));
+			Address adr = mapper.readValue(JSONAdr, Address.class);
+			Cache.addressCache.put(address.getAddressId(), adr);
+			return adr;
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static Address updateAddress(Address address) {
+		try {
+			String JSONAdr = putObject(address, new URI(rawSource + address.getAddressId()));
+			Cache.addressCache.invalidate(address.getAddressId());
 			return mapper.readValue(JSONAdr, Address.class);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -54,16 +68,6 @@ public class AddressAccess extends RestRequest  {
 		}
 	}
 
-	public static Address updateAddress(Address address) {
-		try {
-			String JSONAdr = putObject(address, new URI(rawSource + address.getAddressId()));
-			return mapper.readValue(JSONAdr, Address.class);
-		} catch (Exception e) {
-			// TODO: handle exception
-			return null;
-		}
-	}
-	
 	public static Address removeAddress(Integer id) {
 		String JSONAdr;
 		try {
@@ -77,6 +81,6 @@ public class AddressAccess extends RestRequest  {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;		
+		return null;
 	}
 }
