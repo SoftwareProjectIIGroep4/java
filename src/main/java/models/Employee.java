@@ -1,7 +1,5 @@
 package models;
 
-import java.util.Map;
-
 public class Employee {
 	private int employeeID;
 	private String lastName;
@@ -10,16 +8,6 @@ public class Employee {
 	private String titleOfCourtesy;
 	private String reportsTo;
 	
-	// "Caching"
-	private static Map<Integer, Employee> employees;
-	
-	public static Map<Integer, Employee> getEmployees() {
-		if (employees == null) {			
-			employees = ClientWithResponseHandler.getEmployees();
-		}
-		return employees;
-	}
-
 	public Employee() {
 		super();
 	}
