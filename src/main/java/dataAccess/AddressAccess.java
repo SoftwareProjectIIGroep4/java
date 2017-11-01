@@ -57,7 +57,6 @@ public class AddressAccess extends RestRequest  {
 	public static Address updateAddress(Address address) {
 		try {
 			String JSONAdr = putObject(address, new URI(rawSource + address.getAddressId()));
-			Cache.addressCache.invalidate(address.getAddressId());
 			return mapper.readValue(JSONAdr, Address.class);
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -14,11 +14,10 @@ public class Cache {
 			.maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES)
 			.build(new CacheLoader<Integer, Address>() {
-
 				@Override
 				public Address load(Integer key) throws Exception {
 					return AddressAccess.getAddress(key);
-				}
+				}	
 			});
 	public static LoadingCache<Integer, Employee> employeeCache = CacheBuilder.newBuilder()
 			.maximumSize(100)
@@ -30,4 +29,12 @@ public class Cache {
 					return EmployeeAccess.getEmployee(key);
 				}
 			});
+	
+	public static void loadAllAddresses() {
+		addressCache.putAll(AddressAccess.getAllAddresses());
+	}
+	
+	public static void loadAllEmployees() {
+		employeeCache.putAll(EmployeeAccess.getAllEmployees());
+	}
 }
