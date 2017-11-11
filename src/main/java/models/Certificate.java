@@ -29,7 +29,7 @@ public class Certificate {
 	private int trainingID;
 	private String titel;
 	private Image picture;
-	//private Blob blog;
+	//private Blob blog; 
 	
 	// image veranderen in Blob?
 	public Certificate(int certificateID, int trainingID, String titel, Image picture) {
