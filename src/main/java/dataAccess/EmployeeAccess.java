@@ -23,7 +23,7 @@ public class EmployeeAccess extends RestRequest {
 	// Get an employee by ID
 	public static Employee getEmployee(Integer employeeID) {
 		try {			
-			String JSONEmp = getEmployees(employeeID, null, new URL(Constants.EMP_SOURCE));
+			String JSONEmp = getEmployees(employeeID, null, new URL(Constants.EMPLOYEE_SOURCE));
 			return mapper.readValue(JSONEmp, Employee.class);
 			
 		} catch (Exception e) {
@@ -36,7 +36,7 @@ public class EmployeeAccess extends RestRequest {
 	// Get all employees working for specified manager
 	public static List<Employee> getEmployeesByManager(Integer managerID) {
 		try {
-			String JSONEmps = getEmployees(null, managerID, new URL(Constants.EMP_SOURCE + "m"));
+			String JSONEmps = getEmployees(null, managerID, new URL(Constants.EMPLOYEE_SOURCE + "m"));
 			return mapper.readValue(JSONEmps, new TypeReference<List<Employee>>(){});
 			
 		} catch (Exception e) {
@@ -49,7 +49,7 @@ public class EmployeeAccess extends RestRequest {
 	// Get all employees
 	public static HashMap<Integer, Employee> getAllEmployees() {
 		try {
-			String JSONEmps = getEmployees(null, null, new URL(Constants.EMP_SOURCE));
+			String JSONEmps = getEmployees(null, null, new URL(Constants.EMPLOYEE_SOURCE));
 			return mapper.readValue(JSONEmps, new TypeReference<HashMap<Integer, Employee>>(){});
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
