@@ -19,13 +19,11 @@ public class EmployeeAccess extends RestRequest {
 	
     private static ObjectMapper mapper = new ObjectMapper();
 	
-    // API endpoint -- CHANGE the port if needed when running the dataservice locally
-	private static String rawSource = "http://localhost:56254/api/employees/";	
 	
 	// Get an employee by ID
 	public static Employee getEmployee(Integer employeeID) {
 		try {			
-			String JSONEmp = getEmployees(employeeID, null, new URL(rawSource));
+			String JSONEmp = getEmployees(employeeID, null, new URL(Constants.EMP_SOURCE));
 			return mapper.readValue(JSONEmp, Employee.class);
 			
 		} catch (Exception e) {
@@ -38,7 +36,7 @@ public class EmployeeAccess extends RestRequest {
 	// Get all employees working for specified manager
 	public static List<Employee> getEmployeesByManager(Integer managerID) {
 		try {
-			String JSONEmps = getEmployees(null, managerID, new URL(rawSource + "m"));
+			String JSONEmps = getEmployees(null, managerID, new URL(Constants.EMP_SOURCE + "m"));
 			return mapper.readValue(JSONEmps, new TypeReference<List<Employee>>(){});
 			
 		} catch (Exception e) {
@@ -51,7 +49,7 @@ public class EmployeeAccess extends RestRequest {
 	// Get all employees
 	public static HashMap<Integer, Employee> getAllEmployees() {
 		try {
-			String JSONEmps = getEmployees(null, null, new URL(rawSource));
+			String JSONEmps = getEmployees(null, null, new URL(Constants.EMP_SOURCE));
 			return mapper.readValue(JSONEmps, new TypeReference<HashMap<Integer, Employee>>(){});
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -84,7 +82,7 @@ public class EmployeeAccess extends RestRequest {
         } 
         
         catch (IOException e) {
-        	System.out.println("Can't connect to the dataservice. It is either offline, or you need to run it locally.");
+        	System.out.println("Can't connect to the dataservice.");
         	return null;
 		}	
         

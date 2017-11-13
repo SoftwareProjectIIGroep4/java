@@ -1,7 +1,6 @@
 package models;
 
 import java.util.Objects;
-
 import dataAccess.AddressAccess;
 
 public class Address {

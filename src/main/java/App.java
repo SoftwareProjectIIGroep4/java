@@ -3,6 +3,7 @@ import java.util.concurrent.ExecutionException;
 
 import dataAccess.AddressAccess;
 import dataAccess.Cache;
+import dataAccess.EmployeeAccess;
 import models.Address;
 
 public class App {
@@ -14,9 +15,21 @@ public class App {
 		// } catch (Exception e) {
 		// e.printStackTrace();
 		// }
-		demo();
+		try {
+			empTest();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
+	public static void empTest() throws ExecutionException {
+		System.out.println("Run 1");
+		System.out.println(Cache.employeeCache.get(1));
+		System.out.println("Run 2");
+		System.out.println(Cache.employeeCache.get(1));
+	}
+	
 	public static void demo() {
 		// Nieuw address aanmaken - ZONDER ID, het veld "premise" mag null zijn.
 		Address address = new Address("Vlaams-Brabant", "Brussel", 1000, "Rue de la Montagne 17", null, "Belgie");

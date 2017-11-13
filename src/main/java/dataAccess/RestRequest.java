@@ -18,10 +18,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public abstract class RestRequest {
-	
-	static String rawSource;
-	
+public abstract class RestRequest {	
 	static ObjectMapper mapper = new ObjectMapper();
 	
 	static ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
