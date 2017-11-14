@@ -25,8 +25,6 @@ public class CertificateAccess extends RestRequest{
 		} 	
 	}
 	
-
-	
 	public static HashMap<Integer, Certificate> getAllCertificates(){
 		try {
 			String JSONcert = getAllOrOne(new URI(Constants.CERTIFICATE_SOURCE));
@@ -45,7 +43,7 @@ public class CertificateAccess extends RestRequest{
 		}
 	}
 	
-
+	
 	public static Certificate addCertificate(Certificate certificate) throws IOException {
 		try {
 		String JSONcert = postObject(certificate, new URI(Constants.CERTIFICATE_SOURCE));
@@ -58,8 +56,7 @@ public class CertificateAccess extends RestRequest{
 		}
 		return null;
 	}
-	
-	
+		
 	public static Certificate updateCertificate(Certificate certificate) {
 		try {
 			String JSONcert = putObject(certificate, new URI(Constants.CERTIFICATE_SOURCE + certificate.getCertificateID()));
@@ -70,7 +67,6 @@ public class CertificateAccess extends RestRequest{
 			return null;
 		}
 	}
-
 	
 	public static Certificate removeCertificate(Integer ID) {
 		try {
@@ -86,5 +82,4 @@ public class CertificateAccess extends RestRequest{
 			}
 		return null;
 	}
-	
 }

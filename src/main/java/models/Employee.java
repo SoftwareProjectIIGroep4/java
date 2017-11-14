@@ -49,7 +49,6 @@ public class Employee {
 		sb.append("Name: " + titleOfCourtesy + " " + firstName + " " + lastName + "\n");		
 		sb.append("Title: " + title + "\n");
 		sb.append("Reports to: " + reportsTo + "\n");
-		// TODO Auto-generated method stub
 		return sb.toString();
 	}
 }
