@@ -39,10 +39,26 @@ dependencies {
     [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'])
    
     
+     // how to make PDF
+		compile 'com.itextpdf:io:7.0.4'
+		compile 'com.itextpdf:text:7.0.4'
+		compile 'com.itextpdf:layout:7.0.4'
+		// needed for binding PDF
+		// https://mvnrepository.com/artifact/org.slf4j/slf4j-simpletest
+		Compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
+
+	
+    
     //Caching
     compile 'com.google.guava:guava:23.0'
+    
+   
 }
 
 // Define the main class for the application
 mainClassName = 'App'
+
+
+
+
 
