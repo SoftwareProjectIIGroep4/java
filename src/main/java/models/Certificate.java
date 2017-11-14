@@ -1,10 +1,8 @@
 package models;
-
+/** out of comments plaatsen bij gebruik PDF
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Blob;
-import java.util.ArrayList;
 
 
 import com.itextpdf.io.image.ImageData;
@@ -28,23 +26,22 @@ public class Certificate {
 	private int certificateID;
 	private int trainingID;
 	private String titel;
-	private Image picture;
-	//private Blob blog; 
+	private byte[] picture;
 	
-	// image veranderen in Blob?
-	public Certificate(int certificateID, int trainingID, String titel, Image picture) {
+	
+	public Certificate(int certificateID, int trainingID, String titel, byte[] picture) {
 		this.certificateID = certificateID;
 		this.trainingID = trainingID;
 		this.titel = titel;
 		this.picture = picture;
 	}
 	
-
+/**
 // nodig om pdf te maken
 	public Certificate() {
 		// TODO Auto-generated constructor stub
 	}
-
+*/
 	public int getTrainingID() {
 		return trainingID;
 	}
@@ -65,12 +62,12 @@ public class Certificate {
 	}
 
 
-	public Image getPicture() {
+	public byte[] getPicture() {
 		return picture;
 	}
 
 
-	public void setPicture(Image picture) {
+	public void setPicture(byte[] picture) {
 		this.picture = picture;
 	}
 
@@ -93,23 +90,14 @@ public class Certificate {
 		sb.append("Titel: " + titel + "\n");
 		return sb.toString();
 	}
-	/*
-	//geef alle behaalde certificaten op basis van een employeeID
-	public ArrayList<Certificate> getCertificateByEmployeeID (int employeeID){
-		
-		ArrayList<Certificate> certificates = new ArrayList<Certificate>();
-		certificates = getCertificates
-		return certificates;
-	}
-	*/
-	
-	
-	// uitwerking pdf
+
+	/**
+	// uitwerking pdf (er moet hierboven public Certificate() zijn om te laten werken!
 	// sources: https://www.tutorialspoint.com/itext/index.htm
 	
 	/**
 	 * DESTPDF is string met path+naam waar we aangemaakt PDF-bestand bewaren
-	 */
+	 
 	public static final String DESTPDF ="results/helloworld.pdf";
 	
 	//to make PDF-file
@@ -117,10 +105,7 @@ public class Certificate {
 	
 	File file = new File(DESTPDF);
 	file.getParentFile().mkdirs();
-	new Certificate().createPDF(DESTPDF);
-	
-	
-		  
+	new Certificate().createPDF(DESTPDF);  
 		
 	
 } 
@@ -128,7 +113,7 @@ public class Certificate {
  * 
  * @param destination + name of created PDF
  * @throws IOException
- */
+ 
 	
 public void createPDF(String dest) throws IOException {
 	//initialize PDF Writer
@@ -171,7 +156,7 @@ public void createPDF(String dest) throws IOException {
 	// print action executed
 	System.out.println("PDF-document " + DESTPDF + " created");
 }
-	
+	*/
 	
 	
 

@@ -13,12 +13,10 @@ import models.Certificate;
 
 public class CertificateAccess extends RestRequest{
 	
-	private static String rawSource = "http://localhost:56254/api/certificates/";
-
 	public static Certificate getCertificate (Integer certificateID) {
 		try {
-			String JSONcert = getAllOrOne(new URI(rawSource + certificateID));
-			Certificate certificate = mapper.readValue(JSONcert, Certificate.class);
+			String JSONCert = getAllOrOne(new URI(Constants.CERTIFICATE_SOURCE + certificateID));
+			Certificate certificate = mapper.readValue(JSONCert, Certificate.class);
 			return certificate;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -27,9 +25,11 @@ public class CertificateAccess extends RestRequest{
 		} 	
 	}
 	
+
+	
 	public static HashMap<Integer, Certificate> getAllCertificates(){
 		try {
-			String JSONcert = getAllOrOne(new URI(rawSource));
+			String JSONcert = getAllOrOne(new URI(Constants.CERTIFICATE_SOURCE));
 			List<Certificate> certificates = mapper.readValue(JSONcert, new TypeReference<List<Certificate>>(){});
 			
 			HashMap<Integer, Certificate> certificateMap = new HashMap<Integer, Certificate>();
@@ -44,10 +44,11 @@ public class CertificateAccess extends RestRequest{
 			return null;
 		}
 	}
+	
 
 	public static Certificate addCertificate(Certificate certificate) throws IOException {
 		try {
-		String JSONcert = postObject(certificate, new URI(rawSource));
+		String JSONcert = postObject(certificate, new URI(Constants.CERTIFICATE_SOURCE));
 			Certificate cert = mapper.readValue(JSONcert, Certificate.class);
 			Cache.certificateCache.put(certificate.getCertificateID(), cert);
 			return cert;
@@ -58,9 +59,10 @@ public class CertificateAccess extends RestRequest{
 		return null;
 	}
 	
+	
 	public static Certificate updateCertificate(Certificate certificate) {
 		try {
-			String JSONcert = putObject(certificate, new URI(rawSource + certificate.getCertificateID()));
+			String JSONcert = putObject(certificate, new URI(Constants.CERTIFICATE_SOURCE + certificate.getCertificateID()));
 			Cache.certificateCache.invalidate(certificate.getCertificateID());
 			return mapper.readValue(JSONcert,  Certificate.class);
 		} catch (Exception e) {
@@ -69,9 +71,10 @@ public class CertificateAccess extends RestRequest{
 		}
 	}
 
+	
 	public static Certificate removeCertificate(Integer ID) {
 		try {
-			String JSONcert = deleteObject(ID, new URI(rawSource + ID));
+			String JSONcert = deleteObject(ID, new URI(Constants.CERTIFICATE_SOURCE + ID));
 			Cache.certificateCache.invalidate(ID);
 			return mapper.readValue(JSONcert, Certificate.class);
 		} catch (URISyntaxException e) {
