@@ -25,9 +25,9 @@ public class App {
 
 	public static void empTest() throws ExecutionException {
 		System.out.println("Run 1");
-		System.out.println(Cache.addressCache.get(1));
+		System.out.println(Cache.employeeCache.get(1));
 		System.out.println("Run 2");
-		System.out.println(Cache.addressCache.get(1));
+		System.out.println(Cache.employeeCache.get(1));
 	}
 	
 	public static void demo() {
