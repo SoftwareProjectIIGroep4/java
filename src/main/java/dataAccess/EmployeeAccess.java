@@ -36,7 +36,7 @@ public class EmployeeAccess extends RestRequest {
 	// Get all employees working for specified manager
 	public static List<Employee> getEmployeesByManager(Integer managerID) {
 		try {
-			String JSONEmps = getEmployees(null, managerID, new URL(Constants.EMPLOYEE_SOURCE + "m"));
+			String JSONEmps = getEmployees(null, managerID, new URL(Constants.EMPLOYEE_SOURCE));
 			return mapper.readValue(JSONEmps, new TypeReference<List<Employee>>(){});
 			
 		} catch (Exception e) {
@@ -69,7 +69,7 @@ public class EmployeeAccess extends RestRequest {
 				httpget = new HttpGet(source.toString() + employeeID); 
 			}
             else {
-            	httpget = new HttpGet(source.toString() + managerID); 
+            	httpget = new HttpGet(source.toString() + managerID + "/manages"); 
             }
             System.out.println("Executing request " + httpget.getRequestLine());
 
