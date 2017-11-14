@@ -20,7 +20,7 @@ import com.itextpdf.layout.element.Paragraph;
  * Class for Certificate with an ID, name and image (object)
  *
  */
-
+//test test
 public class Certificate {
 	
 	private int certificateID;
