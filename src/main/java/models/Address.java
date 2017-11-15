@@ -139,15 +139,12 @@ public class Address {
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
-			System.out.println("EQUAL 1");
 			return true;
 		}
 		if (obj == null) {
-			System.out.println("NOT EQUAL 2");
 			return false;
 		}
 		if (getClass() != obj.getClass()) {
-			System.out.println("NOT EQUAL 3");
 			return false;
 		}
 		Address o = (Address) obj;
