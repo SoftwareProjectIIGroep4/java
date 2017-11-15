@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 import dataAccess.AddressAccess;
 import dataAccess.Cache;
@@ -53,7 +54,7 @@ public class App {
 			if (a != null) {
 				address = a;				
 			}
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 		System.out.println(address);
@@ -72,18 +73,23 @@ public class App {
 		// Address updaten
 		System.out.println("4: Address updaten");
 		address.setCountry("France");
-		AddressAccess.updateAddress(address);
 		try {
-			System.out.println(Cache.addressCache.get(address.getAddressId()));
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
+			AddressAccess.updateAddress(address);
+		} catch (URISyntaxException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
 		System.out.println("-------------");
 
 		// Address verwijderen
 		// Het address wordt ook automatisch uit de cache verwijderd.
 		System.out.println("5: Address verwijderen");
-		System.out.println(AddressAccess.removeAddress(address.getAddressId()));
+		try {
+			System.out.println(AddressAccess.removeAddress(address.getAddressId()));
+		} catch (URISyntaxException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		// Geeft error; je probeert een item op te halen dat niet meer bestaat
 		try {
 			System.out.println(Cache.addressCache.get(address.getAddressId()));

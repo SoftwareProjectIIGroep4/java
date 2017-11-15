@@ -1,5 +1,7 @@
 package dataAccess;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.cache.CacheBuilder;
@@ -53,7 +55,15 @@ public class Cache {
 			});
 	
 	public static void loadAllAddresses() {
-		addressCache.putAll(AddressAccess.getAllAddresses());
+		try {
+			addressCache.putAll(AddressAccess.getAllAddresses());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void loadAllEmployees() {

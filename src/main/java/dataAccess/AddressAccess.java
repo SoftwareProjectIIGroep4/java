@@ -10,75 +10,43 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import models.Address;
 
 public class AddressAccess extends RestRequest {
-	public static Address getAddress(Integer addressId) {
-		try {
-			String JSONAdr = getAllOrOne(new URI(Constants.ADDRESS_SOURCE + addressId));
-			Address address = mapper.readValue(JSONAdr, Address.class);
-			return address;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	public static Address getAddress(Integer addressId) throws IOException, URISyntaxException {
+		String JSONAdr = getAllOrOne(new URI(Constants.ADDRESS_SOURCE + addressId));
+		Address address = mapper.readValue(JSONAdr, Address.class);
+		return address;
 	}
 
-	public static HashMap<Integer, Address> getAllAddresses() {
-		try {
-			String JSONAdr = getAllOrOne(new URI(Constants.ADDRESS_SOURCE));
-			List<Address> addresses = mapper.readValue(JSONAdr, new TypeReference<List<Address>>() {
-			});
+	public static HashMap<Integer, Address> getAllAddresses() throws IOException, URISyntaxException {
+		String JSONAdr = getAllOrOne(new URI(Constants.ADDRESS_SOURCE));
+		List<Address> addresses = mapper.readValue(JSONAdr, new TypeReference<List<Address>>() {
+		});
 
-			HashMap<Integer, Address> addressesMap = new HashMap<Integer, Address>();
+		HashMap<Integer, Address> addressesMap = new HashMap<Integer, Address>();
 
-			for (Address address : addresses) {
-				addressesMap.put(address.getAddressId(), address);
-			}
-			return addressesMap;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+		for (Address address : addresses) {
+			addressesMap.put(address.getAddressId(), address);
 		}
+		return addressesMap;
+
 	}
 
-	public static Address addAddress(Address address) throws IOException {
+	public static Address addAddress(Address address) throws IOException, URISyntaxException {
 		String JSONAdr;
-		try {
-			JSONAdr = postObject(address, new URI(Constants.ADDRESS_SOURCE));
-			Address adr = mapper.readValue(JSONAdr, Address.class);
-			Cache.addressCache.put(address.getAddressId(), adr);
-			return adr;
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		JSONAdr = postObject(address, new URI(Constants.ADDRESS_SOURCE));
+		Address adr = mapper.readValue(JSONAdr, Address.class);
+		Cache.addressCache.put(adr.getAddressId(), adr);
+		return adr;
 	}
 
-	public static Address updateAddress(Address address) {
-		try {
-			String JSONAdr = putObject(address, new URI(Constants.ADDRESS_SOURCE + address.getAddressId()));
-			Cache.addressCache.invalidate(address.getAddressId());
-			return mapper.readValue(JSONAdr, Address.class);
-		} catch (Exception e) {
-			// TODO: handle exception
-			return null;
-		}
+	public static void updateAddress(Address address) throws URISyntaxException, IOException {
+		putObject(address, new URI(Constants.ADDRESS_SOURCE + address.getAddressId()));
+		Cache.addressCache.invalidate(address.getAddressId());
 	}
 
-	public static Address removeAddress(Integer id) {
+	public static Address removeAddress(Integer id) throws URISyntaxException, IOException {
 		String JSONAdr;
-		try {
-			JSONAdr = deleteObject(id, new URI(Constants.ADDRESS_SOURCE + id));
-			Cache.addressCache.invalidate(id);
-			return mapper.readValue(JSONAdr, Address.class);
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		JSONAdr = deleteObject(id, new URI(Constants.ADDRESS_SOURCE + id));
+		Cache.addressCache.invalidate(id);
+		return mapper.readValue(JSONAdr, Address.class);
 	}
 }
