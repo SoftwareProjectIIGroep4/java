@@ -51,6 +51,7 @@ public class CertificateAccess extends RestRequest {
 		}
 		return null;
 	}
+	
 
 	public static void update(Certificate certificate) throws URISyntaxException, IOException {
 		putObject(certificate, new URI(Constants.CERTIFICATE_SOURCE + certificate.getCertificateID()));
@@ -103,6 +104,9 @@ public class CertificateAccess extends RestRequest {
 		certificate.setTrainingID(1);
 		certificate.setTitel("eerste certificaat");
 		certificate.setPicture(ConvertFile(file.getAbsolutePath()));
+		System.out.println("for testing: 2 lines");
+		System.out.println(file.getAbsolutePath());
+		System.out.println(ConvertFile(file.getAbsolutePath()));
 		try {
 			Certificate cert = CertificateAccess.addCertificate(certificate);
 			if (cert != null) {
