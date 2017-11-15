@@ -13,14 +13,14 @@ import models.SurveyQuestion;
 public class SurveyQuestionAcces extends RestRequest {
 	
 	public static SurveyQuestion get(Integer surveyQuestionID) throws IOException, URISyntaxException {
-		String JSONAdr = getAllOrOne(new URI(Constants.ADDRESS_SOURCE + surveyQuestionID));
+		String JSONAdr = getAllOrOne(new URI(Constants.SURVEY_QUESTIONS_SOURCE + surveyQuestionID));
 		SurveyQuestion surveyQuestion= mapper.readValue(JSONAdr, SurveyQuestion.class);
 		return surveyQuestion;
 	}
 
 
 public static HashMap<Integer, SurveyQuestion> getAll() throws IOException, URISyntaxException {
-	String JSONAdr = getAllOrOne(new URI(Constants.ADDRESS_SOURCE));
+	String JSONAdr = getAllOrOne(new URI(Constants.SURVEY_QUESTIONS_SOURCE));
 	List<SurveyQuestion> surveyQuestions= mapper.readValue(JSONAdr, new TypeReference<List<SurveyQuestion>>() {
 	});
 
