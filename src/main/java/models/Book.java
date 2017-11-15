@@ -2,8 +2,11 @@ package models;
 
 
 import java.util.Objects;
-import dataAccess.BookAccess;
+import java.net.URISyntaxException;
+import java.io.IOException;
 
+import dataAccess.BookAccess;
+import dataAccess.Cache;
 
 public class Book {
 
@@ -24,9 +27,9 @@ public class Book {
 			
 		}
 
-		public Book(long isbn2, String title, String author, String publisher, double price) {
+		public Book(long isbn, String title, String author, String publisher, double price) {
 			super();
-			this.isbn = isbn2;
+			this.isbn = isbn;
 			this.title = title;
 			this.author = author;
 			this.publisher = publisher;
@@ -94,15 +97,23 @@ public class Book {
 		}
 		
 		
-		public static final String hallo = "https://www.googleapis.com/books/v1/volumes?q=9780545010221";
+		public void save() throws URISyntaxException, IOException {
+			if (isbn != 0) {
+				BookAccess.update(this);
+				Cache.bookCache.put(isbn, this);
+			}
+			else {
+				isbn = (BookAccess.add(this).getIsbn());
+				Cache.bookCache.put(isbn, this);
+			}
+		}
 		
 		
-		public static void main(String[] args) {
-			
-		 
-			
-			
-			
+		public void delete() throws URISyntaxException, IOException {
+			if (isbn != 0) {
+				BookAccess.remove(isbn);
+				Cache.bookCache.invalidate(isbn);
+			}
 		}
 		
 			

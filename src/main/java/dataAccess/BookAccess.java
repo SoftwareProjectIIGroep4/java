@@ -33,18 +33,12 @@ import models.Book;
 
 
 public class BookAccess extends RestRequest {
-	
-		
-		
-		private static String rawSource="https://www.googleapis.com/books/v1/volumes?q=";
-		
 		
 		
 		//Get all books
-		public static HashMap<Long, Book> getAllBooks() {
-			try {
-				
-				String JSONBooks = getAllOrOne(new URI(rawSource));
+		public static HashMap<Long, Book> getAll() throws IOException, URISyntaxException {
+	
+				String JSONBooks = getAllOrOne(new URI(Constants.BOOK_SOURCE));
 				List<Book> books = mapper.readValue(JSONBooks, new TypeReference<List<Book>>(){});
 
 				HashMap<Long, Book> bookMap = new HashMap<Long, Book>();
@@ -52,29 +46,32 @@ public class BookAccess extends RestRequest {
 				for (Book book : books) {
 					bookMap.put(book.getIsbn(), book);
 				}
-				return bookMap;
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}
+				return bookMap;			
 		}
 		
-		// Get a book by ISBN
-		public static Book getBook(long isbn) {
-			
-			try {
-				String JSONBooks = getAllOrOne(new URI(rawSource+isbn));
-				Book book = mapper.readValue(JSONBooks, Book.class);
-				return book;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}	
+		
+		public static Book get(Long isbn) throws IOException, URISyntaxException {
+			String JSONBooks = getAllOrOne(new URI(Constants.BOOK_SOURCE + isbn));
+			Book book = mapper.readValue(JSONBooks, Book.class);
+			return book;
 		}
 		
-		/*//Get a book by title
+	    
+	    public static Book add(Book book) throws IOException, URISyntaxException {
+			String JSONBooks = postObject(book, new URI(Constants.BOOK_SOURCE));
+			return mapper.readValue(JSONBooks, Book.class);
+		}
+
+		public static void update(Book book) throws URISyntaxException, IOException {
+			putObject(book, new URI(Constants.BOOK_SOURCE + book.getIsbn()));
+		}
+
+		public static Book remove(Long id) throws URISyntaxException, IOException {
+			String JSONBooks = deleteObject(id, new URI(Constants.BOOK_SOURCE + id));
+			return mapper.readValue(JSONBooks, Book.class);
+		}
+		
+		/*Get a book by title
 		public static Book getBookByTitle(String title) {
 			
 			try {
@@ -87,52 +84,9 @@ public class BookAccess extends RestRequest {
 			}
 			
 		}*/
-		
-		
-	  
-	    public static Book addBook(Book book) throws IOException {
-			String JSONBooks;
-			try {
-				JSONBooks = postObject(book, new URI(rawSource));
-				Book boo = mapper.readValue(JSONBooks, Book.class);
-				Cache.bookCache.put(book.getIsbn(), boo);
-				return boo;
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-		}
-	    
-	    public static Book updateAddress(Book book) {
-			try {
-				String JSONBooks = putObject(book, new URI(rawSource + book.getIsbn()));
-				Cache.bookCache.invalidate(book.getIsbn());
-				return mapper.readValue(JSONBooks, Book.class);
-			} catch (Exception e) {
-				// TODO: handle exception
-				return null;
-			}
-		}
-	    
-	    
-	    public static Book removeAddress(Long isbn) {
-			try {
-				String JSONBooks = deleteObject(isbn, new URI(rawSource + isbn));
-				Cache.bookCache.invalidate(isbn);
-				return mapper.readValue(JSONBooks, Book.class);
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-		}
 	    
 		
-		private static String getBooks(Long isbn,String title,URL source) throws Exception{
+		/*private static String getBooks(Long isbn,String title,URL source) throws Exception{
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			
 			try {
@@ -176,5 +130,5 @@ public class BookAccess extends RestRequest {
 		finally {
 			httpclient.close();
 			}	
-		}
+		}*/
 }
