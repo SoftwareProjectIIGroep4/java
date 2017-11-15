@@ -2,10 +2,14 @@ package models;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import dataAccess.Cache;
 import dataAccess.TrainingInfoAccess;
+import dataAccess.TrainingSessionAccess;
 
 public class TrainingInfo {
 	private int trainingId;	
@@ -15,9 +19,11 @@ public class TrainingInfo {
 	private String infoExam;
 	private String infoPayment;
 	private float price;
-		
+	private HashMap<Integer, TrainingSession> sessions;
+			
 	public TrainingInfo() {
 		super();
+		sessions = new HashMap<Integer, TrainingSession>();
 	}
 
 	public TrainingInfo(String name, String infoGeneral, int numberOfDays, String infoExam, String infoPayment,
@@ -29,6 +35,7 @@ public class TrainingInfo {
 		this.infoExam = infoExam;
 		this.infoPayment = infoPayment;
 		this.price = price;
+		sessions = new HashMap<Integer, TrainingSession>();
 	}
 
 	public TrainingInfo(int trainingId, String name, String infoGeneral, int numberOfDays, String infoExam,
@@ -41,10 +48,7 @@ public class TrainingInfo {
 		this.infoExam = infoExam;
 		this.infoPayment = infoPayment;
 		this.price = price;
-	}
-
-	public int getTrainingId() {
-		return trainingId;
+		sessions = new HashMap<Integer, TrainingSession>();
 	}
 	
 	public void save() throws URISyntaxException, IOException {		
@@ -61,8 +65,39 @@ public class TrainingInfo {
 	public void delete() throws URISyntaxException, IOException {
 		if (trainingId != 0) {
 			TrainingInfoAccess.remove(trainingId);
-			Cache.teacherCache.invalidate(trainingId);
+			Cache.trainingInfoCache.invalidate(trainingId);
 		}
+	}
+	
+	public static void delete(int id) throws URISyntaxException, IOException {
+		if (id != 0) {
+			TrainingInfoAccess.remove(id);
+			Cache.trainingInfoCache.invalidate(id);
+		}
+	}
+	
+	public void addSession(TrainingSession session) {
+		if (session.getTrainingSessionId() == 0) {
+			try {
+				session.save();
+				sessions.put(session.getTrainingSessionId(), session);
+			} catch (URISyntaxException | IOException e) {				
+				e.printStackTrace();
+			}			
+		}
+	}
+
+	public void loadSessions() {
+		try {
+			sessions = TrainingSessionAccess.getByTrainingInfo(trainingId);
+		} catch (IOException | URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public int getTrainingId() {
+		return trainingId;
 	}
 
 	public void setTrainingId(int trainingId) {
@@ -117,6 +152,14 @@ public class TrainingInfo {
 		this.price = price;
 	}
 	
+	public HashMap<Integer, TrainingSession> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(HashMap<Integer, TrainingSession> sessions) {
+		this.sessions = sessions;
+	}
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Training ID: " + trainingId + "\n");

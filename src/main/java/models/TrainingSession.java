@@ -1,7 +1,14 @@
 package models;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.HashMap;
+
+import dataAccess.Cache;
+import dataAccess.TrainingInfoAccess;
+import dataAccess.TrainingSessionAccess;
 
 public class TrainingSession {	
 	private int trainingSessionId;
@@ -12,10 +19,10 @@ public class TrainingSession {
 	private Time startHour;
 	private Time endHour;
 	private boolean cancelled; 
-		
+			
 	
 	public TrainingSession() {
-		super();
+		super();		
 	}
 
 	public TrainingSession(int addressId, int teacherId, int trainingId, Date date, Time startHour, Time endHour,
@@ -43,6 +50,31 @@ public class TrainingSession {
 		this.cancelled = cancelled;
 	}
 
+	public void save() throws URISyntaxException, IOException {		
+		if (trainingSessionId != 0) {
+			TrainingSessionAccess.update(this);
+			Cache.trainingSessionCache.put(trainingSessionId, this);
+		}
+		else {
+			trainingSessionId = (TrainingSessionAccess.add(this).getTrainingSessionId());
+			Cache.trainingSessionCache.put(trainingSessionId, this);
+		}
+	}
+
+	public void delete() throws URISyntaxException, IOException {
+		if (trainingSessionId != 0) {
+			TrainingSessionAccess.remove(trainingSessionId);
+			Cache.trainingSessionCache.invalidate(trainingSessionId);
+		}
+	}
+	
+	public static void delete(int id) throws URISyntaxException, IOException {
+		if (id != 0) {
+			TrainingSessionAccess.remove(id);
+			Cache.trainingSessionCache.invalidate(id);
+		}
+	}
+	
 	
 	public int getTrainingSessionId() {
 		return trainingSessionId;
