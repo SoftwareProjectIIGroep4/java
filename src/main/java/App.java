@@ -36,14 +36,13 @@ public class App {
 		System.out.println(Cache.employeeCache.get(1));
 	}
 
-	public static void certTest() throws IOException {
+	public static void certTest() throws IOException, URISyntaxException {
 		byte[] bytes = { 3, 10, 8, 25 };
 		Certificate certificate = new Certificate(4, "a cert", bytes);
 		System.out.println(certificate);
-<<<<<<< HEAD
+
 		CertificateAccess.addCertificate(certificate);
-=======
->>>>>>> branch 'jan' of https://github.com/SoftwareProjectII/java.git
+
 	}
 
 }

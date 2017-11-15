@@ -39,23 +39,9 @@ public class CertificateAccess extends RestRequest {
 		return certificateMap;
 	}
 
-<<<<<<< HEAD
-	public static Certificate addCertificate(Certificate certificate) throws IOException {
-		try {
-			String JSONcert = postObject(certificate, new URI(Constants.CERTIFICATE_SOURCE));
-			Certificate cert = mapper.readValue(JSONcert, Certificate.class);
-			Cache.certificateCache.put(certificate.getCertificateID(), cert);
-			return cert;
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-=======
-	public static Certificate add(Certificate certificate) throws IOException, URISyntaxException {
+	public static Certificate addCertificate(Certificate certificate) throws IOException, URISyntaxException {
 		String JSONcert = postObject(certificate, new URI(Constants.CERTIFICATE_SOURCE));
 		return mapper.readValue(JSONcert, Certificate.class);
->>>>>>> branch 'jan' of https://github.com/SoftwareProjectII/java.git
 	}
 	
 
@@ -105,7 +91,7 @@ public class CertificateAccess extends RestRequest {
 		return bFile;
 	}
 	
-	public void saveFile() {
+	public void saveFile() throws URISyntaxException {
 		Certificate certificate = new Certificate();
 		certificate.setTrainingID(1);
 		certificate.setTitel("eerste certificaat");
@@ -129,7 +115,7 @@ public class CertificateAccess extends RestRequest {
 		
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws URISyntaxException {
 		CertificateAccess c = new CertificateAccess();
 		File bestand = new File("testbestand");
 		bestand = c.chooseFile();
