@@ -1,10 +1,8 @@
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import dataAccess.AddressAccess;
 import dataAccess.Cache;
-import dataAccess.CertificateAccess;
 import dataAccess.EmployeeAccess;
 import models.Address;
 
