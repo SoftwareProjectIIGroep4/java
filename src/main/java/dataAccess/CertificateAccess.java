@@ -30,17 +30,9 @@ public class CertificateAccess extends RestRequest {
 		return certificateMap;
 	}
 
-	public static Certificate add(Certificate certificate) throws IOException {
-		try {
-			String JSONcert = postObject(certificate, new URI(Constants.CERTIFICATE_SOURCE));
-			Certificate cert = mapper.readValue(JSONcert, Certificate.class);
-			Cache.certificateCache.put(certificate.getCertificateID(), cert);
-			return cert;
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public static Certificate add(Certificate certificate) throws IOException, URISyntaxException {
+		String JSONcert = postObject(certificate, new URI(Constants.CERTIFICATE_SOURCE));
+		return mapper.readValue(JSONcert, Certificate.class);
 	}
 
 	public static void update(Certificate certificate) throws URISyntaxException, IOException {
