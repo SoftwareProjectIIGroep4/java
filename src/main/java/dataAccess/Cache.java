@@ -14,6 +14,7 @@ import models.Faq;
 import models.Teacher;
 import models.TrainingInfo;
 import models.TrainingSession;
+import models.Book;
 
 //Source: https://www.tutorialspoint.com/guava/guava_caching_utilities.htm
 public class Cache {
@@ -74,14 +75,23 @@ public class Cache {
 				}
 			});
 
-	public static void loadAllAddresses() throws IOException, URISyntaxException {
-		addressCache.putAll(AddressAccess.getAll());
-	}
+	
+
+	public static LoadingCache<Long, Book> bookCache = CacheBuilder.newBuilder()
+			.maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES)
+			.build(new CacheLoader<Long, Book>() {
+
+				@Override
+				public Book load(Long key) throws Exception {
+				return BookAccess.getBook(key);
+			}
+				});
 
 	public static void loadAllEmployees() throws IOException, URISyntaxException {
 		employeeCache.putAll(EmployeeAccess.getAllEmployees());
 	}
-
+  
 	public static void loadAllCertificates() throws IOException, URISyntaxException {
 		certificateCache.putAll(CertificateAccess.getAll());
 	}
@@ -100,5 +110,12 @@ public class Cache {
 	
 	public static void loadAllTrainingSessions() throws IOException, URISyntaxException {
 		trainingSessionCache.putAll(TrainingSessionAccess.getAll());
+	}
+  public static void loadAllAddresses() throws IOException, URISyntaxException {
+		addressCache.putAll(AddressAccess.getAll());
+  }
+	
+	public static void loadAllBooks() {
+		bookCache.putAll(BookAccess.getAllBooks());
 	}
 }
