@@ -13,7 +13,7 @@ public class Constants {
 	public static final String SURVEY_SOURCE = DATA_SOURCE + "surveys/";
 	public static final String TEACHER_SOURCE = DATA_SOURCE + "teachers/";
 	public static final String TRAINING_FAQS_SOURCE = DATA_SOURCE + "trainingfaqs/";
-	public static final String TRAINING_INFO_SOURCE = DATA_SOURCE + "traininginfoes/";
+	public static final String TRAINING_INFO_SOURCE = DATA_SOURCE + "traininginfos/";
 	public static final String TRAINING_BOOKS_SOURCE = DATA_SOURCE + "trainingsbooks/";
 	public static final String TRAINING_SESSION_SOURCE = DATA_SOURCE + "trainingsessions/";
 	public static final String TRAINING_SURVEYS_SOURCE = DATA_SOURCE + "trainingsurveys/";
