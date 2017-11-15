@@ -14,9 +14,26 @@ import models.Faq;
 import models.Teacher;
 import models.TrainingInfo;
 import models.TrainingSession;
+import models.SurveyAnswer;
+import models.SurveyQuestion;
+import models.Survey;
 
 //Source: https://www.tutorialspoint.com/guava/guava_caching_utilities.htm
 public class Cache {
+	public static LoadingCache<Integer, SurveyAnswer> surveyAnswerCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, SurveyAnswer>() {
+				@Override
+				public SurveyAnswer load(Integer key) throws Exception {
+					return surveyAnswerCache.get(key);
+				}
+			});
+	public static LoadingCache<Integer, SurveyQuestion> surveyQuestionCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, SurveyQuestion>() {
+				@Override
+				public SurveyQuestion load(Integer key) throws Exception {
+					return surveyQuestionCache.get(key);
+				}
+			});
 	public static LoadingCache<Integer, Address> addressCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Address>() {
 				@Override
@@ -73,6 +90,12 @@ public class Cache {
 					return TrainingSessionAccess.get(key);
 				}
 			});
+	public static void loadAllSurverQuestions() throws IOException, URISyntaxException {
+		surveyQuestionCache.putAll(SurveyQuestionAcces.getAll());
+	}
+	public static void loadAllSurveyAnswers () throws IOException, URISyntaxException {
+		surveyAnswerCache.putAll(SurveyAnswerAcces.getAll());
+	}	
 
 	public static void loadAllAddresses() throws IOException, URISyntaxException {
 		addressCache.putAll(AddressAccess.getAll());

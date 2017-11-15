@@ -8,7 +8,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import models.SurveyAnswer;;
+import models.SurveyAnswer;
+import models.SurveyQuestion;
 
 public class SurveyAnswerAcces extends RestRequest {
 	
@@ -30,6 +31,18 @@ public static HashMap<Integer, SurveyAnswer> getAll() throws IOException, URISyn
 		surveyAMap.put(surveyAnswer.getAnswerID(),surveyAnswer);
 	}
 	return surveyAMap;
+}
+
+public static SurveyAnswer add(SurveyAnswer surveyAnswer) throws IOException, URISyntaxException {
+	String JSONSurveyAnswer = postObject(surveyAnswer, new URI(Constants.SURVEY_ANSWERS_SOURCE));
+	return mapper.readValue(JSONSurveyAnswer, SurveyAnswer.class);
+}
+public static void update(SurveyAnswer surveyAnswer) throws URISyntaxException, IOException {
+	putObject(surveyAnswer, new URI(Constants.SURVEY_ANSWERS_SOURCE + surveyAnswer.getAnswerID()));
+}
+public static SurveyQuestion remove(Integer id) throws URISyntaxException, IOException {
+	String JSONSurveyQ = deleteObject(id, new URI(Constants.SURVEY_QUESTIONS_SOURCE + id));
+	return mapper.readValue(JSONSurveyQ, SurveyQuestion.class);
 }
 
 }

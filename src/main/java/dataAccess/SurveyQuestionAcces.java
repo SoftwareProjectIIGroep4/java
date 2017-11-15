@@ -20,8 +20,9 @@ public class SurveyQuestionAcces extends RestRequest {
 
 
 public static HashMap<Integer, SurveyQuestion> getAll() throws IOException, URISyntaxException {
-	String JSONAdr = getAllOrOne(new URI(Constants.SURVEY_QUESTIONS_SOURCE));
-	List<SurveyQuestion> surveyQuestions= mapper.readValue(JSONAdr, new TypeReference<List<SurveyQuestion>>() {
+
+	String JSONSurveyQ = getAllOrOne(new URI(Constants.SURVEY_QUESTIONS_SOURCE));
+	List<SurveyQuestion> surveyQuestions= mapper.readValue(JSONSurveyQ, new TypeReference<List<SurveyQuestion>>() {
 	});
 
 	HashMap<Integer, SurveyQuestion> surveyQMap = new HashMap<Integer, SurveyQuestion>();
@@ -30,6 +31,19 @@ public static HashMap<Integer, SurveyQuestion> getAll() throws IOException, URIS
 		surveyQMap.put(surveyQuestion.getQuestionID(), surveyQuestion);
 	}
 	return surveyQMap;
+}
+
+
+public static SurveyQuestion add(SurveyQuestion surveyQuestion) throws IOException, URISyntaxException {
+	String JSONSurveyQ = postObject(surveyQuestion, new URI(Constants.SURVEY_QUESTIONS_SOURCE));
+	return mapper.readValue(JSONSurveyQ, SurveyQuestion.class);
+}
+public static void update(SurveyQuestion surveyQuestion) throws URISyntaxException, IOException {
+	putObject(surveyQuestion, new URI(Constants.SURVEY_QUESTIONS_SOURCE + surveyQuestion.getQuestionID()));
+}
+public static SurveyQuestion remove(Integer id) throws URISyntaxException, IOException {
+	String JSONSurveyA = deleteObject(id, new URI(Constants.SURVEY_ANSWERS_SOURCE + id));
+	return mapper.readValue(JSONSurveyA, SurveyQuestion.class);
 }
 
 }
