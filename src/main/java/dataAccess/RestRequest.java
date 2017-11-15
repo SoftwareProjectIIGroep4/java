@@ -94,8 +94,6 @@ public abstract class RestRequest {
     static String deleteObject(Integer id, URI source) throws URISyntaxException, IOException {
     	try (CloseableHttpClient httpclient = HttpClients.createDefault()) {    		
             HttpDelete httpDelete = new HttpDelete(source);
-            System.out.println(httpDelete.getURI());
-
             System.out.println("Executing request " + httpDelete.getRequestLine());
 
             // Create a custom response handler
