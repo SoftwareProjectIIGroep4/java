@@ -76,8 +76,8 @@ public class EmployeeAccess extends RestRequest {
             
             
             String responseBody = httpclient.execute(httpget, responseHandler);
-            System.out.println("----------------------------------------");
-            System.out.println(responseBody);                   
+            //System.out.println("----------------------------------------");
+            //System.out.println(responseBody);                   
             return responseBody;
         } 
         
