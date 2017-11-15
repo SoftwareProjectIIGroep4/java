@@ -75,18 +75,13 @@ public class Cache {
 				}
 			});
 
-	
-
-	public static LoadingCache<Long, Book> bookCache = CacheBuilder.newBuilder()
-			.maximumSize(100)
-			.expireAfterAccess(30, TimeUnit.MINUTES)
-			.build(new CacheLoader<Long, Book>() {
-
+	public static LoadingCache<Long, Book> bookCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Long, Book>() {
 				@Override
 				public Book load(Long key) throws Exception {
-				return BookAccess.getBook(key);
-			}
-				});
+					return BookAccess.get(key);
+				}
+			});
 
 	public static void loadAllEmployees() throws IOException, URISyntaxException {
 		employeeCache.putAll(EmployeeAccess.getAllEmployees());
@@ -115,7 +110,7 @@ public class Cache {
 		addressCache.putAll(AddressAccess.getAll());
   }
 	
-	public static void loadAllBooks() {
-		bookCache.putAll(BookAccess.getAllBooks());
+	public static void loadAllBooks() throws IOException, URISyntaxException {
+		bookCache.putAll(BookAccess.getAll());
 	}
 }
