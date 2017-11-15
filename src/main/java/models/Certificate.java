@@ -28,9 +28,20 @@ public class Certificate {
 	private String titel;
 	private byte[] picture;
 	
+	public Certificate() {
+		super();
+	}
 	
 	public Certificate(int certificateID, int trainingID, String titel, byte[] picture) {
+		super();
 		this.certificateID = certificateID;
+		this.trainingID = trainingID;
+		this.titel = titel;
+		this.picture = picture;
+	}
+	
+	public Certificate(int trainingID, String titel, byte[] picture) {
+		super();
 		this.trainingID = trainingID;
 		this.titel = titel;
 		this.picture = picture;
