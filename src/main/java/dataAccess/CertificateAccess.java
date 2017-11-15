@@ -39,6 +39,7 @@ public class CertificateAccess extends RestRequest {
 		return certificateMap;
 	}
 
+<<<<<<< HEAD
 	public static Certificate addCertificate(Certificate certificate) throws IOException {
 		try {
 			String JSONcert = postObject(certificate, new URI(Constants.CERTIFICATE_SOURCE));
@@ -50,6 +51,11 @@ public class CertificateAccess extends RestRequest {
 			e.printStackTrace();
 		}
 		return null;
+=======
+	public static Certificate add(Certificate certificate) throws IOException, URISyntaxException {
+		String JSONcert = postObject(certificate, new URI(Constants.CERTIFICATE_SOURCE));
+		return mapper.readValue(JSONcert, Certificate.class);
+>>>>>>> branch 'jan' of https://github.com/SoftwareProjectII/java.git
 	}
 	
 
