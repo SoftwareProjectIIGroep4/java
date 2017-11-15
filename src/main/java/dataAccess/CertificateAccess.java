@@ -1,11 +1,11 @@
 package dataAccess;
 
-<<<<<<< HEAD
+
 
 import java.io.File;
 import java.io.FileInputStream;
-=======
->>>>>>> branch 'jan' of https://github.com/SoftwareProjectII/java.git
+
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -25,26 +25,6 @@ public class CertificateAccess extends RestRequest {
 		Certificate certificate = mapper.readValue(JSONCert, Certificate.class);
 		return certificate;
 	}
-<<<<<<< HEAD
-	
- 
-	
-	public static HashMap<Integer, Certificate> getAllCertificates(){
-		try {
-			String JSONcert = getAllOrOne(new URI(Constants.CERTIFICATE_SOURCE));
-			List<Certificate> certificates = mapper.readValue(JSONcert, new TypeReference<List<Certificate>>(){});
-			
-			HashMap<Integer, Certificate> certificateMap = new HashMap<Integer, Certificate>();
-			
-			for (Certificate certificate : certificates) {
-				certificateMap.put(certificate.getCertificateID(), certificate);
-			}
-			return certificateMap;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-=======
 
 	public static HashMap<Integer, Certificate> getAll() throws IOException, URISyntaxException {
 		String JSONcert = getAllOrOne(new URI(Constants.CERTIFICATE_SOURCE));
@@ -55,12 +35,11 @@ public class CertificateAccess extends RestRequest {
 
 		for (Certificate certificate : certificates) {
 			certificateMap.put(certificate.getCertificateID(), certificate);
->>>>>>> branch 'jan' of https://github.com/SoftwareProjectII/java.git
 		}
 		return certificateMap;
 	}
 
-	public static Certificate add(Certificate certificate) throws IOException {
+	public static Certificate addCertificate(Certificate certificate) throws IOException {
 		try {
 			String JSONcert = postObject(certificate, new URI(Constants.CERTIFICATE_SOURCE));
 			Certificate cert = mapper.readValue(JSONcert, Certificate.class);
@@ -81,7 +60,6 @@ public class CertificateAccess extends RestRequest {
 		String JSONcert = deleteObject(ID, new URI(Constants.CERTIFICATE_SOURCE + ID));
 		return mapper.readValue(JSONcert, Certificate.class);
 	}
-<<<<<<< HEAD
 	
 	private File file;
 	
@@ -148,8 +126,7 @@ public class CertificateAccess extends RestRequest {
 		c.saveFile();
 	}
 	
-=======
->>>>>>> branch 'jan' of https://github.com/SoftwareProjectII/java.git
+
 }
 
 

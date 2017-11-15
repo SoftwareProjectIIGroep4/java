@@ -32,13 +32,7 @@ public class Certificate {
 	private int trainingID;
 	private String titel;
 	private byte[] picture;
-<<<<<<< HEAD
-	
-	public Certificate() {
-		super();
-	}
-	 
-=======
+
 		
 	public Certificate() {
 		super();
@@ -50,7 +44,7 @@ public class Certificate {
 		this.picture = picture;
 	}
 
->>>>>>> branch 'jan' of https://github.com/SoftwareProjectII/java.git
+	
 	public Certificate(int certificateID, int trainingID, String titel, byte[] picture) {
 		super();
 		this.certificateID = certificateID;
@@ -59,20 +53,14 @@ public class Certificate {
 		this.picture = picture;
 	}
 	
-<<<<<<< HEAD
-	public Certificate(int trainingID, String titel, byte[] picture) {
-		super();
-		this.trainingID = trainingID;
-		this.titel = titel;
-		this.picture = picture;
-=======
+
 	public void save() throws URISyntaxException, IOException {
 		if (certificateID != 0) {
 			CertificateAccess.update(this);
 			Cache.certificateCache.put(certificateID, this);
 		}
 		else {
-			certificateID = (CertificateAccess.add(this).getCertificateID());
+			certificateID = (CertificateAccess.addCertificate(this).getCertificateID());
 			Cache.certificateCache.put(certificateID, this);
 		}
 	}
@@ -82,7 +70,6 @@ public class Certificate {
 			CertificateAccess.remove(certificateID);
 			Cache.certificateCache.invalidate(certificateID);
 		}
->>>>>>> branch 'jan' of https://github.com/SoftwareProjectII/java.git
 	}
 	
 /**
