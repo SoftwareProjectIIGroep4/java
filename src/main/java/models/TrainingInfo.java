@@ -15,7 +15,7 @@ public class TrainingInfo {
 	private String infoExam;
 	private String infoPayment;
 	private float price;
-	
+		
 	public TrainingInfo() {
 		super();
 	}
@@ -115,6 +115,18 @@ public class TrainingInfo {
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Training ID: " + trainingId + "\n");
+		sb.append("Name: " + name + "\n");
+		sb.append("General info: " + infoGeneral + "\n");
+		sb.append("Number of days: " + numberOfDays + "\n");
+		sb.append("Exam info: " + infoExam + "\n");
+		sb.append("Payment info: " + infoPayment + "\n");
+		sb.append("Price: " + price + "\n");
+		return sb.toString();
 	}
 	
 	@Override

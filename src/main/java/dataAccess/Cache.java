@@ -13,6 +13,7 @@ import models.Employee;
 import models.Faq;
 import models.Teacher;
 import models.TrainingInfo;
+import models.TrainingSession;
 
 //Source: https://www.tutorialspoint.com/guava/guava_caching_utilities.htm
 public class Cache {
@@ -63,6 +64,15 @@ public class Cache {
 					return TrainingInfoAccess.get(key);
 				}
 			});
+	
+	public static LoadingCache<Integer, TrainingSession> trainingSessionCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, TrainingSession>() {
+
+				@Override
+				public TrainingSession load(Integer key) throws Exception {
+					return TrainingSessionAccess.get(key);
+				}
+			});
 
 	public static void loadAllAddresses() throws IOException, URISyntaxException {
 		addressCache.putAll(AddressAccess.getAll());
@@ -86,5 +96,9 @@ public class Cache {
 	
 	public static void loadAllTrainingInfos() throws IOException, URISyntaxException {
 		trainingInfoCache.putAll(TrainingInfoAccess.getAll());
+	}
+	
+	public static void loadAllTrainingSessions() throws IOException, URISyntaxException {
+		trainingSessionCache.putAll(TrainingSessionAccess.getAll());
 	}
 }

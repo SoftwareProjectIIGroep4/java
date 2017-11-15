@@ -11,14 +11,15 @@ public class TrainingSession {
 	private Date date;
 	private Time startHour;
 	private Time endHour;
-	private boolean canceled; 
+	private boolean cancelled; 
+		
 	
 	public TrainingSession() {
 		super();
 	}
 
 	public TrainingSession(int addressId, int teacherId, int trainingId, Date date, Time startHour, Time endHour,
-			boolean canceled) {
+			boolean cancelled) {
 		super();
 		this.addressId = addressId;
 		this.teacherId = teacherId;
@@ -26,11 +27,11 @@ public class TrainingSession {
 		this.date = date;
 		this.startHour = startHour;
 		this.endHour = endHour;
-		this.canceled = canceled;
+		this.cancelled = cancelled;
 	}
 
 	public TrainingSession(int trainingSessionId, int addressId, int teacherId, int trainingId, Date date,
-			Time startHour, Time endHour, boolean canceled) {
+			Time startHour, Time endHour, boolean cancelled) {
 		super();
 		this.trainingSessionId = trainingSessionId;
 		this.addressId = addressId;
@@ -39,7 +40,7 @@ public class TrainingSession {
 		this.date = date;
 		this.startHour = startHour;
 		this.endHour = endHour;
-		this.canceled = canceled;
+		this.cancelled = cancelled;
 	}
 
 	
@@ -99,12 +100,25 @@ public class TrainingSession {
 		this.endHour = endHour;
 	}
 
-	public boolean isCanceled() {
-		return canceled;
+	public boolean isCancelled() {
+		return cancelled;
 	}
 
-	public void setCanceled(boolean canceled) {
-		this.canceled = canceled;
+	public void setCanceled(boolean cancelled) {
+		this.cancelled = cancelled;
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Training session ID: " + trainingSessionId + "\n");
+		sb.append("Address ID: " + addressId + "\n");
+		sb.append("Teacher ID: " + teacherId + "\n");
+		sb.append("Training ID: " + trainingId + "\n");
+		sb.append("Date: " + date + "\n");
+		sb.append("Starts at: " + startHour + "\n");
+		sb.append("Ends at: " + endHour + "\n");
+		sb.append("Cancelled: " + cancelled + "\n");
+		return sb.toString();
 	}
 
 	@Override
@@ -112,7 +126,7 @@ public class TrainingSession {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + addressId;
-		result = prime * result + (canceled ? 1231 : 1237);
+		result = prime * result + (cancelled ? 1231 : 1237);
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((endHour == null) ? 0 : endHour.hashCode());
 		result = prime * result + ((startHour == null) ? 0 : startHour.hashCode());
@@ -133,7 +147,7 @@ public class TrainingSession {
 		TrainingSession other = (TrainingSession) obj;
 		if (addressId != other.addressId)
 			return false;
-		if (canceled != other.canceled)
+		if (cancelled != other.cancelled)
 			return false;
 		if (date == null) {
 			if (other.date != null)

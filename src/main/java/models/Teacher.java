@@ -12,7 +12,7 @@ public class Teacher {
 	private String lastName;
 	private String email;
 	private String phoneNumber;
-		
+			
 	public Teacher() {
 		super();
 	}
@@ -90,6 +90,16 @@ public class Teacher {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Teacher ID: " + teacherId + "\n");
+		sb.append("First name: " + firstName + "\n");
+		sb.append("Last name: " + lastName + "\n");
+		sb.append("E-mail address: " + email + "\n");
+		sb.append("Phone number: " + phoneNumber + "\n");
+		return sb.toString();
 	}
 
 	@Override
