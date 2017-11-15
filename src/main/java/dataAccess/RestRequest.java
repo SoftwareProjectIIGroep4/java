@@ -16,10 +16,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class RestRequest {	
-	static ObjectMapper mapper = new ObjectMapper();
+	static ObjectMapper mapper = new ObjectMapper().configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
 	
 	static ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
 
@@ -43,8 +45,8 @@ public abstract class RestRequest {
             System.out.println("Executing request " + httpGet.getRequestLine());         
             
             String responseBody = httpClient.execute(httpGet, responseHandler);
-            System.out.println("----------------------------------------");
-            System.out.println(responseBody);                   
+            //System.out.println("----------------------------------------");
+            //System.out.println(responseBody);                   
             return responseBody;
         }
     }
@@ -62,8 +64,8 @@ public abstract class RestRequest {
 			System.out.println("Executing request " + httpPost.getRequestLine());    
 			
 			String responseBody = httpClient.execute(httpPost, responseHandler);
-			System.out.println("----------------------------------------");
-            System.out.println(responseBody);                   
+			//System.out.println("----------------------------------------");
+            //System.out.println(responseBody);                   
             return responseBody;
 		}
 	}
@@ -81,8 +83,8 @@ public abstract class RestRequest {
 			System.out.println("Executing request " + httpPut.getRequestLine());    
 			
 			String responseBody = httpClient.execute(httpPut, responseHandler);
-			System.out.println("----------------------------------------");
-            System.out.println(responseBody);                   
+			//System.out.println("----------------------------------------");
+            //System.out.println(responseBody);                   
             return responseBody;
 		}
 	}
@@ -105,8 +107,8 @@ public abstract class RestRequest {
                 }
             };
             String responseBody = httpclient.execute(httpDelete, responseHandler);
-            System.out.println("----------------------------------------");
-            System.out.println(responseBody);
+            //System.out.println("----------------------------------------");
+            //System.out.println(responseBody);
             return responseBody;
         }
     }
