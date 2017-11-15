@@ -30,7 +30,7 @@ public class CertificateAccess extends RestRequest{
 		} 	
 	}
 	
-
+ 
 	
 	public static HashMap<Integer, Certificate> getAllCertificates(){
 		try {

@@ -13,7 +13,7 @@ public class FileTypeFilter extends FileFilter{
 		this.extension = extension;
 		this.description = description;
 	}
-	
+	 
 	@Override
 	public boolean accept(File f) {
 		if (f.isDirectory()) {

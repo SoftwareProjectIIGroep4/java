@@ -31,7 +31,7 @@ public class Certificate {
 	public Certificate() {
 		super();
 	}
-	
+	 
 	public Certificate(int certificateID, int trainingID, String titel, byte[] picture) {
 		super();
 		this.certificateID = certificateID;
