@@ -1,7 +1,10 @@
 package models;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Objects;
 import dataAccess.AddressAccess;
+import dataAccess.Cache;
 
 public class Address {
 	private int addressId;
@@ -10,18 +13,19 @@ public class Address {
 	private int postalCode;
 	private String streetAddress;
 	private String premise;
-	private String country;	
-	
+	private String country;
+
 	public Address() {
 		super();
 	}
-	
+
 	public Address(Address address) {
-		this(address.addressId, address.administrativeArea, address.locality, address.postalCode, address.streetAddress, address.premise, address.country);
+		this(address.addressId, address.administrativeArea, address.locality, address.postalCode, address.streetAddress,
+				address.premise, address.country);
 	}
 
-	public Address(int addressId, String administrativeArea, String locality, int postalCode, String streetAddress, String premise,
-			String country) {
+	public Address(int addressId, String administrativeArea, String locality, int postalCode, String streetAddress,
+			String premise, String country) {
 		super();
 		this.addressId = addressId;
 		this.administrativeArea = administrativeArea;
@@ -31,7 +35,7 @@ public class Address {
 		this.premise = premise;
 		this.country = country;
 	}
-	
+
 	public Address(String administrativeArea, String locality, int postalCode, String streetAddress, String premise,
 			String country) {
 		super();
@@ -42,20 +46,31 @@ public class Address {
 		this.premise = premise;
 		this.country = country;
 	}
-	
-	public void saveAddress() {
-		try {
-			this.setAddressId(AddressAccess.addAddress(this).getAddressId());
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
+
+	public void save() throws URISyntaxException, IOException {
+		// Address heeft al een ID, update het address
+		if (addressId != 0) {
+			AddressAccess.update(this);
+			Cache.addressCache.put(addressId, this);
+		}
+		// Address heeft nog geen ID, maak het address aan
+		else {
+			addressId = (AddressAccess.add(this).getAddressId());
+			Cache.addressCache.put(addressId, this);
 		}
 	}
-	
+
+	public void delete() throws URISyntaxException, IOException {
+		if (addressId != 0) {
+			AddressAccess.remove(addressId);
+			Cache.addressCache.invalidate(addressId);
+		}
+	}
+
 	public int getAddressId() {
 		return addressId;
 	}
-	
+
 	public void setAddressId(int addressId) {
 		this.addressId = addressId;
 	}
@@ -120,29 +135,23 @@ public class Address {
 		sb.append("Country: " + country + "\n");
 		return sb.toString();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
-			System.out.println("EQUAL 1");
 			return true;
 		}
 		if (obj == null) {
-			System.out.println("NOT EQUAL 2");
 			return false;
 		}
 		if (getClass() != obj.getClass()) {
-			System.out.println("NOT EQUAL 3");
 			return false;
 		}
 		Address o = (Address) obj;
-		return addressId == o.addressId && 
-				postalCode == o.postalCode &&
-				Objects.equals(administrativeArea, o.administrativeArea) &&
-				Objects.equals(locality, o.locality) &&
-				Objects.equals(streetAddress, o.streetAddress) &&
-				Objects.equals(premise, o.premise) &&
-				Objects.equals(country, o.country);
+		return addressId == o.addressId && postalCode == o.postalCode
+				&& Objects.equals(administrativeArea, o.administrativeArea) && Objects.equals(locality, o.locality)
+				&& Objects.equals(streetAddress, o.streetAddress) && Objects.equals(premise, o.premise)
+				&& Objects.equals(country, o.country);
 	}
 
 	@Override
