@@ -8,9 +8,57 @@ import java.util.concurrent.ExecutionException;
 import dataAccess.Cache;
 import models.Address;
 import models.Employee;
+import models.SurveyQuestion;
 
 public class Demo1 {
 	static Scanner scanner = new Scanner(System.in);
+	public static void SurveyQDemo() {
+		SurveyQuestion sq;
+		System.out.println("quesions ophalen: run 1");
+		scanner.nextLine();
+		try {
+			sq = Cache.surveyQuestionCache.get(1);
+			System.out.println("----------------");
+			System.out.println(sq);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		scanner.nextLine();
+		System.out.println("Run 2: de question is gecached (geen get request)");
+		try {
+			sq = Cache.surveyQuestionCache.get(1);
+			System.out.println("----------------");
+			System.out.println(sq);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		scanner.nextLine();
+		System.out.println("Alle Questions in de cache laden...");
+		try {
+			Cache.loadAllSurverQuestions();
+		} catch (IOException | URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		scanner.nextLine();
+		System.out.println("Geen get requests meer, alles direct van de cache");
+		System.out.println("----------------");
+		try {
+			sq = Cache.surveyQuestionCache.get(2);
+			System.out.println(sq);
+			scanner.nextLine();
+			sq = Cache.surveyQuestionCache.get(4);
+			System.out.println(sq);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		scanner.nextLine();
+	}
+	
 
 	public static void empDemo() {
 		Employee emp;
