@@ -5,6 +5,16 @@ public class Faq {
 	private int faqID;
 	private String questionFaq;
 	private String answerFaq;
+		
+	
+	public Faq() {
+		super();
+	}
+
+	public Faq(String questionFaq, String answerFaq) {
+		this.questionFaq = questionFaq;
+		this.answerFaq = answerFaq;
+	}
 	
 	public Faq(int faqID, String questionFaq, String answerFaq) {
 		this.faqID = faqID;

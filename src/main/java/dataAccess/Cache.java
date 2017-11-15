@@ -40,8 +40,7 @@ public class Cache {
 				public Certificate load(Integer key) throws Exception {
 					return CertificateAccess.getCertificate(key);
 				}
-			});
-	
+			});	
 	public static LoadingCache<Integer, Faq> faqCache = CacheBuilder.newBuilder()
 			.maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES)
@@ -60,6 +59,7 @@ public class Cache {
 	public static void loadAllEmployees() {
 		employeeCache.putAll(EmployeeAccess.getAllEmployees());
 	}
+	
 	public static void loadAllCertificates() {
 		certificateCache.putAll(CertificateAccess.getAllCertificates());
 	}
