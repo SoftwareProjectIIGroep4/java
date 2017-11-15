@@ -20,7 +20,7 @@ public class Cache {
 			.build(new CacheLoader<Integer, Address>() {
 				@Override
 				public Address load(Integer key) throws Exception {
-					return AddressAccess.getAddress(key);
+					return AddressAccess.get(key);
 				}	
 			});
 	public static LoadingCache<Integer, Employee> employeeCache = CacheBuilder.newBuilder()
@@ -30,7 +30,7 @@ public class Cache {
 
 				@Override
 				public Employee load(Integer key) throws Exception {
-					return EmployeeAccess.getEmployee(key);
+					return EmployeeAccess.get(key);
 				}
 			});
 	public static LoadingCache<Integer, Certificate> certificateCache = CacheBuilder.newBuilder()
@@ -40,7 +40,7 @@ public class Cache {
 
 				@Override
 				public Certificate load(Integer key) throws Exception {
-					return CertificateAccess.getCertificate(key);
+					return CertificateAccess.get(key);
 				}
 			});	
 	public static LoadingCache<Integer, Faq> faqCache = CacheBuilder.newBuilder()
@@ -50,31 +50,23 @@ public class Cache {
 
 				@Override
 				public Faq load(Integer key) throws Exception {
-					return FaqAccess.getFaq(key);
+					return FaqAccess.get(key);
 				}
 			});
 	
-	public static void loadAllAddresses() {
-		try {
-			addressCache.putAll(AddressAccess.getAllAddresses());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void loadAllAddresses() throws IOException, URISyntaxException {		
+			addressCache.putAll(AddressAccess.getAll());		
 	}
 	
-	public static void loadAllEmployees() {
+	public static void loadAllEmployees() throws IOException, URISyntaxException {
 		employeeCache.putAll(EmployeeAccess.getAllEmployees());
 	}
 	
-	public static void loadAllCertificates() {
-		certificateCache.putAll(CertificateAccess.getAllCertificates());
+	public static void loadAllCertificates() throws IOException, URISyntaxException {
+		certificateCache.putAll(CertificateAccess.getAll());
 	}
 	
-	public static void loadAllFaqs() {
-		faqCache.putAll(FaqAccess.getAllFaqs());
+	public static void loadAllFaqs() throws IOException, URISyntaxException {
+		faqCache.putAll(FaqAccess.getAll());
 	}
 }

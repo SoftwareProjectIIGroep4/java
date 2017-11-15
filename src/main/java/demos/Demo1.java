@@ -5,7 +5,6 @@ import java.net.URISyntaxException;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
-import dataAccess.AddressAccess;
 import dataAccess.Cache;
 import models.Address;
 import models.Employee;
@@ -41,7 +40,12 @@ public class Demo1 {
 
 		scanner.nextLine();
 		System.out.println("Alle employees in de cache laden...");
-		Cache.loadAllEmployees();
+		try {
+			Cache.loadAllEmployees();
+		} catch (IOException | URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		scanner.nextLine();
 		System.out.println("Geen get requests meer, alles direct van de cache");
 		System.out.println("----------------");
@@ -91,7 +95,7 @@ public class Demo1 {
 		System.out.println("----------------");
 		scanner.nextLine();
 		try {
-			adr = AddressAccess.addAddress(adr);
+			adr.save();
 			System.out.println("----------------");
 			System.out.println("Het adres krijgt een ID");
 			System.out.println(adr);
@@ -101,11 +105,10 @@ public class Demo1 {
 		}
 
 		scanner.nextLine();
-		System.out.println("Het adres zit automatisch in de cache");
-		int id = adr.getAddressId();
+		System.out.println("Het adres zit automatisch in de cache");		
 		try {
 			System.out.println("Ophalen van de cache...");
-			adr = Cache.addressCache.get(id);
+			adr = Cache.addressCache.get(adr.getAddressId());
 			System.out.println(adr);
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
@@ -117,7 +120,7 @@ public class Demo1 {
 		adr.setLocality("Brussel - UPDATED");
 		adr.setPostalCode(1000);
 		try {
-			AddressAccess.updateAddress(adr);
+			adr.save();
 			System.out.println("----------------");
 			System.out.println(adr);
 		} catch (URISyntaxException | IOException e) {
@@ -128,7 +131,7 @@ public class Demo1 {
 		scanner.nextLine();
 		System.out.println("Een adres deleten");
 		try {
-			AddressAccess.removeAddress(adr.getAddressId());
+			adr.delete();
 			System.out.println("----------------");
 			System.out.println("Dit address proberen ophalen van de cache geeft een error");
 			scanner.nextLine();

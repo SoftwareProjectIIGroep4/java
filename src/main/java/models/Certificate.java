@@ -1,4 +1,10 @@
 package models;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import dataAccess.Cache;
+import dataAccess.CertificateAccess;
+
 /** out of comments plaatsen bij gebruik PDF
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,8 +27,7 @@ import com.itextpdf.layout.element.Paragraph;
  *
  */
 //test test
-public class Certificate {
-	
+public class Certificate {	
 	private int certificateID;
 	private int trainingID;
 	private String titel;
@@ -45,8 +50,26 @@ public class Certificate {
 		this.picture = picture;
 	}
 	
+	public void save() throws URISyntaxException, IOException {
+		if (certificateID != 0) {
+			CertificateAccess.update(this);
+			Cache.certificateCache.put(certificateID, this);
+		}
+		else {
+			certificateID = (CertificateAccess.add(this).getCertificateID());
+			Cache.certificateCache.put(certificateID, this);
+		}
+	}
+
+	public void delete() throws URISyntaxException, IOException {
+		if (certificateID != 0) {
+			CertificateAccess.remove(certificateID);
+			Cache.certificateCache.invalidate(certificateID);
+		}
+	}
+	
 /**
-// nodig om pdf te maken
+	// nodig om pdf te maken
 	public Certificate() {
 		// TODO Auto-generated constructor stub
 	}
@@ -55,41 +78,33 @@ public class Certificate {
 		return trainingID;
 	}
 
-
 	public void setTrainingID(int trainingID) {
 		this.trainingID = trainingID;
 	}
-
 
 	public String getTitel() {
 		return titel;
 	}
 
-
 	public void setTitel(String titel) {
 		this.titel = titel;
 	}
-
 
 	public byte[] getPicture() {
 		return picture;
 	}
 
-
 	public void setPicture(byte[] picture) {
 		this.picture = picture;
 	}
-
 
 	public int getCertificateID() {
 		return certificateID;
 	}
 
-
 	public void setCertificateID(int certificateID) {
 		this.certificateID = certificateID;
 	}
-
 
 	@Override
 	public String toString() {
