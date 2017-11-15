@@ -1,15 +1,49 @@
 package models;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import dataAccess.Cache;
+import dataAccess.FaqAccess;
+
 public class Faq {
 	
 	private int faqID;
 	private String questionFaq;
 	private String answerFaq;
+		
+	
+	public Faq() {
+		super();
+	}
+
+	public Faq(String questionFaq, String answerFaq) {
+		this.questionFaq = questionFaq;
+		this.answerFaq = answerFaq;
+	}
 	
 	public Faq(int faqID, String questionFaq, String answerFaq) {
 		this.faqID = faqID;
 		this.questionFaq = questionFaq;
 		this.answerFaq = answerFaq;
+	}
+	
+	public void save() throws URISyntaxException, IOException {		
+		if (faqID != 0) {
+			FaqAccess.update(this);
+			Cache.faqCache.put(faqID, this);
+		}
+		else {
+			faqID = (FaqAccess.add(this).getFaqID());
+			Cache.faqCache.put(faqID, this);
+		}
+	}
+
+	public void delete() throws URISyntaxException, IOException {
+		if (faqID != 0) {
+			FaqAccess.remove(faqID);
+			Cache.faqCache.invalidate(faqID);
+		}
 	}
 	
 	public int getFaqID() {
