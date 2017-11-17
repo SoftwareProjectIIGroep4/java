@@ -14,6 +14,7 @@ import models.TrainingSession;
 public class App {
 	public static void main(String[] args) {
 		// Demo1.start();
+
 		try {
 			Cache.trainingSessionCache.get(5);
 		} catch (ExecutionException e) {
@@ -30,6 +31,12 @@ public class App {
 
 	public static void trainingSessionTest() throws ExecutionException {
 		System.out.println(Cache.trainingSessionCache.get(1));
+	}
+	public static void SurveyQTtest() throws ExecutionException {
+		System.out.println("Run 1");
+		System.out.println(Cache.surveyQuestionCache.get(1));
+		System.out.println("Run 2");
+		System.out.println(Cache.surveyQuestionCache.get(1));
 	}
 
 	public static void empTest() throws ExecutionException {

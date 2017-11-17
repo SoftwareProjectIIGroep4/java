@@ -1,4 +1,10 @@
 package models;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import dataAccess.AddressAccess;
+import dataAccess.Cache;
+import dataAccess.SurveyAnswerAcces;;
 public class SurveyAnswer {
 //DATAMEMBRS
 	private int AnswerID;
@@ -23,6 +29,25 @@ public class SurveyAnswer {
 		this.maxScore=maxScore;
 		this.minScore=minScore;
 	}
+	public void save() throws URISyntaxException, IOException {
+		//  heeft al een ID, update het 
+		if (AnswerID!= 0) {
+			SurveyAnswerAcces.update(this);
+			Cache.surveyAnswerCache.put(AnswerID, this);
+		}
+		//  heeft nog geen ID, maak het  aan
+		else {
+			AnswerID = (SurveyAnswerAcces.add(this).getAnswerID());
+			Cache.surveyAnswerCache.put(AnswerID, this);
+		}
+	}
+	public void delete() throws URISyntaxException, IOException {
+		if (AnswerID != 0) {
+			SurveyAnswerAcces.remove(AnswerID);
+			Cache.surveyAnswerCache.invalidate(AnswerID);
+		}
+	}
+	
 	public int getAnswerID() {
 		return AnswerID;
 	}

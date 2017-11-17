@@ -1,7 +1,13 @@
 package models;
 import models.SurveyAnswer;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+
+import dataAccess.Cache;
+import dataAccess.SurveyAnswerAcces;
+import dataAccess.SurveyQuestionAcces;
 
 public class SurveyQuestion {
 //DATAMEMBERS
@@ -55,6 +61,23 @@ public class SurveyQuestion {
 		}
 		return sb.toString();
 	}
-	
+	public void save() throws URISyntaxException, IOException {
+		//  heeft al een ID, update het 
+		if (questionID!= 0) {
+			SurveyQuestionAcces.update(this);
+			Cache.surveyQuestionCache.put(questionID, this);
+		}
+		//  heeft nog geen ID, maak het  aan
+		else {
+			questionID = (SurveyQuestionAcces.add(this).getQuestionID());
+			Cache.surveyAnswerCache.put(questionID, this);
+		}
+	}
+	public void delete() throws URISyntaxException, IOException {
+		if (questionID != 0) {
+			SurveyQuestionAcces.remove(questionID);
+			Cache.surveyQuestionCache.invalidate(questionID);
+		}
+	}
 	//TODO pushen naar DB
 }
