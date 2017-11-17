@@ -45,8 +45,8 @@ public abstract class RestRequest {
             System.out.println("Executing request " + httpGet.getRequestLine());         
             
             String responseBody = httpClient.execute(httpGet, responseHandler);
-            //System.out.println("----------------------------------------");
-            //System.out.println(responseBody);                   
+            System.out.println("----------------------------------------");
+            System.out.println(responseBody);                   
             return responseBody;
         }
     }
@@ -55,6 +55,8 @@ public abstract class RestRequest {
 		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 			//Convert obj to JSON
 			String objString = mapper.writeValueAsString(object);
+			System.out.println(objString);
+			
 			StringEntity requestEntity = new StringEntity(
 				    objString,
 				    ContentType.APPLICATION_JSON);
@@ -64,8 +66,8 @@ public abstract class RestRequest {
 			System.out.println("Executing request " + httpPost.getRequestLine());    
 			
 			String responseBody = httpClient.execute(httpPost, responseHandler);
-			//System.out.println("----------------------------------------");
-            //System.out.println(responseBody);                   
+			System.out.println("----------------------------------------");
+            System.out.println(responseBody);                   
             return responseBody;
 		}
 	}
@@ -83,8 +85,8 @@ public abstract class RestRequest {
 			System.out.println("Executing request " + httpPut.getRequestLine());    
 			
 			String responseBody = httpClient.execute(httpPut, responseHandler);
-			//System.out.println("----------------------------------------");
-            //System.out.println(responseBody);                   
+			System.out.println("----------------------------------------");
+            System.out.println(responseBody);                   
             return responseBody;
 		}
 	}
@@ -107,8 +109,32 @@ public abstract class RestRequest {
                 }
             };
             String responseBody = httpclient.execute(httpDelete, responseHandler);
-            //System.out.println("----------------------------------------");
-            //System.out.println(responseBody);
+            System.out.println("----------------------------------------");
+            System.out.println(responseBody);
+            return responseBody;
+        }
+    }
+    
+    static String deleteObject(Long id, URI source) throws URISyntaxException, IOException {
+    	try (CloseableHttpClient httpclient = HttpClients.createDefault()) {    		
+            HttpDelete httpDelete = new HttpDelete(source);
+            System.out.println(httpDelete.getURI());
+
+            System.out.println("Executing request " + httpDelete.getRequestLine());
+
+            // Create a custom response handler
+            ResponseHandler<String> responseHandler = response -> {
+                int status = response.getStatusLine().getStatusCode();
+                if (status >= 200 && status < 300) {
+                    HttpEntity entity = response.getEntity();
+                    return entity != null ? EntityUtils.toString(entity) : null;
+                } else {
+                    throw new ClientProtocolException("Unexpected response status: " + status);
+                }
+            };
+            String responseBody = httpclient.execute(httpDelete, responseHandler);
+            System.out.println("----------------------------------------");
+            System.out.println(responseBody);
             return responseBody;
         }
     }

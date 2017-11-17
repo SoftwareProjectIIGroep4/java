@@ -46,6 +46,13 @@ public class Faq {
 		}
 	}
 	
+	public static void delete(int id) throws URISyntaxException, IOException {
+		if (id != 0) {
+			FaqAccess.remove(id);
+			Cache.faqCache.invalidate(id);
+		}
+	}
+	
 	public int getFaqID() {
 		return faqID;
 	}
