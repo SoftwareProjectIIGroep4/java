@@ -70,7 +70,8 @@ public class SurveyQuestion {
 		//  heeft nog geen ID, maak het  aan
 		else {
 			questionID = (SurveyQuestionAcces.add(this).getQuestionID());
-			Cache.surveyAnswerCache.put(questionID, this);
+			Cache.surveyQuestionCache.put(questionID, this);
+			
 		}
 	}
 	public void delete() throws URISyntaxException, IOException {

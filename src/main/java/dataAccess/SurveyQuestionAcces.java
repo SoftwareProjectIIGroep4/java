@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import models.SurveyAnswer;
 import models.SurveyQuestion;
 
 public class SurveyQuestionAcces extends RestRequest {
@@ -19,7 +20,7 @@ public class SurveyQuestionAcces extends RestRequest {
 	}
 
 
-public static HashMap<Integer, SurveyQuestion> getAll() throws IOException, URISyntaxException {
+public static HashMap<Integer, SurveyQuestion> getAllSurveyQuestions() throws IOException, URISyntaxException {
 
 	String JSONSurveyQ = getAllOrOne(new URI(Constants.SURVEY_QUESTIONS_SOURCE));
 	List<SurveyQuestion> surveyQuestions= mapper.readValue(JSONSurveyQ, new TypeReference<List<SurveyQuestion>>() {
@@ -45,5 +46,13 @@ public static SurveyQuestion remove(Integer id) throws URISyntaxException, IOExc
 	String JSONSurveyA = deleteObject(id, new URI(Constants.SURVEY_ANSWERS_SOURCE + id));
 	return mapper.readValue(JSONSurveyA, SurveyQuestion.class);
 }
+public static HashMap<Integer, SurveyQuestion> getBySurveyID(Integer userID) throws IOException, URISyntaxException {	
+	// get all questions by survey ID
+	String JSONEmps = getAllOrOne(new URI(Constants.SURVEY_QUESTIONS_SOURCE + userID + "/survey"));
+	HashMap<Integer, SurveyAnswer> surveyA =  mapper.readValue(JSONEmps, new TypeReference<HashMap<Integer, SurveyQuestion>>() {
+	});			
+	return surveyA;
+	}
+
 
 }

@@ -9,7 +9,6 @@ import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import models.Survey;
-import models.SurveyQuestion;
 
 public class SurveyAcces extends RestRequest {
 	
@@ -25,6 +24,19 @@ public class SurveyAcces extends RestRequest {
 	}
 
 	public static void update(Survey survey) throws URISyntaxException, IOException {
-		putObject(survey, new URI(Constants.SURVEY_SOURCE + survey.getSurverID()));
+		putObject(survey, new URI(Constants.SURVEY_SOURCE + survey.getSurveyID()));
+	}
+	public static HashMap<Integer, Survey> getAllSurveys() throws IOException, URISyntaxException {
+
+		String JSONSurvey = getAllOrOne(new URI(Constants.SURVEY_SOURCE));
+		List<Survey> surveys= mapper.readValue(JSONSurvey, new TypeReference<List<Survey>>() {
+		});
+
+		HashMap<Integer, Survey> surveyMap = new HashMap<Integer, Survey>();
+
+		for (Survey survey : surveys) {
+			surveyMap.put(survey.getSurveyID(), survey);
+		}
+		return surveyMap;
 	}
 }
