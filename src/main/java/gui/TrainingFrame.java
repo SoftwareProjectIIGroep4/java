@@ -28,6 +28,7 @@ public class TrainingFrame extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtKeyword;
 	private JTextField txtId;
+	private String fullEmployee;
 
 	/**
 	 * Launch the application.
@@ -55,6 +56,7 @@ public class TrainingFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		// https://examples.javacodegeeks.com/desktop-java/swing/jlabel/create-jlabel-with-border/
 		// create a line border with the specified color and width
@@ -126,6 +128,11 @@ public class TrainingFrame extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblStatistics.setBorder(null);
 			}
+			public void mouseClicked(MouseEvent e) {
+        		dispose();
+				StatistiekenFrame statistiekenFr = new StatistiekenFrame();
+				statistiekenFr.setVisible(true);
+        	}
 		});
 		lblStatistics.setBackground(Color.WHITE);
 		lblStatistics.setHorizontalAlignment(SwingConstants.CENTER);

@@ -9,16 +9,26 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.border.Border;
+import javax.swing.JComboBox;
+import java.awt.Font;
+import javax.swing.JTextField;
 
 
-public class test2Frame extends JFrame {
+public class DeleteEmployeeFrame extends JFrame {
 
 	private JPanel contentPane;
 	private String fullEmployee;
+	private JTextField deleteEmployeeIDText;
+	private JTextField deleteEmployeeDepText;
+	private JTextField deleteEmployeeFuncText;
+	private JTextField deleteEmployeeNameText;
 	
 	/**
 	 * Launch the application.
@@ -27,7 +37,7 @@ public class test2Frame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					test2Frame frame = new test2Frame();
+					DeleteEmployeeFrame frame = new DeleteEmployeeFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +49,7 @@ public class test2Frame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public test2Frame() {
+	public DeleteEmployeeFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -128,11 +138,6 @@ public class test2Frame extends JFrame {
             public void mouseExited(MouseEvent e) {
                 lblStatistics.setBorder(null);
             }
-            public void mouseClicked(MouseEvent e) {
-        		dispose();
-				StatistiekenFrame statistiekenFr = new StatistiekenFrame();
-				statistiekenFr.setVisible(true);
-        	}
         });
         lblStatistics.setBackground(Color.WHITE);
         lblStatistics.setHorizontalAlignment(SwingConstants.CENTER);
@@ -166,6 +171,66 @@ public class test2Frame extends JFrame {
         lblNewLabel_1.setBounds(1190, 0, 75, 75);
         lblNewLabel_1.setOpaque(true);
         contentPane.add(lblNewLabel_1);
+        
+        JButton backButtonEmployee = new JButton("Back");
+        backButtonEmployee.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		dispose();
+        		EmployeeFrame employeeFr = new EmployeeFrame();
+        		employeeFr.setVisible(true);
+        	}
+        });
+        backButtonEmployee.setBounds(34, 108, 149, 57);
+        contentPane.add(backButtonEmployee);
+        
+        JButton btnNewButton = new JButton("Delete selection of employees");
+        btnNewButton.setBounds(255, 108, 175, 57);
+        contentPane.add(btnNewButton);
+        
+        JLabel lblPutTheInformation = new JLabel("Put the information of the employee you want to delete");
+        lblPutTheInformation.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblPutTheInformation.setBounds(30, 196, 350, 22);
+        contentPane.add(lblPutTheInformation);
+        
+        JLabel deleteEmployeeEmployeeID = new JLabel("EmployeeID");
+        deleteEmployeeEmployeeID.setBounds(34, 239, 149, 22);
+        contentPane.add(deleteEmployeeEmployeeID);
+        
+        deleteEmployeeIDText = new JTextField();
+        deleteEmployeeIDText.setBounds(34, 263, 270, 50);
+        contentPane.add(deleteEmployeeIDText);
+        deleteEmployeeIDText.setColumns(10);
+        
+        JLabel deleteEmployeeDepartment = new JLabel("Department");
+        deleteEmployeeDepartment.setBounds(34, 403, 149, 22);
+        contentPane.add(deleteEmployeeDepartment);
+        
+        deleteEmployeeDepText = new JTextField();
+        deleteEmployeeDepText.setBounds(34, 424, 270, 50);
+        contentPane.add(deleteEmployeeDepText);
+        deleteEmployeeDepText.setColumns(10);
+        
+        JLabel deleteEmployeeFunction = new JLabel("Function");
+        deleteEmployeeFunction.setBounds(34, 497, 149, 22);
+        contentPane.add(deleteEmployeeFunction);
+        
+        deleteEmployeeFuncText = new JTextField();
+        deleteEmployeeFuncText.setBounds(34, 519, 270, 50);
+        contentPane.add(deleteEmployeeFuncText);
+        deleteEmployeeFuncText.setColumns(10);
+        
+        JLabel deleteEmployeeName = new JLabel("Employee name");
+        deleteEmployeeName.setBounds(34, 324, 139, 22);
+        contentPane.add(deleteEmployeeName);
+        
+        deleteEmployeeNameText = new JTextField();
+        deleteEmployeeNameText.setBounds(34, 342, 200, 50);
+        contentPane.add(deleteEmployeeNameText);
+        deleteEmployeeNameText.setColumns(10);
+        
+        JLabel lblNewLabel_2 = new JLabel("");
+        lblNewLabel_2.setBounds(10, 229, 1200, 441);
+        contentPane.add(lblNewLabel_2);
         
         lblNewLabel.addMouseListener(new MouseAdapter() {
             @Override

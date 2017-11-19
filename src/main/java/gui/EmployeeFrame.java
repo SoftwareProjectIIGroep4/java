@@ -28,6 +28,7 @@ public class EmployeeFrame extends JFrame {
 	private JTextField nameEmployeeSearch;
 	private JTextField departmentEmployeeSearch;
 	private JTextField functionEmployeeSearch;
+	private String fullEmployee;
 	
 	/**
 	 * Launch the application.
@@ -55,6 +56,7 @@ public class EmployeeFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		// https://examples.javacodegeeks.com/desktop-java/swing/jlabel/create-jlabel-with-border/
 		// create a line border with the specified color and width
@@ -130,6 +132,11 @@ public class EmployeeFrame extends JFrame {
             public void mouseExited(MouseEvent e) {
                 lblStatistics.setBorder(null);
             }
+            public void mouseClicked(MouseEvent e) {
+        		dispose();
+				StatistiekenFrame statistiekenFr = new StatistiekenFrame();
+				statistiekenFr.setVisible(true);
+        	}
         });
         lblStatistics.setBackground(Color.WHITE);
         lblStatistics.setHorizontalAlignment(SwingConstants.CENTER);
@@ -180,27 +187,27 @@ public class EmployeeFrame extends JFrame {
         addEmployeeButton.setBounds(977, 115, 187, 68);
         contentPane.add(addEmployeeButton);
         
-        JLabel lblNewLabel_2 = new JLabel("search employee");
-        lblNewLabel_2.setBounds(977, 222, 144, 28);
+        JLabel lblNewLabel_2 = new JLabel("SEARCH EMPLOYEE");
+        lblNewLabel_2.setBounds(941, 344, 144, 28);
         contentPane.add(lblNewLabel_2);
         
         nameEmployeeSearch = new JTextField();
-        nameEmployeeSearch.setBounds(977, 311, 189, 35);
+        nameEmployeeSearch.setBounds(977, 439, 189, 35);
         contentPane.add(nameEmployeeSearch);
         nameEmployeeSearch.setColumns(10);
         
         departmentEmployeeSearch = new JTextField();
-        departmentEmployeeSearch.setBounds(975, 396, 189, 35);
+        departmentEmployeeSearch.setBounds(975, 516, 189, 35);
         contentPane.add(departmentEmployeeSearch);
         departmentEmployeeSearch.setColumns(10);
         
         functionEmployeeSearch = new JTextField();
-        functionEmployeeSearch.setBounds(977, 481, 189, 35);
+        functionEmployeeSearch.setBounds(975, 587, 189, 35);
         contentPane.add(functionEmployeeSearch);
         functionEmployeeSearch.setColumns(10);
         
         JLabel employeeSearchBorder = new JLabel("");
-        employeeSearchBorder.setBounds(913, 250, 325, 400);
+        employeeSearchBorder.setBounds(941, 383, 279, 287);
         employeeSearchBorder.setBorder(border);
         contentPane.add(employeeSearchBorder);
         
@@ -213,20 +220,27 @@ public class EmployeeFrame extends JFrame {
         contentPane.add(lblNewLabel_4);
         
         JLabel lblNewLabel_5 = new JLabel("Name");
-        lblNewLabel_5.setBounds(977, 279, 65, 21);
+        lblNewLabel_5.setBounds(977, 408, 65, 21);
         contentPane.add(lblNewLabel_5);
         
         JLabel lblNewLabel_6 = new JLabel("Department");
-        lblNewLabel_6.setBounds(977, 371, 100, 14);
+        lblNewLabel_6.setBounds(977, 485, 100, 14);
         contentPane.add(lblNewLabel_6);
         
         JLabel lblFunction = new JLabel("Function");
-        lblFunction.setBounds(977, 456, 100, 14);
+        lblFunction.setBounds(977, 562, 100, 14);
         contentPane.add(lblFunction);
         
-        JList employeeList = new JList();
-        employeeList.setBounds(31, 140, 816, 510);
-        contentPane.add(employeeList);
+        JButton btnDeleteEmployee = new JButton("Delete employee");
+        btnDeleteEmployee.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        		DeleteEmployeeFrame deleteEmployeeFr = new DeleteEmployeeFrame();
+        		deleteEmployeeFr.setVisible(true);
+        	}
+        });
+        btnDeleteEmployee.setBounds(977, 229, 187, 68);
+        contentPane.add(btnDeleteEmployee);
         
        
         

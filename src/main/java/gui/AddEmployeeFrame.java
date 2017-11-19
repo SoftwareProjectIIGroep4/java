@@ -28,6 +28,7 @@ public class AddEmployeeFrame extends JFrame {
 	private JTextField textfieldEmployeeName;
 	private JTextField textfieldEmployeeDepartment;
 	private JTextField textfieldEmployeeFunction;
+	private String fullEmployee;
 	
 	
 	/**
@@ -56,6 +57,7 @@ public class AddEmployeeFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		// https://examples.javacodegeeks.com/desktop-java/swing/jlabel/create-jlabel-with-border/
 		// create a line border with the specified color and width
@@ -189,7 +191,7 @@ public class AddEmployeeFrame extends JFrame {
         		String name = textfieldEmployeeName.getText().toString();
         		String department = textfieldEmployeeDepartment.getText().toString();
         		String function = textfieldEmployeeFunction.getText().toString();
-        		String fullemployee = name+" "+department+" "+function;
+        		String fullEmployee = name+" "+department+" "+function;
         		EmployeeFrame employeeFr = new EmployeeFrame();
         		employeeFr.setVisible(true);
         		
