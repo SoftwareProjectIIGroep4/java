@@ -1,27 +1,29 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.BorderFactory;
-import javax.swing.border.Border;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JTable;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
-import javax.swing.JTextField;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 public class TrainingSessionsFrame extends JFrame {
 
@@ -30,22 +32,7 @@ public class TrainingSessionsFrame extends JFrame {
 	private JTextField txtCity;
 	private JTextField txtFrom;
 	private JTextField txtUntil;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TrainingSessionsFrame frame = new TrainingSessionsFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JTable tbSession;
 
 	/**
 	 * Create the frame.
@@ -87,6 +74,12 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblTrainingSession.setBorder(null);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingSessionsFrame newFrame = new TrainingSessionsFrame();
+				newFrame.setVisible(true);
 			}
 		});
 		lblTrainingSession.setBackground(Color.WHITE);
@@ -156,30 +149,61 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		lblNewLabel_1.setOpaque(true);
 		contentPane.add(lblNewLabel_1);
 		
+		
+		Object [] columnHeadersSession = {"Training session title","City","Date","Hour"};
+		DefaultTableModel modelSession = new DefaultTableModel();
+		modelSession.setColumnIdentifiers(columnHeadersSession);
+		Object[][] data = {
+				//table data schrijven
+		};
+		tbSession = new JTable(data, columnHeadersSession);
+		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersSession) {
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+		    }
+		};
+		tbSession.setModel(tableModel);
+		tbSession.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tbSession.setRowSelectionAllowed(true);
+		//https://stackoverflow.com/questions/17627431/auto-resizing-the-jtable-column-widths
+	    final TableColumnModel columnModelSession = tbSession.getColumnModel();
+	    for (int column = 0; column < tbSession.getColumnCount(); column++) {
+	        int width = 15; // Min width
+	        for (int row = 0; row < tbSession.getRowCount(); row++) {
+	            TableCellRenderer renderer = tbSession.getCellRenderer(row, column);
+	            Component comp = tbSession.prepareRenderer(renderer, row, column);
+	            width = Math.max(comp.getPreferredSize().width +1 , width);
+	        }
+	        if(width > 300)
+	            width=300;
+	        columnModelSession.getColumn(column).setPreferredWidth(width);
+	    }  
+		JScrollPane sclBook = new JScrollPane(tbSession);
+		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sclBook.setBounds(30, 116, 730, 540);
+		contentPane.add(sclBook);
+		ListSelectionModel selectedRowBook = tbSession.getSelectionModel();
+		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				if(!selectedRowBook.isSelectionEmpty()) {
+					//GET ROW
+					int selectedRow = selectedRowBook.getMinSelectionIndex();
+					//doe iets hier
+				}
+			}
+		});
+		
+		
 		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(30, 136, 750, 534);
+		lblBackBorder.setBounds(20, 106, 750, 564);
 		lblBackBorder.setBorder(border);
 		contentPane.add(lblBackBorder);
-		
-		JLabel lblTrainingSessionTitle = new JLabel("Training session title");
-		lblTrainingSessionTitle.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTrainingSessionTitle.setBounds(50, 111, 150, 16);
-		contentPane.add(lblTrainingSessionTitle);
-		
-		JLabel lblCity = new JLabel("City");
-		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblCity.setBounds(335, 111, 46, 16);
-		contentPane.add(lblCity);
-		
-		JLabel lblDate = new JLabel("Date");
-		lblDate.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblDate.setBounds(429, 111, 46, 16);
-		contentPane.add(lblDate);
-		
-		JLabel lblHour = new JLabel("Hour");
-		lblHour.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblHour.setBounds(511, 111, 46, 16);
-		contentPane.add(lblHour);
 		
 		JButton btnAddTrainingSession = new JButton("Add training session");
 		btnAddTrainingSession.setFont(new Font("Tahoma", Font.PLAIN, 15));

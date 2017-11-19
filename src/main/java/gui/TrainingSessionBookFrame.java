@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
@@ -17,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -36,21 +34,6 @@ public class TrainingSessionBookFrame extends JFrame {
 	private JTextField txtSearch;
 	private JTable tbBook;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TrainingSessionBookFrame frame = new TrainingSessionBookFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -91,6 +74,12 @@ public class TrainingSessionBookFrame extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblTrainingSession.setBorder(null);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingSessionsFrame newFrame = new TrainingSessionsFrame();
+				newFrame.setVisible(true);
 			}
 		});
 		lblTrainingSession.setBackground(Color.WHITE);
@@ -160,14 +149,15 @@ public class TrainingSessionBookFrame extends JFrame {
 		lblNewLabel_1.setOpaque(true);
 		contentPane.add(lblNewLabel_1);
 		
+		
 		JButton btnBack = new JButton("<-  Back");
 		
 		btnBack.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				//TrainingFrame trainingfr = new TrainingFrame();
-				//trainingfr.setVisible(true);
+				TrainingSessionsFrame newFrame = new TrainingSessionsFrame();
+				newFrame.setVisible(true);
 			}
 		});
 		

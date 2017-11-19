@@ -1,9 +1,7 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -18,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -37,22 +34,6 @@ public class TrainingSessionPoepleFrame extends JFrame {
 	private JTextField txtDepartment;
 	private JTextField txtFunction;
 	private JTable tbBook;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TrainingSessionPoepleFrame frame = new TrainingSessionPoepleFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -93,6 +74,12 @@ public class TrainingSessionPoepleFrame extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblTrainingSession.setBorder(null);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingSessionsFrame newFrame = new TrainingSessionsFrame();
+				newFrame.setVisible(true);
 			}
 		});
 		lblTrainingSession.setBackground(Color.WHITE);
@@ -168,8 +155,8 @@ public class TrainingSessionPoepleFrame extends JFrame {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				//TrainingFrame trainingfr = new TrainingFrame();
-				//trainingfr.setVisible(true);
+				TrainingSessionsFrame newFrame = new TrainingSessionsFrame();
+				newFrame.setVisible(true);
 			}
 		});
 		
@@ -308,6 +295,7 @@ public class TrainingSessionPoepleFrame extends JFrame {
 			}
 		});
 		
+		
 		JLabel lblBackBorder = new JLabel("");
 		lblBackBorder.setBounds(20, 220, 860, 450);
 		lblBackBorder.setBorder(border);
@@ -333,7 +321,7 @@ public class TrainingSessionPoepleFrame extends JFrame {
 		contentPane.add(txtDepartment);
 		txtDepartment.setColumns(10);
 		
-		JLabel lblFunction = new JLabel("Function");
+		JLabel lblFunction = new JLabel("Function:");
 		lblFunction.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblFunction.setBounds(910, 377, 100, 14);
 		contentPane.add(lblFunction);

@@ -1,11 +1,8 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,22 +23,6 @@ public class NewTrianingFrame extends JFrame {
 	private JTextField txtTitle;
 	private JTextField txtNumberOfDays;
 	private JTextField txtPrice;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NewTrianingFrame frame = new NewTrianingFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -85,6 +66,12 @@ public class NewTrianingFrame extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblTrainingSession.setBorder(null);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingSessionsFrame newFrame = new TrainingSessionsFrame();
+				newFrame.setVisible(true);
 			}
 		});
 		lblTrainingSession.setBackground(Color.WHITE);
@@ -158,10 +145,11 @@ public class NewTrianingFrame extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				TrainingFrame trainingfr = new TrainingFrame();
-				trainingfr.setVisible(true);
+				//TrainingFrame trainingfr = new TrainingFrame();
+				//trainingfr.setVisible(true);
 			}
 		});
+		
 		btnBack.setBounds(30, 100, 110, 50);
 		contentPane.add(btnBack);
 		

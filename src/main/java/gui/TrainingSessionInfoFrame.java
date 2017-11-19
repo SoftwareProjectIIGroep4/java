@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -13,15 +12,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import java.awt.SystemColor;
 
@@ -85,6 +79,12 @@ public class TrainingSessionInfoFrame extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblTrainingSession.setBorder(null);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingSessionsFrame newFrame = new TrainingSessionsFrame();
+				newFrame.setVisible(true);
 			}
 		});
 		lblTrainingSession.setBackground(Color.WHITE);
@@ -160,10 +160,11 @@ public class TrainingSessionInfoFrame extends JFrame {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				TrainingSessionsFrame trainingfr = new TrainingSessionsFrame();
-				trainingfr.setVisible(true);
+				TrainingSessionsFrame newFrame = new TrainingSessionsFrame();
+				newFrame.setVisible(true);
 			}
 		});
+		
 		
 		btnBack.setBounds(30, 100, 110, 50);
 		contentPane.add(btnBack);
