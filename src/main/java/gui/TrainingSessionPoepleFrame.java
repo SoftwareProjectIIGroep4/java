@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -28,12 +29,13 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.JTable;
 
-public class TrainingSessionBookFrame extends JFrame {
+public class TrainingSessionPoepleFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtSearch;
+	private JTextField txtName;
+	private JTextField txtDepartment;
+	private JTextField txtFunction;
 	private JTable tbBook;
 
 	/**
@@ -43,7 +45,7 @@ public class TrainingSessionBookFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TrainingSessionBookFrame frame = new TrainingSessionBookFrame();
+					TrainingSessionPoepleFrame frame = new TrainingSessionPoepleFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +57,7 @@ public class TrainingSessionBookFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TrainingSessionBookFrame() {
+	public TrainingSessionPoepleFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -252,16 +254,7 @@ public class TrainingSessionBookFrame extends JFrame {
 		lblBooks.setOpaque(true);
 		contentPane.add(lblBooks);
 		
-		txtSearch = new JTextField();
-		txtSearch.setBounds(100, 230, 250, 20);
-		contentPane.add(txtSearch);
-		txtSearch.setColumns(10);
-		
-		JLabel lblResearch = new JLabel("Research:");
-		lblResearch.setBounds(30, 233, 70, 14);
-		contentPane.add(lblResearch);
-		
-		Object [] columnHeadersBook = {"isbn","Title","Author","Price","Publisher"};
+		Object [] columnHeadersBook = {"Employee name","Department","Function","Status"};
 		DefaultTableModel modelBook = new DefaultTableModel();
 		modelBook.setColumnIdentifiers(columnHeadersBook);
 		Object[][] data = {
@@ -296,18 +289,11 @@ public class TrainingSessionBookFrame extends JFrame {
 	        columnModelBook.getColumn(column).setPreferredWidth(width);
 	    }
 		
-		/*tbBook.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		tbBook.getColumnModel().getColumn(0).setPreferredWidth(100);
-		tbBook.getColumnModel().getColumn(1).setPreferredWidth(284);
-		tbBook.getColumnModel().getColumn(2).setPreferredWidth(283);
-		tbBook.getColumnModel().getColumn(3).setPreferredWidth(50);
-		tbBook.getColumnModel().getColumn(4).setPreferredWidth(283);*/
-		//tbBook.setBounds(30, 258, 1000, 400);
 	    
 		JScrollPane sclBook = new JScrollPane(tbBook);
 		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclBook.setBounds(30, 258, 1200, 400);
+		sclBook.setBounds(30, 230, 840, 430);
 		contentPane.add(sclBook);
 		ListSelectionModel selectedRowBook = tbBook.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
@@ -323,12 +309,45 @@ public class TrainingSessionBookFrame extends JFrame {
 		});
 		
 		JLabel lblBackBorder = new JLabel("");
-		
-		lblBackBorder.setBounds(20, 220, 1220, 450);
+		lblBackBorder.setBounds(20, 220, 860, 450);
 		lblBackBorder.setBorder(border);
 		contentPane.add(lblBackBorder);
 		
+		txtName = new JTextField();
+		txtName.setBounds(910, 260, 300, 25);
+		contentPane.add(txtName);
+		txtName.setColumns(10);
+		
+		JLabel lblName = new JLabel("Name:");
+		lblName.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblName.setBounds(910, 235, 46, 14);
+		contentPane.add(lblName);
+		
+		JLabel lblDepartment = new JLabel("Department:");
+		lblDepartment.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblDepartment.setBounds(910, 306, 100, 14);
+		contentPane.add(lblDepartment);
+		
+		txtDepartment = new JTextField();
+		txtDepartment.setBounds(910, 331, 300, 25);
+		contentPane.add(txtDepartment);
+		txtDepartment.setColumns(10);
+		
+		JLabel lblFunction = new JLabel("Function");
+		lblFunction.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblFunction.setBounds(910, 377, 100, 14);
+		contentPane.add(lblFunction);
+		
+		txtFunction = new JTextField();
+		txtFunction.setBounds(910, 402, 300, 25);
+		contentPane.add(txtFunction);
+		txtFunction.setColumns(10);
+		
+		JLabel lblBackBorder2 = new JLabel("");
+		lblBackBorder2.setBounds(900, 220, 350, 450);
+		lblBackBorder2.setBorder(border);
+		contentPane.add(lblBackBorder2);
+		
 	}
-	
-}
 
+}

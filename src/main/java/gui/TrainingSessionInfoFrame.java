@@ -188,6 +188,12 @@ public class TrainingSessionInfoFrame extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblInfo.setBackground(SystemColor.control);
 			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingSessionInfoFrame newFrame = new TrainingSessionInfoFrame();
+				newFrame.setVisible(true);
+			}
 		});
 		lblInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -196,6 +202,21 @@ public class TrainingSessionInfoFrame extends JFrame {
 		contentPane.add(lblInfo);
 		
 		JLabel lblEnlistedPeople = new JLabel("Enlisted people");
+		lblEnlistedPeople.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				lblEnlistedPeople.setBackground(Color.WHITE);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblEnlistedPeople.setBackground(SystemColor.control);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingSessionPoepleFrame newFrame = new TrainingSessionPoepleFrame();
+				newFrame.setVisible(true);
+		}});
 		lblEnlistedPeople.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblEnlistedPeople.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEnlistedPeople.setOpaque(true);
@@ -203,6 +224,22 @@ public class TrainingSessionInfoFrame extends JFrame {
 		contentPane.add(lblEnlistedPeople);
 		
 		JLabel lblBooks = new JLabel("Books");
+		lblBooks.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				lblBooks.setBackground(Color.WHITE);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblBooks.setBackground(SystemColor.control);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingSessionBookFrame newFrame = new TrainingSessionBookFrame();
+				newFrame.setVisible(true);
+			}
+		});
 		lblBooks.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblBooks.setBounds(750, 165, 100, 50);
 		lblBooks.setHorizontalAlignment(SwingConstants.CENTER);
