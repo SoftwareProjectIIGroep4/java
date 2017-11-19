@@ -253,12 +253,6 @@ public class EditTrainingFrame extends JFrame {
 		lblBackBorder.setBorder(border);
 		contentPane.add(lblBackBorder);
 		
-		lblNewLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				lblNewLabel.setBackground(Color.GREEN);
-			}
-		});
 	}
 
 }

@@ -3,29 +3,37 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import java.awt.Font;
-import javax.swing.JTextField;
 import javax.swing.JEditorPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class NewTrianingFrame extends JFrame {
+public class NewTrainingSessionFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtTitle;
-	private JTextField txtNumberOfDays;
-	private JTextField txtPrice;
+	private JTextField txtDate;
+	private JTextField txtStartHour;
+	private JTextField txtEndHour;
+	private JTextField txtAdministrativeArea;
+	private JTextField txtLocality;
+	private JTextField txtPostalCode;
+	private JTextField txtStreetAddress;
+	private JTextField txtPremise;
+	private JTextField txtCountry;
+	private JTextField txtBook;
 
 	/**
 	 * Launch the application.
@@ -34,7 +42,7 @@ public class NewTrianingFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewTrianingFrame frame = new NewTrianingFrame();
+					NewTrainingSessionFrame frame = new NewTrainingSessionFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +54,7 @@ public class NewTrianingFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NewTrianingFrame() {
+	public NewTrainingSessionFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -54,10 +62,7 @@ public class NewTrianingFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		
-		
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		Border border1 = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1);
+Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		
 		JLabel lblTraining = new JLabel("Training");
 		lblTraining.addMouseListener(new MouseAdapter() {
@@ -68,12 +73,6 @@ public class NewTrianingFrame extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblTraining.setBorder(null);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-				TrainingFrame trainingfr = new TrainingFrame();
-				trainingfr.setVisible(true);		
 			}
 		});
 		lblTraining.setBackground(Color.WHITE);
@@ -161,13 +160,16 @@ public class NewTrianingFrame extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnBack = new JButton("<-  Back");
+		
 		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			
+			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				TrainingFrame trainingfr = new TrainingFrame();
-				trainingfr.setVisible(true);
+				//TrainingFrame trainingfr = new TrainingFrame();
+				//trainingfr.setVisible(true);
 			}
 		});
+		
 		btnBack.setBounds(30, 100, 110, 50);
 		contentPane.add(btnBack);
 		
@@ -175,24 +177,8 @@ public class NewTrianingFrame extends JFrame {
 		btnSave.setBounds(170, 100, 110, 50);
 		contentPane.add(btnSave);
 		
-		JButton btnAddNewTraining = new JButton("Add new training");
-		btnAddNewTraining.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				EditTrainingFrame editTrainingfr = new EditTrainingFrame();
-				editTrainingfr.setVisible(true);
-			}
-		});
-		btnAddNewTraining.setBounds(310, 100, 140, 50);
-		contentPane.add(btnAddNewTraining);
-		
-		JLabel lblAddNewTraining = new JLabel("Add new training");
-		lblAddNewTraining.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblAddNewTraining.setBounds(40, 161, 140, 14);
-		contentPane.add(lblAddNewTraining);
-		
-		JLabel lblTitle = new JLabel("Title");
-		lblTitle.setBounds(50, 200, 46, 14);
+		JLabel lblTitle = new JLabel("Session title");
+		lblTitle.setBounds(50, 200, 100, 14);
 		contentPane.add(lblTitle);
 		
 		txtTitle = new JTextField();
@@ -200,62 +186,111 @@ public class NewTrianingFrame extends JFrame {
 		contentPane.add(txtTitle);
 		txtTitle.setColumns(10);
 		
-		JLabel lblDescription = new JLabel("Description");
-		lblDescription.setBounds(50, 271, 60, 14);
-		contentPane.add(lblDescription);
+		JLabel lblDate = new JLabel("Date");
+		lblDate.setBounds(50, 271, 46, 14);
+		contentPane.add(lblDate);
 		
-		JEditorPane epDescription = new JEditorPane();
-		epDescription.setBounds(50, 296, 350, 180);
-		epDescription.setBorder(border1);
-		contentPane.add(epDescription);
+		txtDate = new JTextField();
+		txtDate.setBounds(50, 296, 152, 25);
+		contentPane.add(txtDate);
+		txtDate.setColumns(10);
 		
-		JLabel lblNumberOfDays = new JLabel("Number of days");
-		lblNumberOfDays.setForeground(Color.BLACK);
-		lblNumberOfDays.setBounds(50, 497, 100, 14);
-		contentPane.add(lblNumberOfDays);
+		JLabel lblLocation = new JLabel("Location");
+		lblLocation.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblLocation.setBounds(50, 413, 100, 14);
+		contentPane.add(lblLocation);
 		
-		txtNumberOfDays = new JTextField();
-		txtNumberOfDays.setBounds(50, 522, 86, 20);
-		contentPane.add(txtNumberOfDays);
-		txtNumberOfDays.setColumns(10);
+		JLabel lblBackBorder2 = new JLabel("");
+		lblBackBorder2.setBounds(750, 186, 500, 484);
+		lblBackBorder2.setBorder(border);
+		contentPane.add(lblBackBorder2);
 		
-		JLabel lblPrice = new JLabel("Price");
-		lblPrice.setBounds(50, 563, 46, 14);
-		contentPane.add(lblPrice);
+		JLabel lblStartHour = new JLabel("Start hour");
+		lblStartHour.setBounds(50, 342, 100, 14);
+		contentPane.add(lblStartHour);
 		
-		txtPrice = new JTextField();
-		txtPrice.setBounds(50, 588, 86, 20);
-		contentPane.add(txtPrice);
-		txtPrice.setColumns(10);
+		txtStartHour = new JTextField();
+		txtStartHour.setBounds(50, 367, 86, 25);
+		contentPane.add(txtStartHour);
+		txtStartHour.setColumns(10);
 		
-		JLabel lblDescriptionExam = new JLabel("Description exam");
-		lblDescriptionExam.setBounds(660, 200, 100, 14);
-		contentPane.add(lblDescriptionExam);
+		JLabel lblEndHour = new JLabel("End hour");
+		lblEndHour.setBounds(425, 342, 46, 14);
+		contentPane.add(lblEndHour);
 		
-		JEditorPane epDescriptionExam = new JEditorPane();
-		epDescriptionExam.setBounds(660, 225, 350, 180);
-		epDescriptionExam.setBorder(border1);
-		contentPane.add(epDescriptionExam);
-		
-		JLabel lblDescriptionPayement = new JLabel("Description payement");
-		lblDescriptionPayement.setBounds(660, 426, 150, 14);
-		contentPane.add(lblDescriptionPayement);
-		
-		JEditorPane epDescriptionPayement = new JEditorPane();
-		epDescriptionPayement.setBounds(660, 451, 350, 180);
-		epDescriptionPayement.setBorder(border1);
-		contentPane.add(epDescriptionPayement);
+		txtEndHour = new JTextField();
+		txtEndHour.setBounds(425, 367, 86, 25);
+		contentPane.add(txtEndHour);
+		txtEndHour.setColumns(10);
 		
 		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(30, 186, 1224, 484);
+		lblBackBorder.setBounds(30, 186, 700, 484);
 		lblBackBorder.setBorder(border);
 		contentPane.add(lblBackBorder);
 		
-		lblNewLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				lblNewLabel.setBackground(Color.GREEN);
-			}
-		});
+		JLabel lblAdministrativeArea = new JLabel("Administrative area");
+		lblAdministrativeArea.setBounds(50, 448, 100, 14);
+		contentPane.add(lblAdministrativeArea);
+		
+		txtAdministrativeArea = new JTextField();
+		txtAdministrativeArea.setBounds(50, 473, 200, 25);
+		contentPane.add(txtAdministrativeArea);
+		txtAdministrativeArea.setColumns(10);
+		
+		JLabel lblLocality = new JLabel("Locality");
+		lblLocality.setBounds(50, 519, 46, 14);
+		contentPane.add(lblLocality);
+		
+		txtLocality = new JTextField();
+		txtLocality.setBounds(50, 544, 200, 25);
+		contentPane.add(txtLocality);
+		txtLocality.setColumns(10);
+		
+		JLabel lblPostalCode = new JLabel("Postal code");
+		lblPostalCode.setBounds(50, 590, 100, 14);
+		contentPane.add(lblPostalCode);
+		
+		txtPostalCode = new JTextField();
+		txtPostalCode.setBounds(50, 615, 200, 25);
+		contentPane.add(txtPostalCode);
+		txtPostalCode.setColumns(10);
+		
+		JLabel lblStreetAddress = new JLabel("Street address");
+		lblStreetAddress.setBounds(425, 448, 100, 14);
+		contentPane.add(lblStreetAddress);
+		
+		txtStreetAddress = new JTextField();
+		txtStreetAddress.setBounds(425, 475, 200, 25);
+		contentPane.add(txtStreetAddress);
+		txtStreetAddress.setColumns(10);
+		
+		JLabel lblPremise = new JLabel("Premise");
+		lblPremise.setBounds(425, 519, 46, 14);
+		contentPane.add(lblPremise);
+		
+		txtPremise = new JTextField();
+		txtPremise.setBounds(425, 546, 200, 25);
+		contentPane.add(txtPremise);
+		txtPremise.setColumns(10);
+		
+		JLabel lblCountry = new JLabel("Country");
+		lblCountry.setBounds(425, 590, 46, 14);
+		contentPane.add(lblCountry);
+		
+		txtCountry = new JTextField();
+		txtCountry.setBounds(425, 617, 200, 25);
+		contentPane.add(txtCountry);
+		txtCountry.setColumns(10);
+		
+		JLabel lblResaerchForBooks = new JLabel("Resaerch for books");
+		lblResaerchForBooks.setBounds(766, 200, 150, 14);
+		contentPane.add(lblResaerchForBooks);
+		
+		txtBook = new JTextField();
+		txtBook.setBounds(766, 227, 300, 25);
+		contentPane.add(txtBook);
+		txtBook.setColumns(10);
+		
 	}
+
 }
