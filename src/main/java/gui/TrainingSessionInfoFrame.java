@@ -160,8 +160,8 @@ public class TrainingSessionInfoFrame extends JFrame {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				//TrainingFrame trainingfr = new TrainingFrame();
-				//trainingfr.setVisible(true);
+				TrainingSessionsFrame trainingfr = new TrainingSessionsFrame();
+				trainingfr.setVisible(true);
 			}
 		});
 		
