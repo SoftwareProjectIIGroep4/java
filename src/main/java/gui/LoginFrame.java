@@ -107,8 +107,8 @@ public class LoginFrame {
 				lblTest.setText("De email of de wachtwoord is fout");
 				lblTest.setForeground(Color.red);
 				frame.dispose();
-				TrainingFrame trainingF = new TrainingFrame();
-				trainingF.setVisible(true);
+				//TrainingFrame trainingF = new TrainingFrame();
+				//trainingF.setVisible(true);
 			}
 		});
 	}
