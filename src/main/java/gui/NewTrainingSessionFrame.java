@@ -200,11 +200,6 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		lblLocation.setBounds(50, 413, 100, 14);
 		contentPane.add(lblLocation);
 		
-		JLabel lblBackBorder2 = new JLabel("");
-		lblBackBorder2.setBounds(750, 186, 500, 484);
-		lblBackBorder2.setBorder(border);
-		contentPane.add(lblBackBorder2);
-		
 		JLabel lblStartHour = new JLabel("Start hour");
 		lblStartHour.setBounds(50, 342, 100, 14);
 		contentPane.add(lblStartHour);
@@ -215,7 +210,7 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		txtStartHour.setColumns(10);
 		
 		JLabel lblEndHour = new JLabel("End hour");
-		lblEndHour.setBounds(425, 342, 46, 14);
+		lblEndHour.setBounds(425, 342, 100, 14);
 		contentPane.add(lblEndHour);
 		
 		txtEndHour = new JTextField();
@@ -223,17 +218,12 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		contentPane.add(txtEndHour);
 		txtEndHour.setColumns(10);
 		
-		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(30, 186, 700, 484);
-		lblBackBorder.setBorder(border);
-		contentPane.add(lblBackBorder);
-		
 		JLabel lblAdministrativeArea = new JLabel("Administrative area");
 		lblAdministrativeArea.setBounds(50, 448, 100, 14);
 		contentPane.add(lblAdministrativeArea);
 		
 		txtAdministrativeArea = new JTextField();
-		txtAdministrativeArea.setBounds(50, 473, 200, 25);
+		txtAdministrativeArea.setBounds(50, 473, 300, 25);
 		contentPane.add(txtAdministrativeArea);
 		txtAdministrativeArea.setColumns(10);
 		
@@ -242,7 +232,7 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		contentPane.add(lblLocality);
 		
 		txtLocality = new JTextField();
-		txtLocality.setBounds(50, 544, 200, 25);
+		txtLocality.setBounds(50, 544, 300, 25);
 		contentPane.add(txtLocality);
 		txtLocality.setColumns(10);
 		
@@ -251,7 +241,7 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		contentPane.add(lblPostalCode);
 		
 		txtPostalCode = new JTextField();
-		txtPostalCode.setBounds(50, 615, 200, 25);
+		txtPostalCode.setBounds(50, 615, 300, 25);
 		contentPane.add(txtPostalCode);
 		txtPostalCode.setColumns(10);
 		
@@ -260,7 +250,7 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		contentPane.add(lblStreetAddress);
 		
 		txtStreetAddress = new JTextField();
-		txtStreetAddress.setBounds(425, 475, 200, 25);
+		txtStreetAddress.setBounds(425, 475, 300, 25);
 		contentPane.add(txtStreetAddress);
 		txtStreetAddress.setColumns(10);
 		
@@ -269,27 +259,37 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		contentPane.add(lblPremise);
 		
 		txtPremise = new JTextField();
-		txtPremise.setBounds(425, 546, 200, 25);
+		txtPremise.setBounds(425, 546, 300, 25);
 		contentPane.add(txtPremise);
 		txtPremise.setColumns(10);
 		
 		JLabel lblCountry = new JLabel("Country");
-		lblCountry.setBounds(425, 590, 46, 14);
+		lblCountry.setBounds(425, 590, 100, 14);
 		contentPane.add(lblCountry);
 		
 		txtCountry = new JTextField();
-		txtCountry.setBounds(425, 617, 200, 25);
+		txtCountry.setBounds(425, 617, 300, 25);
 		contentPane.add(txtCountry);
 		txtCountry.setColumns(10);
 		
 		JLabel lblResaerchForBooks = new JLabel("Resaerch for books");
-		lblResaerchForBooks.setBounds(766, 200, 150, 14);
+		lblResaerchForBooks.setBounds(816, 200, 150, 14);
 		contentPane.add(lblResaerchForBooks);
 		
 		txtBook = new JTextField();
-		txtBook.setBounds(766, 227, 300, 25);
+		txtBook.setBounds(816, 227, 300, 25);
 		contentPane.add(txtBook);
 		txtBook.setColumns(10);
+		
+		JLabel lblBackBorder = new JLabel("");
+		lblBackBorder.setBounds(30, 186, 750, 484);
+		lblBackBorder.setBorder(border);
+		contentPane.add(lblBackBorder);
+		
+		JLabel lblBackBorder2 = new JLabel("");
+		lblBackBorder2.setBounds(800, 186, 450, 484);
+		lblBackBorder2.setBorder(border);
+		contentPane.add(lblBackBorder2);
 		
 	}
 
