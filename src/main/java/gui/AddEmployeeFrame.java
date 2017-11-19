@@ -7,27 +7,28 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.DefaultListModel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
-import javax.swing.JList;
+
+import gui.EmployeeFrame;
 
 
-public class EmployeeFrame extends JFrame {
+public class AddEmployeeFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField nameEmployeeSearch;
-	private JTextField departmentEmployeeSearch;
-	private JTextField functionEmployeeSearch;
+	private JTextField textfieldEmployeeName;
+	private JTextField textfieldEmployeeDepartment;
+	private JTextField textfieldEmployeeFunction;
+	
 	
 	/**
 	 * Launch the application.
@@ -36,7 +37,7 @@ public class EmployeeFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EmployeeFrame frame = new EmployeeFrame();
+					AddEmployeeFrame frame = new AddEmployeeFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +49,7 @@ public class EmployeeFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EmployeeFrame() {
+	public AddEmployeeFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -59,8 +60,8 @@ public class EmployeeFrame extends JFrame {
 		// https://examples.javacodegeeks.com/desktop-java/swing/jlabel/create-jlabel-with-border/
 		// create a line border with the specified color and width
 		
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		Border border1 = BorderFactory.createLineBorder(Color.BLACK,1);
+		
+		Border border1 = BorderFactory.createLineBorder(Color.BLACK, 1);
         
         JLabel lblTraining1 = new JLabel("Training");
         lblTraining1.addMouseListener(new MouseAdapter() {
@@ -113,6 +114,12 @@ public class EmployeeFrame extends JFrame {
             public void mouseExited(MouseEvent e) {
                 lblEmployees.setBorder(null);
             }
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		dispose();
+				EmployeeFrame employeeFr = new EmployeeFrame();
+				employeeFr.setVisible(true);
+        	}
         });
         lblEmployees.setBackground(Color.WHITE);
         lblEmployees.setHorizontalAlignment(SwingConstants.CENTER);
@@ -164,71 +171,64 @@ public class EmployeeFrame extends JFrame {
         lblNewLabel_1.setOpaque(true);
         contentPane.add(lblNewLabel_1);
         
-        JLabel lblEmployeeName = new JLabel("Employee name");
-        lblEmployeeName.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblEmployeeName.setBounds(31, 115, 152, 14);
-        contentPane.add(lblEmployeeName);
-        
-        JButton addEmployeeButton = new JButton("Add employee");
-        addEmployeeButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        JButton backButtonEmployee = new JButton("Back");
+        backButtonEmployee.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
         		dispose();
-        		AddEmployeeFrame addEmployeeFr = new AddEmployeeFrame();
-        		addEmployeeFr.setVisible(true);
+        		EmployeeFrame employeeFr = new EmployeeFrame();
+        		employeeFr.setVisible(true);
         	}
         });
-        addEmployeeButton.setBounds(977, 115, 187, 68);
-        contentPane.add(addEmployeeButton);
+        backButtonEmployee.setBounds(10, 108, 149, 57);
+        contentPane.add(backButtonEmployee);
         
-        JLabel lblNewLabel_2 = new JLabel("search employee");
-        lblNewLabel_2.setBounds(977, 222, 144, 28);
-        contentPane.add(lblNewLabel_2);
+        JButton saveButtonEmployee = new JButton("Save");
+        saveButtonEmployee.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        		String name = textfieldEmployeeName.getText().toString();
+        		String department = textfieldEmployeeDepartment.getText().toString();
+        		String function = textfieldEmployeeFunction.getText().toString();
+        		String fullemployee = name+" "+department+" "+function;
+        		EmployeeFrame employeeFr = new EmployeeFrame();
+        		employeeFr.setVisible(true);
+        		
+        	}
+        });
+        saveButtonEmployee.setBounds(191, 108, 149, 57);
+        contentPane.add(saveButtonEmployee);
         
-        nameEmployeeSearch = new JTextField();
-        nameEmployeeSearch.setBounds(977, 311, 189, 35);
-        contentPane.add(nameEmployeeSearch);
-        nameEmployeeSearch.setColumns(10);
+        JLabel AddEmployeeBorder = new JLabel("");
+        AddEmployeeBorder.setBounds(10, 197, 1150, 456);
+        AddEmployeeBorder.setBorder(border1);
+        contentPane.add(AddEmployeeBorder);
         
-        departmentEmployeeSearch = new JTextField();
-        departmentEmployeeSearch.setBounds(975, 396, 189, 35);
-        contentPane.add(departmentEmployeeSearch);
-        departmentEmployeeSearch.setColumns(10);
+        JLabel labelEmployeeName = new JLabel("Employee name");
+        labelEmployeeName.setBounds(26, 221, 133, 25);
+        contentPane.add(labelEmployeeName);
         
-        functionEmployeeSearch = new JTextField();
-        functionEmployeeSearch.setBounds(977, 481, 189, 35);
-        contentPane.add(functionEmployeeSearch);
-        functionEmployeeSearch.setColumns(10);
+        textfieldEmployeeName = new JTextField();
+        textfieldEmployeeName.setBounds(26, 257, 291, 38);
+        contentPane.add(textfieldEmployeeName);
+        textfieldEmployeeName.setColumns(10);
         
-        JLabel employeeSearchBorder = new JLabel("");
-        employeeSearchBorder.setBounds(913, 250, 325, 400);
-        employeeSearchBorder.setBorder(border);
-        contentPane.add(employeeSearchBorder);
+        JLabel labelEmployeeDepartment = new JLabel("Department");
+        labelEmployeeDepartment.setBounds(26, 331, 114, 14);
+        contentPane.add(labelEmployeeDepartment);
         
-        JLabel lblNewLabel_3 = new JLabel("Department");
-        lblNewLabel_3.setBounds(332, 117, 100, 12);
-        contentPane.add(lblNewLabel_3);
+        textfieldEmployeeDepartment = new JTextField();
+        textfieldEmployeeDepartment.setBounds(26, 356, 291, 41);
+        contentPane.add(textfieldEmployeeDepartment);
+        textfieldEmployeeDepartment.setColumns(10);
         
-        JLabel lblNewLabel_4 = new JLabel("Function");
-        lblNewLabel_4.setBounds(555, 117, 138, 14);
-        contentPane.add(lblNewLabel_4);
+        JLabel labelEmployeeFunction = new JLabel("Function");
+        labelEmployeeFunction.setBounds(26, 429, 114, 14);
+        contentPane.add(labelEmployeeFunction);
         
-        JLabel lblNewLabel_5 = new JLabel("Name");
-        lblNewLabel_5.setBounds(977, 279, 65, 21);
-        contentPane.add(lblNewLabel_5);
-        
-        JLabel lblNewLabel_6 = new JLabel("Department");
-        lblNewLabel_6.setBounds(977, 371, 100, 14);
-        contentPane.add(lblNewLabel_6);
-        
-        JLabel lblFunction = new JLabel("Function");
-        lblFunction.setBounds(977, 456, 100, 14);
-        contentPane.add(lblFunction);
-        
-        JList employeeList = new JList();
-        employeeList.setBounds(31, 140, 816, 510);
-        contentPane.add(employeeList);
-        
-       
+        textfieldEmployeeFunction = new JTextField();
+        textfieldEmployeeFunction.setBounds(26, 454, 291, 41);
+        contentPane.add(textfieldEmployeeFunction);
+        textfieldEmployeeFunction.setColumns(10);
         
         lblNewLabel.addMouseListener(new MouseAdapter() {
             @Override
