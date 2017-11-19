@@ -1,31 +1,34 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+import java.awt.Component;
+import javax.swing.Box;
+import javax.swing.JTable;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.JTextArea;
+import java.awt.SystemColor;
 
-public class EditTrainingFrame extends JFrame {
+public class TrainingSessionInfoFrame extends JFrame {
+
 
 	private JPanel contentPane;
-	private JTextField txtTitle;
-	private JTextField txtNumberOfDays;
-	private JTextField txtPrice;
 
 	/**
 	 * Launch the application.
@@ -34,7 +37,7 @@ public class EditTrainingFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditTrainingFrame frame = new EditTrainingFrame();
+					TrainingSessionInfoFrame frame = new TrainingSessionInfoFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,17 +49,14 @@ public class EditTrainingFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EditTrainingFrame() {
+	public TrainingSessionInfoFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
 		
-
-		Border border1 = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1);
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		
 		JLabel lblTraining = new JLabel("Training");
@@ -160,94 +160,86 @@ public class EditTrainingFrame extends JFrame {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				TrainingFrame trainingfr = new TrainingFrame();
-				trainingfr.setVisible(true);
+				//TrainingFrame trainingfr = new TrainingFrame();
+				//trainingfr.setVisible(true);
 			}
 		});
 		
 		btnBack.setBounds(30, 100, 110, 50);
 		contentPane.add(btnBack);
 		
-		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(170, 100, 110, 50);
-		contentPane.add(btnSave);
+		JLabel lblTrainingSessionTitle = new JLabel("Training session title");
+		lblTrainingSessionTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTrainingSessionTitle.setBounds(175, 115, 300, 25);
+		contentPane.add(lblTrainingSessionTitle);
 		
-		JButton btnAddNewTraining = new JButton("Add new training");
-		btnAddNewTraining.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-				EditTrainingFrame editTrainingfr = new EditTrainingFrame();
-				editTrainingfr.setVisible(true);
+		JButton btnCancelTrainingSession = new JButton("Cancel training session");
+		btnCancelTrainingSession.setBounds(1039, 100, 200, 50);
+		contentPane.add(btnCancelTrainingSession);
+		
+		JLabel lblInfo = new JLabel("Info");
+		lblInfo.setBackground(SystemColor.control);
+		lblInfo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				lblInfo.setBackground(Color.WHITE);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblInfo.setBackground(SystemColor.control);
 			}
 		});
-		btnAddNewTraining.setBounds(310, 100, 140, 50);
-		contentPane.add(btnAddNewTraining);
+		lblInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setOpaque(true);
+		lblInfo.setBounds(450, 165, 100, 50);
+		contentPane.add(lblInfo);
 		
-		JLabel lblEditTraining = new JLabel("Edit training");
-		lblEditTraining.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblEditTraining.setBounds(40, 161, 140, 14);
-		contentPane.add(lblEditTraining);
+		JLabel lblEnlistedPeople = new JLabel("Enlisted people");
+		lblEnlistedPeople.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblEnlistedPeople.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEnlistedPeople.setOpaque(true);
+		lblEnlistedPeople.setBounds(550, 165, 200, 50);
+		contentPane.add(lblEnlistedPeople);
 		
-		JLabel lblTitle = new JLabel("Title");
-		lblTitle.setBounds(50, 200, 46, 14);
-		contentPane.add(lblTitle);
+		JLabel lblBooks = new JLabel("Books");
+		lblBooks.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblBooks.setBounds(750, 165, 100, 50);
+		lblBooks.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBooks.setOpaque(true);
+		contentPane.add(lblBooks);
 		
-		txtTitle = new JTextField();
-		txtTitle.setBounds(50, 225, 300, 25);
-		contentPane.add(txtTitle);
-		txtTitle.setColumns(10);
+		JLabel lblGeneralInfo = new JLabel("General info");
+		lblGeneralInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblGeneralInfo.setBounds(30, 230, 150, 20);
+		contentPane.add(lblGeneralInfo);
 		
-		JLabel lblDescription = new JLabel("Description");
-		lblDescription.setBounds(50, 271, 60, 14);
-		contentPane.add(lblDescription);
+		JTextArea txtGeneralInfo = new JTextArea();
+		txtGeneralInfo.setBounds(30, 264, 390, 400);
+		contentPane.add(txtGeneralInfo);
 		
-		JEditorPane epDescription = new JEditorPane();
-		epDescription.setBounds(50, 296, 500, 180);
-		epDescription.setBorder(border1);
-		contentPane.add(epDescription);
+		JLabel lblExamInfo = new JLabel("Exam info");
+		lblExamInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblExamInfo.setBounds(435, 230, 150, 20);
+		contentPane.add(lblExamInfo);
 		
-		JLabel lblNumberOfDays = new JLabel("Number of days");
-		lblNumberOfDays.setForeground(Color.BLACK);
-		lblNumberOfDays.setBounds(50, 497, 100, 14);
-		contentPane.add(lblNumberOfDays);
+		JTextArea txtExamInfo = new JTextArea();
+		txtExamInfo.setBounds(435, 264, 390, 400);
+		contentPane.add(txtExamInfo);
 		
-		txtNumberOfDays = new JTextField();
-		txtNumberOfDays.setBounds(50, 522, 86, 20);
-		contentPane.add(txtNumberOfDays);
-		txtNumberOfDays.setColumns(10);
+		JLabel lblPaymentInfo = new JLabel("Payment info");
+		lblPaymentInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPaymentInfo.setBounds(840, 233, 100, 14);
+		contentPane.add(lblPaymentInfo);
 		
-		JLabel lblPrice = new JLabel("Price");
-		lblPrice.setBounds(50, 563, 46, 14);
-		contentPane.add(lblPrice);
-		
-		txtPrice = new JTextField();
-		txtPrice.setBounds(50, 588, 86, 20);
-		contentPane.add(txtPrice);
-		txtPrice.setColumns(10);
-		
-		JLabel lblDescriptionExam = new JLabel("Description exam");
-		lblDescriptionExam.setBounds(660, 200, 100, 14);
-		contentPane.add(lblDescriptionExam);
-		
-		JEditorPane epDescriptionExam = new JEditorPane();
-		epDescriptionExam.setBounds(660, 225, 500, 180);
-		epDescriptionExam.setBorder(border1);
-		contentPane.add(epDescriptionExam);
-		
-		JLabel lblDescriptionPayement = new JLabel("Description payement");
-		lblDescriptionPayement.setBounds(660, 426, 150, 14);
-		contentPane.add(lblDescriptionPayement);
-		
-		JEditorPane epDescriptionPayement = new JEditorPane();
-		epDescriptionPayement.setBounds(660, 451, 500, 180);
-		epDescriptionPayement.setBorder(border1);
-		contentPane.add(epDescriptionPayement);
+		JTextArea txtPaymentInfo = new JTextArea();
+		txtPaymentInfo.setBounds(840, 264, 390, 400);
+		contentPane.add(txtPaymentInfo);
 		
 		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(30, 186, 1224, 484);
+		lblBackBorder.setBounds(20, 220, 1220, 450);
 		lblBackBorder.setBorder(border);
 		contentPane.add(lblBackBorder);
 		
 	}
-
 }

@@ -56,8 +56,8 @@ public class NewTrianingFrame extends JFrame {
 		
 		
 		
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		Border border1 = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1);
+		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		
 		JLabel lblTraining = new JLabel("Training");
 		lblTraining.addMouseListener(new MouseAdapter() {
@@ -69,17 +69,11 @@ public class NewTrianingFrame extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblTraining.setBorder(null);
 			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-				TrainingFrame trainingfr = new TrainingFrame();
-				trainingfr.setVisible(true);		
-			}
 		});
 		lblTraining.setBackground(Color.WHITE);
 		lblTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTraining.setOpaque(true);
-		lblTraining.setBounds(133, 0, 213, 75);
+		lblTraining.setBounds(133, 0, 211, 75);
 		contentPane.add(lblTraining);
 		
 		JLabel lblTrainingSession = new JLabel("Training session");
@@ -96,7 +90,7 @@ public class NewTrianingFrame extends JFrame {
 		lblTrainingSession.setBackground(Color.WHITE);
 		lblTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTrainingSession.setOpaque(true);
-		lblTrainingSession.setBounds(344, 0, 213, 75);
+		lblTrainingSession.setBounds(344, 0, 211, 75);
 		contentPane.add(lblTrainingSession);
 		
 		JLabel lblEmployees = new JLabel("Employees");
@@ -113,7 +107,7 @@ public class NewTrianingFrame extends JFrame {
 		lblEmployees.setBackground(Color.WHITE);
 		lblEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEmployees.setOpaque(true);
-		lblEmployees.setBounds(555, 0, 213, 75);
+		lblEmployees.setBounds(555, 0, 212, 75);
 		contentPane.add(lblEmployees);
 		
 		JLabel lblStatistics = new JLabel("Statistics");
@@ -130,7 +124,7 @@ public class NewTrianingFrame extends JFrame {
 		lblStatistics.setBackground(Color.WHITE);
 		lblStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStatistics.setOpaque(true);
-		lblStatistics.setBounds(766, 0, 213, 75);
+		lblStatistics.setBounds(767, 0, 212, 75);
 		contentPane.add(lblStatistics);
 		
 		JLabel lblTrainingRequests = new JLabel("Training requests");
@@ -147,7 +141,7 @@ public class NewTrianingFrame extends JFrame {
 		lblTrainingRequests.setBackground(Color.WHITE);
 		lblTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTrainingRequests.setOpaque(true);
-		lblTrainingRequests.setBounds(977, 0, 213, 75);
+		lblTrainingRequests.setBounds(979, 0, 211, 75);
 		contentPane.add(lblTrainingRequests);
 		
 		JLabel lblNewLabel = new JLabel("logo");
@@ -205,7 +199,7 @@ public class NewTrianingFrame extends JFrame {
 		contentPane.add(lblDescription);
 		
 		JEditorPane epDescription = new JEditorPane();
-		epDescription.setBounds(50, 296, 350, 180);
+		epDescription.setBounds(50, 296, 500, 180);
 		epDescription.setBorder(border1);
 		contentPane.add(epDescription);
 		
@@ -233,7 +227,7 @@ public class NewTrianingFrame extends JFrame {
 		contentPane.add(lblDescriptionExam);
 		
 		JEditorPane epDescriptionExam = new JEditorPane();
-		epDescriptionExam.setBounds(660, 225, 350, 180);
+		epDescriptionExam.setBounds(660, 225, 500, 180);
 		epDescriptionExam.setBorder(border1);
 		contentPane.add(epDescriptionExam);
 		
@@ -242,7 +236,7 @@ public class NewTrianingFrame extends JFrame {
 		contentPane.add(lblDescriptionPayement);
 		
 		JEditorPane epDescriptionPayement = new JEditorPane();
-		epDescriptionPayement.setBounds(660, 451, 350, 180);
+		epDescriptionPayement.setBounds(660, 451, 500, 180);
 		epDescriptionPayement.setBorder(border1);
 		contentPane.add(epDescriptionPayement);
 		
