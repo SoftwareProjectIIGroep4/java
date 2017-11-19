@@ -1,7 +1,7 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -10,13 +10,20 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -33,23 +40,9 @@ public class NewTrainingSessionFrame extends JFrame {
 	private JTextField txtStreetAddress;
 	private JTextField txtPremise;
 	private JTextField txtCountry;
-	private JTextField txtBook;
+	private JTextField txtTrainingTitel;
+	private JTable tbTraining;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NewTrainingSessionFrame frame = new NewTrainingSessionFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -90,6 +83,12 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblTrainingSession.setBorder(null);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingSessionsFrame newFrame = new TrainingSessionsFrame();
+				newFrame.setVisible(true);
 			}
 		});
 		lblTrainingSession.setBackground(Color.WHITE);
@@ -272,14 +271,62 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		contentPane.add(txtCountry);
 		txtCountry.setColumns(10);
 		
-		JLabel lblResaerchForBooks = new JLabel("Resaerch for books");
-		lblResaerchForBooks.setBounds(816, 200, 150, 14);
-		contentPane.add(lblResaerchForBooks);
+		JLabel lblResaerchFortTraining = new JLabel("Resaerch for Training");
+		lblResaerchFortTraining.setBounds(816, 200, 150, 14);
+		contentPane.add(lblResaerchFortTraining);
 		
-		txtBook = new JTextField();
-		txtBook.setBounds(816, 227, 300, 25);
-		contentPane.add(txtBook);
-		txtBook.setColumns(10);
+		txtTrainingTitel = new JTextField();
+		txtTrainingTitel.setBounds(816, 227, 300, 25);
+		contentPane.add(txtTrainingTitel);
+		txtTrainingTitel.setColumns(10);
+		
+		Object [] columnHeadersTraining = {"Title","Number of Days","Price"};
+		DefaultTableModel modelTraining = new DefaultTableModel();
+		modelTraining.setColumnIdentifiers(columnHeadersTraining);
+		Object[][] data = {
+
+		};
+		tbTraining = new JTable(data, columnHeadersTraining);
+		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersTraining) {
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+		    }
+		};
+		tbTraining.setModel(tableModel);
+		tbTraining.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tbTraining.setRowSelectionAllowed(true);
+	    final TableColumnModel columnmodelTraining = tbTraining.getColumnModel();
+	    for (int column = 0; column < tbTraining.getColumnCount(); column++) {
+	        int width = 15; // Min width
+	        for (int row = 0; row < tbTraining.getRowCount(); row++) {
+	            TableCellRenderer renderer = tbTraining.getCellRenderer(row, column);
+	            Component comp = tbTraining.prepareRenderer(renderer, row, column);
+	            width = Math.max(comp.getPreferredSize().width +1 , width);
+	        }
+	        if(width > 300)
+	            width=300;
+	        columnmodelTraining.getColumn(column).setPreferredWidth(width);
+	    }
+		JScrollPane sclTraining = new JScrollPane(tbTraining);
+		sclTraining.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sclTraining.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sclTraining.setBounds(810, 262, 430, 400);
+		contentPane.add(sclTraining);
+		ListSelectionModel selectedRowBook = tbTraining.getSelectionModel();
+		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				if(!selectedRowBook.isSelectionEmpty()) {
+					//GET ROW
+					int selectedRow = selectedRowBook.getMinSelectionIndex();
+					//doe iets hier
+				}
+			}
+		});
 		
 		JLabel lblBackBorder = new JLabel("");
 		lblBackBorder.setBounds(30, 186, 750, 484);
