@@ -2,6 +2,8 @@ package dataAccess;
 
 
 
+import java.awt.image.ImageFilter;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -9,8 +11,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.JFileChooser;
 
@@ -39,7 +45,7 @@ public class CertificateAccess extends RestRequest {
 		return certificateMap;
 	}
 
-	public static Certificate addCertificate(Certificate certificate) throws IOException, URISyntaxException {
+	public static Certificate add(Certificate certificate) throws IOException, URISyntaxException {
 		String JSONcert = postObject(certificate, new URI(Constants.CERTIFICATE_SOURCE));
 		return mapper.readValue(JSONcert, Certificate.class);
 	}
@@ -60,10 +66,13 @@ public class CertificateAccess extends RestRequest {
 		JFileChooser jFileChooser = new JFileChooser();
 		jFileChooser.setDialogTitle("Select your Certificate");
 		jFileChooser.setMultiSelectionEnabled(false);
-		jFileChooser.setFileFilter(new FileTypeFilter(".jpg", "JPG"));
+		
+		//chooser.setAcceptAllFileFilterUsed(false); als je geen all files wilt kiezen!
 		// met meerdere files doet hij het niet, nog nakijken
-		//jFileChooser.setFileFilter(new FileTypeFilter(".png", "PNG"));
-		//jFileChooser.setFileFilter(new FileTypeFilter(".pdf", "PDF"));
+		jFileChooser.setFileFilter(new FileTypeFilter(".png", "PNG"));
+		jFileChooser.setFileFilter(new FileTypeFilter(".pdf", "PDF"));
+		jFileChooser.setFileFilter(new FileTypeFilter(".jpg", "JPG"));
+
 		int result = jFileChooser.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
 			file = jFileChooser.getSelectedFile();
@@ -77,7 +86,7 @@ public class CertificateAccess extends RestRequest {
 		return null;
 	}
 	
-	public byte[] ConvertFile(String fileName) {
+	public static byte[] ConvertFile(String fileName) {
 		FileInputStream fileInputStream = null;
 		File file = new File(fileName);
 		byte[] bFile = new byte[(int) file.length()];
@@ -91,35 +100,80 @@ public class CertificateAccess extends RestRequest {
 		return bFile;
 	}
 	
-	public void saveFile() throws URISyntaxException {
+	/**public class ContentToByteArrayExample
+	{
+	   public static void main(String[] args)
+	   {
+	      Path path = Paths.get("C:/temp/test.txt");
+	      byte[] data = Files.readAllBytes(path);
+	   }
+	} 
+	 * @throws IOException */
+	
+	//for testing
+	public void saveFile(File f) throws URISyntaxException, IOException {
 		Certificate certificate = new Certificate();
-		certificate.setTrainingID(1);
+		certificate.setTrainingID(4);
 		certificate.setTitel("eerste certificaat");
-		certificate.setPicture(ConvertFile(file.getAbsolutePath()));
-		System.out.println("for testing: 2 lines");
-		System.out.println(file.getAbsolutePath());
-		System.out.println(ConvertFile(file.getAbsolutePath()));
+		certificate.setPicture(ConvertFile(f.getAbsolutePath()));		
+		//byte[] bytes = { 3, 10, 8, 25 };
+		//certificate.setPicture(bytes);
+		System.out.println("for testing: 3 lines");
+		System.out.println(f.getAbsolutePath());
+		System.out.println(ConvertFile(f.getAbsolutePath()));
+		System.out.println(certificate);
+		//System.out.println(bytes);
 		try {
-			Certificate cert = CertificateAccess.addCertificate(certificate);
-			if (cert != null) {
-				certificate = cert;
+			certificate.save();
+			//Certificate cert = CertificateAccess.add(certificate);
+			//if (cert != null) {
+			//	certificate = cert;
 				System.out.println("succes!");
+			//}
+			//else
+			//	System.out.println("niet gelukt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) throws URISyntaxException, IOException {
+		CertificateAccess cA = new CertificateAccess();
+		File bestand = null;
+		Certificate certificate = new Certificate();
+		certificate.setTrainingID(4);
+		certificate.setTitel("eerste certificaat");
+		bestand = cA.chooseFile();
+		certificate.setPicture(ConvertFile(bestand.getAbsolutePath()));
+		 
+		//cA.saveFile(bestand); 
+		
+		try {
+			certificate.save();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Certificate certZoek = new Certificate();
+		try {
+			certZoek = Cache.certificateCache.get(1);
+			if (certZoek == null) {
+				System.out.println("Kan het gevraagde certificaat niet vinden");
 			}
 			else
-				System.out.println("niet gelukt");
-		} catch (IOException e) {
+				System.out.println(certZoek.getTitel());
+			
+			// private JLabel lblLabelPhoto; buiten de functie te declareren in je JFrameMain.java!
+			// lblLabelPhoto.setIcon(new ImageIcon(certZoek.getPicture()));
+				
+		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
-	}
-	
-	public static void main(String[] args) throws URISyntaxException {
-		CertificateAccess c = new CertificateAccess();
-		File bestand = new File("testbestand");
-		bestand = c.chooseFile();
-		c.saveFile();
 	}
 	
 

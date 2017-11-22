@@ -41,7 +41,6 @@ public class App {
 		Certificate certificate = new Certificate(4, "a cert", bytes);
 		System.out.println(certificate);
 
-		CertificateAccess.addCertificate(certificate);
 
 	}
 

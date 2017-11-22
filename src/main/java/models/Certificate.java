@@ -2,6 +2,9 @@ package models;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+
+import dataAccess.AddressAccess;
 import dataAccess.Cache;
 import dataAccess.CertificateAccess;
 
@@ -60,7 +63,7 @@ public class Certificate {
 			Cache.certificateCache.put(certificateID, this);
 		}
 		else {
-			certificateID = (CertificateAccess.addCertificate(this).getCertificateID());
+			certificateID = (CertificateAccess.add(this).getCertificateID());
 			Cache.certificateCache.put(certificateID, this);
 		}
 	}
@@ -71,6 +74,15 @@ public class Certificate {
 			Cache.certificateCache.invalidate(certificateID);
 		}
 	}
+	
+	public static void delete(int id) throws URISyntaxException, IOException {
+		if (id != 0) {
+			CertificateAccess.remove(id);
+			Cache.certificateCache.invalidate(id);
+		}
+	}
+	
+
 	
 /**
 	// nodig om pdf te maken
@@ -116,8 +128,45 @@ public class Certificate {
 		sb.append("Certifacte: " + certificateID + "\n");
 		sb.append("TrainingID: " + trainingID + "\n");
 		sb.append("Titel: " + titel + "\n");
+		sb.append("picture: " + picture + "\n");
 		return sb.toString();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + certificateID;
+		result = prime * result + Arrays.hashCode(picture);
+		result = prime * result + ((titel == null) ? 0 : titel.hashCode());
+		result = prime * result + trainingID;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Certificate other = (Certificate) obj;
+		if (certificateID != other.certificateID)
+			return false;
+		if (!Arrays.equals(picture, other.picture))
+			return false;
+		if (titel == null) {
+			if (other.titel != null)
+				return false;
+		} else if (!titel.equals(other.titel))
+			return false;
+		if (trainingID != other.trainingID)
+			return false;
+		return true;
+	}
+	
+	
 
 	/**
 	// uitwerking pdf (er moet hierboven public Certificate() zijn om te laten werken!
