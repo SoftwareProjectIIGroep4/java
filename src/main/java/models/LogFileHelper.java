@@ -17,7 +17,7 @@ public class LogFileHelper {
 //METHODS
 	public LogFileHelper(String user,String actie){
 		date=new Date();
-		this.message="de user: "+user+" heeft volgende actie uitgevoerd"+actie +"op " + date +" ";
+		this.message="de user: "+user+" heeft volgende actie uitgevoerd "+actie +" op " + date +" ";
 		Save();
 	}
 	public LogFileHelper(String user,String actie,String path){

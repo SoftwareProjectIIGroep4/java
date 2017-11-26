@@ -11,12 +11,14 @@ import dataAccess.CertificateAccess;
 import dataAccess.TrainingSessionAccess;
 import demos.Demo1;
 import models.Certificate;
+import models.LogFileHelper;
 import models.TrainingInfo;
 import models.TrainingSession;
 
 public class App {
 	public static void main(String[] args) {
 		// Demo1.start();
+		LogFileHelper l = new LogFileHelper ("testuser", "testactie", "c:/users/ruben/test.txt");
 
 		try {
 			Cache.trainingSessionCache.get(5);
