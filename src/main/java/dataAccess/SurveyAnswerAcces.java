@@ -47,11 +47,13 @@ public static SurveyQuestion remove(Integer id) throws URISyntaxException, IOExc
 }
 
 
-public static HashMap<Integer, SurveyAnswer> getByQuestionID(Integer questionID) throws IOException, URISyntaxException {		
+public static HashMap<Integer, SurveyAnswer> getAnswersByQuestionID(Integer questionID) throws IOException, URISyntaxException {		
 	String JSONEmps = getAllOrOne(new URI(Constants.SURVEY_QUESTIONS_SOURCE + questionID + "/question"));
 	HashMap<Integer, SurveyAnswer> surverQs =  mapper.readValue(JSONEmps, new TypeReference<HashMap<Integer, SurveyAnswer>>() {
 	});			
 	return surverQs;
 	}
+
+
 
 }

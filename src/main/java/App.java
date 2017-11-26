@@ -1,3 +1,6 @@
+import static org.junit.Assert.assertFalse;
+
+import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Date;
@@ -38,6 +41,11 @@ public class App {
 		System.out.println("Run 2");
 		System.out.println(Cache.surveyQuestionCache.get(1));
 	}
+	public static void makeNewSurveyTest() throws ExecutionException {
+		System.out.println("Make a new Survey");
+		System.out.println("");
+	}
+	
 
 	public static void empTest() throws ExecutionException {
 		System.out.println("Run 1");

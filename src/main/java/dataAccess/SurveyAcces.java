@@ -9,6 +9,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import models.Survey;
+import models.SurveyAnswer;
 
 public class SurveyAcces extends RestRequest {
 	
@@ -38,5 +39,15 @@ public class SurveyAcces extends RestRequest {
 			surveyMap.put(survey.getSurveyID(), survey);
 		}
 		return surveyMap;
+	}
+	public static HashMap<Integer, Survey> getSurveyByQuestionID(Integer questionID) throws IOException, URISyntaxException {		
+		String JSONEmps = getAllOrOne(new URI(Constants.SURVEY_QUESTIONS_SOURCE + questionID + "/survey"));
+		HashMap<Integer, Survey> surveys =  mapper.readValue(JSONEmps, new TypeReference<HashMap<Integer, SurveyAnswer>>() {
+		});			
+		return surveys;
+		}
+	public static Survey add(Survey survey) throws IOException, URISyntaxException {
+		String JSONSurvey = postObject(survey, new URI(Constants.SURVEY_SOURCE));
+		return mapper.readValue(JSONSurvey, Survey.class);
 	}
 }
