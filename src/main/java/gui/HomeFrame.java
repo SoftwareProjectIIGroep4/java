@@ -19,6 +19,8 @@ public class HomeFrame extends JFrame {
 
 	private JPanel contentPane;
 	private String fullEmployee;
+	
+	
 
 	/**
 	 * Create the frame.
