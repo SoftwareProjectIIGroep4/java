@@ -30,22 +30,6 @@ public class SelectTrainingFrame extends JFrame {
 	private JTable tbTraining;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SelectTrainingFrame frame = new SelectTrainingFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public SelectTrainingFrame() {

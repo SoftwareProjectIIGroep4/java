@@ -36,23 +36,6 @@ public class TrainingSessionFrame extends JFrame {
 	private JTextField txtFrom;
 	private JTextField txtUntil;
 	private JTable tbSession;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TrainingSessionFrame frame = new TrainingSessionFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	
 	/**
 	 * Create the frame.

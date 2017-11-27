@@ -27,21 +27,7 @@ public class EditTrainingFrame extends JFrame {
 	private JTextField txtNumberOfDays;
 	private JTextField txtPrice;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EditTrainingFrame frame = new EditTrainingFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.

@@ -42,25 +42,6 @@ public class NewTrainingSessionFrame extends JFrame {
 	private JTextField txtCountry;
 	private JTextField txtTrainingTitel;
 	private JTable tbTraining;
-
-
-	
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NewTrainingSessionFrame frame = new NewTrainingSessionFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	/**
 	 * Create the frame.

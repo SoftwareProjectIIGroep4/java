@@ -33,23 +33,6 @@ public class TrainingSessionBookFrame extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtSearch;
 	private JTable tbBook;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TrainingSessionBookFrame frame = new TrainingSessionBookFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	
 	/**
 	 * Create the frame.

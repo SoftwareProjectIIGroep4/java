@@ -35,23 +35,6 @@ public class TrainingSessionPeopleFrame extends JFrame {
 	private JTextField txtDepartment;
 	private JTextField txtFunction;
 	private JTable tbBook;
-
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TrainingSessionPeopleFrame frame = new TrainingSessionPeopleFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	/**
 	 * Create the frame.
