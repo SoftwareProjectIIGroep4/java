@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import dataAccess.Cache;
 import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
@@ -15,6 +17,7 @@ public class TrainingSession {
 	private int addressId;
 	private int teacherId;
 	private int trainingId;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date date;
 	private Time startHour;
 	private Time endHour;

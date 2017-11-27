@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.concurrent.ExecutionException;
 import dataAccess.Cache;
 import dataAccess.CertificateAccess;
@@ -7,22 +9,23 @@ import dataAccess.TrainingSessionAccess;
 import demos.Demo1;
 import models.Certificate;
 import models.TrainingInfo;
+import models.TrainingSession;
 
 public class App {
 	public static void main(String[] args) {
 		// Demo1.start();
 		try {
-			trainingInfoTest();
-		} catch (URISyntaxException | IOException | ExecutionException e) {
+			Cache.trainingSessionCache.get(5);
+		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	public static void trainingInfoTest() throws URISyntaxException, IOException, ExecutionException {
-		TrainingInfo trainingInfo = Cache.trainingInfoCache.get(4);
-		trainingInfo.loadSessions();
-		System.out.println(trainingInfo.getSessions().values().iterator().next());
+		TrainingSession session = new TrainingSession(33, 1, 6, new Date(System.currentTimeMillis()) , new Time(1510833600000L) , new Time(1510840800000L) , false);
+		session.save();
+		
 	}
 
 	public static void trainingSessionTest() throws ExecutionException {
