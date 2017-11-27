@@ -150,6 +150,11 @@ public class TrainingFrame extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblTrainingRequests.setBorder(null);
 			}
+			 public void mouseClicked(MouseEvent e) {
+	                dispose();
+	    			TrainingrequestFrame trainingrequestFr = new TrainingrequestFrame();
+	    			trainingrequestFr.setVisible(true);   
+	        	}
 		});
 		lblTrainingRequests.setBackground(Color.WHITE);
 		lblTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);

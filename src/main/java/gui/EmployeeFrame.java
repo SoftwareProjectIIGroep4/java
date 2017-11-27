@@ -5,30 +5,41 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
-import javax.swing.border.Border;
-import java.awt.Font;
 import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
+import javax.swing.border.Border;
 import javax.swing.JList;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.JTabbedPane;
+import java.awt.Font;
 
 
 public class EmployeeFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField nameEmployeeSearch;
+	private JTextField firstnameEmployeeSearch;
+	private JTextField lastnameEmployeeSearch;
 	private JTextField departmentEmployeeSearch;
-	private JTextField functionEmployeeSearch;
 	private String fullEmployee;
+	private JTable tbEmployees;
+	private JTextField functionEmployeeSearch;
 	
 	/**
 	 * Launch the application.
@@ -154,6 +165,11 @@ public class EmployeeFrame extends JFrame {
             public void mouseExited(MouseEvent e) {
                 lblTrainingRequests.setBorder(null);
             }
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+    			TrainingrequestFrame trainingrequestFr = new TrainingrequestFrame();
+    			trainingrequestFr.setVisible(true);   
+        	}
         });
         lblTrainingRequests.setBackground(Color.WHITE);
         lblTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
@@ -171,78 +187,173 @@ public class EmployeeFrame extends JFrame {
         lblNewLabel_1.setOpaque(true);
         contentPane.add(lblNewLabel_1);
         
-        JLabel lblEmployeeName = new JLabel("Employee name");
-        lblEmployeeName.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblEmployeeName.setBounds(31, 115, 152, 14);
-        contentPane.add(lblEmployeeName);
+        JLabel lblEmployeeExplanation = new JLabel("Here is a list of the employees");
+        lblEmployeeExplanation.setBounds(30, 93, 231, 41);
+        contentPane.add(lblEmployeeExplanation);
         
-        JButton addEmployeeButton = new JButton("Add employee");
-        addEmployeeButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		dispose();
-        		AddEmployeeFrame addEmployeeFr = new AddEmployeeFrame();
-        		addEmployeeFr.setVisible(true);
-        	}
-        });
-        addEmployeeButton.setBounds(977, 115, 187, 68);
-        contentPane.add(addEmployeeButton);
         
-        JLabel lblNewLabel_2 = new JLabel("SEARCH EMPLOYEE");
-        lblNewLabel_2.setBounds(941, 344, 144, 28);
-        contentPane.add(lblNewLabel_2);
+        Object [] columnHeadersEmployees = {"Firstname","Lastname","Department","Function"};
+		DefaultTableModel modelEmployees = new DefaultTableModel();
+		modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
+		
+		Object[][] data = {
+
+		};
+		tbEmployees = new JTable(data, columnHeadersEmployees);
+		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersEmployees) {
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+		    }
+		};
+		tbEmployees.setModel(modelEmployees);
+		tbEmployees.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		tbEmployees.setBackground(Color.red);
+		tbEmployees.setForeground(Color.white);
+		Font font = new Font("",1,22);
+		tbEmployees.setFont(font);
+		tbEmployees.setRowHeight(30);
+		
+		
+		
+
+		//tbBook.setEnabled(false);
+		tbEmployees.setRowSelectionAllowed(true);
+		//tbBook.setModel(modelBook);
+		//https://stackoverflow.com/questions/17627431/auto-resizing-the-jtable-column-widths
+	    final TableColumnModel columnModelEmployees = tbEmployees.getColumnModel();
+	    for (int column = 0; column < tbEmployees.getColumnCount(); column++) {
+	        int width = 15; // Min width
+	        for (int row = 0; row < tbEmployees.getRowCount(); row++) {
+	            TableCellRenderer renderer = tbEmployees.getCellRenderer(row, column);
+	            Component comp = tbEmployees.prepareRenderer(renderer, row, column);
+	            width = Math.max(comp.getPreferredSize().width +1 , width);
+	        }
+	        if(width > 300)
+	            width=300;
+	        columnModelEmployees.getColumn(column).setPreferredWidth(width);
+	    }
+		
+	    
+		JScrollPane sclBook = new JScrollPane(tbEmployees);
+		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sclBook.setBounds(30, 145, 840, 525);
+		contentPane.add(sclBook);
+		ListSelectionModel selectedRowBook = tbEmployees.getSelectionModel();
+		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				if(!selectedRowBook.isSelectionEmpty()) {
+					//GET ROW
+					int selectedRow = selectedRowBook.getMinSelectionIndex();
+					lblEmployeeExplanation.setText(String.valueOf(selectedRow));
+				}
+			}
+		});
+		
+		 
+        firstnameEmployeeSearch = new JTextField();
+        firstnameEmployeeSearch.setBounds(958, 367, 189, 35);
+        contentPane.add(firstnameEmployeeSearch);
+        firstnameEmployeeSearch.setColumns(10);
         
-        nameEmployeeSearch = new JTextField();
-        nameEmployeeSearch.setBounds(977, 439, 189, 35);
-        contentPane.add(nameEmployeeSearch);
-        nameEmployeeSearch.setColumns(10);
+        lastnameEmployeeSearch = new JTextField();
+        lastnameEmployeeSearch.setBounds(958, 428, 189, 35);
+        contentPane.add(lastnameEmployeeSearch);
+        lastnameEmployeeSearch.setColumns(10);
         
         departmentEmployeeSearch = new JTextField();
-        departmentEmployeeSearch.setBounds(975, 516, 189, 35);
+        departmentEmployeeSearch.setBounds(958, 488, 189, 35);
         contentPane.add(departmentEmployeeSearch);
         departmentEmployeeSearch.setColumns(10);
-        
+       
         functionEmployeeSearch = new JTextField();
-        functionEmployeeSearch.setBounds(975, 587, 189, 35);
+        functionEmployeeSearch.setBounds(958, 548, 187, 41);
         contentPane.add(functionEmployeeSearch);
         functionEmployeeSearch.setColumns(10);
         
-        JLabel employeeSearchBorder = new JLabel("");
-        employeeSearchBorder.setBounds(941, 383, 279, 287);
-        employeeSearchBorder.setBorder(border);
-        contentPane.add(employeeSearchBorder);
-        
-        JLabel lblNewLabel_3 = new JLabel("Department");
-        lblNewLabel_3.setBounds(332, 117, 100, 12);
-        contentPane.add(lblNewLabel_3);
-        
-        JLabel lblNewLabel_4 = new JLabel("Function");
-        lblNewLabel_4.setBounds(555, 117, 138, 14);
-        contentPane.add(lblNewLabel_4);
-        
-        JLabel lblNewLabel_5 = new JLabel("Name");
-        lblNewLabel_5.setBounds(977, 408, 65, 21);
-        contentPane.add(lblNewLabel_5);
-        
-        JLabel lblNewLabel_6 = new JLabel("Department");
-        lblNewLabel_6.setBounds(977, 485, 100, 14);
-        contentPane.add(lblNewLabel_6);
-        
-        JLabel lblFunction = new JLabel("Function");
-        lblFunction.setBounds(977, 562, 100, 14);
-        contentPane.add(lblFunction);
-        
-        JButton btnDeleteEmployee = new JButton("Delete employee");
-        btnDeleteEmployee.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		dispose();
-        		DeleteEmployeeFrame deleteEmployeeFr = new DeleteEmployeeFrame();
-        		deleteEmployeeFr.setVisible(true);
+	
+      //SOURCE: https://www.youtube.com/watch?v=22MBsRYuM4Q
+		
+        JButton addEmployeeButton = new JButton("Add employee");
+        Object[] row = new Object[4];
+        addEmployeeButton.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent arg0) {
+        		
+        		row[0] = firstnameEmployeeSearch.getText();
+        		row[1] = lastnameEmployeeSearch.getText();
+        		row[2] = departmentEmployeeSearch.getText();
+        		row[3] = functionEmployeeSearch.getText();
+        		
+        		modelEmployees.addRow(row);
+            	
         	}
         });
-        btnDeleteEmployee.setBounds(977, 229, 187, 68);
-        contentPane.add(btnDeleteEmployee);
+        addEmployeeButton.setBounds(977, 114, 187, 41);
+        contentPane.add(addEmployeeButton);
         
-       
+        
+        
+        JButton deleteEmployeeButton = new JButton("Delete employee");
+        deleteEmployeeButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        		int i = tbEmployees.getSelectedRow();
+				if(i>=0) {
+					modelEmployees.removeRow(i);
+				} else {
+					System.out.println("Delete error");
+				}
+        	}
+        });
+        deleteEmployeeButton.setBounds(977, 218, 187, 41);
+        contentPane.add(deleteEmployeeButton);
+             
+        JButton updateEmployeeButton = new JButton("Update employee");
+        tbEmployees.addMouseListener(new MouseAdapter() {
+		
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        	
+        	int i = tbEmployees.getSelectedRow();
+        	firstnameEmployeeSearch.setText(modelEmployees.getValueAt(i, 0).toString());
+        	lastnameEmployeeSearch.setText(modelEmployees.getValueAt(i, 1).toString());
+        	departmentEmployeeSearch.setText(modelEmployees.getValueAt(i, 2).toString());
+        	functionEmployeeSearch.setText(modelEmployees.getValueAt(i, 3).toString());
+        	
+        }
+     });
+        
+        updateEmployeeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			int i = tbEmployees.getSelectedRow();
+			
+			if(i>=0) {
+				
+				modelEmployees.setValueAt(firstnameEmployeeSearch.getText(), i, 0);
+				modelEmployees.setValueAt(lastnameEmployeeSearch.getText(), i, 1);
+				modelEmployees.setValueAt(departmentEmployeeSearch.getText(), i, 2);
+				modelEmployees.setValueAt(functionEmployeeSearch.getText(), i, 3);
+				
+			} else {
+				System.out.println("Update Error");
+			}
+				
+			}
+		});
+        
+        
+        updateEmployeeButton.setBounds(977, 172, 187, 35);
+        contentPane.add(updateEmployeeButton);
         
         lblNewLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -250,5 +361,33 @@ public class EmployeeFrame extends JFrame {
                 lblNewLabel.setBackground(Color.GREEN);
             }
         });
+        
+        JLabel lblNewLabel_2 = new JLabel("SEARCH EMPLOYEE");
+        lblNewLabel_2.setBounds(929, 308, 144, 28);
+        contentPane.add(lblNewLabel_2);
+       
+        
+        JLabel employeeSearchBorder = new JLabel("");
+        employeeSearchBorder.setBounds(929, 333, 279, 337);
+        employeeSearchBorder.setBorder(border);
+        contentPane.add(employeeSearchBorder);
+        
+        JLabel lblNewLabel_5 = new JLabel("Firstname");
+        lblNewLabel_5.setBounds(958, 347, 65, 21);
+        contentPane.add(lblNewLabel_5);
+        
+        JLabel lblNewLabel_6 = new JLabel("Lastname");
+        lblNewLabel_6.setBounds(958, 413, 100, 14);
+        contentPane.add(lblNewLabel_6);
+        
+        JLabel lblFunction = new JLabel("Department");
+        lblFunction.setBounds(958, 474, 100, 14);
+        contentPane.add(lblFunction);
+       
+        
+        JLabel lblFunction_1 = new JLabel("Function");
+        lblFunction_1.setBounds(958, 534, 105, 14);
+        contentPane.add(lblFunction_1);
+        
 	}
 }

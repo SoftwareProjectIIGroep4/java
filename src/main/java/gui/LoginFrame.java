@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 import javax.swing.DropMode;
@@ -22,7 +24,7 @@ import java.awt.event.FocusEvent;
 public class LoginFrame {
 
 	private JFrame frame;
-	private JTextField txtPassword;
+	private JPasswordField txtPassword;
 	private JTextField txtEmail;
 	private JLabel lblTest;
 
@@ -63,7 +65,7 @@ public class LoginFrame {
 		btnLogin.setBounds(192, 302, 89, 23);
 		frame.getContentPane().add(btnLogin);
 		
-		txtPassword = new JTextField();
+		txtPassword = new JPasswordField();
 		txtPassword.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
