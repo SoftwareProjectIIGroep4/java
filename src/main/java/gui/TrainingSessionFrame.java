@@ -28,15 +28,14 @@ import javax.swing.table.TableColumnModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class TrainingFrame extends JFrame {
+public class TrainingSessionFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtKeyword;
 	private JTextField txtCity;
 	private JTextField txtFrom;
 	private JTextField txtUntil;
-	private JTable tbTraining;
-	private JTextField textField;
+	private JTable tbSession;
 
 	/**
 	 * Launch the application.
@@ -45,7 +44,7 @@ public class TrainingFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TrainingFrame frame = new TrainingFrame();
+					TrainingSessionFrame frame = new TrainingSessionFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,10 +53,11 @@ public class TrainingFrame extends JFrame {
 		});
 	}
 	
+	
 	/**
 	 * Create the frame.
 	 */
-	public TrainingFrame() {
+	public TrainingSessionFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -78,6 +78,12 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 			public void mouseExited(MouseEvent e) {
 				lblTraining.setBorder(null);
 			}
+			@Override
+        	public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingFrame trainingFr = new TrainingFrame();
+        		trainingFr.setVisible(true);
+        	}
 		});
 		lblTraining.setBackground(Color.WHITE);
 		lblTraining.setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,12 +100,6 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblTrainingSession.setBorder(null);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-				TrainingSessionFrame newFrame = new TrainingSessionFrame();
-				newFrame.setVisible(true);
 			}
 		});
 		lblTrainingSession.setBackground(Color.WHITE);
@@ -118,11 +118,12 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 			public void mouseExited(MouseEvent e) {
 				lblEmployees.setBorder(null);
 			}
-			public void mouseClicked(MouseEvent e) {
+			@Override
+        	public void mouseClicked(MouseEvent e) {
 				dispose();
 				EmployeeFrame frame = new EmployeeFrame();
-				frame.setVisible(true);
-			}
+        		frame.setVisible(true);
+        	}
 		});
 		lblEmployees.setBackground(Color.WHITE);
 		lblEmployees.setHorizontalAlignment(SwingConstants.CENTER);
@@ -140,11 +141,12 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 			public void mouseExited(MouseEvent e) {
 				lblStatistics.setBorder(null);
 			}
-			public void mouseClicked(MouseEvent e) {
+			@Override
+        	public void mouseClicked(MouseEvent e) {
 				dispose();
 				StatistiekenFrame frame = new StatistiekenFrame();
-				frame.setVisible(true);
-			}
+        		frame.setVisible(true);
+        	}
 		});
 		lblStatistics.setBackground(Color.WHITE);
 		lblStatistics.setHorizontalAlignment(SwingConstants.CENTER);
@@ -162,11 +164,12 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 			public void mouseExited(MouseEvent e) {
 				lblTrainingRequests.setBorder(null);
 			}
-			public void mouseClicked(MouseEvent e) {
+			@Override
+        	public void mouseClicked(MouseEvent e) {
 				dispose();
 				TrainingrequestFrame frame = new TrainingrequestFrame();
-				frame.setVisible(true);
-			}
+        		frame.setVisible(true);
+        	}
 		});
 		lblTrainingRequests.setBackground(Color.WHITE);
 		lblTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
@@ -185,13 +188,13 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		contentPane.add(lblNewLabel_1);
 		
 		
-		Object [] columnHeadersSession = {"Title","City","Number of Days","Price"};
+		Object [] columnHeadersSession = {"Training session title","City","Date","Hour"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		Object[][] data = {
 				//table data schrijven
 		};
-		tbTraining = new JTable(data, columnHeadersSession);
+		tbSession = new JTable(data, columnHeadersSession);
 		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersSession) {
 
 		    @Override
@@ -200,28 +203,28 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		       return false;
 		    }
 		};
-		tbTraining.setModel(tableModel);
-		tbTraining.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tbTraining.setRowSelectionAllowed(true);
+		tbSession.setModel(tableModel);
+		tbSession.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tbSession.setRowSelectionAllowed(true);
 		//https://stackoverflow.com/questions/17627431/auto-resizing-the-jtable-column-widths
-	    final TableColumnModel columnModelSession = tbTraining.getColumnModel();
-	    for (int column = 0; column < tbTraining.getColumnCount(); column++) {
+	    final TableColumnModel columnModelSession = tbSession.getColumnModel();
+	    for (int column = 0; column < tbSession.getColumnCount(); column++) {
 	        int width = 15; // Min width
-	        for (int row = 0; row < tbTraining.getRowCount(); row++) {
-	            TableCellRenderer renderer = tbTraining.getCellRenderer(row, column);
-	            Component comp = tbTraining.prepareRenderer(renderer, row, column);
+	        for (int row = 0; row < tbSession.getRowCount(); row++) {
+	            TableCellRenderer renderer = tbSession.getCellRenderer(row, column);
+	            Component comp = tbSession.prepareRenderer(renderer, row, column);
 	            width = Math.max(comp.getPreferredSize().width +1 , width);
 	        }
 	        if(width > 300)
 	            width=300;
 	        columnModelSession.getColumn(column).setPreferredWidth(width);
 	    }  
-		JScrollPane sclBook = new JScrollPane(tbTraining);
+		JScrollPane sclBook = new JScrollPane(tbSession);
 		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		sclBook.setBounds(30, 116, 730, 540);
 		contentPane.add(sclBook);
-		ListSelectionModel selectedRowBook = tbTraining.getSelectionModel();
+		ListSelectionModel selectedRowBook = tbSession.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
@@ -240,16 +243,17 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		lblBackBorder.setBorder(border);
 		contentPane.add(lblBackBorder);
 		
-		JButton btnAddTrainingSession = new JButton("Add new training");
+		JButton btnAddTrainingSession = new JButton("Add training session");
 		btnAddTrainingSession.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+			@Override
+        	public void mouseClicked(MouseEvent e) {
 				dispose();
-				NewTrainingFrame frame = new NewTrainingFrame();
-				frame.setVisible(true);
-			}
+				NewTrainingSessionFrame frame = new NewTrainingSessionFrame();
+        		frame.setVisible(true);
+        	}
 		});
 		btnAddTrainingSession.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnAddTrainingSession.setBounds(1009, 106, 181, 45);
+		btnAddTrainingSession.setBounds(925, 100, 200, 50);
 		contentPane.add(btnAddTrainingSession);
 		
 		JLabel lblFilters = new JLabel("Filters");
@@ -273,7 +277,7 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		chckbxMonday.setBounds(820, 304, 97, 23);
 		contentPane.add(chckbxMonday);
 		
-		JCheckBox chckbxTeusday = new JCheckBox("Tuesday");
+		JCheckBox chckbxTeusday = new JCheckBox("Teusday");
 		chckbxTeusday.setBounds(977, 304, 97, 23);
 		contentPane.add(chckbxTeusday);
 		
@@ -318,29 +322,8 @@ Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		txtUntil.setColumns(10);
 		
 		JLabel lblBackBorder2 = new JLabel("");
-		lblBackBorder2.setBounds(785, 186, 450, 484);
+		lblBackBorder2.setBounds(800, 186, 450, 484);
 		lblBackBorder2.setBorder(border);
 		contentPane.add(lblBackBorder2);
-		
-		JLabel lblPrice = new JLabel("Price:");
-		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPrice.setBounds(820, 497, 46, 14);
-		contentPane.add(lblPrice);
-		
-		textField = new JTextField();
-		textField.setBounds(876, 496, 86, 25);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		JButton btnSelectTraining = new JButton("Select training");
-		btnSelectTraining.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				SelectTrainingFrame frame = new SelectTrainingFrame();
-				frame.setVisible(true);		
-			}
-		});
-		btnSelectTraining.setBounds(800, 106, 162, 45);
-		contentPane.add(btnSelectTraining);
 	}
 }

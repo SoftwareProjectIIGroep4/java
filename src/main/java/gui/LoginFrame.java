@@ -43,6 +43,7 @@ public class LoginFrame {
 			}
 		});
 	}
+	
 
 	/**
 	 * Create the application.
@@ -109,8 +110,8 @@ public class LoginFrame {
 				lblTest.setText("De email of de wachtwoord is fout");
 				lblTest.setForeground(Color.red);
 				frame.dispose();
-				test2Frame testF = new test2Frame();
-				testF.setVisible(true);
+				HomeFrame home = new HomeFrame();
+				home.setVisible(true);
 			}
 		});
 	}

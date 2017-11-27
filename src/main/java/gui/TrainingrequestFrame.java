@@ -5,22 +5,36 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-import java.awt.Font;
-import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.JTabbedPane;
 
 
-public class StatistiekenFrame extends JFrame {
+public class TrainingrequestFrame extends JFrame {
 
 	private JPanel contentPane;
-	private String fullEmployee;
+	private JTable tbTrainingrequest;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 	
 	/**
 	 * Launch the application.
@@ -29,7 +43,7 @@ public class StatistiekenFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StatistiekenFrame frame = new StatistiekenFrame();
+					TrainingrequestFrame frame = new TrainingrequestFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +55,7 @@ public class StatistiekenFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StatistiekenFrame() {
+	public TrainingrequestFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -93,8 +107,8 @@ public class StatistiekenFrame extends JFrame {
             @Override
         	public void mouseClicked(MouseEvent e) {
 				dispose();
-				TrainingFrame trainingFr = new TrainingFrame();
-        		trainingFr.setVisible(true);
+				TrainingSessionFrame frame = new TrainingSessionFrame();
+        		frame.setVisible(true);
         	}
         });
         lblTrainingSession.setBackground(Color.WHITE);
@@ -136,6 +150,11 @@ public class StatistiekenFrame extends JFrame {
             public void mouseExited(MouseEvent e) {
                 lblStatistics.setBorder(null);
             }
+            public void mouseClicked(MouseEvent e) {
+        		dispose();
+				StatistiekenFrame statistiekenFr = new StatistiekenFrame();
+				statistiekenFr.setVisible(true);
+        	}
         });
         lblStatistics.setBackground(Color.WHITE);
         lblStatistics.setHorizontalAlignment(SwingConstants.CENTER);
@@ -153,12 +172,9 @@ public class StatistiekenFrame extends JFrame {
             public void mouseExited(MouseEvent e) {
                 lblTrainingRequests.setBorder(null);
             }
-            public void mouseClicked(MouseEvent e) {
-                dispose();
-    			TrainingrequestFrame trainingrequestFr = new TrainingrequestFrame();
-    			trainingrequestFr.setVisible(true);   
-        	}
+
         });
+   
         lblTrainingRequests.setBackground(Color.WHITE);
         lblTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
         lblTrainingRequests.setOpaque(true);
@@ -175,32 +191,110 @@ public class StatistiekenFrame extends JFrame {
         lblNewLabel_1.setOpaque(true);
         contentPane.add(lblNewLabel_1);
         
-        JLabel lblNewLabel_2 = new JLabel("Choose the category of which you want to see the statistics");
-        lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNewLabel_2.setBounds(434, 114, 452, 46);
+        JLabel lblListOfRequested = new JLabel("List of requested trainings (click on the requests in the list to get more information)");
+        lblListOfRequested.setBounds(30, 102, 644, 38);
+        contentPane.add(lblListOfRequested);
+        
+        
+        Object [] columnHeadersBook = {"Employee name","Training name","Country","City"};
+		DefaultTableModel modelBook = new DefaultTableModel();
+		modelBook.setColumnIdentifiers(columnHeadersBook);
+		Object[][] data = {
+
+		};
+		tbTrainingrequest = new JTable(data, columnHeadersBook);
+		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersBook) {
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+		    }
+		};
+		tbTrainingrequest.setModel(tableModel);
+		tbTrainingrequest.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		//tbBook.setEnabled(false);
+		tbTrainingrequest.setRowSelectionAllowed(true);
+		//tbBook.setModel(modelBook);
+		//https://stackoverflow.com/questions/17627431/auto-resizing-the-jtable-column-widths
+	    final TableColumnModel columnModelBook = tbTrainingrequest.getColumnModel();
+	    for (int column = 0; column < tbTrainingrequest.getColumnCount(); column++) {
+	        int width = 15; // Min width
+	        for (int row = 0; row < tbTrainingrequest.getRowCount(); row++) {
+	            TableCellRenderer renderer = tbTrainingrequest.getCellRenderer(row, column);
+	            Component comp = tbTrainingrequest.prepareRenderer(renderer, row, column);
+	            width = Math.max(comp.getPreferredSize().width +1 , width);
+	        }
+	        if(width > 300)
+	            width=300;
+	        columnModelBook.getColumn(column).setPreferredWidth(width);
+	    }
+		
+	    
+		JScrollPane sclBook = new JScrollPane(tbTrainingrequest);
+		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sclBook.setBounds(30, 145, 840, 525);
+		contentPane.add(sclBook);
+		ListSelectionModel selectedRowBook = tbTrainingrequest.getSelectionModel();
+		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				if(!selectedRowBook.isSelectionEmpty()) {
+					//GET ROW
+					int selectedRow = selectedRowBook.getMinSelectionIndex();
+					lblListOfRequested.setText(String.valueOf(selectedRow));
+				}
+			}
+		});
+        
+        JLabel lblNewLabel_2 = new JLabel("Filters");
+        lblNewLabel_2.setBounds(890, 202, 162, 30);
         contentPane.add(lblNewLabel_2);
         
-        JButton btnNewButton = new JButton("Employee");
-        btnNewButton.setBounds(516, 171, 252, 46);
-        contentPane.add(btnNewButton);
+        JLabel lblNewLabel_3 = new JLabel("Training name");
+        lblNewLabel_3.setBounds(914, 308, 133, 30);
+        contentPane.add(lblNewLabel_3);
         
-        JButton btnNewButton_1 = new JButton("Training");
-        btnNewButton_1.setBounds(516, 243, 252, 46);
-        contentPane.add(btnNewButton_1);
+        textField = new JTextField();
+        textField.setBounds(914, 267, 178, 30);
+        contentPane.add(textField);
+        textField.setColumns(10);
         
-        JButton btnNewButton_2 = new JButton("Trainingsessions");
-        btnNewButton_2.setBounds(516, 312, 252, 46);
-        contentPane.add(btnNewButton_2);
+        JLabel lblNewLabel_4 = new JLabel("Country");
+        lblNewLabel_4.setBounds(914, 383, 134, 16);
+        contentPane.add(lblNewLabel_4);
         
-        JButton btnBooks = new JButton("Books");
-        btnBooks.setBounds(516, 390, 252, 46);
-        contentPane.add(btnBooks);
+        textField_1 = new JTextField();
+        textField_1.setBounds(914, 345, 178, 30);
+        contentPane.add(textField_1);
+        textField_1.setColumns(10);
         
-        lblNewLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent arg0) {
-                lblNewLabel.setBackground(Color.GREEN);
-            }
-        });
+        JLabel lblNewLabel_5 = new JLabel("City");
+        lblNewLabel_5.setBounds(914, 448, 134, 30);
+        contentPane.add(lblNewLabel_5);
+        
+        textField_2 = new JTextField();
+        textField_2.setBounds(914, 410, 178, 30);
+        contentPane.add(textField_2);
+        textField_2.setColumns(10);
+        
+        JLabel lblNewLabel_6 = new JLabel("Employee name");
+        lblNewLabel_6.setBounds(914, 239, 178, 30);
+        contentPane.add(lblNewLabel_6);
+        
+        textField_3 = new JTextField();
+        textField_3.setBounds(914, 477, 178, 30);
+        contentPane.add(textField_3);
+        textField_3.setColumns(10);
+        
+        JLabel TrainingreqBorder = new JLabel("");
+        TrainingreqBorder.setBounds(880, 230, 374, 440);
+        TrainingreqBorder.setBorder(border1);
+        contentPane.add(TrainingreqBorder);
+
+  
 	}
 }

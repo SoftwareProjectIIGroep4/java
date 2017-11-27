@@ -13,11 +13,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-import java.awt.Font;
-import javax.swing.JButton;
 
 
-public class StatistiekenFrame extends JFrame {
+public class HomeFrame extends JFrame {
 
 	private JPanel contentPane;
 	private String fullEmployee;
@@ -29,7 +27,7 @@ public class StatistiekenFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StatistiekenFrame frame = new StatistiekenFrame();
+					HomeFrame frame = new HomeFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +39,7 @@ public class StatistiekenFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StatistiekenFrame() {
+	public HomeFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -66,7 +64,6 @@ public class StatistiekenFrame extends JFrame {
             public void mouseExited(MouseEvent e) {
                 lblTraining1.setBorder(null);
             }
-        	
 			@Override
         	public void mouseClicked(MouseEvent e) {
 				dispose();
@@ -93,9 +90,10 @@ public class StatistiekenFrame extends JFrame {
             @Override
         	public void mouseClicked(MouseEvent e) {
 				dispose();
-				TrainingFrame trainingFr = new TrainingFrame();
-        		trainingFr.setVisible(true);
+				TrainingSessionFrame trainingsessFr = new TrainingSessionFrame();
+        		trainingsessFr.setVisible(true);
         	}
+            
         });
         lblTrainingSession.setBackground(Color.WHITE);
         lblTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
@@ -136,6 +134,11 @@ public class StatistiekenFrame extends JFrame {
             public void mouseExited(MouseEvent e) {
                 lblStatistics.setBorder(null);
             }
+            public void mouseClicked(MouseEvent e) {
+        		dispose();
+				StatistiekenFrame statistiekenFr = new StatistiekenFrame();
+				statistiekenFr.setVisible(true);
+        	}
         });
         lblStatistics.setBackground(Color.WHITE);
         lblStatistics.setHorizontalAlignment(SwingConstants.CENTER);
@@ -174,27 +177,6 @@ public class StatistiekenFrame extends JFrame {
         lblNewLabel_1.setBounds(1190, 0, 75, 75);
         lblNewLabel_1.setOpaque(true);
         contentPane.add(lblNewLabel_1);
-        
-        JLabel lblNewLabel_2 = new JLabel("Choose the category of which you want to see the statistics");
-        lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNewLabel_2.setBounds(434, 114, 452, 46);
-        contentPane.add(lblNewLabel_2);
-        
-        JButton btnNewButton = new JButton("Employee");
-        btnNewButton.setBounds(516, 171, 252, 46);
-        contentPane.add(btnNewButton);
-        
-        JButton btnNewButton_1 = new JButton("Training");
-        btnNewButton_1.setBounds(516, 243, 252, 46);
-        contentPane.add(btnNewButton_1);
-        
-        JButton btnNewButton_2 = new JButton("Trainingsessions");
-        btnNewButton_2.setBounds(516, 312, 252, 46);
-        contentPane.add(btnNewButton_2);
-        
-        JButton btnBooks = new JButton("Books");
-        btnBooks.setBounds(516, 390, 252, 46);
-        contentPane.add(btnBooks);
         
         lblNewLabel.addMouseListener(new MouseAdapter() {
             @Override

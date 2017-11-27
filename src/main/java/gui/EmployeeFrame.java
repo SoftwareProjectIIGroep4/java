@@ -109,6 +109,12 @@ public class EmployeeFrame extends JFrame {
             public void mouseExited(MouseEvent e) {
                 lblTrainingSession.setBorder(null);
             }
+            @Override
+        	public void mouseClicked(MouseEvent e) {
+				dispose();
+				TrainingSessionFrame frame = new TrainingSessionFrame();
+        		frame.setVisible(true);
+        	}
         });
         lblTrainingSession.setBackground(Color.WHITE);
         lblTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
@@ -188,19 +194,18 @@ public class EmployeeFrame extends JFrame {
         contentPane.add(lblNewLabel_1);
         
         JLabel lblEmployeeExplanation = new JLabel("Here is a list of the employees");
-        lblEmployeeExplanation.setBounds(30, 93, 231, 41);
+        lblEmployeeExplanation.setBounds(20, 67, 231, 41);
         contentPane.add(lblEmployeeExplanation);
         
         
-        Object [] columnHeadersEmployees = {"Firstname","Lastname","Department","Function"};
-		DefaultTableModel modelEmployees = new DefaultTableModel();
-		modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
-		
+        Object [] columnHeadersSession = {"First name","Last name","Department","Function"};
+		DefaultTableModel modelSession = new DefaultTableModel();
+		modelSession.setColumnIdentifiers(columnHeadersSession);
 		Object[][] data = {
-
+				//table data schrijven
 		};
-		tbEmployees = new JTable(data, columnHeadersEmployees);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersEmployees) {
+		tbEmployees = new JTable(data, columnHeadersSession);
+		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersSession) {
 
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -208,23 +213,11 @@ public class EmployeeFrame extends JFrame {
 		       return false;
 		    }
 		};
-		tbEmployees.setModel(modelEmployees);
+		tbEmployees.setModel(tableModel);
 		tbEmployees.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		tbEmployees.setBackground(Color.red);
-		tbEmployees.setForeground(Color.white);
-		Font font = new Font("",1,22);
-		tbEmployees.setFont(font);
-		tbEmployees.setRowHeight(30);
-		
-		
-		
-
-		//tbBook.setEnabled(false);
 		tbEmployees.setRowSelectionAllowed(true);
-		//tbBook.setModel(modelBook);
 		//https://stackoverflow.com/questions/17627431/auto-resizing-the-jtable-column-widths
-	    final TableColumnModel columnModelEmployees = tbEmployees.getColumnModel();
+	    final TableColumnModel columnModelSession = tbEmployees.getColumnModel();
 	    for (int column = 0; column < tbEmployees.getColumnCount(); column++) {
 	        int width = 15; // Min width
 	        for (int row = 0; row < tbEmployees.getRowCount(); row++) {
@@ -234,14 +227,12 @@ public class EmployeeFrame extends JFrame {
 	        }
 	        if(width > 300)
 	            width=300;
-	        columnModelEmployees.getColumn(column).setPreferredWidth(width);
-	    }
-		
-	    
+	        columnModelSession.getColumn(column).setPreferredWidth(width);
+	    }  
 		JScrollPane sclBook = new JScrollPane(tbEmployees);
 		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclBook.setBounds(30, 145, 840, 525);
+		sclBook.setBounds(31, 119, 789, 537);
 		contentPane.add(sclBook);
 		ListSelectionModel selectedRowBook = tbEmployees.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
@@ -251,10 +242,16 @@ public class EmployeeFrame extends JFrame {
 				if(!selectedRowBook.isSelectionEmpty()) {
 					//GET ROW
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
-					lblEmployeeExplanation.setText(String.valueOf(selectedRow));
+					//doe iets hier
 				}
 			}
 		});
+		
+		
+		JLabel lblBackBorder = new JLabel("");
+		lblBackBorder.setBounds(20, 106, 812, 564);
+		lblBackBorder.setBorder(border);
+		contentPane.add(lblBackBorder);
 		
 		 
         firstnameEmployeeSearch = new JTextField();
@@ -280,7 +277,7 @@ public class EmployeeFrame extends JFrame {
 	
       //SOURCE: https://www.youtube.com/watch?v=22MBsRYuM4Q
 		
-        JButton addEmployeeButton = new JButton("Add employee");
+      /*  JButton addEmployeeButton = new JButton("Add employee");
         Object[] row = new Object[4];
         addEmployeeButton.addMouseListener(new MouseAdapter() {
         	@Override
@@ -349,11 +346,11 @@ public class EmployeeFrame extends JFrame {
 			}
 				
 			}
-		});
+		});*/
         
         
-        updateEmployeeButton.setBounds(977, 172, 187, 35);
-        contentPane.add(updateEmployeeButton);
+     //   updateEmployeeButton.setBounds(977, 172, 187, 35);
+      //  contentPane.add(updateEmployeeButton);
         
         lblNewLabel.addMouseListener(new MouseAdapter() {
             @Override
