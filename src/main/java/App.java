@@ -7,6 +7,7 @@ import dataAccess.Cache;
 import dataAccess.CertificateAccess;
 import dataAccess.TrainingSessionAccess;
 import demos.Demo1;
+import models.Address;
 import models.Certificate;
 import models.TrainingInfo;
 import models.TrainingSession;
