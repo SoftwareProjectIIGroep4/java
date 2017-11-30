@@ -46,7 +46,15 @@ dependencies {
 		// needed for binding PDF
 		// https://mvnrepository.com/artifact/org.slf4j/slf4j-simpletest
 		Compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
-
+	// google books
+	compile 'com.google.api.client.googleapis.javanet.GoogleNetHttpTransport'
+	compile 'com.google.api.client.json.JsonFactory'
+	compile 'com.google.api.client.json.jackson2.JacksonFactory'
+	compile 'com.google.api.services.books.Books'
+	compile 'com.google.api.services.books.BooksRequestInitializer'
+	compile 'com.google.api.services.books.Books.Volumes.List'
+	compile 'com.google.api.services.books.model.Volume'
+	compile 'com.google.api.services.books.model.Volumes'
 	
     
     //Caching

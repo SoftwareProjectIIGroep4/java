@@ -108,12 +108,11 @@ public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }
 	public String toString() {
 		StringBuilder sb =new StringBuilder();
 		sb.append("vraag: "+questionID+"\n");
-		sb.append("van syrvey: "+surveyID+"\n");
+		sb.append("van survey: "+surveyID+"\n");
 		sb.append("antwoord(en)"+"\n");
 		for (int i=0;i<answers.size();i++) {
 			sb.append(answers.get(i).toString()+"\n");
 		}
 		return sb.toString();
 	}
-	//TODO pushen naar DB
 }
