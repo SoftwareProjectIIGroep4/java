@@ -90,5 +90,11 @@ public class loginPane extends JPanel {
 			lblMessage.setForeground(Color.red);
 			this.add(lblMessage);
 	 }
-
+	 
+	 public String getEmail() {
+	        return txtEmail.getText();
+	    }
+	public String getPassword() {
+	        return txtPassword.getText();
+	   }
 }
