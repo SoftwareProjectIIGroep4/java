@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
-public class loginPane extends JPanel {
+public class LoginPane extends JPanel {
 
 	private JTextField txtPassword;
 	private JTextField txtEmail;
@@ -25,7 +25,7 @@ public class loginPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public loginPane() {
+	public LoginPane() {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
