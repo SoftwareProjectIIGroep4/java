@@ -86,9 +86,8 @@ public class loginPane extends JPanel {
 		 	btnLogin.addActionListener(listener);
 	    }
 	 void changeColor() {
-		 lblMessage.setText("De email of de wachtwoord is fout");
+		 	lblMessage.setText("De email of de wachtwoord is fout");
 			lblMessage.setForeground(Color.red);
-			this.add(lblMessage);
 	 }
 	 
 	 public String getEmail() {
