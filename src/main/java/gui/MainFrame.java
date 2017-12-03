@@ -40,7 +40,7 @@ public class MainFrame extends JFrame {
         getContentPane().setLayout(layout);
 		
         
-        loginPane lp =  new loginPane();
+        LoginPane newLoginPane =  new LoginPane();
         NewTrainingSessionPane newNewTrainingSessionPane = new NewTrainingSessionPane();
         TrainingSessionBookPane newTrainingSessionBookPane = new TrainingSessionBookPane();
         TrainingSessionPoeplePane newTrainingSessionPoeplePane = new TrainingSessionPoeplePane();
@@ -49,7 +49,7 @@ public class MainFrame extends JFrame {
         NewTrianingPane newNewTrianingPane = new NewTrianingPane();
         
 
-        getContentPane().add(lp, "loginPanel");
+        getContentPane().add(newLoginPane, "loginPanel");
         getContentPane().add(newNewTrainingSessionPane, "NewTrainingSessionPane");
         getContentPane().add(newTrainingSessionBookPane, "TrainingSessionBookPane");
         getContentPane().add(newTrainingSessionPoeplePane, "TrainingSessionPoeplePane");
@@ -57,14 +57,14 @@ public class MainFrame extends JFrame {
         getContentPane().add(newSelectTrainingPane, "SelectTrainingPane");
         getContentPane().add(newNewTrianingPane, "NewTrianingPane");
         
-        lp.addActionListener(new ActionListener() {
+        newLoginPane.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String command = e.getActionCommand();
                 System.out.println(command);
                 if ("Login".equals(command)) {
-                	lp.changeColor();
-                    layout.show(lp, "newLogin");
+                	newLoginPane.changeColor();
+                    layout.show(newLoginPane, "newLogin");
                 } else if ("manager".equals(command)) {
                     //layout.show(getContentPane(), "managerLogin");
                 }
