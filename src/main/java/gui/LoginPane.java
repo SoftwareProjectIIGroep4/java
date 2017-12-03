@@ -25,6 +25,7 @@ public class LoginPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+    
 	public LoginPane() {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
