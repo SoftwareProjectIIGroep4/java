@@ -45,17 +45,13 @@ dependencies {
 		compile 'com.itextpdf:layout:7.0.4'
 		// needed for binding PDF
 		// https://mvnrepository.com/artifact/org.slf4j/slf4j-simpletest
-		Compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
+		compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
 	// google books
-	compile 'com.google.api.client.googleapis.javanet.GoogleNetHttpTransport'
-	compile 'com.google.api.client.json.JsonFactory'
-	compile 'com.google.api.client.json.jackson2.JacksonFactory'
-	compile 'com.google.api.services.books.Books'
-	compile 'com.google.api.services.books.BooksRequestInitializer'
-	compile 'com.google.api.services.books.Books.Volumes.List'
-	compile 'com.google.api.services.books.model.Volume'
-	compile 'com.google.api.services.books.model.Volumes'
+		compile 'com.google.apis:google-api-services-books:v1-rev93-1.23.0'
 	
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    
     
     //Caching
     compile 'com.google.guava:guava:23.0'

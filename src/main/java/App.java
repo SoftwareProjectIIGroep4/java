@@ -6,22 +6,65 @@ import java.net.URISyntaxException;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.concurrent.ExecutionException;
+
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.books.Books;
+
 import dataAccess.Cache;
 import dataAccess.CertificateAccess;
 import dataAccess.TrainingSessionAccess;
 import demos.Demo1;
+import models.Book;
 import models.Certificate;
 import models.LogFileHelper;
 import models.TrainingInfo;
 import models.TrainingSession;
+import models.ClientCredentials;
 
 public class App {
-	public static void main(String[] args) throws IOException {
-		// Demo1.start();
-		LogFileHelper l = new LogFileHelper ( "c:/users/public/test.txt");
-		LogFileHelper.log("testuser", "testactie");
-		
-	}
+	  public static void main(String[] args) {
+		    JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+		    try {
+		      // Verify command line parameters.
+		    /* if (args.length == 0) {
+		        System.err.println("Usage: BooksSample [--author|--isbn|--title] \"<query>\"");
+		        System.exit(1);
+		      }*/
+		      // Parse command line parameters into a query.
+		      // Query format: "[<author|isbn|intitle>:]<query>"
+		      String prefix = null;
+		      String query = "Potter";
+		      for (String arg : args) {
+		        if ("--author".equals(arg)) {
+		          prefix = "inauthor:";
+		        } else if ("--isbn".equals(arg)) {
+		          prefix = "isbn:";
+		        } else if ("--title".equals(arg)) {
+		          prefix = "intitle:";
+		        } else if (arg.startsWith("--")) {
+		          System.err.println("Unknown argument: " + arg);
+		          System.exit(1);
+		        } else {
+		          query = arg;
+		        }
+		      }
+		      if (prefix != null) {
+		        query = prefix + query;
+		      }
+		      try {
+		       Book.queryGoogleBooks(jsonFactory, query);
+		        // Success!
+		        return;
+		      } catch (IOException e) {
+		        System.err.println(e.getMessage());
+		      }
+		    } catch (Throwable t) {
+		      t.printStackTrace();
+		    }
+		    System.exit(0);
+		  };
+	
 
 	public static void trainingInfoTest() throws URISyntaxException, IOException, ExecutionException {
 		LogFileHelper.log("testuser", "testactie2");

@@ -2,23 +2,18 @@
 package models;
 
 
-import java.util.Objects;
+import java.io.IOException;
 import java.net.URISyntaxException;
-import java.io.IOException;
-
-//SOURCE: https://github.com/google/google-api-java-client-samples/blob/master/books-cmdline-sample/src/main/java/com/google/api/services/samples/books/cmdline/BooksSample.java
-
-
-
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.NumberFormat;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL; 
-
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.services.books.Books;
+import com.google.api.services.books.BooksRequestInitializer;
+import com.google.api.services.books.Books.Volumes.List;
+import com.google.api.services.books.model.Volume;
+import com.google.api.services.books.model.Volumes;
 
 import dataAccess.BookAccess;
 import dataAccess.Cache;
@@ -177,20 +172,21 @@ public class Book {
 			result = prime * result + ((title == null) ? 0 : title.hashCode());
 			return result;
 		}
+		// HERE BEGINS API
 		
-}
-		
-		/*private static final String APPLICATION_NAME = "";
-		  
-		  private static final NumberFormat CURRENCY_FORMATTER = NumberFormat.getCurrencyInstance();
+		// HERE BEGINS API DATAMEMBRS
+		private static final String APPLICATION_NAME = "";
+		  // HERE BEGINS API METHODS
+			
+		private static final NumberFormat CURRENCY_FORMATTER = NumberFormat.getCurrencyInstance();
 		  private static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance();
-		  private static void queryGoogleBooks(JsonFactory jsonFactory, String query) throws Exception {
+		  public static void queryGoogleBooks(JsonFactory jsonFactory, String query) throws Exception {
 		    ClientCredentials.errorIfNotSpecified();
 		    
 		    // Set up Books client.
 		    final Books books = new Books.Builder(GoogleNetHttpTransport.newTrustedTransport(), jsonFactory, null)
 		        .setApplicationName(APPLICATION_NAME)
-		      //  .setGoogleClientRequestInitializer(new BooksRequestInitializer(ClientCredentials.API_KEY))
+		       .setGoogleClientRequestInitializer(new BooksRequestInitializer(ClientCredentials.API_KEY))
 		        .build();
 		    // Set query string and filter only Google eBooks.
 		    System.out.println("Query: [" + query + "]");
@@ -266,95 +262,8 @@ public class Book {
 		        volumes.getTotalItems() + " total results at http://books.google.com/ebooks?q="
 		        + URLEncoder.encode(query, "UTF-8"));
 		  }
-		  public static void main(String[] args) {
-		    JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-		    try {
-		      // Verify command line parameters.
-		      if (args.length == 0) {
-		        System.err.println("Usage: BooksSample [--author|--isbn|--title] \"<query>\"");
-		        System.exit(1);
-		      }
-		      // Parse command line parameters into a query.
-		      // Query format: "[<author|isbn|intitle>:]<query>"
-		      String prefix = null;
-		      String query = "Potter";
-		      for (String arg : args) {
-		        if ("--author".equals(arg)) {
-		          prefix = "inauthor:";
-		        } else if ("--isbn".equals(arg)) {
-		          prefix = "isbn:";
-		        } else if ("--title".equals(arg)) {
-		          prefix = "intitle:";
-		        } else if (arg.startsWith("--")) {
-		          System.err.println("Unknown argument: " + arg);
-		          System.exit(1);
-		        } else {
-		          query = arg;
-		        }
-		      }
-		      if (prefix != null) {
-		        query = prefix + query;
-		      }
-		      try {
-		        queryGoogleBooks(jsonFactory, query);
-		        // Success!
-		        return;
-		      } catch (IOException e) {
-		        System.err.println(e.getMessage());
-		      }
-		    } catch (Throwable t) {
-		      t.printStackTrace();
-		    }
-		    System.exit(0);
-		  }*/
 		
-	/*	public static void call_me() throws Exception {
-		     String url = "https://www.googleapis.com/books/v1/volumes?q=HarryPotter&format=json";
-		     URL obj = new URL(url);
-		     HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		     // optional default is GET
-		     con.setRequestMethod("GET");
-		     //add request header
-		     con.setRequestProperty("User-Agent", "Mozilla/5.0");
-		     int responseCode = con.getResponseCode();
-		     System.out.println("\nSending 'GET' request to URL : " + url);
-		     System.out.println("Response Code : " + responseCode);
-		     BufferedReader in = new BufferedReader(
-		             new InputStreamReader(con.getInputStream()));
-		     String inputLine;
-		     StringBuffer response = new StringBuffer();
-		     while ((inputLine = in.readLine()) != null) {
-		     	response.append(inputLine);
-		     }
-		     in.close();
-		     //print in String
-		     System.out.println(response.toString());
-		     //Read JSON response and print
-		     JSONObject myResponse = new JSONObject(response.toString());
-		     System.out.println("result after Reading JSON Response");
-		     System.out.println("statusCode- "+myResponse.getString("statusCode"));
-		     System.out.println("statusMessage- "+myResponse.getString("statusMessage"));
-		     System.out.println("ipAddress- "+myResponse.getString("ipAddress"));
-		     System.out.println("countryCode- "+myResponse.getString("countryCode"));
-		     System.out.println("countryName- "+myResponse.getString("countryName"));
-		     System.out.println("regionName- "+myResponse.getString("regionName"));
-		     System.out.println("cityName- "+myResponse.getString("cityName"));
-		     System.out.println("zipCode- "+myResponse.getString("zipCode"));
-		     System.out.println("latitude- "+myResponse.getString("latitude"));
-		     System.out.println("longitude- "+myResponse.getString("longitude"));
-		     System.out.println("timeZone- "+myResponse.getString("timeZone"));  
-		   }
-		
-			public static void main(String[] args) {
-		     try {
-		         Book.call_me();
-		        } catch (Exception e) {
-		         e.printStackTrace();
-		       }
-		     }
-			   
-		
-		}*/
+		}
 		
 		
 		
