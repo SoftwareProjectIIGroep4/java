@@ -191,6 +191,15 @@ public class MainFrame extends JFrame {
                 } else if ("TrainingRequestsMenu".equals(command)) {
                 	//show trainingRequestMenu
                 	layout.show(getContentPane(), "trainingrequestPanel");
+                } else if ("addEmployeeToTable".equals(command)) {
+                	//show trainingRequestMenu
+                	layout.show(getContentPane(), "addEmployeeToTable");
+                } else if ("deleteEmployeeToTable".equals(command)) {
+                	//show trainingRequestMenu
+                	layout.show(getContentPane(), "deleteEmployeeToTable");
+                } else if ("updateEmployeeToTable".equals(command)) {
+                	//show trainingRequestMenu
+                	layout.show(getContentPane(), "updateEmployeeToTable");
                 } 
             }
         });
