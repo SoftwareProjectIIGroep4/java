@@ -27,6 +27,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 public class TrainingSessionPoeplePane extends JPanel {
+	private int selectedRow;
 	private JButton btnBack;
 	private JTextField txtName;
 	private JTextField txtDepartment;
@@ -269,7 +270,7 @@ public class TrainingSessionPoeplePane extends JPanel {
 				// TODO Auto-generated method stub
 				if(!selectedRowBook.isSelectionEmpty()) {
 					//GET ROW
-					//int selectedRow = selectedRowBook.getMinSelectionIndex();
+					selectedRow = selectedRowBook.getMinSelectionIndex();
 					//lblTrainingSessionTitle.setText(String.valueOf(selectedRow));
 				}
 			}
@@ -342,6 +343,8 @@ public class TrainingSessionPoeplePane extends JPanel {
 	public String getFunction() {
         return txtFunction.getText();
     }
-
+	public int getSelectedRow() {
+		return selectedRow;
+	}
 
 }
