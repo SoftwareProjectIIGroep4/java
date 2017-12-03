@@ -268,7 +268,7 @@ public class TrainingSessionInfoPane extends JPanel {
 	public void setGeneralInfo(String text) {
         txtGeneralInfo.setText(text);
     }
-	public String getExamInfot() {
+	public String getExamInfo() {
         return txtExamInfo.getText();
     }
 	public void setExamInfo(String text) {
