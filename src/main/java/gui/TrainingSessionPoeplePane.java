@@ -33,7 +33,7 @@ public class TrainingSessionPoeplePane extends JPanel {
 	private JTextField txtFunction;
 	private JTable tbEmployee;
 	private JButton btnCancelTrainingSession;
-	private JLabel jtbTrainingSessionTitle;
+	private JLabel lblTrainingSessionTitle;
 	private JToggleButton jtbInfo;
 	private JToggleButton jtbEnlistedPeople;
 	private JToggleButton jtbBooks;
@@ -155,10 +155,10 @@ public class TrainingSessionPoeplePane extends JPanel {
 		btnBack.setBounds(30, 100, 110, 50);
 		add(btnBack);
 		
-		jtbTrainingSessionTitle = new JLabel("Training session title");
-		jtbTrainingSessionTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		jtbTrainingSessionTitle.setBounds(175, 115, 300, 25);
-		add(jtbTrainingSessionTitle);
+		lblTrainingSessionTitle = new JLabel("Training session title");
+		lblTrainingSessionTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTrainingSessionTitle.setBounds(175, 115, 300, 25);
+		add(lblTrainingSessionTitle);
 		
 		btnCancelTrainingSession = new JButton("Cancel training session");
 		btnCancelTrainingSession.setBounds(1039, 100, 200, 50);
@@ -268,7 +268,7 @@ public class TrainingSessionPoeplePane extends JPanel {
 				if(!selectedRowBook.isSelectionEmpty()) {
 					//GET ROW
 					//int selectedRow = selectedRowBook.getMinSelectionIndex();
-					//jtbTrainingSessionTitle.setText(String.valueOf(selectedRow));
+					//lblTrainingSessionTitle.setText(String.valueOf(selectedRow));
 				}
 			}
 		});
