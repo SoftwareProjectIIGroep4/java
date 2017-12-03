@@ -41,20 +41,21 @@ public class MainFrame extends JFrame {
 		
         
         loginPane lp =  new loginPane();
-        NewTrainingSessionPane newTrainingSessionPane = new NewTrainingSessionPane();
+        NewTrainingSessionPane newNewTrainingSessionPane = new NewTrainingSessionPane();
         TrainingSessionBookPane newTrainingSessionBookPane = new TrainingSessionBookPane();
         TrainingSessionPoeplePane newTrainingSessionPoeplePane = new TrainingSessionPoeplePane();
         TrainingSessionInfoPane newTrainingSessionInfoPane = new TrainingSessionInfoPane();
         SelectTrainingPane newSelectTrainingPane = new SelectTrainingPane();
+        NewTrianingPane newNewTrianingPane = new NewTrianingPane();
         
-        
+
         getContentPane().add(lp, "loginPanel");
-        getContentPane().add(newTrainingSessionPane, "newTrainingSessionPane");
+        getContentPane().add(newNewTrainingSessionPane, "NewTrainingSessionPane");
         getContentPane().add(newTrainingSessionBookPane, "TrainingSessionBookPane");
         getContentPane().add(newTrainingSessionPoeplePane, "TrainingSessionPoeplePane");
         getContentPane().add(newTrainingSessionInfoPane, "TrainingSessionInfoPane");
         getContentPane().add(newSelectTrainingPane, "SelectTrainingPane");
-       
+        getContentPane().add(newNewTrianingPane, "NewTrianingPane");
         
         lp.addActionListener(new ActionListener() {
             @Override
@@ -70,7 +71,7 @@ public class MainFrame extends JFrame {
             }
         });
         
-        newTrainingSessionPane.addActionListener(new ActionListener() {
+        newNewTrainingSessionPane.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String command = e.getActionCommand();
@@ -191,7 +192,33 @@ public class MainFrame extends JFrame {
                 if ("Cancel".equals(command)) {
                 	//show trainingSessionPane
                 } else if ("MakeTrainingSession".equals(command)) {
-                	//show newtrainingSessionPane
+                	//show newTrainingSessionPane
+                }
+                
+            }
+        });
+        
+        newNewTrianingPane.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String command = e.getActionCommand();
+                System.out.println(command);
+                if ("TrainingMenu".equals(command)) {
+                	//show trainingPane
+                } else if ("TrainingSessionMenu".equals(command)) {
+                	//show trainingSessionPane
+                } else if ("EmployeesMenu".equals(command)) {
+                	//show employeesPane
+                } else if ("StatisticsMenu".equals(command)) {
+                	//show statisticsSessionPane
+                } else if ("TrainingRequestsMenu".equals(command)) {
+                	//show trainingRequestPane
+                } else if ("BackToTraining".equals(command)) {
+                	//show TrainingSessoinPane
+                } else if ("SaveTraining".equals(command)) {
+                	//cancel trainingSession
+                } else if ("AddNewTraining".equals(command)) {
+                	//show TrainingSessoinInfoPane
                 }
                 
             }
