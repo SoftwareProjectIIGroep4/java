@@ -153,6 +153,7 @@ public class TrainingSessionPoeplePane extends JPanel {
 		
 		btnBack = new JButton("<-  Back");
 		btnBack.setBounds(30, 100, 110, 50);
+		btnBack.setActionCommand("BackToTrainingSessoin");
 		add(btnBack);
 		
 		lblTrainingSessionTitle = new JLabel("Training session title");
@@ -162,6 +163,7 @@ public class TrainingSessionPoeplePane extends JPanel {
 		
 		btnCancelTrainingSession = new JButton("Cancel training session");
 		btnCancelTrainingSession.setBounds(1039, 100, 200, 50);
+		btnCancelTrainingSession.setActionCommand("CancelTrainingSession");
 		add(btnCancelTrainingSession);
 		
 		jtbInfo = new JToggleButton("Info");
