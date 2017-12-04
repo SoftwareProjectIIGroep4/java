@@ -388,7 +388,7 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		add(txtCountry);
 		
-		JLabel lblResaerchFortTraining = new JLabel("Resaerch for Training");
+		JLabel lblResaerchFortTraining = new JLabel("Research for Training");
 		lblResaerchFortTraining.setBounds(816, 200, 150, 14);
 		add(lblResaerchFortTraining);
 		
