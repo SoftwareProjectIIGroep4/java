@@ -16,7 +16,6 @@ import models.Survey;
 import models.SurveyAnswer;
 import models.SurveyQuestion;
 import models.Teacher;
-import models.Training;
 import models.TrainingInfo;
 import models.TrainingSession;
 
@@ -29,7 +28,7 @@ public class AppTest {
 	int postalCode = 1750;
 	String streetAddress = "Assessteenweg 161";
 	String premise = "Bus A";
-	String country = "België";
+	String country = "BelgiÃ«";
 	
 	Address adres = new Address(addressId,administrativeArea,locality,postalCode,streetAddress,premise,country);
 	
@@ -45,7 +44,7 @@ public class AppTest {
 	@Test
 	public void AssertEqualsTest() {
 		
-		assertEquals("België",adres.getCountry());
+		assertEquals("BelgiÃ«",adres.getCountry());
 		
 	}
 	
