@@ -1,10 +1,12 @@
 import static org.junit.Assert.assertFalse;
 
+import java.awt.List;
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.client.json.JsonFactory;
@@ -13,6 +15,8 @@ import com.google.api.services.books.Books;
 
 import dataAccess.Cache;
 import dataAccess.CertificateAccess;
+import dataAccess.ClientCredentials;
+import dataAccess.GoogleBooksAPI;
 import dataAccess.TrainingSessionAccess;
 import demos.Demo1;
 import models.Book;
@@ -20,7 +24,6 @@ import models.Certificate;
 import models.LogFileHelper;
 import models.TrainingInfo;
 import models.TrainingSession;
-import models.ClientCredentials;
 
 public class App {
 	  public static void main(String[] args) {
@@ -30,11 +33,11 @@ public class App {
 		    /* if (args.length == 0) {
 		        System.err.println("Usage: BooksSample [--author|--isbn|--title] \"<query>\"");
 		        System.exit(1);
-		      }*/
+		      }
 		      // Parse command line parameters into a query.
-		      // Query format: "[<author|isbn|intitle>:]<query>"
+		      // Query format: "[<author|isbn|intitle>:]<query>"*/
 		      String prefix = null;
-		      String query = "Potter";
+		      String query = "Java";
 		      for (String arg : args) {
 		        if ("--author".equals(arg)) {
 		          prefix = "inauthor:";
@@ -53,8 +56,14 @@ public class App {
 		        query = prefix + query;
 		      }
 		      try {
-		       Book.queryGoogleBooks(jsonFactory, query);
+		    	  ArrayList<Book> testBooks = new ArrayList<>();
+		      testBooks= GoogleBooksAPI.queryGoogleBooks(jsonFactory, query);
 		        // Success!
+		      	System.out.println("DIT IS EEN TESTZONE PLS not ignore");
+		      	for (int i=0;i<testBooks.size();i++) {
+		      		System.out.println(testBooks.get(i).toString());
+		      	}
+		      	System.out.println("EINDE TESTZONE ");
 		        return;
 		      } catch (IOException e) {
 		        System.err.println(e.getMessage());
@@ -62,6 +71,7 @@ public class App {
 		    } catch (Throwable t) {
 		      t.printStackTrace();
 		    }
+		    
 		    System.exit(0);
 		  };
 	
