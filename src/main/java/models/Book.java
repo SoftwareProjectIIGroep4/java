@@ -22,12 +22,11 @@ import dataAccess.ClientCredentials;
 
 public class Book {
 
-		private long isbn;
+		private long bookID;
 		private String title;
 		private ArrayList<String>authors  = new ArrayList<>();
 		private String publisher;
 		 private String link;
-		// private String info;
 		private double price;
 		
 		
@@ -37,13 +36,13 @@ public class Book {
 		
 		public Book(Book book) {
 			
-			this(book.isbn,book.title,book.authors,book.publisher,book.price);	
+			this(book.bookID,book.title,book.authors,book.publisher,book.price);	
 			
 		}
 
 		public Book(long isbn, String title, ArrayList<String> authors, String publisher, double price) {
 			super();
-			this.isbn = isbn;
+			this.bookID = isbn;
 			this.title = title;
 			this.authors = authors;
 			this.publisher = publisher;
@@ -63,12 +62,12 @@ public class Book {
 		}
 
 
-		public long getIsbn() {
-			return isbn;
+		public long getBookID() {
+			return bookID;
 		}
 
-		public void setIsbn(long isbn) {
-			this.isbn = isbn;
+		public void setBookID(long isbn) {
+			this.bookID = isbn;
 		}
 
 
@@ -114,7 +113,7 @@ public class Book {
 		
 		public String toString() {
 			StringBuilder sbr=new StringBuilder();
-			sbr.append("ISBN: "+isbn+'\n');
+			sbr.append("bookID: "+bookID+'\n');
 			sbr.append("Title: "+title+'\n');
 			for (int i=0;i<authors.size();i++) {
 			sbr.append("Author(s)"+'\n');
@@ -129,21 +128,21 @@ public class Book {
 		
 		
 		public void save() throws URISyntaxException, IOException {
-			if (isbn != 0) {
+			if (bookID != 0) {
 				BookAccess.update(this);
-				Cache.bookCache.put(isbn, this);
+				Cache.bookCache.put(bookID, this);
 			}
 			else {
-				isbn = (BookAccess.add(this).getIsbn());
-				Cache.bookCache.put(isbn, this);
+				bookID = (BookAccess.add(this).getBookID());
+				Cache.bookCache.put(bookID, this);
 			}
 		}
 		
 		
 		public void delete() throws URISyntaxException, IOException {
-			if (isbn != 0) {
-				BookAccess.remove(isbn);
-				Cache.bookCache.invalidate(isbn);
+			if (bookID != 0) {
+				BookAccess.remove(bookID);
+				Cache.bookCache.invalidate(bookID);
 			}
 		}
 		
@@ -162,7 +161,7 @@ public class Book {
 					return false;
 			} else if (!authors.equals(other.authors))
 				return false;
-			if (isbn != other.isbn)
+			if (bookID != other.bookID)
 				return false;
 			if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 				return false;
@@ -185,7 +184,7 @@ public class Book {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + ((authors == null) ? 0 : authors.hashCode());
-			result = prime * result + (int) (isbn ^ (isbn >>> 32));
+			result = prime * result + (int) (bookID ^ (bookID >>> 32));
 			long temp;
 			temp = Double.doubleToLongBits(price);
 			result = prime * result + (int) (temp ^ (temp >>> 32));

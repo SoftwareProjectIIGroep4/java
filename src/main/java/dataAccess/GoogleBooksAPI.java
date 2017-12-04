@@ -67,6 +67,8 @@ public class GoogleBooksAPI {
 			      System.out.println("==========");
 			      // Title.
 			      System.out.println("Title: " + volumeInfo.getTitle());
+			      //
+			      b.setPublisher(volumeInfo.getPublisher());			      
 			      // Author(s).
 			      java.util.List<String> authors = volumeInfo.getAuthors();
 			      if (authors != null && !authors.isEmpty()) {
