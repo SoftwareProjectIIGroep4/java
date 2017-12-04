@@ -34,7 +34,7 @@ public class App {
 		System.out.println(Cache.employeeCache.get(1));
 	}
 
-	public static void certTest() throws IOException {
+	public static void certTest() throws IOException, URISyntaxException {
 		byte[] bytes = { 3, 10, 8, 25 };
 		Certificate certificate = new Certificate(4, "a cert", bytes);
 		try {
