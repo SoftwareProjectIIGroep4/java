@@ -52,6 +52,13 @@ public class Teacher {
 		}
 	}
 	
+	public static void delete(int id) throws URISyntaxException, IOException {
+		if (id != 0) {
+			TeacherAccess.remove(id);
+			Cache.teacherCache.invalidate(id);
+		}
+	}
+	
 	public int getTeacherId() {
 		return teacherId;
 	}

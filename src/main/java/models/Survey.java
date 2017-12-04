@@ -1,43 +1,93 @@
 package models;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import models.SurveyQuestion;
 
 public class Survey {
-// DATAMEMBERS
-	private int surverID;
-	//private SurveyAnswer surveyAnswers;
-	private ArrayList <SurveyQuestion> surveyQuestions;
-//METHODS
-	public Survey(int surverID, ArrayList<SurveyQuestion> surveyQuestions) {
+	private int surveyID;
+	private HashMap<Integer, SurveyQuestion> surveyQuestions;
+
+	public Survey() {
 		super();
-		this.surverID = surverID;
+	}
+	
+	public Survey(int surveyID) {
+		super();
+		this.surveyID = surveyID;
+	}
+	
+	public Survey(int surveyID, HashMap<Integer, SurveyQuestion> surveyQuestions) {
+		super();
+		this.surveyID = surveyID;
 		this.surveyQuestions = surveyQuestions;
 	}
-	public Survey(int surverID) {
-		super();
-		this.surverID = surverID;
-	}
-	public Survey(ArrayList<SurveyQuestion> surveyQuestions) {
+	
+	public Survey(HashMap<Integer, SurveyQuestion> surveyQuestions) {
 		super();
 		this.surveyQuestions = surveyQuestions;
 	}
-	public int getSurverID() {
-		return surverID;
+	
+	public int getSurveyID() {
+		return surveyID;
 	}
-	public void setSurverID(int surverID) {
-		this.surverID = surverID;
+	
+	public void setSurveyID(int surveyID) {
+		this.surveyID = surveyID;
 	}
-	public ArrayList<SurveyQuestion> getSurveyQuestions() {
+	
+	public HashMap<Integer, SurveyQuestion> getSurveyQuestions() {
 		return surveyQuestions;
 	}
-	public void setSurveyQuestions(ArrayList<SurveyQuestion> surveyQuestions) {
+	
+	public void setSurveyQuestions(HashMap<Integer, SurveyQuestion> surveyQuestions) {
 		this.surveyQuestions = surveyQuestions;
 	}
-	public void addQuestion(SurveyQuestion question) {
-		surveyQuestions.add(question);
+	
+	public void setSurveyQuestions(ArrayList<SurveyQuestion> surveyQuestions) {
+		this.surveyQuestions = new HashMap<Integer, SurveyQuestion>();
+		for (SurveyQuestion surveyQuestion : surveyQuestions) {
+			this.surveyQuestions.put(surveyQuestion.getQuestionID(), surveyQuestion);
+		}
 	}
+	
+	public void addSurveyQuestion(SurveyQuestion question) {
+		surveyQuestions.put(question.getQuestionID(), question);
+	}
+	
+	public void deleteSurveyQuestion(int questionId) {
+		surveyQuestions.remove(questionId);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + surveyID;
+		result = prime * result + ((surveyQuestions == null) ? 0 : surveyQuestions.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Survey other = (Survey) obj;
+		if (surveyID != other.surveyID)
+			return false;
+		if (surveyQuestions == null) {
+			if (other.surveyQuestions != null)
+				return false;
+		} else if (!surveyQuestions.equals(other.surveyQuestions))
+			return false;
+		return true;
+	}	
 	
 	
 }

@@ -75,9 +75,7 @@ public class MainFrame extends JFrame {
                 System.out.println(command);
                 if ("Login".equals(command)) {
                 	newLoginPane.changeColor();
-                    layout.show(homePanel, "homePanel");
-                } else if ("manager".equals(command)) {
-                    //layout.show(getContentPane(), "managerLogin");
+                    layout.show(getContentPane(), "homePanel");
                 }
             }
         });
@@ -175,6 +173,7 @@ public class MainFrame extends JFrame {
                     	//show trainingRequestMenu
                     } else if ("backToTrainingSession".equals(command)) {
                     	//show trainingRequestMenu
+                    	layout.show(getContentPane(), "trainingSessionPanel");
                     } else if ("SaveTrainingSession".equals(command)) {
                     	//save de data voor training session gebruik getters
                     }

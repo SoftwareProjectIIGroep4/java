@@ -29,6 +29,19 @@ public class TrainingSessionAccess extends RestRequest {
 		}
 		return trainingSessionsMap;
 	}
+	
+	public static HashMap<Integer, TrainingSession> getByTrainingInfo(int trainingInfoId) throws IOException, URISyntaxException {
+		String JSON = getAllOrOne(new URI(Constants.TRAINING_INFO_SOURCE + trainingInfoId + "/sessions"));
+		List<TrainingSession> trainingSessions = mapper.readValue(JSON, new TypeReference<List<TrainingSession>>() {
+		});
+
+		HashMap<Integer, TrainingSession> trainingSessionsMap = new HashMap<Integer, TrainingSession>();
+
+		for (TrainingSession trainingSession : trainingSessions) {
+			trainingSessionsMap.put(trainingSession.getTrainingSessionId(), trainingSession);
+		}
+		return trainingSessionsMap;
+	}
 
 	public static TrainingSession add(TrainingSession trainingSession) throws IOException, URISyntaxException {
 		String JSON = postObject(trainingSession, new URI(Constants.TRAINING_SESSION_SOURCE));

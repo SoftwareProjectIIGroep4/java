@@ -66,6 +66,13 @@ public class Address {
 			Cache.addressCache.invalidate(addressId);
 		}
 	}
+	
+	public static void delete(int id) throws URISyntaxException, IOException {
+		if (id != 0) {
+			AddressAccess.remove(id);
+			Cache.addressCache.invalidate(id);
+		}
+	}
 
 	public int getAddressId() {
 		return addressId;
