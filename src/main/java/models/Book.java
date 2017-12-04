@@ -16,27 +16,6 @@ import com.google.api.services.books.Books.Volumes.List;
 import com.google.api.services.books.model.Volume;
 import com.google.api.services.books.model.Volumes;
 
-//SOURCE: https://github.com/google/google-api-java-client-samples/blob/master/books-cmdline-sample/src/main/java/com/google/api/services/samples/books/cmdline/BooksSample.java
-
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.books.Books;
-import com.google.api.services.books.BooksRequestInitializer;
-import com.google.api.services.books.Books.Volumes.List;
-import com.google.api.services.books.model.Volume;
-import com.google.api.services.books.model.Volumes;
-
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.text.NumberFormat;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL; 
-
-
 import dataAccess.BookAccess;
 import dataAccess.Cache;
 import dataAccess.ClientCredentials;
@@ -213,6 +192,8 @@ public class Book {
 			result = prime * result + ((title == null) ? 0 : title.hashCode());
 			return result;
 		}
+		
+		
 	}
 		
 		
