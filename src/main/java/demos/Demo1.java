@@ -154,6 +154,7 @@ public class Demo1 {
 
 		scanner.nextLine();
 		System.out.println("Het adres zit automatisch in de cache");		
+		System.out.println("----------------");
 		try {
 			System.out.println("Ophalen van de cache...");
 			adr = Cache.addressCache.get(adr.getAddressId());

@@ -19,6 +19,7 @@ import dataAccess.ClientCredentials;
 import dataAccess.GoogleBooksAPI;
 import dataAccess.TrainingSessionAccess;
 import demos.Demo1;
+import models.Address;
 import models.Book;
 import models.Certificate;
 import models.LogFileHelper;
@@ -110,7 +111,19 @@ public class App {
 		System.out.println(Cache.employeeCache.get(1));
 	}
 
-	public static void certTest() throws IOException {
+	public static void certTest() throws IOException, URISyntaxException {
+		byte[] bytes = { 3, 10, 8, 25 };
+		Certificate certificate = new Certificate(4, "a cert", bytes);
+		try {
+			certificate.save();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}
+	public static void certTestRuben() throws IOException {
 		LogFileHelper.log("testuser", "testactie7");
 		byte[] bytes = { 3, 10, 8, 25 };
 		Certificate certificate = new Certificate(4, "a cert", bytes);
