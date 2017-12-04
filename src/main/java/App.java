@@ -7,19 +7,14 @@ import dataAccess.Cache;
 import dataAccess.CertificateAccess;
 import dataAccess.TrainingSessionAccess;
 import demos.Demo1;
+import models.Address;
 import models.Certificate;
 import models.TrainingInfo;
 import models.TrainingSession;
 
 public class App {
 	public static void main(String[] args) {
-		// Demo1.start();
-		try {
-			Cache.trainingSessionCache.get(5);
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Demo1.start();		
 	}
 
 	public static void trainingInfoTest() throws URISyntaxException, IOException, ExecutionException {
@@ -42,9 +37,12 @@ public class App {
 	public static void certTest() throws IOException, URISyntaxException {
 		byte[] bytes = { 3, 10, 8, 25 };
 		Certificate certificate = new Certificate(4, "a cert", bytes);
-		System.out.println(certificate);
-
-
+		try {
+			certificate.save();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
