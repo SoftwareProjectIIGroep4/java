@@ -30,7 +30,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
 
 public class EmployeePane extends JPanel {
-
+	
+	private int selectedRow;
 	private JTextField firstnameEmployeeSearch;
 	private JTextField lastnameEmployeeSearch;
 	private JTextField departmentEmployeeSearch;
@@ -163,7 +164,9 @@ public class EmployeePane extends JPanel {
 		DefaultTableModel modelEmployees = new DefaultTableModel();
 		modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
 		Object[][] data = {
-
+				
+				
+				
 		};
 		tbEmployees = new JTable(data, columnHeadersEmployees);
 		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersEmployees)
@@ -196,14 +199,14 @@ public class EmployeePane extends JPanel {
 		sclTraining.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		sclTraining.setBounds(30, 119, 789, 581);
 		add(sclTraining);
-		ListSelectionModel selectedRowBook = tbEmployees.getSelectionModel();
-		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
+		ListSelectionModel selectedRowEmployees = tbEmployees.getSelectionModel();
+		selectedRowEmployees.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
 				// TODO Auto-generated method stub
-				if(!selectedRowBook.isSelectionEmpty()) {
+				if(!selectedRowEmployees.isSelectionEmpty()) {
 					//GET ROW
-					//int selectedRow = selectedRowBook.getMinSelectionIndex();
+					selectedRow = selectedRowEmployees.getMinSelectionIndex();
 					//doe iets hier
 				}
 			}
@@ -376,13 +379,11 @@ public class EmployeePane extends JPanel {
 				
 			} else {
 				System.out.println("Update Error");
-			}
-				
-			}
-		});
+			}	
+		}
+	});
 		add(btnUpdateEmployee);
-	
-	
+
 	}	
 
 	public void addActionListener(ActionListener listener) {

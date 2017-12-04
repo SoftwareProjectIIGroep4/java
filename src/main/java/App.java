@@ -121,7 +121,7 @@ public class App {
 			e.printStackTrace();
 		}
 	}
-
+}
 }
 	public static void certTestRuben() throws IOException {
 		LogFileHelper.log("testuser", "testactie7");
@@ -131,3 +131,4 @@ public class App {
 		
 	}
 }
+
