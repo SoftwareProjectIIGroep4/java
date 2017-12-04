@@ -510,5 +510,4 @@ public class NewTrainingSessionPane extends JPanel {
 	public String getTrainingTitel() {
         return txtTrainingTitel.getText();
     }
-	
 }
