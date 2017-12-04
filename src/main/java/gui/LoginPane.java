@@ -25,7 +25,6 @@ public class LoginPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-    
 	public LoginPane() {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
@@ -87,8 +86,10 @@ public class LoginPane extends JPanel {
 		 	btnLogin.addActionListener(listener);
 	    }
 	 void changeColor() {
-		 	lblMessage.setText("De email of de wachtwoord is fout");
+		 lblMessage.setText("Het email of wachtwoord is fout");
 			lblMessage.setForeground(Color.red);
+			this.add(lblMessage);
+
 	 }
 	 
 	 public String getEmail() {

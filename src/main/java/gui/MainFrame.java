@@ -38,7 +38,6 @@ public class MainFrame extends JFrame {
         setBounds(100, 100, 1280, 720);
         final CardLayout layout = new CardLayout();
         getContentPane().setLayout(layout);
-		
         
         LoginPane newLoginPane =  new LoginPane();
         NewTrainingSessionPane newNewTrainingSessionPane = new NewTrainingSessionPane();
@@ -70,8 +69,9 @@ public class MainFrame extends JFrame {
                 }
             }
         });
-        
+    
         newNewTrainingSessionPane.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 String command = e.getActionCommand();
@@ -125,12 +125,32 @@ public class MainFrame extends JFrame {
         });
         
         newTrainingSessionPoeplePane.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String command = e.getActionCommand();
-                System.out.println(command);
-                if ("TrainingMenu".equals(command)) {
-                	//show trainingPane
+
+                	layout.show(getContentPane(), "trainingPanel");
+                } else if ("TrainingSessionMenu".equals(command)) {
+                	//show trainingSessionPane
+                	layout.show(getContentPane(), "trainingSessionPanel");
+                } else	if ("EmployeesMenu".equals(command)) {
+                	//show employeesPane
+                	layout.show(getContentPane(), "employeePanel");
+                } else if ("StatisticsMenu".equals(command)) {
+                	//show statisticsSessionPane
+                	layout.show(getContentPane(), "statistiekenPanel");
+                } else if ("TrainingRequestsMenu".equals(command)) {
+                	//show trainingRequestMenu
+                	layout.show(getContentPane(), "trainingrequestPanel");
+                } else if ("backToTrainingSession".equals(command)) {
+                	//show trainingRequestMenu
+                	layout.show(getContentPane(),"trainingSessionPanel");
+                } else if ("SaveTrainingSession".equals(command)) {
+                	//save de data voor training session gebruik getters
+                	
+                }
+            }
+        });
+        
+        	employeePanel.addActionListener(new ActionListener() {
+
                 } else if ("TrainingSessionMenu".equals(command)) {
                 	//show trainingSessionPane
                 } else	if ("EmployeesMenu".equals(command)) {
@@ -161,6 +181,7 @@ public class MainFrame extends JFrame {
                 System.out.println(command);
                 if ("TrainingMenu".equals(command)) {
                 	//show trainingPane
+
                 } else if ("TrainingSessionMenu".equals(command)) {
                 	//show trainingSessionPane
                 } else if ("EmployeesMenu".equals(command)) {
