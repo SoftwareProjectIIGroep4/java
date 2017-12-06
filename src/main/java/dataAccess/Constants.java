@@ -1,5 +1,7 @@
 package dataAccess;
 
+import models.Login;
+
 public class Constants {
 	// public static final String DATA_SOURCE = "http://10.3.50.22/api/";
 	public static final String DATA_SOURCE = "http://10.3.210.136/api/";
@@ -20,5 +22,6 @@ public class Constants {
 	public static final String TRAINING_SURVEYS_SOURCE = DATA_SOURCE + "trainingsurveys/";
 	public static final String USER_SOURCE = DATA_SOURCE + "users/";
 	public static final String USER_CERTIFICATES_SOURCE = DATA_SOURCE + "usercertificates/";
+	public static final String TOKEN_SOURCE= DATA_SOURCE +"token/";
 	
 }

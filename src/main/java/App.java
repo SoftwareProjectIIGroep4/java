@@ -122,7 +122,6 @@ public class App {
 		}
 	}
 
-}
 	public static void certTestRuben() throws IOException {
 		LogFileHelper.log("testuser", "testactie7");
 		byte[] bytes = { 3, 10, 8, 25 };
