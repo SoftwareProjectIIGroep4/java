@@ -32,9 +32,9 @@ public class Survey {
 	
 	public Survey(HashMap<Integer, SurveyQuestion> surveyQuestions) {
 		super();
+		this.surveyID = surveyID;
 		this.surveyQuestions = surveyQuestions;
 	}
-	
 	public int getSurveyID() {
 		return surveyID;
 	}
@@ -65,6 +65,7 @@ public class Survey {
 	public void deleteSurveyQuestion(int questionId) {
 		surveyQuestions.remove(questionId);
 	}
+  
 	public void save() throws URISyntaxException, IOException {
 		//  heeft al een ID, update het 
 		if (surveyID!= 0) {
@@ -112,10 +113,10 @@ public class Survey {
 			return false;
 		return true;
 	}	
+  
 	public void makeNewSurvey(int trainingID) {
 		//nieuwe survey maken
 		//koppelen aan een training?
 		
-	}
-	
+	}	
 }
