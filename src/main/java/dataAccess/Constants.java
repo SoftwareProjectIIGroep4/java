@@ -1,6 +1,5 @@
 package dataAccess;
 
-import models.Login;
 
 public class Constants {
 	public static final String DATA_SOURCE = "http://10.3.50.22/api/";
