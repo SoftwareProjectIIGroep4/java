@@ -4,6 +4,7 @@ public class UserLoginCred {
 	
 	private String username;
 	private String password;
+	
 	public UserLoginCred(String username, String password) {
 		this.username = username;
 		this.password = password;
