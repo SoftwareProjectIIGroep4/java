@@ -72,11 +72,11 @@ public class App {
 		    System.exit(0);
 		  };*/
 		 Token t = Login.authorizeAcces("NDavolio", "1Davolio");
-		 if(t==null) {
-			 System.out.println("test");
-		 }
-		 System.out.println(t.getUserID());
-		 System.out.println(t.getToken());
+//		 if(t==null) {
+//			 System.out.println("test");
+//		 }
+//		 System.out.println(t.getUserID());
+//		 System.out.println(t.getToken());
 	 };
 
 	public static void trainingInfoTest() throws URISyntaxException, IOException, ExecutionException {

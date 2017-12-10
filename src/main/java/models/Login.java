@@ -41,12 +41,9 @@ public class Login {
 					//username exist
 					//has the salt and check with database
 					
-					String test =pepper(salt,loginPass);
-					System.out.println("naam");
-					System.out.println(loginName);
-					System.out.println("pass");
-					System.out.println(test);
-					UserLoginCred u = new UserLoginCred(loginName,loginPass);
+					String test =pepper(salt,loginPass);					
+					UserLoginCred u = new UserLoginCred(loginName,test);					
+					
 					return dataAccess.TokenAcces.getToken(u);
 					
 					
