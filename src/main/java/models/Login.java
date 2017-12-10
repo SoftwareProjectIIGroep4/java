@@ -10,19 +10,19 @@ import javax.crypto.SecretKeyFactory;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Base64;
+
 import models.Token;
-import dataAccess.TokenAcces;;
+import models.UserLoginCred;
 
 public class Login {
 //DATAMEMBERS
-	
-	 public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
-	 public static final int SALT_BYTES = 24;
-	 public static final int HASH_BYTES = 24;
-	 public static final int PBKDF2_ITERATIONS = 1000;
-	 public static final int ITERATION_INDEX = 0;
-	 public static final int SALT_INDEX = 1;
-	 public static final int PBKDF2_INDEX = 2;
+		
+	 private static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
+	 private static final int HASH_BYTES = 32;
+	 private static final int PBKDF2_ITERATIONS = 1000;
+	 private static final int ITERATION_INDEX = 0;
+	 private static final int PBKDF2_INDEX = 2;
 //METHODS
 	public static Token authorizeAcces (String loginName,String loginPass) throws IOException, URISyntaxException {
 		
@@ -31,19 +31,24 @@ public class Login {
 		try {
 			 salt=LoginAcces.getSalt(loginName);
 
-				if(salt=="404")
+				if(salt=="404"||salt==null)
 				{
 					//username/pass does not exist or is wrong
-					System.out.println("fail to get salt");
+					
 					return null;
 				}
 				else {
 					//username exist
 					//has the salt and check with database
-					System.out.println("succes to get salt");
+					
 					String test =pepper(salt,loginPass);
-					System.out.println("tis gehashed nu");
-					return dataAccess.TokenAcces.getToken(loginName, test);
+					System.out.println("naam");
+					System.out.println(loginName);
+					System.out.println("pass");
+					System.out.println(test);
+					UserLoginCred u = new UserLoginCred(loginName,loginPass);
+					return dataAccess.TokenAcces.getToken(u);
+					
 					
 				}
 		} catch (IOException e) {
@@ -60,8 +65,11 @@ public class Login {
 	
 	static String pepper (String salt,String loginPass) {
 		String hash=null;
+		
 		try {
-			 hash = createHash(loginPass, salt);
+			 hash = Base64.getEncoder().encodeToString(createHash(loginPass, salt));
+			 
+			
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,24 +90,28 @@ private static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int b
 	        return skf.generateSecret(spec).getEncoded();
 	    }
 
- public static String createHash(String password,String salt) throws NoSuchAlgorithmException, InvalidKeySpecException{
+ public static byte[] createHash(String password,String salt) throws NoSuchAlgorithmException, InvalidKeySpecException{
 		 return createHash(password.toCharArray(), salt);
 	 }
  
- public static String createHash(char[] password, String salt)
+ public static byte[]  createHash(char[] password, String salt)
 	        throws NoSuchAlgorithmException, InvalidKeySpecException
 	    {
-	         //Generate a random salt
-	        //SecureRandom random = new SecureRandom();
-	       // byte[] salt = new byte[SALT_BYTES];
-	        //random.nextBytes(salt);
-	    	byte[] bSalt = salt.getBytes();
+	 	
+	      
+	    	
+	    	byte [] bSalt = Base64.getDecoder().decode(salt); 
+	    	
+
+	    	
+	    	
 	 
 
 	        // Hash the password
-	        byte[] hash = pbkdf2(password, bSalt, PBKDF2_ITERATIONS, HASH_BYTES);
+	    	byte[] hash = pbkdf2(password, bSalt, PBKDF2_ITERATIONS, HASH_BYTES);
+	    	return hash;
 	        // format iterations:salt:hash
-	        return PBKDF2_ITERATIONS + ":" + toHex(bSalt) + ":" +  toHex(hash);
+	       // return PBKDF2_ITERATIONS + ":" + toHex(bSalt) + ":" +  toHex(hash);
 	    }
  
  
@@ -109,9 +121,13 @@ private static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int b
      String hex = bi.toString(16);
      int paddingLength = (array.length * 2) - hex.length();
      if(paddingLength > 0) 
+    	 
          return String.format("%0" + paddingLength + "d", 0) + hex;
      else
+    	
          return hex;
+     	
+     
  }
 
  //code to compare pass 
