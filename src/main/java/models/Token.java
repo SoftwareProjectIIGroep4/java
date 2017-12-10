@@ -10,4 +10,8 @@ public class Token {
 		this.userID = userID;
 		this.token = token;
 	}
+	public Token() {
+		
+	}
+	
 }
