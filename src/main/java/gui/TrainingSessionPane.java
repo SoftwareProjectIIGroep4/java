@@ -229,7 +229,7 @@ public class TrainingSessionPane extends JPanel {
 		chckbxMonday.setBounds(820, 304, 97, 23);
 		add(chckbxMonday);
 		
-		JCheckBox chckbxTeusday = new JCheckBox("Teusday");
+		JCheckBox chckbxTeusday = new JCheckBox("Tuesday");
 		chckbxTeusday.setBounds(977, 304, 97, 23);
 		add(chckbxTeusday);
 		
