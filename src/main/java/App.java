@@ -23,20 +23,16 @@ import models.Address;
 import models.Book;
 import models.Certificate;
 import models.LogFileHelper;
+import models.Token;
 import models.TrainingInfo;
 import models.TrainingSession;
+import models.Login;;
 
 public class App {
-	  public static void main(String[] args) {
-		    JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+	 public static void main(String[] args) throws IOException, URISyntaxException {
+		   /* JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 		    try {
-		      // Verify command line parameters.
-		    /* if (args.length == 0) {
-		        System.err.println("Usage: BooksSample [--author|--isbn|--title] \"<query>\"");
-		        System.exit(1);
-		      }
-		      // Parse command line parameters into a query.
-		      // Query format: "[<author|isbn|intitle>:]<query>"*/
+	
 		      String prefix = null;
 		      String query = "Java";
 		      for (String arg : args) {
@@ -74,8 +70,14 @@ public class App {
 		    }
 		    
 		    System.exit(0);
-		  };
-	
+		  };*/
+		 Token t = Login.authorizeAcces("NDavolio", "1Davolio");
+		 if(t==null) {
+			 System.out.println("foutieve invoer");
+		 }
+		 
+		 
+	 };
 
 	public static void trainingInfoTest() throws URISyntaxException, IOException, ExecutionException {
 		LogFileHelper.log("testuser", "testactie2");
