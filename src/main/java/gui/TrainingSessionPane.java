@@ -42,9 +42,9 @@ public class TrainingSessionPane extends JPanel {
 	private JTextField txtFromTrainingSession;
 	private JTextField txtUntilTrainingSession;
 	private JButton btnAddTrainingSession;
+	private JButton btnShowTrainingSession;
 	
-	
-	/**
+	/*
 	 * Create the panel.
 	 */
 	public TrainingSessionPane() {
@@ -212,8 +212,13 @@ public class TrainingSessionPane extends JPanel {
 		
 		btnAddTrainingSession = new JButton("Add training session");
 		btnAddTrainingSession.setActionCommand("goToAddTrainingSession");
-		btnAddTrainingSession.setBounds(947, 136, 160, 64);
+		btnAddTrainingSession.setBounds(820, 138, 160, 64);
 		add(btnAddTrainingSession);
+		
+		btnShowTrainingSession = new JButton("Show training session");
+		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
+		btnShowTrainingSession.setBounds(1030, 138, 160, 64);
+		add(btnShowTrainingSession);
 		
 		JLabel lblFilters = new JLabel("Filters");
 		lblFilters.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -224,7 +229,7 @@ public class TrainingSessionPane extends JPanel {
 		chckbxMonday.setBounds(820, 304, 97, 23);
 		add(chckbxMonday);
 		
-		JCheckBox chckbxTeusday = new JCheckBox("Teusday");
+		JCheckBox chckbxTeusday = new JCheckBox("Tuesday");
 		chckbxTeusday.setBounds(977, 304, 97, 23);
 		add(chckbxTeusday);
 		
@@ -301,6 +306,7 @@ public class TrainingSessionPane extends JPanel {
 	
 	public void addActionListener(ActionListener listener) {
 		btnAddTrainingSession.addActionListener(listener);
+		btnShowTrainingSession.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
