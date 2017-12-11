@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -29,6 +31,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
 
+import models.Employee;
+
 public class EmployeePane extends JPanel {
 	
 	private int selectedRow;
@@ -45,6 +49,8 @@ public class EmployeePane extends JPanel {
 	private JButton btnAddEmployee;
 	private JButton btnUpdateEmployee;
 	private JButton btnDeleteEmployee;
+	private DefaultTableModel modelEmployees;
+	private DefaultTableModel tableModel;
 	
 	/**
 	 * Create the panel.
@@ -67,6 +73,7 @@ public class EmployeePane extends JPanel {
 	                jtbTraining.setBorder(null);
 	            }
 	        });
+	       
 	        jtbTraining.setBackground(Color.WHITE);
 	        jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTraining.setOpaque(true);
@@ -85,6 +92,7 @@ public class EmployeePane extends JPanel {
 	                jtbTrainingSession.setBorder(null);
 	            }
 	        });
+	      
 	        jtbTrainingSession.setBackground(Color.WHITE);
 	        jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTrainingSession.setOpaque(true);
@@ -103,6 +111,7 @@ public class EmployeePane extends JPanel {
 	                jtbEmployees.setBorder(null);
 	            }
 	        });
+	       
 	        jtbEmployees.setBackground(Color.WHITE);
 	        jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbEmployees.setOpaque(true);
@@ -121,6 +130,7 @@ public class EmployeePane extends JPanel {
 	                jtbStatistics.setBorder(null);
 	            }
 	        });
+	        
 	        jtbStatistics.setBackground(Color.WHITE);
 	        jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbStatistics.setOpaque(true);
@@ -161,15 +171,14 @@ public class EmployeePane extends JPanel {
         add(lblEmployeeExplanation);
 	
         Object [] columnHeadersEmployees = {"First name","Last name","Department","Function"};
-		DefaultTableModel modelEmployees = new DefaultTableModel();
-		modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
+		//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
 		Object[][] data = {
-				
+		
 				
 				
 		};
-		tbEmployees = new JTable(data, columnHeadersEmployees);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersEmployees)
+		
+		tableModel = new DefaultTableModel(data, columnHeadersEmployees)
 		{
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -177,6 +186,7 @@ public class EmployeePane extends JPanel {
 		       return false;
 		    }
 		};
+		tbEmployees = new JTable(tableModel);
 		tbEmployees.setBackground(Color.red);
 		tbEmployees.setForeground(Color.blue);
 		tbEmployees.setModel(tableModel);
@@ -194,11 +204,12 @@ public class EmployeePane extends JPanel {
 	            width=300;
 	        columnmodelTraining.getColumn(column).setPreferredWidth(width);
 	    }
-		JScrollPane sclTraining = new JScrollPane(tbEmployees);
-		sclTraining.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		sclTraining.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclTraining.setBounds(30, 119, 789, 581);
-		add(sclTraining);
+		
+	    JScrollPane sclEmployee = new JScrollPane(tbEmployees);
+	    sclEmployee.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	    sclEmployee.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+	    sclEmployee.setBounds(30, 119, 789, 581);
+		add(sclEmployee);
 		ListSelectionModel selectedRowEmployees = tbEmployees.getSelectionModel();
 		selectedRowEmployees.addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -313,35 +324,23 @@ public class EmployeePane extends JPanel {
 		add(lblBackBorder);
 		
 		//SOURCE: https://www.youtube.com/watch?v=22MBsRYuM4Q
-		
-	    btnAddEmployee = new JButton("Add employee");
+		btnAddEmployee = new JButton("Add Emlpoyee");
 		btnAddEmployee.setBounds(979, 126, 144, 41);
-        Object[] row = new Object[4];
-        btnAddEmployee.addActionListener(new ActionListener() {
-        	@Override
-        	public void actionPerformed(ActionEvent arg0) {
-        		
-        		row[0] = firstnameEmployeeSearch.getText();
-        		row[1] = lastnameEmployeeSearch.getText();
-        		row[2] = departmentEmployeeSearch.getText();
-        		row[3] = functionEmployeeSearch.getText();
-        		
-        		modelEmployees.addRow(row);
-            	
-        	}
-        });     
-		add(btnAddEmployee);
 		btnAddEmployee.setActionCommand("addEmployeeToTable");
-      
+        add(btnAddEmployee);
+        
+		
         btnDeleteEmployee = new JButton("Delete employee");
         btnDeleteEmployee.setActionCommand("deleteEmployeeToTable");
         btnDeleteEmployee.setBounds(979, 182, 144, 41);
         btnDeleteEmployee.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		
-        		int i = tbEmployees.getSelectedRow();
-				if(i>=0) {
-					modelEmployees.removeRow(i);
+        		int row = tbEmployees.getSelectedRow();
+        		int modelRow = tbEmployees.convertRowIndexToModel(row);
+				if(modelRow>=0) {
+					modelEmployees = (DefaultTableModel)tbEmployees.getModel();
+					modelEmployees.removeRow(modelRow);
 				} else {
 					System.out.println("Delete error");
 				}
@@ -389,26 +388,34 @@ public class EmployeePane extends JPanel {
 	public void addActionListener(ActionListener listener) {
 		btnAddEmployee.addActionListener(listener);
 		btnDeleteEmployee.addActionListener(listener);
-		btnUpdateEmployee.addActionListener(listener);
+		//btnUpdateEmployee.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
 		jtbEmployees.addActionListener(listener);
 		jtbTrainingSession.addActionListener(listener);
     }
-	public String getFirstname() {
+	public String getFirstnameSearch() {
         return firstnameEmployeeSearch.getText();
     }
 	
-	public String getLastname() {
+	public String getLastnameSearch() {
         return lastnameEmployeeSearch.getText();
     }
 	
-	public String getDepartment() {
+	public String getDepartmentSearch() {
         return departmentEmployeeSearch.getText();
     }
 	
-	public String getFunction() {
+	public String getFunctionSearch() {
         return functionEmployeeSearch.getText();
     }
+	
+	public void addRowToEmployeeTable(Object[] row) {
+			
+		tableModel.addRow(row);
+	
+	}
+	
+	
 }

@@ -5,12 +5,24 @@ import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.JTable;
 
-public class MainFrame extends JFrame {
+import gui.EmployeePane;
+import models.Employee;
+
+
+
+
+public class MainFrame extends JFrame{
 
 	private JPanel contentPane;
 
@@ -52,7 +64,7 @@ public class MainFrame extends JFrame {
         TrainingSessionInfoPane newTrainingSessionInfoPane = new TrainingSessionInfoPane();
         SelectTrainingPane newSelectTrainingPane = new SelectTrainingPane();
         NewTrianingPane newNewTrianingPane = new NewTrianingPane();
-        
+        Employee newEmployee = new Employee();
         
         
         getContentPane().add(newLoginPane, "loginPanel");
@@ -218,14 +230,20 @@ public class MainFrame extends JFrame {
                 	layout.show(getContentPane(), "trainingrequestPanel");
                 } else if ("addEmployeeToTable".equals(command)) {
                 	//show trainingRequestMenu
-                	layout.show(getContentPane(), "addEmployeeToTable");
+                	Object[] row = new Object[4];
+        			row[0] = employeePanel.getFirstnameSearch();
+        			row[1] =employeePanel.getLastnameSearch();
+        			row[2] =employeePanel.getDepartmentSearch();
+        			row[3] =employeePanel.getFunctionSearch();
+                	employeePanel.addRowToEmployeeTable(row);
                 } else if ("deleteEmployeeToTable".equals(command)) {
                 	//show trainingRequestMenu
-                	layout.show(getContentPane(), "deleteEmployeeToTable");
-                } else if ("updateEmployeeToTable".equals(command)) {
+                	
+            
+                } /*else if ("updateEmployeeToTable".equals(command)) {
                 	//show trainingRequestMenu
-                	layout.show(getContentPane(), "updateEmployeeToTable");
-                } 
+                	
+                } */
             }
         });
         	
