@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.HashMap;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -28,6 +31,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
+import models.TrainingInfo;
+import dataAccess.TrainingInfoAccess;
 
 public class TrainingPane extends JPanel {
 
@@ -54,8 +59,16 @@ public class TrainingPane extends JPanel {
 	 * Create the panel.
 	 */
 	public TrainingPane() {
-		
-		
+		HashMap<Integer, TrainingInfo> listTrainings= new HashMap<Integer,TrainingInfo>();
+		try {
+			listTrainings =TrainingInfoAccess.getAll();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
@@ -178,13 +191,16 @@ public class TrainingPane extends JPanel {
         Object [] columnHeadersSession = {"Training name","City","From","Until","Price"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
-		Object[][] data = {
+		Object[][] data = new Object[listTrainings.keySet().size()][5];
 				//table data schrijven
-		};
+		
 		tbTraining = new JTable(data, columnHeadersSession);
 		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersSession) {
-
-		    @Override
+			
+		    
+			
+			
+			@Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;

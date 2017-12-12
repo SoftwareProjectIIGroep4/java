@@ -22,9 +22,10 @@ public class TrainingInfo {
 	private HashMap<Integer, TrainingSession> sessions;
 			
 	public TrainingInfo() {
-		super();
-		sessions = new HashMap<Integer, TrainingSession>();
+		//super();
+		//sessions = new HashMap<Integer, TrainingSession>();
 	}
+	
 
 	public TrainingInfo(String name, String infoGeneral, int numberOfDays, String infoExam, String infoPayment,
 			float price) {
