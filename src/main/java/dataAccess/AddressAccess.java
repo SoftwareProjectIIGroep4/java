@@ -15,6 +15,7 @@ public class AddressAccess extends RestRequest {
 		Address address = mapper.readValue(JSONAdr, Address.class);
 		return address;
 	}
+	
 
 	public static HashMap<Integer, Address> getAll() throws IOException, URISyntaxException {
 		String JSONAdr = getAllOrOne(new URI(Constants.ADDRESS_SOURCE));

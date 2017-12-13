@@ -1,9 +1,20 @@
+
 package models;
 
 
-import java.util.Objects;
-import java.net.URISyntaxException;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.services.books.Books;
+import com.google.api.services.books.BooksRequestInitializer;
+import com.google.api.services.books.Books.Volumes.List;
+import com.google.api.services.books.model.Volume;
+import com.google.api.services.books.model.Volumes;
 
 //SOURCE: https://github.com/google/google-api-java-client-samples/blob/master/books-cmdline-sample/src/main/java/com/google/api/services/samples/books/cmdline/BooksSample.java
 
@@ -28,13 +39,15 @@ import java.net.URL;
 
 import dataAccess.BookAccess;
 import dataAccess.Cache;
+import dataAccess.ClientCredentials;
 
 public class Book {
 
-		private long isbn;
+		private long bookID;
 		private String title;
-		private String author;
+		private ArrayList<String>authors  = new ArrayList<>();
 		private String publisher;
+		 private String link;
 		private double price;
 		
 		
@@ -44,26 +57,38 @@ public class Book {
 		
 		public Book(Book book) {
 			
-			this(book.isbn,book.title,book.author,book.publisher,book.price);	
+			this(book.bookID,book.title,book.authors,book.publisher,book.price);	
 			
 		}
 
-		public Book(long isbn, String title, String author, String publisher, double price) {
+		public Book(long isbn, String title, ArrayList<String> authors, String publisher, double price) {
 			super();
-			this.isbn = isbn;
+			this.bookID = isbn;
 			this.title = title;
-			this.author = author;
+			this.authors = authors;
 			this.publisher = publisher;
 			this.price = price;
 		}
-
-
-		public long getIsbn() {
-			return isbn;
+		public String getLink() {
+			return this.link;
+		}
+		public void setLink(String link) {
+			this.link=link;
+		}
+		public ArrayList<String> getAuthors(){
+			return this.authors;
+		}
+		public void addAuthor(String author) {
+			this.authors.add(author);
 		}
 
-		public void setIsbn(long isbn) {
-			this.isbn = isbn;
+
+		public long getBookID() {
+			return bookID;
+		}
+
+		public void setBookID(long isbn) {
+			this.bookID = isbn;
 		}
 
 
@@ -77,14 +102,14 @@ public class Book {
 		}
 
 
-		public String getAuthor() {
+		/*public String getAuthor() {
 			return author;
 		}
 
 
 		public void setAuthor(String author) {
 			this.author = author;
-		}
+		}*/
 
 
 		public String getPublisher() {
@@ -109,31 +134,36 @@ public class Book {
 		
 		public String toString() {
 			StringBuilder sbr=new StringBuilder();
-			sbr.append("ISBN: "+isbn+'\n');
+			sbr.append("bookID: "+bookID+'\n');
 			sbr.append("Title: "+title+'\n');
-			sbr.append("Author: "+author+'\n');
+			for (int i=0;i<authors.size();i++) {
+			sbr.append("Author(s)"+'\n');
+			sbr.append(authors.get(i)+'\n');
+			}
 			sbr.append("Publisher: "+publisher+'\n');
 			sbr.append("Price: "+price+'\n');
+			sbr.append("Link"+link+"\n");
 			return sbr.toString();	
-		}
+		} 
+		
 		
 		
 		public void save() throws URISyntaxException, IOException {
-			if (isbn != 0) {
+			if (bookID != 0) {
 				BookAccess.update(this);
-				Cache.bookCache.put(isbn, this);
+				Cache.bookCache.put(bookID, this);
 			}
 			else {
-				isbn = (BookAccess.add(this).getIsbn());
-				Cache.bookCache.put(isbn, this);
+				bookID = (BookAccess.add(this).getBookID());
+				Cache.bookCache.put(bookID, this);
 			}
 		}
 		
 		
 		public void delete() throws URISyntaxException, IOException {
-			if (isbn != 0) {
-				BookAccess.remove(isbn);
-				Cache.bookCache.invalidate(isbn);
+			if (bookID != 0) {
+				BookAccess.remove(bookID);
+				Cache.bookCache.invalidate(bookID);
 			}
 		}
 		
@@ -147,12 +177,12 @@ public class Book {
 			if (getClass() != obj.getClass())
 				return false;
 			Book other = (Book) obj;
-			if (author == null) {
-				if (other.author != null)
+			if (authors == null) {
+				if (other.authors != null)
 					return false;
-			} else if (!author.equals(other.author))
+			} else if (!authors.equals(other.authors))
 				return false;
-			if (isbn != other.isbn)
+			if (bookID != other.bookID)
 				return false;
 			if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 				return false;
@@ -174,8 +204,8 @@ public class Book {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((author == null) ? 0 : author.hashCode());
-			result = prime * result + (int) (isbn ^ (isbn >>> 32));
+			result = prime * result + ((authors == null) ? 0 : authors.hashCode());
+			result = prime * result + (int) (bookID ^ (bookID >>> 32));
 			long temp;
 			temp = Double.doubleToLongBits(price);
 			result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -183,54 +213,7 @@ public class Book {
 			result = prime * result + ((title == null) ? 0 : title.hashCode());
 			return result;
 		}
-		
-	    //SOURCE: http://chillyfacts.com/java-send-http-getpost-request-and-read-json-response/
-			   
-		public static void Bookcall() throws Exception {
-		     String url = "https://www.googleapis.com/books/v1/volumes?q=HarryPotter";
-		     URL obj = new URL(url);
-		     HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		     // optional default is GET
-		     con.setRequestMethod("GET");
-		     //add request header
-		     con.setRequestProperty("User-Agent", "Mozilla/5.0");
-		     int responseCode = con.getResponseCode();
-		     System.out.println("\nSending 'GET' request to URL : " + url);
-		     System.out.println("Response Code : " + responseCode);
-		     BufferedReader in = new BufferedReader(
-		             new InputStreamReader(con.getInputStream()));
-		     String inputLine;
-		     StringBuffer response = new StringBuffer();
-		     while ((inputLine = in.readLine()) != null) {
-		     	response.append(inputLine);
-		     }
-		     in.close();
-		     //print in String
-		     System.out.println(response.toString());
-		     //Read JSON response and print
-		     System.out.println("result after Reading JSON Response");
-		    /* System.out.println("statusCode- "+myResponse.getString("statusCode"));
-		     System.out.println("statusMessage- "+myResponse.getString("statusMessage"));
-		     System.out.println("ipAddress- "+myResponse.getString("ipAddress"));
-		     System.out.println("countryCode- "+myResponse.getString("countryCode"));
-		     System.out.println("countryName- "+myResponse.getString("countryName"));
-		     System.out.println("regionName- "+myResponse.getString("regionName"));
-		     System.out.println("cityName- "+myResponse.getString("cityName"));
-		     System.out.println("zipCode- "+myResponse.getString("zipCode"));
-		     System.out.println("latitude- "+myResponse.getString("latitude"));
-		     System.out.println("longitude- "+myResponse.getString("longitude"));
-		     System.out.println("timeZone- "+myResponse.getString("timeZone"));  */
-		   }
-			public static void main(String[] args) {
-		     try {
-		         Bookcall();
-		        } catch (Exception e) {
-		         e.printStackTrace();
-		       }
-		     }
-			   
-		
-		}
+	}
 		
 		
 		

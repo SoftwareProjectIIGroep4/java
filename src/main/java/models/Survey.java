@@ -1,9 +1,14 @@
 package models;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import dataAccess.Cache;
+import dataAccess.SurveyAcces;
+import dataAccess.SurveyQuestionAcces;
 import models.SurveyQuestion;
 
 public class Survey {
@@ -27,9 +32,9 @@ public class Survey {
 	
 	public Survey(HashMap<Integer, SurveyQuestion> surveyQuestions) {
 		super();
+		this.surveyID = surveyID;
 		this.surveyQuestions = surveyQuestions;
 	}
-	
 	public int getSurveyID() {
 		return surveyID;
 	}
@@ -60,6 +65,26 @@ public class Survey {
 	public void deleteSurveyQuestion(int questionId) {
 		surveyQuestions.remove(questionId);
 	}
+  
+	public void save() throws URISyntaxException, IOException {
+		//  heeft al een ID, update het 
+		if (surveyID!= 0) {
+			SurveyAcces.update(this);
+			Cache.surveyCache.put(surveyID, this);
+		}
+		//  heeft nog geen ID, maak het  aan
+		else {
+			surveyID = (SurveyAcces.add(this).getSurveyID());
+			Cache.surveyCache.put(surveyID, this);
+			
+		}
+	}
+	public void delete() throws URISyntaxException, IOException {
+		if (surveyID != 0) {
+			SurveyAcces.remove(surveyID);
+			Cache.surveyCache.invalidate(surveyID);
+		}
+	}
 
 	@Override
 	public int hashCode() {
@@ -88,6 +113,10 @@ public class Survey {
 			return false;
 		return true;
 	}	
-	
-	
+  
+	public void makeNewSurvey(int trainingID) {
+		//nieuwe survey maken
+		//koppelen aan een training?
+		
+	}	
 }

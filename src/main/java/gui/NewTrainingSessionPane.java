@@ -265,7 +265,7 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		add(txtEndHour);
 		
-		JLabel lblAdministrativeArea = new JLabel("Administrative area");
+		JLabel lblAdministrativeArea = new JLabel("Region");
 		lblAdministrativeArea.setBounds(50, 448, 100, 14);
 		add(lblAdministrativeArea);
 		
@@ -286,8 +286,8 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		add(txtAdministrativeArea);
 		
-		JLabel lblLocality = new JLabel("Locality");
-		lblLocality.setBounds(50, 519, 46, 14);
+		JLabel lblLocality = new JLabel("City");
+		lblLocality.setBounds(50, 519, 59, 14);
 		add(lblLocality);
 		
 		txtLocality = new JTextField();
@@ -349,7 +349,7 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		add(txtStreetAddress);
 		
-		JLabel lblPremise = new JLabel("Premise");
+		JLabel lblPremise = new JLabel("PO Box");
 		lblPremise.setBounds(425, 519, 46, 14);
 		add(lblPremise);
 		
@@ -462,7 +462,7 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		
 		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(30, 186, 750, 484);
+		lblBackBorder.setBounds(6, 186, 750, 484);
 		lblBackBorder.setBorder(border);
 		add(lblBackBorder);
 		
@@ -470,8 +470,7 @@ public class NewTrainingSessionPane extends JPanel {
 		lblBackBorder2.setBounds(800, 186, 450, 484);
 		lblBackBorder2.setBorder(border);
 		add(lblBackBorder2);
-		
-		
+
 		btnAddTeacher = new JButton("Add Teacher");
 		btnAddTeacher.setActionCommand("addTeacher");
 		btnAddTeacher.setBounds(425, 200, 117, 54);

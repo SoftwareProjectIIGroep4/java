@@ -15,9 +15,35 @@ import models.Teacher;
 import models.TrainingInfo;
 import models.TrainingSession;
 import models.Book;
+import models.SurveyAnswer;
+import models.SurveyQuestion;
+import models.Survey;
+
 
 //Source: https://www.tutorialspoint.com/guava/guava_caching_utilities.htm
 public class Cache {
+	public static LoadingCache<Integer, Survey> surveyCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Survey>() {
+				@Override
+				public Survey load(Integer key) throws Exception {
+					return surveyCache.get(key);
+				}
+			});
+	
+	public static LoadingCache<Integer, SurveyAnswer> surveyAnswerCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, SurveyAnswer>() {
+				@Override
+				public SurveyAnswer load(Integer key) throws Exception {
+					return surveyAnswerCache.get(key);
+				}
+			});
+	public static LoadingCache<Integer, SurveyQuestion> surveyQuestionCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, SurveyQuestion>() {
+				@Override
+				public SurveyQuestion load(Integer key) throws Exception {
+					return surveyQuestionCache.get(key);
+				}
+			});
 	public static LoadingCache<Integer, Address> addressCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Address>() {
 				@Override
@@ -74,6 +100,12 @@ public class Cache {
 					return TrainingSessionAccess.get(key);
 				}
 			});
+	public static void loadAllSurverQuestions() throws IOException, URISyntaxException {
+		surveyQuestionCache.putAll(SurveyQuestionAcces.getAllSurveyQuestions());
+	}
+	public static void loadAllSurveyAnswers () throws IOException, URISyntaxException {
+		surveyAnswerCache.putAll(SurveyAnswerAcces.getAllSurveyAnswers());
+	}	
 
 	public static LoadingCache<Long, Book> bookCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Long, Book>() {
@@ -82,6 +114,15 @@ public class Cache {
 					return BookAccess.get(key);
 				}
 			});
+	public static void loadAllSurveys() throws IOException, URISyntaxException {
+		surveyCache.putAll(SurveyAcces.getAllSurveys());
+	}
+	public static void loadAllSurveysQuestions() throws IOException, URISyntaxException {
+		surveyQuestionCache.putAll(SurveyQuestionAcces.getAllSurveyQuestions());
+	}
+	public static void loadAllSurveysAnswers() throws IOException, URISyntaxException {
+		surveyAnswerCache.putAll(SurveyAnswerAcces.getAllSurveyAnswers());
+	}
 
 	public static void loadAllEmployees() throws IOException, URISyntaxException {
 		employeeCache.putAll(EmployeeAccess.getAllEmployees());

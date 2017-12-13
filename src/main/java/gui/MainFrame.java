@@ -221,8 +221,7 @@ public class MainFrame extends JFrame{
                     } else if ("addSurvey".equals(command)) {
                     	// layout.show van je survey toevoegen nog maken
                     	layout.show(getContentPane(), "addSurveyPanel");
-                    }
-                    
+                    }                   
                 }
             });
         
@@ -366,6 +365,8 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "trainingrequestPanel");
                         } else if ("BackToTrainingSessoin".equals(command)) {
                         	//show TrainingSessoinPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+
                         } else if ("CancelTrainingSession".equals(command)) {
                         	//cancel trainingSession
                         	
@@ -406,6 +407,8 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "trainingrequestPanel");
                         } else if ("BackToTrainingSessoin".equals(command)) {
                         	//show TrainingSessoinPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+
                         } else if ("CancelTrainingSession".equals(command)) {
                         	//cancel trainingSession
                         	
@@ -433,7 +436,7 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("MakeTrainingSession".equals(command)) {
                         	//show newTrainingSessionPane
-                        	
+                        	layout.show(getContentPane(), "NewTrainingSessionPane");
                         }
                         
                     } 
@@ -469,6 +472,11 @@ public class MainFrame extends JFrame{
                         } else if ("AddNewTraining".equals(command)) {
                         	//show TrainingSessoinInfoPane
                         	
+                        }
+                        else if ("selectSurvey".equals(command)) {
+                        	//save de data voor training session gebruik getters
+                        //	naar de pane van Survey gaan.
+                        //	layout.show(getContentPane(), "trainingSessionPanel");
                         }
                         
                     }
