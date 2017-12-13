@@ -55,7 +55,6 @@ public class NewTrainingSessionPane extends JPanel {
 	private JButton btnSearch;
 	private JButton btnAddBook;
 	private JButton btnaddSurvey;
-
 	
 	/**
 	 * Create the panel.
@@ -471,7 +470,7 @@ public class NewTrainingSessionPane extends JPanel {
 		lblBackBorder2.setBounds(800, 186, 450, 484);
 		lblBackBorder2.setBorder(border);
 		add(lblBackBorder2);
-		
+
 		btnAddTeacher = new JButton("Add Teacher");
 		btnAddTeacher.setActionCommand("addTeacher");
 		btnAddTeacher.setBounds(425, 200, 117, 54);
@@ -491,9 +490,7 @@ public class NewTrainingSessionPane extends JPanel {
 		btnaddSurvey.setActionCommand("addSurvey");
 		btnaddSurvey.setBounds(589, 200, 117, 54);
 		add(btnaddSurvey);
-		
-	
-		
+
 	}
 	public void addActionListener(ActionListener listener) {
 		btnBack.addActionListener(listener);
@@ -501,6 +498,7 @@ public class NewTrainingSessionPane extends JPanel {
 		btnAddTeacher.addActionListener(listener);
 		btnSearch.addActionListener(listener);
 		btnAddBook.addActionListener(listener);
+		btnaddSurvey.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
