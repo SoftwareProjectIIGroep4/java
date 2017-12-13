@@ -324,12 +324,12 @@ public class EmployeePane extends JPanel {
 		add(lblBackBorder);
 		
 		//SOURCE: https://www.youtube.com/watch?v=22MBsRYuM4Q
+		
 		btnAddEmployee = new JButton("Add Emlpoyee");
 		btnAddEmployee.setBounds(979, 126, 144, 41);
 		btnAddEmployee.setActionCommand("addEmployeeToTable");
         add(btnAddEmployee);
         
-		
         btnDeleteEmployee = new JButton("Delete employee");
         btnDeleteEmployee.setActionCommand("deleteEmployeeToTable");
         btnDeleteEmployee.setBounds(979, 182, 144, 41);
@@ -347,7 +347,7 @@ public class EmployeePane extends JPanel {
         	}
         });
 		add(btnDeleteEmployee);
-             
+        
         btnUpdateEmployee= new JButton("Update employee");
         btnUpdateEmployee.setActionCommand("updateEmployeeToTable");
         btnUpdateEmployee.setBounds(979, 236, 144, 41);
@@ -356,10 +356,15 @@ public class EmployeePane extends JPanel {
         public void mouseClicked(MouseEvent e) {
         	
         	int i = tbEmployees.getSelectedRow();
-        	firstnameEmployeeSearch.setText(modelEmployees.getValueAt(i, 0).toString());
-        	lastnameEmployeeSearch.setText(modelEmployees.getValueAt(i, 1).toString());
-        	departmentEmployeeSearch.setText(modelEmployees.getValueAt(i, 2).toString());
-        	functionEmployeeSearch.setText(modelEmployees.getValueAt(i, 3).toString());
+        	
+        	if(i>=0) {
+        		
+        		firstnameEmployeeSearch.setText(modelEmployees.getValueAt(i, 0).toString());
+        		lastnameEmployeeSearch.setText(modelEmployees.getValueAt(i, 1).toString());
+        		departmentEmployeeSearch.setText(modelEmployees.getValueAt(i, 2).toString());
+        		functionEmployeeSearch.setText(modelEmployees.getValueAt(i, 3).toString());
+        		
+        	}
         	
         }
      });
@@ -388,7 +393,7 @@ public class EmployeePane extends JPanel {
 	public void addActionListener(ActionListener listener) {
 		btnAddEmployee.addActionListener(listener);
 		btnDeleteEmployee.addActionListener(listener);
-		//btnUpdateEmployee.addActionListener(listener);
+		btnUpdateEmployee.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
