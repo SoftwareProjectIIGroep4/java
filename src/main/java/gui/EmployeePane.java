@@ -46,9 +46,6 @@ public class EmployeePane extends JPanel {
 	private JToggleButton jtbStatistics;
 	private JToggleButton jtbTrainingSession;
 	private JToggleButton jtbTrainingRequests;
-	private JButton btnAddEmployee;
-	private JButton btnUpdateEmployee;
-	private JButton btnDeleteEmployee;
 	private DefaultTableModel modelEmployees;
 	private DefaultTableModel tableModel;
 	
@@ -322,78 +319,10 @@ public class EmployeePane extends JPanel {
 		lblBackBorder.setBounds(20, 106, 812, 603);
 		lblBackBorder.setBorder(border);
 		add(lblBackBorder);
-		
-		//SOURCE: https://www.youtube.com/watch?v=22MBsRYuM4Q
-		
-		btnAddEmployee = new JButton("Add Emlpoyee");
-		btnAddEmployee.setBounds(979, 126, 144, 41);
-		btnAddEmployee.setActionCommand("addEmployeeToTable");
-        add(btnAddEmployee);
-        
-        btnDeleteEmployee = new JButton("Delete employee");
-        btnDeleteEmployee.setActionCommand("deleteEmployeeToTable");
-        btnDeleteEmployee.setBounds(979, 182, 144, 41);
-        btnDeleteEmployee.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		
-        		int row = tbEmployees.getSelectedRow();
-        		int modelRow = tbEmployees.convertRowIndexToModel(row);
-				if(modelRow>=0) {
-					modelEmployees = (DefaultTableModel)tbEmployees.getModel();
-					modelEmployees.removeRow(modelRow);
-				} else {
-					System.out.println("Delete error");
-				}
-        	}
-        });
-		add(btnDeleteEmployee);
-        
-        btnUpdateEmployee= new JButton("Update employee");
-        btnUpdateEmployee.setActionCommand("updateEmployeeToTable");
-        btnUpdateEmployee.setBounds(979, 236, 144, 41);
-        tbEmployees.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-        	
-        	int i = tbEmployees.getSelectedRow();
-        	
-        	if(i>=0) {
-        		
-        		firstnameEmployeeSearch.setText(modelEmployees.getValueAt(i, 0).toString());
-        		lastnameEmployeeSearch.setText(modelEmployees.getValueAt(i, 1).toString());
-        		departmentEmployeeSearch.setText(modelEmployees.getValueAt(i, 2).toString());
-        		functionEmployeeSearch.setText(modelEmployees.getValueAt(i, 3).toString());
-        		
-        	}
-        	
-        }
-     });
-        
-        btnUpdateEmployee.addActionListener(new ActionListener() {	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			int i = tbEmployees.getSelectedRow();
-			
-			if(i>=0) {
-				
-				modelEmployees.setValueAt(firstnameEmployeeSearch.getText(), i, 0);
-				modelEmployees.setValueAt(lastnameEmployeeSearch.getText(), i, 1);
-				modelEmployees.setValueAt(departmentEmployeeSearch.getText(), i, 2);
-				modelEmployees.setValueAt(functionEmployeeSearch.getText(), i, 3);
-				
-			} else {
-				System.out.println("Update Error");
-			}	
-		}
-	});
-		add(btnUpdateEmployee);
 
 	}	
 
 	public void addActionListener(ActionListener listener) {
-		btnAddEmployee.addActionListener(listener);
-		btnDeleteEmployee.addActionListener(listener);
-		btnUpdateEmployee.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);

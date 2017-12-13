@@ -491,9 +491,7 @@ public class NewTrainingSessionPane extends JPanel {
 		btnaddSurvey.setActionCommand("addSurvey");
 		btnaddSurvey.setBounds(589, 200, 117, 54);
 		add(btnaddSurvey);
-		
-	
-	
+
 	}
 	public void addActionListener(ActionListener listener) {
 		btnBack.addActionListener(listener);

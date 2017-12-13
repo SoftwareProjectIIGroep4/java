@@ -246,22 +246,7 @@ public class MainFrame extends JFrame{
                 } else if ("TrainingRequestsMenu".equals(command)) {
                 	//show trainingRequestMenu
                 	layout.show(getContentPane(), "trainingrequestPanel");
-                } else if ("addEmployeeToTable".equals(command)) {
-                	//show trainingRequestMenu
-                	Object[] row = new Object[4];
-        			row[0] = employeePanel.getFirstnameSearch();
-        			row[1] =employeePanel.getLastnameSearch();
-        			row[2] =employeePanel.getDepartmentSearch();
-        			row[3] =employeePanel.getFunctionSearch();
-                	employeePanel.addRowToEmployeeTable(row);
-                } else if ("deleteEmployeeToTable".equals(command)) {
-                	//show trainingRequestMenu
-                	
-            
-                } /*else if ("updateEmployeeToTable".equals(command)) {
-                	//show trainingRequestMenu
-                	
-                } */
+                } 
             }
         });
         	
