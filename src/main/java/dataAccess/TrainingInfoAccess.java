@@ -30,6 +30,19 @@ public class TrainingInfoAccess extends RestRequest {
 		}
 		return trainingInfosMap;
 	}
+	
+	public static HashMap<Integer, TrainingInfo> getUserTrainingInfos(Integer userid) throws IOException, URISyntaxException {
+		String JSON = getAllOrOne(new URI(Constants.USER_SOURCE + userid + "/traininginfos"));
+		List<TrainingInfo> trainingInfos = mapper.readValue(JSON, new TypeReference<List<TrainingInfo>>() {
+		});
+		
+		HashMap<Integer, TrainingInfo> trainingInfosMap = new HashMap<Integer, TrainingInfo>();
+		
+		for (TrainingInfo trainingInfo : trainingInfos) {
+			trainingInfosMap.put(trainingInfo.getTrainingId(), trainingInfo);
+		}
+		return trainingInfosMap;
+	}
 
 	public static TrainingInfo add(TrainingInfo trainingInfo) throws IOException, URISyntaxException {
 		String JSON = postObject(trainingInfo, new URI(Constants.TRAINING_INFO_SOURCE));
