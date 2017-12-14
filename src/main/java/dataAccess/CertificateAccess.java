@@ -2,6 +2,10 @@ package dataAccess;
 
 
 
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.image.ImageFilter;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -18,7 +22,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -137,9 +146,9 @@ public class CertificateAccess extends RestRequest {
 			e.printStackTrace();
 		}
 	}
-	
+	private static JLabel lblLabelCertificate = null;
 	public static void main(String[] args) throws URISyntaxException, IOException {
-		CertificateAccess cA = new CertificateAccess();
+		/**CertificateAccess cA = new CertificateAccess();
 		File bestand = null;
 		Certificate certificate = new Certificate();
 		certificate.setTrainingID(4);
@@ -154,19 +163,44 @@ public class CertificateAccess extends RestRequest {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 		Certificate certZoek = new Certificate();
+		String naam = null;
+		byte[] foto = null;
 		try {
-			certZoek = Cache.certificateCache.get(1);
+			certZoek = Cache.certificateCache.get(63);
 			if (certZoek == null) {
 				System.out.println("Kan het gevraagde certificaat niet vinden");
 			}
 			else
-				System.out.println(certZoek.getTitel());
+				naam = certZoek.getTitel();
+				System.out.println(naam);
+				//foto = certZoek.getPicture();
+				//System.out.println(foto);
 			
 			// private JLabel lblLabelPhoto; buiten de functie te declareren in je JFrameMain.java!
 			// lblLabelPhoto.setIcon(new ImageIcon(certZoek.getPicture()));
+				
+				lblLabelCertificate = new JLabel("");
+				lblLabelCertificate.setSize(new Dimension(100, 100));
+				lblLabelCertificate.setBorder(new LineBorder(new Color(0, 0, 0)));
+				lblLabelCertificate.setIcon(new ImageIcon(certZoek.getPicture()));
+				
+				
+				JFrame frame = new JFrame();
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.setSize(100, 100);
+				Container c = frame.getContentPane();
+				c.setLayout(new GridLayout(1, 1));
+				c.add(lblLabelCertificate);
+				frame.pack();
+				frame.setVisible(true);
+				
+				
+				
+				//add(lblLabelCertificate, "8, 6");
+				
 				
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
