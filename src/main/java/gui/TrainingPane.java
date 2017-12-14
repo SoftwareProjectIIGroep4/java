@@ -9,7 +9,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -25,6 +29,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+
+import com.google.api.client.util.Key;
+import com.google.common.cache.Cache;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -32,7 +41,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
 import models.TrainingInfo;
+import models.TrainingSession;
 import dataAccess.TrainingInfoAccess;
+import dataAccess.TrainingSessionAccess;
 
 public class TrainingPane extends JPanel {
 
@@ -59,6 +70,19 @@ public class TrainingPane extends JPanel {
 	 * Create the panel.
 	 */
 	public TrainingPane() {
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		HashMap<Integer, TrainingSession> listTrainingssessions= new HashMap<Integer,TrainingSession>();
+		try {
+			listTrainingssessions=TrainingSessionAccess.getAll();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (URISyntaxException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
 		HashMap<Integer, TrainingInfo> listTrainings= new HashMap<Integer,TrainingInfo>();
 		try {
 			listTrainings =TrainingInfoAccess.getAll();
@@ -69,6 +93,8 @@ public class TrainingPane extends JPanel {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
@@ -191,22 +217,36 @@ public class TrainingPane extends JPanel {
         Object [] columnHeadersSession = {"Training name","City","From","Until","Price"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
-		Object[][] data = new Object[listTrainings.keySet().size()][5];
-				//table data schrijven
+		List<String[]> data1 = new ArrayList<String[]>();
 		
-		tbTraining = new JTable(data, columnHeadersSession);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersSession) {
-			
-		    
-			
-			
+		ArrayList<TrainingInfo > test = new ArrayList<TrainingInfo>();
+		
+					for (Map.Entry<Integer, TrainingInfo>  entry : listTrainings.entrySet()) {
+						
+						data1.add(new String[] {
+		
+								entry.getValue().getName(), "test1", "test2" ,"test3", String.valueOf(entry.getValue().getPrice())}
+								
+						
+						);
+		
+				}
+		
+		
+		
+		DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersSession) {
+		
+
+
+
 			@Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
 		    }
-		};
 		
+		};
+		tbTraining = new JTable(tableModel);
 		tbTraining.setModel(tableModel);
 		tbTraining.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbTraining.setRowSelectionAllowed(true);

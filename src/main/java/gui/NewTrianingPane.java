@@ -303,4 +303,9 @@ public class NewTrianingPane extends JPanel {
 		epDescription.setText(text);
     }
 
+	public int getSurveyId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

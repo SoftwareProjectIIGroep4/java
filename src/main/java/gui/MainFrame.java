@@ -473,7 +473,7 @@ public class MainFrame extends JFrame {
                         		//open een error message
                         	}
                         	else {
-                        	TrainingInfo trainingInfo = new TrainingInfo(newNewTrianingPane.getTitle(), newNewTrianingPane.getDescription(), newNewTrianingPane.getNumberOfDays(), newNewTrianingPane.getDescriptionExam(), newNewTrianingPane.getDescriptionPayement(), newNewTrianingPane.getPrice());
+                        	TrainingInfo trainingInfo = new TrainingInfo(newNewTrianingPane.getTitle(), newNewTrianingPane.getDescription(), newNewTrianingPane.getNumberOfDays(), newNewTrianingPane.getDescriptionExam(), newNewTrianingPane.getDescriptionPayement(), newNewTrianingPane.getPrice(),newNewTrianingPane.getSurveyId());
                         	try {
 								trainingInfo.save();
 							} catch (URISyntaxException e1) {
