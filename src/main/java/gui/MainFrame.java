@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,11 +20,9 @@ import javax.swing.JTable;
 
 import gui.EmployeePane;
 import models.Employee;
+import models.TrainingInfo;
 
-
-
-
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
 
@@ -180,6 +180,7 @@ public class MainFrame extends JFrame{
                         //show trainingRequestMenu
                         layout.show(getContentPane(), "TrainingSessionInfoPane");
                     }
+                    
                 }
             });
         	
@@ -468,7 +469,21 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("SaveTraining".equals(command)) {
                         	//cancel trainingSession
-                        	
+                        	if(newNewTrianingPane.getTitle()==null|| newNewTrianingPane.getDescription()==null|| newNewTrianingPane.getNumberOfDays()==0|| newNewTrianingPane.getDescriptionExam()==null|| newNewTrianingPane.getDescriptionPayement()==null|| newNewTrianingPane.getPrice()==0) {
+                        		//open een error message
+                        	}
+                        	else {
+                        	TrainingInfo trainingInfo = new TrainingInfo(newNewTrianingPane.getTitle(), newNewTrianingPane.getDescription(), newNewTrianingPane.getNumberOfDays(), newNewTrianingPane.getDescriptionExam(), newNewTrianingPane.getDescriptionPayement(), newNewTrianingPane.getPrice(),newNewTrianingPane.getSurveyId());
+                        	try {
+								trainingInfo.save();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+                        	}
                         } else if ("AddNewTraining".equals(command)) {
                         	//show TrainingSessoinInfoPane
                         	

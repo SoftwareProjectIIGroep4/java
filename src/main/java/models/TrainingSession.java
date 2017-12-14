@@ -19,19 +19,28 @@ public class TrainingSession {
 	private int addressId;
 	private int teacherId;
 	private int trainingId;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date date;
 	private Time startHour;
 	private Time endHour;
-	private boolean cancelled; 
+	private boolean cancelled;
+	private int surveyId;
+	
 			
 	
+	public int getSurveyId() {
+		return surveyId;
+	}
+
+	public void setSurveyId(int surveyId) {
+		this.surveyId = surveyId;
+	}
+
 	public TrainingSession() {
 		super();		
 	}
 
 	public TrainingSession(int addressId, int teacherId, int trainingId, Date date, Time startHour, Time endHour,
-			boolean cancelled) {
+			boolean cancelled,int surveyId) {
 		super();
 		this.addressId = addressId;
 		this.teacherId = teacherId;
@@ -40,6 +49,8 @@ public class TrainingSession {
 		this.startHour = startHour;
 		this.endHour = endHour;
 		this.cancelled = cancelled;
+		this.surveyId=surveyId;
+		
 	}
 
 	public TrainingSession(int trainingSessionId, int addressId, int teacherId, int trainingId, Date date,
