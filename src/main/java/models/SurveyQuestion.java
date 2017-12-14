@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import dataAccess.Cache;
 import dataAccess.SurveyAnswerAcces;
 import dataAccess.SurveyQuestionAcces;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SurveyQuestion {
 
 public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }

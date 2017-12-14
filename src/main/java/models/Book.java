@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.services.books.Books;
@@ -41,6 +42,7 @@ import dataAccess.BookAccess;
 import dataAccess.Cache;
 import dataAccess.ClientCredentials;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Book {
 
 		private long bookID;

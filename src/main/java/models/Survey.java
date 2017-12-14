@@ -11,6 +11,7 @@ import dataAccess.SurveyAcces;
 import dataAccess.SurveyQuestionAcces;
 import models.SurveyQuestion;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Survey {
 	private int surveyID;
 	private HashMap<Integer, SurveyQuestion> surveyQuestions;

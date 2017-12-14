@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 
 import dataAccess.Constants;
 import models.Login;
-import models.UserToken;
 
 public class LoginAcces extends RestRequest {
 	
@@ -16,7 +15,4 @@ public class LoginAcces extends RestRequest {
 		String saltyString  = mapper.readValue(JSONAdr, String.class);
 		return saltyString;
 	}
-	
-	
-
 }

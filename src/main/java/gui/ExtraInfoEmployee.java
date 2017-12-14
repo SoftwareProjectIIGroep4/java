@@ -56,7 +56,6 @@ public class ExtraInfoEmployee extends JPanel {
 public ExtraInfoEmployee() {
 		
 		
-		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
