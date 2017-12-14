@@ -7,11 +7,13 @@ import java.sql.Time;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import dataAccess.Cache;
 import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TrainingSession {	
 	private int trainingSessionId;
 	private int addressId;

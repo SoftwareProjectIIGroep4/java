@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import dataAccess.Cache;
 import dataAccess.FaqAccess;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Faq {
 	
 	private int faqID;
