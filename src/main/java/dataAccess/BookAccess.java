@@ -4,29 +4,28 @@ package dataAccess;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
+//import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
-
-import org.apache.http.HttpEntity;
+/*import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.apache.http.util.EntityUtils;*/
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-import java.io.BufferedReader;
+/*import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URLConnection;
+import java.net.URLConnection;*/
 
 
 import models.Book;
@@ -44,7 +43,7 @@ public class BookAccess extends RestRequest {
 				HashMap<Long, Book> bookMap = new HashMap<Long, Book>();
 
 				for (Book book : books) {
-					bookMap.put(book.getIsbn(), book);
+					bookMap.put(book.getBookID(), book);
 				}
 				return bookMap;			
 		}
@@ -63,7 +62,7 @@ public class BookAccess extends RestRequest {
 		}
 
 		public static void update(Book book) throws URISyntaxException, IOException {
-			putObject(book, new URI(Constants.BOOK_SOURCE + book.getIsbn()));
+			putObject(book, new URI(Constants.BOOK_SOURCE + book.getBookID()));
 		}
 
 		public static Book remove(Long id) throws URISyntaxException, IOException {
