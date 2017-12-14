@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -84,6 +85,7 @@ public class TrainingPane extends JPanel {
 		}
 		
 		HashMap<Integer, TrainingInfo> listTrainings= new HashMap<Integer,TrainingInfo>();
+		
 		try {
 			listTrainings =TrainingInfoAccess.getAll();
 		} catch (IOException e1) {
@@ -221,14 +223,22 @@ public class TrainingPane extends JPanel {
 		
 		ArrayList<TrainingInfo > test = new ArrayList<TrainingInfo>();
 		
-					for (Map.Entry<Integer, TrainingInfo>  entry : listTrainings.entrySet()) {
+					for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
 						
-						data1.add(new String[] {
-		
-								entry.getValue().getName(), "test1", "test2" ,"test3", String.valueOf(entry.getValue().getPrice())}
-								
-						
-						);
+						try {
+							data1.add(new String[] {
+
+									TrainingInfoAccess.get(entry.getValue().getTrainingId()).getName(), String.valueOf(dataAccess.AddressAccess.get(entry.getValue().getAddressId()).getCountry()), String.valueOf(entry.getValue().getStartHour()) ,String.valueOf(entry.getValue().getEndHour()), String.valueOf(TrainingInfoAccess.get(entry.getValue().getTrainingId()).getPrice())}
+									
+							
+							);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (URISyntaxException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 		
 				}
 		
