@@ -27,7 +27,7 @@ import models.Token;
 import models.TrainingInfo;
 import models.TrainingSession;
 import models.Login;;
-
+ 
 public class App {
 	 public static void main(String[] args) throws IOException, URISyntaxException {
 		   /* JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();

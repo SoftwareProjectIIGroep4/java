@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dataAccess.Cache;
 import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
-
+ 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
 public class TrainingInfo {
