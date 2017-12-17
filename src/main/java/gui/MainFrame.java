@@ -538,7 +538,7 @@ public class MainFrame extends JFrame{
                 });
         		
         		
-        		/*addSurveyPanel.addActionListener(new ActionListener() {
+        		addSurveyPanel.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String command = e.getActionCommand();
@@ -558,15 +558,24 @@ public class MainFrame extends JFrame{
                         } else if ("TrainingRequestsMenu".equals(command)) {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
-                        } else if ("goToAddTrainingSession".equals(command)) {
-                        	//show trainingRequestMenu
+                        } else if ("backToNewTrainingSession".equals(command)) {
+                        	//Back to newtrainingsessionpanel
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
-                        } else if ("goToTrainingSessionInfo".equals(command)) {
-                            //show trainingRequestMenu
-                            layout.show(getContentPane(), "TrainingSessionInfoPane");
+                        } else if ("addQuestion".equals(command)) {
+                        	//add question to survey
+                        	
+                        } else if ("deleteQuestion".equals(command)) {
+                        	//delete question from survey
+                        	
+                        } else if ("updateQuestion".equals(command)) {
+                        	//update question from survey
+                        	
+                        }else if ("btnConfirmSurvey".equals(command)) {
+                        	//Confirm the survey
+                        	
                         }
                     }
-                });*/
+                });
         
         layout.show(getContentPane(), "layout");
 	}
