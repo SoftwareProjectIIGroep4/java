@@ -15,12 +15,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import org.w3c.dom.css.ElementCSSInlineStyle;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 
 import gui.EmployeePane;
 import models.Employee;
 import models.TrainingInfo;
+import models.Login;
+import models.Token;
+import gui.LoginPane;
 
 public class MainFrame extends JFrame {
 
@@ -89,9 +95,25 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String command = e.getActionCommand();
                 System.out.println(command);
+              
                 if ("Login".equals(command)) {
+                	Token token= new Token();
+                	try {
+						 token =Login.authorizeAcces(newLoginPane.getEmail(), newLoginPane.getPassword());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                	if (token !=null) {
                 	newLoginPane.changeColor();
                     layout.show(getContentPane(), "homePanel");
+                    }
+                	else {
+                		//error message
+                	}
                 }
             }
         });

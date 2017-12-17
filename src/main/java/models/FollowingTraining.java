@@ -57,5 +57,6 @@ SIGNED OUT: isApproved=false, isCancelled=true, isDeclined=false
 		this.isDeclined = isDeclined;
 	}
 	
+	
 
 }
