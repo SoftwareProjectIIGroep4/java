@@ -44,7 +44,8 @@ public class MainFrame extends JFrame {
         TrainingPane trainingPanel = new TrainingPane();
         TrainingSessionPane trainingSessionPanel = new TrainingSessionPane();
         NewTrainingSessionPane newNewTrainingSessionPanel = new NewTrainingSessionPane();
-        EmployeePane employeePanel = new EmployeePane();
+        //EmployeePane employeePanel = new EmployeePane();
+        ExtraInfoEmployee employeePanel = new ExtraInfoEmployee();
         StatistiekenPane statistiekenPanel = new StatistiekenPane();    
         TrainingrequestPane trainingrequestPanel = new TrainingrequestPane();
         TrainingSessionBookPane newTrainingSessionBookPane = new TrainingSessionBookPane();

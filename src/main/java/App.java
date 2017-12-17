@@ -81,7 +81,7 @@ public class App {
 
 	public static void trainingInfoTest() throws URISyntaxException, IOException, ExecutionException {
 		LogFileHelper.log("testuser", "testactie2");
-		TrainingSession session = new TrainingSession(33, 1, 6, new Date(System.currentTimeMillis()) , new Time(1510833600000L) , new Time(1510840800000L) , false);
+		TrainingSession session = new TrainingSession(33, 1, 6, new Date(System.currentTimeMillis()) , new Time(1510833600000L) , new Time(1510840800000L) , false, 342);
 		session.save();
 		
 	}
