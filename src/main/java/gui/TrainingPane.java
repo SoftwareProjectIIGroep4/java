@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -41,6 +43,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
+
+import models.Address;
 import models.TrainingInfo;
 import models.TrainingSession;
 import dataAccess.TrainingInfoAccess;
@@ -73,9 +77,12 @@ public class TrainingPane extends JPanel {
 	public TrainingPane() {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		HashMap<Integer, TrainingSession> listTrainingssessions= new HashMap<Integer,TrainingSession>();
+		
 		try {
-			listTrainingssessions=TrainingSessionAccess.getAll();
+			dataAccess.Cache.loadAllAddresses();
+			dataAccess.Cache.loadAllTrainingInfos();
+			dataAccess.Cache.loadAllTrainingSessions();
+			
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -83,18 +90,12 @@ public class TrainingPane extends JPanel {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
+		ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
+		ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
 		
-		HashMap<Integer, TrainingInfo> listTrainings= new HashMap<Integer,TrainingInfo>();
+		ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
 		
-		try {
-			listTrainings =TrainingInfoAccess.getAll();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -221,26 +222,22 @@ public class TrainingPane extends JPanel {
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data1 = new ArrayList<String[]>();
 		
-		ArrayList<TrainingInfo > test = new ArrayList<TrainingInfo>();
 		
-					for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
-						
-						try {
-							data1.add(new String[] {
+		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
+			
+			
+			data1.add(new String[] {
+					listTraingInfo.get(entry.getValue().getTrainingId()).getName(),
+					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getCountry()), 
+					String.valueOf(entry.getValue().getStartHour()) ,
+					String.valueOf(entry.getValue().getEndHour()), 
+					String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getPrice())}
+					
+			
+			);
+	
 
-									TrainingInfoAccess.get(entry.getValue().getTrainingId()).getName(), String.valueOf(dataAccess.AddressAccess.get(entry.getValue().getAddressId()).getCountry()), String.valueOf(entry.getValue().getStartHour()) ,String.valueOf(entry.getValue().getEndHour()), String.valueOf(TrainingInfoAccess.get(entry.getValue().getTrainingId()).getPrice())}
-									
-							
-							);
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (URISyntaxException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-		
-				}
+}
 		
 		
 		

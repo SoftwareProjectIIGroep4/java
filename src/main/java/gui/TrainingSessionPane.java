@@ -6,6 +6,13 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,6 +33,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+
+import dataAccess.TrainingInfoAccess;
+import dataAccess.TrainingSessionAccess;
+import models.Address;
+import models.TrainingInfo;
+import models.TrainingSession;
+
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -49,6 +63,16 @@ public class TrainingSessionPane extends JPanel {
 	 * Create the panel.
 	 */
 	public TrainingSessionPane() {
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
+		ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+		ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
@@ -157,13 +181,19 @@ public class TrainingSessionPane extends JPanel {
 		
 		
 		Object [] columnHeadersSession = {"Training name","City","Date","Hour"};
-		modelSession = new DefaultTableModel();
+		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
-		Object[][] data = {
-				//table data schrijven
-		};
-		tbSession = new JTable(data, columnHeadersSession);
-		tableModel = new DefaultTableModel(data, columnHeadersSession) {
+		List<String[]> data = new ArrayList<String[]>();
+		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
+			data.add(new String[] {
+
+					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
+					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
+					String.valueOf(entry.getValue().getDate()) ,
+					String.valueOf(entry.getValue().getStartHour())}
+			);
+}
+		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersSession) {
 
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -171,6 +201,7 @@ public class TrainingSessionPane extends JPanel {
 		       return false;
 		    }
 		};
+		tbSession = new JTable(tableModel);
 		tbSession.setModel(tableModel);
 		tbSession.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbSession.setRowSelectionAllowed(true);
