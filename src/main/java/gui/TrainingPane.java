@@ -68,7 +68,7 @@ public class TrainingPane extends JPanel {
 	private JButton btnAddNewTraining;
 	private JLabel lblCityTraining;
 	private JLabel lblNewLabel_2;
-	
+	private int tabelID;
 	
 	
 	/**
@@ -217,7 +217,7 @@ public class TrainingPane extends JPanel {
         lblEmployeeExplanation.setBounds(20, 80, 231, 28);
         add(lblEmployeeExplanation);
         
-        Object [] columnHeadersSession = {"Training name","City","From","Until","Price"};
+        Object [] columnHeadersSession = {"ID","Training name","City","From","Until","Price"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data1 = new ArrayList<String[]>();
@@ -227,25 +227,20 @@ public class TrainingPane extends JPanel {
 			
 			
 			data1.add(new String[] {
+					String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getTrainingId()),
 					listTraingInfo.get(entry.getValue().getTrainingId()).getName(),
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getCountry()), 
 					String.valueOf(entry.getValue().getStartHour()) ,
 					String.valueOf(entry.getValue().getEndHour()), 
 					String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getPrice())}
 					
-			
 			);
 	
 
 }
-		
-		
-		
+			
 		DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersSession) {
 		
-
-
-
 			@Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
@@ -285,7 +280,9 @@ public class TrainingPane extends JPanel {
 					//GET ROW
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
 					//doe iets hier
+					tabelID = (int) tbTraining.getModel().getValueAt(0, selectedRow);
 				}
+				
 			}
 		});
         	 
@@ -443,5 +440,8 @@ public class TrainingPane extends JPanel {
 	public String getPriceTraining() {
         return txtPriceTraining.getText();
     }
+	public int getTabelID() {
+		return tabelID;
+	}
 	
 }
