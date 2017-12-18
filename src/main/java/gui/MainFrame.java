@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,19 +22,24 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.w3c.dom.css.ElementCSSInlineStyle;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
 
 import gui.EmployeePane;
+import models.Address;
 import models.Employee;
 import models.TrainingInfo;
+import models.TrainingSession;
 import models.Login;
 import models.Token;
 import gui.LoginPane;
 
 public class MainFrame extends JFrame {
+	private static int keeper;
 
 	private JPanel contentPane;
 
@@ -74,6 +84,7 @@ public class MainFrame extends JFrame {
         AddTeacherPane addTeacherPanel = new AddTeacherPane(); 
         AddBookPane addBookPanel = new AddBookPane();
         AddSurveyPane addSurveyPanel = new AddSurveyPane();
+        
         
         
         getContentPane().add(newLoginPane, "loginPanel");
@@ -168,8 +179,10 @@ public class MainFrame extends JFrame {
                 	//show trainingRequestMenu
                 	layout.show(getContentPane(), "trainingrequestPanel");
                 } else if ("goToSelectTraining".equals(command)) {
-                	int test=trainingPanel.getTabelID();
-                	System.out.println(test);
+                	setKeeper(trainingPanel.getTabelID());
+                	new SelectTrainingPane();
+                	//SelectTrainingPane newSelectTrainingPane = new SelectTrainingPane();
+                	//getContentPane().add(newSelectTrainingPane, "SelectTrainingPane");
                 	//show selectTrainingMenu
                 	layout.show(getContentPane(), "SelectTrainingPane");
                 }else if ("goToAddTraining".equals(command)) {
@@ -235,6 +248,33 @@ public class MainFrame extends JFrame {
                     	//show trainingRequestMenu
                     	layout.show(getContentPane(), "trainingSessionPanel");
                     } else if ("SaveTrainingSession".equals(command)) {
+                    	TrainingSession tSession=new TrainingSession();
+                    	 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy/MM/dd");  
+                    	Date date=new Date();
+						try {
+							date = formatter1.parse(newNewTrainingSessionPanel.getDate());
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                    	tSession.setDate(date);
+                    	DateFormat formatter = new SimpleDateFormat("hh:mm a");
+                    	try {
+							tSession.setStartHour(new java.sql.Time(formatter.parse(newNewTrainingSessionPanel.getStartHour()).getTime()));
+							tSession.setEndHour(new java.sql.Time(formatter.parse(newNewTrainingSessionPanel.getEndHour()).getTime()));
+                    	} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                    	Address address=new Address();
+                    	address.setAdministrativeArea(newNewTrainingSessionPanel.getAdministrativeArea());
+                    	address.setLocality(newNewTrainingSessionPanel.getLocality());
+                    	address.setPostalCode(Integer.parseInt(newNewTrainingSessionPanel.getPostalCode()));
+                    	address.setStreetAddress(newNewTrainingSessionPanel.getStreetAddress());
+                    	address.setCountry(newNewTrainingSessionPanel.getCountry());
+                    	address.setPremise(newNewTrainingSessionPanel.getPremise());
+                    	
+                    	
                     	//save de data voor training session gebruik getters
                     	layout.show(getContentPane(), "trainingSessionPanel");
                     } else if ("addTeacher".equals(command)) {
@@ -463,7 +503,7 @@ public class MainFrame extends JFrame {
                         	//show trainingSessionPane
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("MakeTrainingSession".equals(command)) {
-                        	//show newTrainingSessionPane
+                        	
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
                         }
                         
@@ -500,7 +540,13 @@ public class MainFrame extends JFrame {
                         		//open een error message
                         	}
                         	else {
-                        	TrainingInfo trainingInfo = new TrainingInfo(newNewTrianingPane.getTitle(), newNewTrianingPane.getDescription(), newNewTrianingPane.getNumberOfDays(), newNewTrianingPane.getDescriptionExam(), newNewTrianingPane.getDescriptionPayement(), newNewTrianingPane.getPrice(),newNewTrianingPane.getSurveyId());
+                        	TrainingInfo trainingInfo = new TrainingInfo(newNewTrianingPane.getTitle(), 
+                        			newNewTrianingPane.getDescription(), 
+                        			newNewTrianingPane.getNumberOfDays(), 
+                        			newNewTrianingPane.getDescriptionExam(),
+                        			newNewTrianingPane.getDescriptionPayement(),
+                        			newNewTrianingPane.getPrice(),
+                        			newNewTrianingPane.getSurveyId());
                         	try {
 								trainingInfo.save();
 							} catch (URISyntaxException e1) {
@@ -620,5 +666,12 @@ public class MainFrame extends JFrame {
                 });
         
         layout.show(getContentPane(), "layout");
+	}
+	public static int getKeeper() {
+		
+		return keeper;
+	}
+	public void setKeeper(int keeper) {
+		this.keeper=keeper;
 	}
 }

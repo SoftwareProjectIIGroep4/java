@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import com.itextpdf.kernel.pdf.filters.IFilterHandler;
 
 import models.TrainingInfo;
@@ -36,16 +39,19 @@ public class SelectTrainingPane extends JPanel {
 	private JTable tbTraining;
 	private JButton btnCancel;
 	private JButton btnMakeTrainingSession;
-	private TrainingPane trainingPane;
 	private int selectedRow;
+	TrainingPane trainingPane;
 	////////////////////////////////
 	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+	
 	////////////////////////////////
 
 	/**
 	 * Create the panel.
 	 */
+	
 	public SelectTrainingPane() {
+		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
@@ -71,10 +77,9 @@ public class SelectTrainingPane extends JPanel {
 		modelTraining.setColumnIdentifiers(columnHeadersTraining);
 		List<String[]> data1 = new ArrayList<String[]>();
 		
-		if (trainingPane!=null) {
-		System.out.println(trainingPane.getTabelID());
+		System.out.println("test2::"+MainFrame.getKeeper());
 		for (Map.Entry<Integer, TrainingInfo>  entry : listTraingInfo.entrySet()) {
-			if(entry.getValue().getTrainingId()==trainingPane.getTabelID()) {
+			if (entry.getValue().getTrainingId()==MainFrame.getKeeper()) {
 			data1.add(new String[] {
 					entry.getValue().getName(),
 					String.valueOf(entry.getValue().getNumberOfDays()),
@@ -85,9 +90,11 @@ public class SelectTrainingPane extends JPanel {
 			);
 			}
 		}
-		}
+		
 		DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersTraining) {
-		    @Override
+		   
+
+			@Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
@@ -112,7 +119,7 @@ public class SelectTrainingPane extends JPanel {
 		JScrollPane sclTraining = new JScrollPane(tbTraining);
 		sclTraining.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclTraining.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclTraining.setBounds(20, 59, 530, 560);
+		sclTraining.setBounds(20, 59, 510, 560);
 		add(sclTraining);
 		ListSelectionModel selectedRowBook = tbTraining.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
@@ -140,5 +147,6 @@ public class SelectTrainingPane extends JPanel {
 	public int getSelectedRow() {
 		return selectedRow;
 	}
+	
 
 }
