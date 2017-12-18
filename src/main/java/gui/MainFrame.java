@@ -5,12 +5,24 @@ import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.JTable;
 
-public class MainFrame extends JFrame {
+import gui.EmployeePane;
+import models.Employee;
+
+
+
+
+public class MainFrame extends JFrame{
 
 	private JPanel contentPane;
 
@@ -53,8 +65,9 @@ public class MainFrame extends JFrame {
         TrainingSessionInfoPane newTrainingSessionInfoPane = new TrainingSessionInfoPane();
         SelectTrainingPane newSelectTrainingPane = new SelectTrainingPane();
         NewTrianingPane newNewTrianingPane = new NewTrianingPane();
-        
-        
+        AddTeacherPane addTeacherPanel = new AddTeacherPane(); 
+        AddBookPane addBookPanel = new AddBookPane(); 
+        AddSurveyPane addSurveyPanel = new AddSurveyPane(); 
         
         getContentPane().add(newLoginPane, "loginPanel");
         getContentPane().add(homePanel, "homePanel");
@@ -69,6 +82,10 @@ public class MainFrame extends JFrame {
         getContentPane().add(newTrainingSessionInfoPane, "TrainingSessionInfoPane");
         getContentPane().add(newSelectTrainingPane, "SelectTrainingPane");
         getContentPane().add(newNewTrianingPane, "NewTrianingPane");
+        getContentPane().add(addTeacherPanel, "addTeacherPanel");
+        getContentPane().add(addBookPanel, "addBookPanel");
+        getContentPane().add(addSurveyPanel, "addSurveyPanel");
+
        
         newLoginPane.addActionListener(new ActionListener() {
             @Override
@@ -193,23 +210,19 @@ public class MainFrame extends JFrame {
                     } else if ("SaveTrainingSession".equals(command)) {
                     	//save de data voor training session gebruik getters
                     	layout.show(getContentPane(), "trainingSessionPanel");
-                    }
-                    else if ("addTeacher".equals(command)) {
-                    	// layout. show van je addTeacher nog maken
-                    	//layout.show(getContentPane(), "trainingSessionPanel");
-                    }
-                    else if ("searchTrainingSession".equals(command)) {
+                    } else if ("addTeacher".equals(command)) {
+                    	// show addTeacherPane
+                    	layout.show(getContentPane(), "addTeacherPanel");
+                    } else if ("searchTrainingSession".equals(command)) {
                     	// bevestigen van je trainingdiejezoek bevestigen nog maken, geen layout!
-                    }
-                    else if ("addBook".equals(command)) {
+                    	layout.show(getContentPane(), "addTeacherPanel");
+                    } else if ("addBook".equals(command)) {
                     	// layout.show van je book toevoegen nog maken
-                    	//layout.show(getContentPane(), "trainingSessionPanel");
-                    }
-                    else if ("addSurvey".equals(command)) {
+                    	layout.show(getContentPane(), "addBookPanel");
+                    } else if ("addSurvey".equals(command)) {
                     	// layout.show van je survey toevoegen nog maken
-                    	//layout.show(getContentPane(), "trainingSessionPanel");
-                    }
-                    
+                    	layout.show(getContentPane(), "addSurveyPanel");
+                    }                   
                 }
             });
         
@@ -233,15 +246,6 @@ public class MainFrame extends JFrame {
                 } else if ("TrainingRequestsMenu".equals(command)) {
                 	//show trainingRequestMenu
                 	layout.show(getContentPane(), "trainingrequestPanel");
-                } else if ("addEmployeeToTable".equals(command)) {
-                	//show trainingRequestMenu
-                	layout.show(getContentPane(), "addEmployeeToTable");
-                } else if ("deleteEmployeeToTable".equals(command)) {
-                	//show trainingRequestMenu
-                	layout.show(getContentPane(), "deleteEmployeeToTable");
-                } else if ("updateEmployeeToTable".equals(command)) {
-                	//show trainingRequestMenu
-                	layout.show(getContentPane(), "updateEmployeeToTable");
                 } 
             }
         });
@@ -476,6 +480,101 @@ public class MainFrame extends JFrame {
                         //	layout.show(getContentPane(), "trainingSessionPanel");
                         }
                         
+                    }
+                });
+        		
+        		addTeacherPanel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String command = e.getActionCommand();
+                        System.out.println(command);
+                        if ("TrainingMenu".equals(command)) {
+                        	//show trainingPane
+                        	layout.show(getContentPane(), "trainingPanel");
+                        } else if ("TrainingSessionMenu".equals(command)) {
+                        	//show trainingSessionPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+                        } else	if ("EmployeesMenu".equals(command)) {
+                        	//show employeesPane
+                        	layout.show(getContentPane(), "employeePanel");
+                        } else if ("StatisticsMenu".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "statistiekenPanel");
+                        } else if ("TrainingRequestsMenu".equals(command)) {
+                        	//show trainingRequestMenu
+                        	layout.show(getContentPane(), "trainingrequestPanel");
+                        } else if ("addTeacher".equals(command)) {
+                        	// button teacher toevoegen en terug naar NewtrainingSessionPane
+                        	
+                        	layout.show(getContentPane(), "NewTrainingSessionPane");
+                        } 
+                    }
+                });
+        		
+        		addBookPanel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String command = e.getActionCommand();
+                        System.out.println(command);
+                        if ("TrainingMenu".equals(command)) {
+                        	//show trainingPane
+                        	layout.show(getContentPane(), "trainingPanel");
+                        } else if ("TrainingSessionMenu".equals(command)) {
+                        	//show trainingSessionPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+                        } else	if ("EmployeesMenu".equals(command)) {
+                        	//show employeesPane
+                        	layout.show(getContentPane(), "employeePanel");
+                        } else if ("StatisticsMenu".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "statistiekenPanel");
+                        } else if ("TrainingRequestsMenu".equals(command)) {
+                        	//show trainingRequestMenu
+                        	layout.show(getContentPane(), "trainingrequestPanel");
+                        } else if ("addBookToTrainingsession".equals(command)) {
+                        	// voeg boek bij trainingsession + show trainingsessionpane
+                        	layout.show(getContentPane(), "NewTrainingSessionPane");
+                        } 
+                    }
+                });
+        		
+        		
+        		addSurveyPanel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String command = e.getActionCommand();
+                        System.out.println(command);
+                        if ("TrainingMenu".equals(command)) {
+                        	//show trainingPane
+                        	layout.show(getContentPane(), "trainingPanel");
+                        } else if ("TrainingSessionMenu".equals(command)) {
+                        	//show trainingSessionPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+                        } else	if ("EmployeesMenu".equals(command)) {
+                        	//show employeesPane
+                        	layout.show(getContentPane(), "employeePanel");
+                        } else if ("StatisticsMenu".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "statistiekenPanel");
+                        } else if ("TrainingRequestsMenu".equals(command)) {
+                        	//show trainingRequestMenu
+                        	layout.show(getContentPane(), "trainingrequestPanel");
+                        } else if ("backToNewTrainingSession".equals(command)) {
+                        	//Back to newtrainingsessionpanel
+                        	layout.show(getContentPane(), "NewTrainingSessionPane");
+                        } else if ("addQuestion".equals(command)) {
+                        	//add question to survey
+                        	
+                        } else if ("deleteQuestion".equals(command)) {
+                        	//delete question from survey
+                        	
+                        } else if ("updateQuestion".equals(command)) {
+                        	//update question from survey
+                        	
+                        }else if ("btnConfirmSurvey".equals(command)) {
+                        	//Confirm the survey
+                        	
+                        }
                     }
                 });
         

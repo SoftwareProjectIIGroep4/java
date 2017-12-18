@@ -42,9 +42,10 @@ public class TrainingSessionPane extends JPanel {
 	private JTextField txtFromTrainingSession;
 	private JTextField txtUntilTrainingSession;
 	private JButton btnAddTrainingSession;
-	private JButton btnShowTrainingSession;
+	private DefaultTableModel modelSession;
+	private DefaultTableModel tableModel;
 	
-	/*
+	/**
 	 * Create the panel.
 	 */
 	public TrainingSessionPane() {
@@ -156,13 +157,13 @@ public class TrainingSessionPane extends JPanel {
 		
 		
 		Object [] columnHeadersSession = {"Training name","City","Date","Hour"};
-		DefaultTableModel modelSession = new DefaultTableModel();
+		modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		Object[][] data = {
 				//table data schrijven
 		};
 		tbSession = new JTable(data, columnHeadersSession);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersSession) {
+		tableModel = new DefaultTableModel(data, columnHeadersSession) {
 
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -322,5 +323,9 @@ public class TrainingSessionPane extends JPanel {
 		return txtUntilTrainingSession.getText();
 	}
 	
+	public void addRowToTrainingSessionTable(Object[] row) {
+		
+		tableModel.addRow(row);
 	
+	}
 }
