@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
 import org.w3c.dom.css.ElementCSSInlineStyle;
@@ -115,7 +116,8 @@ public class MainFrame extends JFrame {
                     layout.show(getContentPane(), "homePanel");
                     }
                 	else {
-                		//error message
+                		newLoginPane.changeColor();
+                        layout.show(getContentPane(), "homePanel");
                 	}
                 }
             }
@@ -166,6 +168,8 @@ public class MainFrame extends JFrame {
                 	//show trainingRequestMenu
                 	layout.show(getContentPane(), "trainingrequestPanel");
                 } else if ("goToSelectTraining".equals(command)) {
+                	int test=trainingPanel.getTabelID();
+                	System.out.println(test);
                 	//show selectTrainingMenu
                 	layout.show(getContentPane(), "SelectTrainingPane");
                 }else if ("goToAddTraining".equals(command)) {

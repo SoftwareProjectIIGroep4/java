@@ -5,6 +5,10 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,13 +24,23 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+
+import com.itextpdf.kernel.pdf.filters.IFilterHandler;
+
+import models.TrainingInfo;
+import models.TrainingSession;
 
 public class SelectTrainingPane extends JPanel {
 	
 	private JTable tbTraining;
 	private JButton btnCancel;
 	private JButton btnMakeTrainingSession;
+	private TrainingPane trainingPane;
 	private int selectedRow;
+	////////////////////////////////
+	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+	////////////////////////////////
 
 	/**
 	 * Create the panel.
@@ -55,17 +69,31 @@ public class SelectTrainingPane extends JPanel {
 		Object [] columnHeadersTraining = {"Title","Number of Days","Price"};
 		DefaultTableModel modelTraining = new DefaultTableModel();
 		modelTraining.setColumnIdentifiers(columnHeadersTraining);
-		Object[][] data = {
-
-		};
-		tbTraining = new JTable(data, columnHeadersTraining);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersTraining) {
+		List<String[]> data1 = new ArrayList<String[]>();
+		
+		if (trainingPane!=null) {
+		System.out.println(trainingPane.getTabelID());
+		for (Map.Entry<Integer, TrainingInfo>  entry : listTraingInfo.entrySet()) {
+			if(entry.getValue().getTrainingId()==trainingPane.getTabelID()) {
+			data1.add(new String[] {
+					entry.getValue().getName(),
+					String.valueOf(entry.getValue().getNumberOfDays()),
+					String.valueOf(entry.getValue().getPrice())
+					}
+			
+					
+			);
+			}
+		}
+		}
+		DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersTraining) {
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
 		    }
 		};
+		tbTraining = new JTable(tableModel);
 		tbTraining.setModel(tableModel);
 		tbTraining.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbTraining.setRowSelectionAllowed(true);

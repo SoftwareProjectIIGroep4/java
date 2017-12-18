@@ -34,6 +34,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import com.google.api.client.util.Key;
 import com.google.common.cache.Cache;
 
@@ -74,7 +76,7 @@ public class TrainingPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public TrainingPane() {
+	public TrainingPane() {	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		
@@ -96,7 +98,6 @@ public class TrainingPane extends JPanel {
 		ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
 		
 		
-	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
@@ -217,7 +218,7 @@ public class TrainingPane extends JPanel {
         lblEmployeeExplanation.setBounds(20, 80, 231, 28);
         add(lblEmployeeExplanation);
         
-        Object [] columnHeadersSession = {"ID","Training name","City","From","Until","Price"};
+        Object [] columnHeadersSession = {"TrainingID","Training name","City","From","Until","Price"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data1 = new ArrayList<String[]>();
@@ -272,6 +273,7 @@ public class TrainingPane extends JPanel {
 		sclBook.setBounds(31, 119, 789, 578);
 		add(sclBook);
 		ListSelectionModel selectedRowBook = tbTraining.getSelectionModel();
+		
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
@@ -279,12 +281,19 @@ public class TrainingPane extends JPanel {
 				if(!selectedRowBook.isSelectionEmpty()) {
 					//GET ROW
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
+					String[] teStrings=data1.get(selectedRow);
+					setTabelID(Integer.parseInt(teStrings[0]));
+					System.out.println(getTabelID());
 					//doe iets hier
-					tabelID = (int) tbTraining.getModel().getValueAt(0, selectedRow);
+					
 				}
 				
 			}
 		});
+		
+		
+		
+		System.out.println(tabelID);
         	 
 		txtTrainingName = new JTextField();
 		txtTrainingName.setBounds(958, 368, 189, 35);
@@ -411,6 +420,7 @@ public class TrainingPane extends JPanel {
 				
 	}	
 	
+	
 	public void addActionListener(ActionListener listener) {
 		btnSelectTraining.addActionListener(listener);
 		btnAddNewTraining.addActionListener(listener);
@@ -420,6 +430,7 @@ public class TrainingPane extends JPanel {
 		jtbEmployees.addActionListener(listener);
 		jtbTrainingSession.addActionListener(listener);
     }
+	
 	
 	public String getTrainingName() {
         return txtTrainingName.getText();
@@ -440,6 +451,9 @@ public class TrainingPane extends JPanel {
 	public String getPriceTraining() {
         return txtPriceTraining.getText();
     }
+	public void setTabelID(int tabelid) {
+		this.tabelID=tabelid;
+	}
 	public int getTabelID() {
 		return tabelID;
 	}
