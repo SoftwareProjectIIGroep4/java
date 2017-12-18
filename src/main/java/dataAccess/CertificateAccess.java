@@ -95,6 +95,7 @@ public class CertificateAccess extends RestRequest {
 		jFileChooser.setFileFilter(new FileTypeFilter(".png", "PNG"));
 		jFileChooser.setFileFilter(new FileTypeFilter(".pdf", "PDF"));
 		jFileChooser.setFileFilter(new FileTypeFilter(".jpg", "JPG"));
+	
 
 		int result = jFileChooser.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
