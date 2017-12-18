@@ -47,6 +47,7 @@ import models.Certificate;
 import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
+import models.UserCertificate;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -62,6 +63,7 @@ import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.draw.DottedLine;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Image;
@@ -84,7 +86,6 @@ public class ExtraInfoEmployee extends JPanel {
 	private JButton btnListOfTrainings;
 	private JTextField textFieldEmployeeID;
 	private int employeeID;
-	private JTextField textFieldTrainingID;
 
 
 	/**
@@ -199,12 +200,12 @@ public class ExtraInfoEmployee extends JPanel {
 		lblNewLabel_1.setOpaque(true);
 		add(lblNewLabel_1);
 
-		JLabel employeeLabel = new JLabel("Employee search by ID: ");
+		JLabel employeeLabel = new JLabel("User search by ID: ");
 		employeeLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		employeeLabel.setBounds(40, 100, 184, 39);
 		add(employeeLabel);
 
-		JLabel firstnameLabel = new JLabel("Employee ID:");
+		JLabel firstnameLabel = new JLabel("User ID:");
 		firstnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		firstnameLabel.setBounds(40, 150, 85, 25);
 		add(firstnameLabel);
@@ -233,11 +234,15 @@ public class ExtraInfoEmployee extends JPanel {
 		lblTrainingName.setBounds(776, 200, 255, 22);
 		add(lblTrainingName);
 
+		JLabel lblTrainingID = new JLabel("");
+		lblTrainingID.setBounds(776, 150, 117, 21);
+		add(lblTrainingID);
 
 		uploadCertificate = new JButton("Upload Certificate");
 		uploadCertificate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int trainingID = Integer.parseInt(textFieldTrainingID.getText());
+				int trainingID = Integer.parseInt(lblTrainingID.getText());
+				int employeeNr = Integer.parseInt(textFieldEmployeeID.getText());
 				String trainingName = lblTrainingName.getText();
 				CertificateAccess cA = new CertificateAccess();
 				File bestand = null;
@@ -246,9 +251,12 @@ public class ExtraInfoEmployee extends JPanel {
 				certificate.setTitel(trainingName);
 				bestand = cA.chooseFile();
 				certificate.setPicture(CertificateAccess.ConvertFile(bestand.getAbsolutePath()));
+				UserCertificate certificateUser = new UserCertificate(certificate, employeeNr);
 				try {
-					//! ! ! 	        			// hier nog laten wegschrijven in tabel UserCertificates, UserID en certificate ID!!!
-					certificate.save();
+//! ! ! 	        		// hier nog laten wegschrijven in tabel UserCertificates, UserID en certificate ID!!!
+					//certificate.save();
+					// nog foutmeldingen
+					CertificateAccess.addCertificateUser(certificateUser);
 				} catch (URISyntaxException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -303,17 +311,18 @@ public class ExtraInfoEmployee extends JPanel {
 		btnListOfTrainings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				lblTrainingID.setText("");
+				lblTrainingName.setText("");
 				employeeID = Integer.parseInt(textFieldEmployeeID.getText());
-				// ! ! ! !				// check employeeid en userid verschil?		
+// ! ! ! !				// check employeeid en userid verschil?		
 				Employee searchEmployee = new Employee();
-			//	Employee searchUser = new User(); // id van de GUI
-				
+				//	Employee searchUser = new User(); // id van de GUI
+
 
 				try {
-					//hieronder is 
 					searchEmployee = EmployeeAccess.get(employeeID);
-				//	searchUser = UserAccess.get(employeeID);
-				//	searchEmployee = EmployeeAccess.get(searchUser.empID);
+					//	searchUser = UserAccess.get(employeeID);
+					//	searchEmployee = EmployeeAccess.get(searchUser.empID);
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -322,7 +331,7 @@ public class ExtraInfoEmployee extends JPanel {
 					e2.printStackTrace();
 				}
 				//setEmployeeID(employeeID);
-				// nog checken bij none-valid employee ID
+				//!!!				// nog checken bij none-valid employee ID
 				lblLastName.setText(searchEmployee.getLastName());
 				lblFirstName.setText(searchEmployee.getFirstName());
 
@@ -396,9 +405,8 @@ public class ExtraInfoEmployee extends JPanel {
 							String testID = test[0];
 							String testNaam = test[1];
 							//lblLastName.setText(String.valueOf(testID));
-							textFieldTrainingID.setText(String.valueOf(testID));
+							lblTrainingID.setText(String.valueOf(testID));
 							lblTrainingName.setText(testNaam);
-							//doe iets hier
 						}
 					}
 				});
@@ -431,12 +439,7 @@ public class ExtraInfoEmployee extends JPanel {
 		JLabel lblTrainingNameFixed = new JLabel("Training Name:");
 		lblTrainingNameFixed.setBounds(669, 206, 104, 16);
 		add(lblTrainingNameFixed);
-
-		textFieldTrainingID = new JTextField();
-		textFieldTrainingID.setBounds(783, 149, 54, 28);
-		add(textFieldTrainingID);
-		textFieldTrainingID.setColumns(10);
-
+//!!		//hier nog fucntie koppelen aan je selectie van de rij!
 		JButton btnShow = new JButton("Show");
 		btnShow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -444,7 +447,7 @@ public class ExtraInfoEmployee extends JPanel {
 				Certificate certZoek = new Certificate();
 				String naam = "";
 				byte[] foto = null;
-				int nummer = Integer.parseInt(textFieldTrainingID.getText());
+				int nummer = Integer.parseInt(lblTrainingID.getText());
 
 				try {
 					certZoek = Cache.certificateCache.get(nummer);
@@ -460,8 +463,10 @@ public class ExtraInfoEmployee extends JPanel {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
+				ImageIcon imageIcon = new ImageIcon(new ImageIcon(certZoek.getPicture()).getImage().getScaledInstance(521, 427, ABORT));
+
 				//ImageIcon imageIcon = new ImageIcon(new ImageIcon(certZoek.getPicture()).getImage().getScaledInstance(521, 427, Image.SCALE_DEFAULT));
-				//lblShowImageIcon.setIcon(imageIcon);
+				lblShowImageIcon.setIcon(imageIcon);
 				//lblShowImageIcon.setBounds(669, 282, 521, 427);
 				//lblShowImageIcon.setIcon(new ImageIcon(certZoek.getPicture()));
 
@@ -474,50 +479,16 @@ public class ExtraInfoEmployee extends JPanel {
 		JButton btnMakePdfCertificates = new JButton("Make PDF Certificates Employee");
 		btnMakePdfCertificates.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// nog uit comment plaatsen van zodra data in UserCertificate
-				/**	int employeeNr = Integer.parseInt(textFieldEmployeeID.getText());
-						HashMap<Integer, Certificate> listCertificateInfo = new HashMap<Integer, Certificate>();
-
-						try {
-							listCertificateInfo = CertificateAccess.getUserCertificateInfos(employeeNr);
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (URISyntaxException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-							//listTrainingInfo = TrainingInfoAccess.getUserTrainingInfos(employeeID);
-							//listTrainingInfo = TrainingInfoAccess.getAll();
-
-						List<String[]> certData = new ArrayList<String[]>();
-						for(Map.Entry<Integer, Certificate> lijst: listCertificateInfo.entrySet()) {
-
-							try {
-								certData.add(new String[] {
-
-										String.valueOf(CertificateAccess.get(lijst.getValue().getCertificateID()).getCertificateID()),
-										String.valueOf(CertificateAccess.get(lijst.getValue().getCertificateID()).getTrainingID()),
-										CertificateAccess.get(lijst.getValue().getCertificateID()).getTitel(),
-										String.valueOf(CertificateAccess.get(lijst.getValue().getCertificateID()).getPicture())
-
-								});
-							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							} catch (URISyntaxException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						} */
-
 				// sources: https://www.tutorialspoint.com/itext/index.htm
 				// DESTPDF is string met path+naam waar we aangemaakt PDF-bestand bewaren
-				int employeeNr = 5;
-				final String DESTPDF ="results/certificate" + employeeNr + ".pdf";
+				
+				int employeeNr = Integer.parseInt(textFieldEmployeeID.getText());
+				String employeeNaam = lblLastName.getText();
+				String employeeVoornaam = lblFirstName.getText();
+				
+				final String DESTPDF ="results/certificate" + employeeNr + "_" + employeeNaam + "_" + employeeVoornaam + ".pdf";
 				File file = new File(DESTPDF);
 				file.getParentFile().mkdirs();
-				//new Certificate().createPDF(DESTPDF);  
 
 				//initialize PDF Writer
 				FileOutputStream fos = null;
@@ -533,55 +504,48 @@ public class ExtraInfoEmployee extends JPanel {
 				//initialize document
 				Document doc = new Document(pdf);
 				// add paragraph to document
-				doc.add(new Paragraph ("Hello World!"));
+				doc.add(new Paragraph ("Certificates Overview - EmployeeID: " +  employeeNr + " - " + employeeNaam + ", " + employeeVoornaam +""));
 
-				String string1 = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum explicabo reprehenderit optio amet ab temporibus asperiores quasi cupiditate. Voluptatum ducimus voluptates voluptas?";
-				String string2 = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum explicabo reprehenderit optio amet ab temporibus asperiores quasi cupiditate. Voluptatum ducimus voluptates voluptas?";
-				Paragraph par1 = new Paragraph(string1);
-				Paragraph par2 = new Paragraph(string2);
+				HashMap<Integer, Certificate> listCertificateInfo = new HashMap<Integer, Certificate>();
 
-				doc.add(par1);
-				doc.add(par2);
-				// initialize list
-
-				//List lijst = new List();
-				// add listItem to List
-				//lijst.add("1e lijstitem");
-				//lijst.add("2e lijstitem");
-				//lijst.add("3e lijstitem");
-				//lijst.add("5e lijstitem");
-				//add List to Document
-				//doc.add(lijst);
-
-				//creating imageDataObject
-				String imagefile = "results/lama.jpg";
-				ImageData fotodata;
 				try {
-					fotodata = ImageDataFactory.create(imagefile);
-					//creating imageObject
-					Image foto = new Image(fotodata);
-					// add image to document, AutoScale false
-					doc.add(foto.setAutoScale(false)); 
-				} catch (MalformedURLException e2) {
+					listCertificateInfo = CertificateAccess.getUserCertificateInfos(employeeNr);
+				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-
-
-				Certificate certZoek = new Certificate();
-				try {
-					certZoek = Cache.certificateCache.get(65);
-				} catch (ExecutionException e1) {
+					e1.printStackTrace();
+				} catch (URISyntaxException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				//ImageIcon imageIcon = new ImageIcon(new ImageIcon(certZoek.getPicture()).getImage().getScaledInstance(521, 427, Image.SCALE_DEFAULT));
-				// add image to document, AutoScale false
-				//doc.add(foto.setAutoScale(false));
-				//	ImageIcon imageIcon = new ImageIcon( new ImageIcon(certZoek.getPicture()).getImage().getScaledInstance(250, 250, Image.SCALE_DEFAULT));
-				//	Image image = imageIcon.getImage();
-				//doc.add(image);
+				//listTrainingInfo = TrainingInfoAccess.getUserTrainingInfos(employeeID);
+				//listTrainingInfo = TrainingInfoAccess.getAll();
 
+				List<String[]> certData = new ArrayList<String[]>();
+				for(Map.Entry<Integer, Certificate> lijst: listCertificateInfo.entrySet()) {
+
+					Paragraph naamTraining;
+					try {
+						naamTraining = new Paragraph (CertificateAccess.get(lijst.getValue().getCertificateID()).getTitel());
+						doc.add(naamTraining);
+						//creating imageDataObject
+						ImageData fotodata = ImageDataFactory.create(CertificateAccess.get(lijst.getValue().getCertificateID()).getPicture());
+						Image foto = new Image(fotodata);
+						// add image to document, AutoScale true
+						doc.add(foto.setAutoScale(true));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					//!!!!!							// hier nog fout geen waarde, gaat niet in lus
+					if (listCertificateInfo.isEmpty()) {
+						Paragraph warning = new Paragraph ("No Certificates - No Training Succeeded");
+						doc.add(warning);
+					}
+
+				}
 
 				//close document
 				doc.close();
@@ -592,6 +556,8 @@ public class ExtraInfoEmployee extends JPanel {
 		});
 		btnMakePdfCertificates.setBounds(308, 233, 256, 29);
 		add(btnMakePdfCertificates);
+		
+		
 
 	}
 

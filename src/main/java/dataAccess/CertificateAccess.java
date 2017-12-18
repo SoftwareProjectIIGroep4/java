@@ -34,6 +34,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import models.Certificate;
 import models.FileTypeFilter;
 import models.TrainingInfo;
+import models.UserCertificate;
 
 public class CertificateAccess extends RestRequest {
 	public static Certificate get(Integer certificateID) throws IOException, URISyntaxException {
@@ -66,6 +67,11 @@ public class CertificateAccess extends RestRequest {
 			certificateInfosMap.put(certificateInfo.getCertificateID(), certificateInfo);
 		}
 		return certificateInfosMap;
+	}
+	
+	public static Certificate addCertificateUser(UserCertificate userCertificate) throws IOException, URISyntaxException {
+		String JSONcert = postObject(userCertificate, new URI(Constants.CERTIFICATE_SOURCE  + "usercertificates/"));
+		return mapper.readValue(JSONcert, Certificate.class);
 	}
 
 	public static Certificate add(Certificate certificate) throws IOException, URISyntaxException {
