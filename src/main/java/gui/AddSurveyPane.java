@@ -34,11 +34,11 @@ import java.awt.event.ActionEvent;
 public class AddSurveyPane extends JPanel {
 
 	private int selectedRow;
-	private JToggleButton jtbTraining;
-	private JToggleButton jtbEmployees;
-	private JToggleButton jtbStatistics;
-	private JToggleButton jtbTrainingSession;
-	private JToggleButton jtbTrainingRequests;
+	private JButton jtbTraining;
+	private JButton jtbEmployees;
+	private JButton jtbStatistics;
+	private JButton jtbTrainingSession;
+	private JButton jtbTrainingRequests;
 	private JButton btnConfirmSurvey;
 	private DefaultTableModel modelSurvey;
 	private DefaultTableModel tableModel;
@@ -58,7 +58,7 @@ public class AddSurveyPane extends JPanel {
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
-	        jtbTraining = new JToggleButton("Training");
+	        jtbTraining = new JButton("Training");
 	        jtbTraining.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
@@ -77,7 +77,7 @@ public class AddSurveyPane extends JPanel {
 	        jtbTraining.setBounds(133, 0, 211, 75);
 	        add(jtbTraining);
 	        
-	        jtbTrainingSession = new JToggleButton("Training session");
+	        jtbTrainingSession = new JButton("Training session");
 	        jtbTrainingSession.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
@@ -96,7 +96,7 @@ public class AddSurveyPane extends JPanel {
 	        jtbTrainingSession.setBounds(344, 0, 211, 75);
 	        add(jtbTrainingSession);
 	        
-	        jtbEmployees = new JToggleButton("Employees");
+	        jtbEmployees = new JButton("Employees");
 	        jtbEmployees.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
@@ -115,7 +115,7 @@ public class AddSurveyPane extends JPanel {
 	        jtbEmployees.setBounds(555, 0, 212, 75);
 	        add(jtbEmployees);
 	        
-	        jtbStatistics = new JToggleButton("Statistics");
+	        jtbStatistics = new JButton("Statistics");
 	        jtbStatistics.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
@@ -134,7 +134,7 @@ public class AddSurveyPane extends JPanel {
 	        jtbStatistics.setBounds(767, 0, 212, 75);
 	        add(jtbStatistics);
 	        
-	        jtbTrainingRequests = new JToggleButton("Training requests");
+	        jtbTrainingRequests = new JButton("Training requests");
 	        jtbTrainingRequests.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {

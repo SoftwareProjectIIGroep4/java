@@ -7,6 +7,14 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -22,12 +30,21 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+
+import com.google.api.client.util.Key;
+import com.google.common.cache.Cache;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
+import models.TrainingInfo;
+import models.TrainingSession;
+import dataAccess.TrainingInfoAccess;
+import dataAccess.TrainingSessionAccess;
 
 public class TrainingPane extends JPanel {
 
@@ -38,11 +55,11 @@ public class TrainingPane extends JPanel {
 	private JTextField txtPriceTraining;
 	private String fullEmployee;
 	private JTable tbTraining;
-	private JToggleButton jtbTraining;
-	private JToggleButton jtbEmployees;
-	private JToggleButton jtbStatistics;
-	private JToggleButton jtbTrainingSession;
-	private JToggleButton jtbTrainingRequests;
+	private JButton jtbTraining;
+	private JButton jtbEmployees;
+	private JButton jtbStatistics;
+	private JButton jtbTrainingSession;
+	private JButton jtbTrainingRequests;
 	private JButton btnSelectTraining;
 	private JButton btnAddNewTraining;
 	private JLabel lblCityTraining;
@@ -54,24 +71,48 @@ public class TrainingPane extends JPanel {
 	 * Create the panel.
 	 */
 	public TrainingPane() {
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
+		HashMap<Integer, TrainingSession> listTrainingssessions= new HashMap<Integer,TrainingSession>();
+		try {
+			listTrainingssessions=TrainingSessionAccess.getAll();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (URISyntaxException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
+		HashMap<Integer, TrainingInfo> listTrainings= new HashMap<Integer,TrainingInfo>();
+		
+		try {
+			listTrainings =TrainingInfoAccess.getAll();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
-	        jtbTraining = new JToggleButton("Training");
-	        jtbTraining.addMouseListener(new MouseAdapter() {
+	        jtbTraining = new JButton("Training");
+	     /*   jtbTraining.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
-	                jtbTraining.setBorder(border);
+	               jtbTraining.setBorder(border);
 	            }
 	            @Override
 	            public void mouseExited(MouseEvent e) {
 	                jtbTraining.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbTraining.setBackground(Color.WHITE);
 	        jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTraining.setOpaque(true);
@@ -79,8 +120,8 @@ public class TrainingPane extends JPanel {
 	        jtbTraining.setBounds(133, 0, 211, 75);
 	        add(jtbTraining);
 	        
-	        jtbTrainingSession = new JToggleButton("Training session");
-	        jtbTrainingSession.addMouseListener(new MouseAdapter() {
+	        jtbTrainingSession = new JButton("Training session");
+	       /* jtbTrainingSession.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbTrainingSession.setBorder(border);
@@ -89,7 +130,7 @@ public class TrainingPane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbTrainingSession.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbTrainingSession.setBackground(Color.WHITE);
 	        jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTrainingSession.setOpaque(true);
@@ -97,8 +138,8 @@ public class TrainingPane extends JPanel {
 	        jtbTrainingSession.setBounds(344, 0, 211, 75);
 	        add(jtbTrainingSession);
 	        
-	        jtbEmployees = new JToggleButton("Employees");
-	        jtbEmployees.addMouseListener(new MouseAdapter() {
+	        jtbEmployees = new JButton("Employees");
+	        /*jtbEmployees.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbEmployees.setBorder(border);
@@ -107,7 +148,7 @@ public class TrainingPane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbEmployees.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbEmployees.setBackground(Color.WHITE);
 	        jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbEmployees.setOpaque(true);
@@ -115,8 +156,8 @@ public class TrainingPane extends JPanel {
 	        jtbEmployees.setBounds(555, 0, 212, 75);
 	        add(jtbEmployees);
 	        
-	        jtbStatistics = new JToggleButton("Statistics");
-	        jtbStatistics.addMouseListener(new MouseAdapter() {
+	        jtbStatistics = new JButton("Statistics");
+	       /* jtbStatistics.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbStatistics.setBorder(border);
@@ -125,7 +166,7 @@ public class TrainingPane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbStatistics.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbStatistics.setBackground(Color.WHITE);
 	        jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbStatistics.setOpaque(true);
@@ -133,8 +174,8 @@ public class TrainingPane extends JPanel {
 	        jtbStatistics.setBounds(767, 0, 212, 75);
 	        add(jtbStatistics);
 	        
-	        jtbTrainingRequests = new JToggleButton("Training requests");
-	        jtbTrainingRequests.addMouseListener(new MouseAdapter() {
+	        jtbTrainingRequests = new JButton("Training requests");
+	       /* jtbTrainingRequests.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbTrainingRequests.setBorder(border);
@@ -143,7 +184,7 @@ public class TrainingPane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbTrainingRequests.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbTrainingRequests.setBackground(Color.WHITE);
 	        jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTrainingRequests.setOpaque(true);
@@ -178,19 +219,43 @@ public class TrainingPane extends JPanel {
         Object [] columnHeadersSession = {"Training name","City","From","Until","Price"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
-		Object[][] data = {
-				//table data schrijven
-		};
-		tbTraining = new JTable(data, columnHeadersSession);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersSession) {
+		List<String[]> data1 = new ArrayList<String[]>();
+		
+		
+					for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
+						
+						try {
+							data1.add(new String[] {
 
-		    @Override
+									TrainingInfoAccess.get(entry.getValue().getTrainingId()).getName(), String.valueOf(dataAccess.AddressAccess.get(entry.getValue().getAddressId()).getCountry()), String.valueOf(entry.getValue().getStartHour()) ,String.valueOf(entry.getValue().getEndHour()), String.valueOf(TrainingInfoAccess.get(entry.getValue().getTrainingId()).getPrice())}
+									
+							
+							);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (URISyntaxException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+		
+				}
+		
+		
+		
+		DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersSession) {
+		
+
+
+
+			@Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
 		    }
-		};
 		
+		};
+		tbTraining = new JTable(tableModel);
 		tbTraining.setModel(tableModel);
 		tbTraining.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbTraining.setRowSelectionAllowed(true);

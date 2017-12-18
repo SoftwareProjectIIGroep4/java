@@ -31,11 +31,11 @@ import java.awt.event.ActionEvent;
 
 public class HomePane extends JPanel {
 
-	private JToggleButton jtbTraining;
-	private JToggleButton jtbEmployees;
-	private JToggleButton jtbStatistics;
-	private JToggleButton jtbTrainingSession;
-	private JToggleButton jtbTrainingRequests;
+	private JButton jtbTraining;
+	private JButton jtbEmployees;
+	private JButton jtbStatistics;
+	private JButton jtbTrainingSession;
+	private JButton jtbTrainingRequests;
 	
 	/**
 	 * Create the panel.
@@ -46,8 +46,8 @@ public class HomePane extends JPanel {
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
-	        jtbTraining = new JToggleButton("Training");
-	        jtbTraining.addMouseListener(new MouseAdapter() {
+	        jtbTraining = new JButton("Training");
+	       /* jtbTraining.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbTraining.setBorder(border);
@@ -56,7 +56,7 @@ public class HomePane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbTraining.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbTraining.setBackground(Color.WHITE);
 	        jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTraining.setOpaque(true);
@@ -64,8 +64,8 @@ public class HomePane extends JPanel {
 	        jtbTraining.setBounds(133, 0, 211, 75);
 	        add(jtbTraining);
 	        
-	        jtbTrainingSession = new JToggleButton("Training session");
-	        jtbTrainingSession.addMouseListener(new MouseAdapter() {
+	        jtbTrainingSession = new JButton("Training session");
+	       /* jtbTrainingSession.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbTrainingSession.setBorder(border);
@@ -74,7 +74,7 @@ public class HomePane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbTrainingSession.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbTrainingSession.setBackground(Color.WHITE);
 	        jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTrainingSession.setOpaque(true);
@@ -82,8 +82,8 @@ public class HomePane extends JPanel {
 	        jtbTrainingSession.setBounds(344, 0, 211, 75);
 	        add(jtbTrainingSession);
 	        
-	        jtbEmployees = new JToggleButton("Employees");
-	        jtbEmployees.addMouseListener(new MouseAdapter() {
+	        jtbEmployees = new JButton("Employees");
+	       /* jtbEmployees.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbEmployees.setBorder(border);
@@ -92,7 +92,7 @@ public class HomePane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbEmployees.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbEmployees.setBackground(Color.WHITE);
 	        jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbEmployees.setOpaque(true);
@@ -100,8 +100,8 @@ public class HomePane extends JPanel {
 	        jtbEmployees.setBounds(555, 0, 212, 75);
 	        add(jtbEmployees);
 	        
-	        jtbStatistics = new JToggleButton("Statistics");
-	        jtbStatistics.addMouseListener(new MouseAdapter() {
+	        jtbStatistics = new JButton("Statistics");
+	     /*   jtbStatistics.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbStatistics.setBorder(border);
@@ -110,7 +110,7 @@ public class HomePane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbStatistics.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbStatistics.setBackground(Color.WHITE);
 	        jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbStatistics.setOpaque(true);
@@ -118,8 +118,8 @@ public class HomePane extends JPanel {
 	        jtbStatistics.setBounds(767, 0, 212, 75);
 	        add(jtbStatistics);
 	        
-	        jtbTrainingRequests = new JToggleButton("Training requests");
-	        jtbTrainingRequests.addMouseListener(new MouseAdapter() {
+	        jtbTrainingRequests = new JButton("Training requests");
+	      /*  jtbTrainingRequests.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbTrainingRequests.setBorder(border);
@@ -128,7 +128,7 @@ public class HomePane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbTrainingRequests.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbTrainingRequests.setBackground(Color.WHITE);
 	        jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTrainingRequests.setOpaque(true);
