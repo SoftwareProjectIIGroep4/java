@@ -1,6 +1,6 @@
 package dataAccess;
 
-
+ 
 
 import java.awt.Color;
 import java.awt.Container;
@@ -33,6 +33,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import models.Certificate;
 import models.FileTypeFilter;
+import models.TrainingInfo;
 
 public class CertificateAccess extends RestRequest {
 	public static Certificate get(Integer certificateID) throws IOException, URISyntaxException {
@@ -52,6 +53,19 @@ public class CertificateAccess extends RestRequest {
 			certificateMap.put(certificate.getCertificateID(), certificate);
 		}
 		return certificateMap;
+	}
+	
+	public static HashMap<Integer, Certificate> getUserCertificateInfos(Integer userid) throws IOException, URISyntaxException {
+		String JSON = getAllOrOne(new URI(Constants.USER_SOURCE + userid + "/certificates"));
+		List<Certificate> certificateInfos = mapper.readValue(JSON, new TypeReference<List<Certificate>>() {
+		});
+		
+		HashMap<Integer, Certificate> certificateInfosMap = new HashMap<Integer, Certificate>();
+		
+		for (Certificate certificateInfo : certificateInfos) {
+			certificateInfosMap.put(certificateInfo.getCertificateID(), certificateInfo);
+		}
+		return certificateInfosMap;
 	}
 
 	public static Certificate add(Certificate certificate) throws IOException, URISyntaxException {
@@ -81,6 +95,7 @@ public class CertificateAccess extends RestRequest {
 		jFileChooser.setFileFilter(new FileTypeFilter(".png", "PNG"));
 		jFileChooser.setFileFilter(new FileTypeFilter(".pdf", "PDF"));
 		jFileChooser.setFileFilter(new FileTypeFilter(".jpg", "JPG"));
+	
 
 		int result = jFileChooser.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
@@ -148,7 +163,7 @@ public class CertificateAccess extends RestRequest {
 	}
 	private static JLabel lblLabelCertificate = null;
 	public static void main(String[] args) throws URISyntaxException, IOException {
-		/**CertificateAccess cA = new CertificateAccess();
+		CertificateAccess cA = new CertificateAccess();
 		File bestand = null;
 		Certificate certificate = new Certificate();
 		certificate.setTrainingID(4);
@@ -163,8 +178,8 @@ public class CertificateAccess extends RestRequest {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-
+		}
+/** 
 		Certificate certZoek = new Certificate();
 		String naam = null;
 		byte[] foto = null;
@@ -205,11 +220,12 @@ public class CertificateAccess extends RestRequest {
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} */
 		
 		
 	}
 	
+
 
 }
 

@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dataAccess.Cache;
 import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
+ 
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class TrainingInfo {
 	private int trainingId;	
@@ -49,6 +51,10 @@ public class TrainingInfo {
 		this.infoPayment = infoPayment;
 		this.price = price;
 		sessions = new HashMap<Integer, TrainingSession>();
+	}
+	
+	public static HashMap<Integer, TrainingInfo> getByUserId(int userid) throws IOException, URISyntaxException {
+		return TrainingInfoAccess.getUserTrainingInfos(userid);
 	}
 	
 	public void save() throws URISyntaxException, IOException {		
