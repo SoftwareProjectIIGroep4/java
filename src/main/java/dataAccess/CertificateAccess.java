@@ -69,8 +69,14 @@ public class CertificateAccess extends RestRequest {
 		return certificateInfosMap;
 	}
 	
+	public static int getUserCertificateID(Integer userid, Integer trainingid) throws IOException, URISyntaxException {
+		String JSON = getAllOrOne(new URI(Constants.USER_SOURCE + userid + "/certificates?trainingid="+ trainingid));
+		int certificateID = mapper.readValue(JSON, new TypeReference<Integer>() {});
+		return certificateID;
+	}
+	
 	public static Certificate addCertificateUser(UserCertificate userCertificate) throws IOException, URISyntaxException {
-		String JSONcert = postObject(userCertificate, new URI(Constants.CERTIFICATE_SOURCE  + "usercertificates/"));
+		String JSONcert = postObject(userCertificate, new URI(Constants.CERTIFICATE_SOURCE  + "usercertificate"));
 		return mapper.readValue(JSONcert, Certificate.class);
 	}
 

@@ -92,6 +92,14 @@ public class ExtraInfoEmployee extends JPanel {
 	 * Create the panel.
 	 */
 
+
+	public int getEmployeeID() {
+		return employeeID;
+	}
+	public void setEmployeeID(int nieuwewaarde) {
+		employeeID = nieuwewaarde;
+	}
+	
 	private	List<String[]> data1 = null;
 
 	public ExtraInfoEmployee() {
@@ -238,10 +246,38 @@ public class ExtraInfoEmployee extends JPanel {
 		lblTrainingID.setBounds(776, 150, 117, 21);
 		add(lblTrainingID);
 
+		JLabel lblShowImageIcon = new JLabel("");
+		lblShowImageIcon.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblShowImageIcon.setBounds(669, 282, 521, 427);
+		add(lblShowImageIcon);
+		
+		textFieldEmployeeID = new JTextField();
+		textFieldEmployeeID.setBounds(133, 149, 147, 28);
+		add(textFieldEmployeeID);
+		textFieldEmployeeID.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("view certificate");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(669, 253, 264, 25);
+		add(lblNewLabel_2);
+
+		JLabel lblTrainingFixed = new JLabel("TrainingID:");
+		lblTrainingFixed.setBounds(669, 155, 98, 16);
+		add(lblTrainingFixed);
+
+		JLabel lblTrainingNameFixed = new JLabel("Training Name:");
+		lblTrainingNameFixed.setBounds(669, 206, 104, 16);
+		add(lblTrainingNameFixed);
+		
 		uploadCertificate = new JButton("Upload Certificate");
 		uploadCertificate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int trainingID = Integer.parseInt(lblTrainingID.getText());
+				int trainingID = 0;
+				try{
+					trainingID = Integer.parseInt(lblTrainingID.getText());
+				} catch(NumberFormatException ex) {
+					System.out.println("dit is de labeltraining" + lblTrainingID);
+				}
 				int employeeNr = Integer.parseInt(textFieldEmployeeID.getText());
 				String trainingName = lblTrainingName.getText();
 				CertificateAccess cA = new CertificateAccess();
@@ -253,9 +289,7 @@ public class ExtraInfoEmployee extends JPanel {
 				certificate.setPicture(CertificateAccess.ConvertFile(bestand.getAbsolutePath()));
 				UserCertificate certificateUser = new UserCertificate(certificate, employeeNr);
 				try {
-//! ! ! 	        		// hier nog laten wegschrijven in tabel UserCertificates, UserID en certificate ID!!!
 					//certificate.save();
-					// nog foutmeldingen
 					CertificateAccess.addCertificateUser(certificateUser);
 				} catch (URISyntaxException e1) {
 					// TODO Auto-generated catch block
@@ -310,10 +344,12 @@ public class ExtraInfoEmployee extends JPanel {
 		btnListOfTrainings = new JButton("List of trainings employee followed");
 		btnListOfTrainings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				lblTrainingID.setText("");
 				lblTrainingName.setText("");
+				lblShowImageIcon.setIcon(null);
 				employeeID = Integer.parseInt(textFieldEmployeeID.getText());
+		
+				System.out.println("ljlkj" + employeeID + textFieldEmployeeID.getText());
 // ! ! ! !				// check employeeid en userid verschil?		
 				Employee searchEmployee = new Employee();
 				//	Employee searchUser = new User(); // id van de GUI
@@ -331,7 +367,7 @@ public class ExtraInfoEmployee extends JPanel {
 					e2.printStackTrace();
 				}
 				//setEmployeeID(employeeID);
-				//!!!				// nog checken bij none-valid employee ID
+//!!!				// nog checken bij none-valid employee ID
 				lblLastName.setText(searchEmployee.getLastName());
 				lblFirstName.setText(searchEmployee.getFirstName());
 
@@ -394,19 +430,58 @@ public class ExtraInfoEmployee extends JPanel {
 				ListSelectionModel selectedRowBook = tbEmployeeHistoryTraining.getSelectionModel();
 
 				selectedRowBook.addListSelectionListener(new ListSelectionListener() {
-
+					int certID = 65;
 					@Override
 					public void valueChanged(ListSelectionEvent arg0) {
 						// TODO Auto-generated method stub
+						lblShowImageIcon.setIcon(null);
 						if(!selectedRowBook.isSelectionEmpty()) {
 							//GET ROW
+							
+							int userid = Integer.parseInt(textFieldEmployeeID.getText());
 							int selectedRow = selectedRowBook.getMinSelectionIndex();
 							String[] test = data1.get(selectedRow);
-							String testID = test[0];
-							String testNaam = test[1];
+							String trainingID = test[0];
+							int intTrainingID = Integer.parseInt(trainingID);
+							String trainingNaam = test[1];
 							//lblLastName.setText(String.valueOf(testID));
-							lblTrainingID.setText(String.valueOf(testID));
-							lblTrainingName.setText(testNaam);
+							lblTrainingID.setText(String.valueOf(trainingID));
+							lblTrainingName.setText(trainingNaam);
+							//lblShowImageIcon.
+							Certificate certZoek = new Certificate();
+							String naam = "";
+							byte[] foto = null;
+							// hier op basis van userid en trainingid het certificaatid weergeven
+							certID = 65;
+							try { // userid en trainingid meegeven, je krijgt dat certificateid
+								certID = CertificateAccess.getUserCertificateID(userid, intTrainingID);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (URISyntaxException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
+							
+							if (certID != 0) {
+								try {
+									certZoek = Cache.certificateCache.get(certID);
+								} catch (ExecutionException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								naam = certZoek.getTitel();
+								System.out.println(naam);
+								if (certZoek.getPicture() != null) {
+									ImageIcon imageIcon = new ImageIcon(new ImageIcon(certZoek.getPicture()).getImage().getScaledInstance(521, 427, ABORT));
+									lblShowImageIcon.setIcon(imageIcon);
+								}
+								
+							}
+							else {
+								System.out.println("Kan het gevraagde certificaat niet vinden");
+
+							}
 						}
 					}
 				});
@@ -417,28 +492,9 @@ public class ExtraInfoEmployee extends JPanel {
 		btnListOfTrainings.setBounds(40, 233, 256, 29);
 		add(btnListOfTrainings);
 
-		JLabel lblNewLabel_2 = new JLabel("view certificate");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_2.setBounds(669, 253, 264, 25);
-		add(lblNewLabel_2);
-
-		JLabel lblShowImageIcon = new JLabel("");
-		lblShowImageIcon.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblShowImageIcon.setBounds(669, 282, 521, 427);
-		add(lblShowImageIcon);
-
-		textFieldEmployeeID = new JTextField();
-		textFieldEmployeeID.setBounds(133, 149, 147, 28);
-		add(textFieldEmployeeID);
-		textFieldEmployeeID.setColumns(10);
-
-		JLabel lblTrainingFixed = new JLabel("TrainingID:");
-		lblTrainingFixed.setBounds(669, 155, 98, 16);
-		add(lblTrainingFixed);
-
-		JLabel lblTrainingNameFixed = new JLabel("Training Name:");
-		lblTrainingNameFixed.setBounds(669, 206, 104, 16);
-		add(lblTrainingNameFixed);
+		
+		
+		// wegdoen, wordt niet gebruikt
 //!!		//hier nog fucntie koppelen aan je selectie van de rij!
 		JButton btnShow = new JButton("Show");
 		btnShow.addActionListener(new ActionListener() {
@@ -464,7 +520,6 @@ public class ExtraInfoEmployee extends JPanel {
 					e2.printStackTrace();
 				}
 				ImageIcon imageIcon = new ImageIcon(new ImageIcon(certZoek.getPicture()).getImage().getScaledInstance(521, 427, ABORT));
-
 				//ImageIcon imageIcon = new ImageIcon(new ImageIcon(certZoek.getPicture()).getImage().getScaledInstance(521, 427, Image.SCALE_DEFAULT));
 				lblShowImageIcon.setIcon(imageIcon);
 				//lblShowImageIcon.setBounds(669, 282, 521, 427);
@@ -517,36 +572,39 @@ public class ExtraInfoEmployee extends JPanel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				//listTrainingInfo = TrainingInfoAccess.getUserTrainingInfos(employeeID);
-				//listTrainingInfo = TrainingInfoAccess.getAll();
-
+						
 				List<String[]> certData = new ArrayList<String[]>();
 				for(Map.Entry<Integer, Certificate> lijst: listCertificateInfo.entrySet()) {
 
 					Paragraph naamTraining;
 					try {
-						naamTraining = new Paragraph (CertificateAccess.get(lijst.getValue().getCertificateID()).getTitel());
+						naamTraining = new Paragraph ("Name Training: " + CertificateAccess.get(lijst.getValue().getCertificateID()).getTitel());
 						doc.add(naamTraining);
 						//creating imageDataObject
-						ImageData fotodata = ImageDataFactory.create(CertificateAccess.get(lijst.getValue().getCertificateID()).getPicture());
-						Image foto = new Image(fotodata);
-						// add image to document, AutoScale true
-						doc.add(foto.setAutoScale(true));
+						if (CertificateAccess.get(lijst.getValue().getCertificateID()).getPicture() != null) {
+							ImageData fotodata = ImageDataFactory.create(CertificateAccess.get(lijst.getValue().getCertificateID()).getPicture());
+							Image foto = new Image(fotodata);
+							// add image to document, AutoScale true
+							doc.add(foto.setAutoScale(true));
+						}
+						else {
+							Paragraph noCert = new Paragraph ("Certification not yet earned.");
+							doc.add(noCert);
+						}
+						
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (URISyntaxException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}
-					//!!!!!							// hier nog fout geen waarde, gaat niet in lus
-					if (listCertificateInfo.isEmpty()) {
-						Paragraph warning = new Paragraph ("No Certificates - No Training Succeeded");
-						doc.add(warning);
-					}
+					}				
 
 				}
-
+				if (listCertificateInfo.isEmpty()) {
+					Paragraph warning = new Paragraph ("No Certificates - No Training Succeeded");
+					doc.add(warning);
+				}
 				//close document
 				doc.close();
 				// print action executed
@@ -558,17 +616,12 @@ public class ExtraInfoEmployee extends JPanel {
 		add(btnMakePdfCertificates);
 		
 		
+		
 
 	}
 
 
 
-	public int getEmployeeID() {
-		return employeeID;
-	}
-	public void setEmployeeID(int nieuwewaarde) {
-		employeeID = nieuwewaarde;
-	}
 
 
 	public void addActionListener(ActionListener listener) {
