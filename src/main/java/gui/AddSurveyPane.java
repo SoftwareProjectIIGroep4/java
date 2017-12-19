@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.RenderingHints.Key;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,6 +13,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 import javax.swing.JLabel;
@@ -75,7 +77,7 @@ public class AddSurveyPane extends JPanel {
 	/////////////////////////////////////////////////////////////
 	
 	
-	//ConcurrentMap<Integer, SurveyQuestion> listSQuestions =dataAccess.Cache.surveyQuestionCache.asMap();
+	ConcurrentMap<Integer, SurveyQuestion> listSQuestions =dataAccess.Cache.surveyQuestionCache.asMap();
 			
 
 	
@@ -247,13 +249,21 @@ public class AddSurveyPane extends JPanel {
 			//-------------------------------------------------------------------------------
 			
 			Object [] columnHeadersHistoryQuestions = {"Previous questions from surveys"};
-			Object[][] data1 = {
+			List<String[]> data1 = new ArrayList<String[]>();
+
+			for (Map.Entry<Integer, SurveyQuestion>  entry : listSQuestions.entrySet()) {
+				
+				
+				data1.add(new String[] {
+						entry.getValue().getQuestion()
+						
+						
+				});
+		
+
+	}
 			
-					
-					
-			};
-			
-			modelHistoryQuestionsSurvey = new DefaultTableModel(data1, columnHeadersHistoryQuestions)
+			DefaultTableModel modelHistoryQuestionsSurvey = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersHistoryQuestions)
 			{
 			    @Override
 			    public boolean isCellEditable(int row, int column) {
@@ -262,6 +272,7 @@ public class AddSurveyPane extends JPanel {
 			    }
 			};
 			tbAskedQuestions = new JTable(modelHistoryQuestionsSurvey);
+			tbAskedQuestions.setModel(modelHistoryQuestionsSurvey);
 			tbAskedQuestions.setBackground(Color.red);
 			tbAskedQuestions.setForeground(Color.blue);
 			tbAskedQuestions.setModel(modelHistoryQuestionsSurvey);

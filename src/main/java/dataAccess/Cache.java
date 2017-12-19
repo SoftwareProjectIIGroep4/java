@@ -37,7 +37,7 @@ public class Cache {
 					return surveyAnswerCache.get(key);
 				}
 			});
-	public static LoadingCache<Integer, SurveyQuestion> surveyQuestionCache = CacheBuilder.newBuilder().maximumSize(100)
+	public static LoadingCache<Integer, SurveyQuestion> surveyQuestionCache = CacheBuilder.newBuilder().maximumSize(500)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, SurveyQuestion>() {
 				@Override
 				public SurveyQuestion load(Integer key) throws Exception {

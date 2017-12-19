@@ -35,11 +35,13 @@ import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
 import models.Login;
+import models.Teacher;
 import models.Token;
 import gui.LoginPane;
 
 public class MainFrame extends JFrame {
 	private static int keeper;
+	private int teacherId=-1;
 
 	private JPanel contentPane;
 
@@ -259,24 +261,34 @@ public class MainFrame extends JFrame {
                     	//show trainingRequestMenu
                     	layout.show(getContentPane(), "trainingSessionPanel");
                     } else if ("SaveTrainingSession".equals(command)) {
+                    	if(newNewTrianingPane.getTitle().equals("")|| 
+                    			newNewTrianingPane.getDescription().equals("")|| 
+                    			newNewTrianingPane.getNumberOfDays()==0|| 
+                    			newNewTrianingPane.getDescriptionExam().equals("")|| 
+                    			newNewTrianingPane.getDescriptionPayement().equals("")||
+                    			newNewTrianingPane.getPrice()==0||
+                    			teacherId==-1)
+                    	{
+                    		//open een error message
+                    		System.out.println("error message");
+             
+                    	} else {
                     	TrainingSession tSession=new TrainingSession();
+                    	tSession.setTrainingId(getKeeper());
                     	 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy/MM/dd");  
-                    	Date date=new Date();
-						try {
-							date = formatter1.parse(newNewTrainingSessionPanel.getDate());
-						} catch (ParseException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-                    	tSession.setDate(date);
+                    	Date date=new Date();						
                     	DateFormat formatter = new SimpleDateFormat("hh:mm a");
                     	try {
+							date = formatter1.parse(newNewTrainingSessionPanel.getDate());
+
 							tSession.setStartHour(new java.sql.Time(formatter.parse(newNewTrainingSessionPanel.getStartHour()).getTime()));
 							tSession.setEndHour(new java.sql.Time(formatter.parse(newNewTrainingSessionPanel.getEndHour()).getTime()));
                     	} catch (ParseException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+                    	tSession.setDate(date);
+
                     	Address address=new Address();
                     	address.setAdministrativeArea(newNewTrainingSessionPanel.getAdministrativeArea());
                     	address.setLocality(newNewTrainingSessionPanel.getLocality());
@@ -284,10 +296,20 @@ public class MainFrame extends JFrame {
                     	address.setStreetAddress(newNewTrainingSessionPanel.getStreetAddress());
                     	address.setCountry(newNewTrainingSessionPanel.getCountry());
                     	address.setPremise(newNewTrainingSessionPanel.getPremise());
+                    	try {
+							address.save();
+						} catch (URISyntaxException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
                     	
                     	
                     	//save de data voor training session gebruik getters
                     	layout.show(getContentPane(), "trainingSessionPanel");
+                    	}
                     } else if ("addTeacher".equals(command)) {
                     	// show addTeacherPane
                     	layout.show(getContentPane(), "addTeacherPanel");
@@ -605,9 +627,33 @@ public class MainFrame extends JFrame {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
                         } else if ("addTeacher".equals(command)) {
+                        	if (addTeacherPanel.getTeacherLastnameSearch().equals("")||
+                        		addTeacherPanel.getTeacherFirstnameSearch().equals("")||	
+                        		addTeacherPanel.getTeacherEmailSearch().equals("")||
+                        		addTeacherPanel.getTeacherPhonenumberSearch().equals("")) {
+                        		System.out.println("testif");
+                        		//foutmedling?
+                        	}
+                        	else {
+                        	Teacher teacher = new Teacher();
+                        	teacher.setLastName(addTeacherPanel.getTeacherLastnameSearch());
+                        	teacher.setFirstName(addTeacherPanel.getTeacherFirstnameSearch());
+                        	teacher.setEmail(addTeacherPanel.getTeacherEmailSearch());
+                        	teacher.setPhoneNumber(addTeacherPanel.getTeacherPhonenumberSearch());
+                        	try {
+								teacher.save();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+                        	teacherId=teacher.getTeacherId();
                         	// button teacher toevoegen en terug naar NewtrainingSessionPane
                         	
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
+                        	}
                         } 
                     }
                 });

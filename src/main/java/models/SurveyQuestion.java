@@ -34,6 +34,9 @@ public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }
 		this.surveyID = surveyID;
 		this.question = question;
 	}
+	public SurveyQuestion() {
+	
+	}
 	
 	public int getSurveyID() {
 		return surveyID;

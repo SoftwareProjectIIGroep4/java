@@ -90,6 +90,7 @@ public class TrainingPane extends JPanel {
 			dataAccess.Cache.loadAllAddresses();
 			dataAccess.Cache.loadAllTrainingInfos();
 			dataAccess.Cache.loadAllTrainingSessions();
+			dataAccess.Cache.loadAllSurverQuestions();
 			
  
 		} catch (IOException e2) {
