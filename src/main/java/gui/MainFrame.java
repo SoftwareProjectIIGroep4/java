@@ -66,7 +66,10 @@ public class MainFrame extends JFrame{
         NewTrianingPane newNewTrianingPane = new NewTrianingPane();
         AddTeacherPane addTeacherPanel = new AddTeacherPane(); 
         AddBookPane addBookPanel = new AddBookPane(); 
-        AddSurveyPane addSurveyPanel = new AddSurveyPane(); 
+        AddSurveyPane addSurveyPanel = new AddSurveyPane();
+        StatisticsCertificatesEmployeePane statisticsCertificatesEmployeePanel = new StatisticsCertificatesEmployeePane();
+        StatisticsFollowedTrainingPane statisticsFollowedTrainingPanel = new StatisticsFollowedTrainingPane();
+        StatisticsTrainingParticipationPane statisticsTrainingParticipationPanel = new StatisticsTrainingParticipationPane();
         
         getContentPane().add(newLoginPane, "loginPanel");
         getContentPane().add(homePanel, "homePanel");
@@ -84,6 +87,9 @@ public class MainFrame extends JFrame{
         getContentPane().add(addTeacherPanel, "addTeacherPanel");
         getContentPane().add(addBookPanel, "addBookPanel");
         getContentPane().add(addSurveyPanel, "addSurveyPanel");
+        getContentPane().add(statisticsCertificatesEmployeePanel, "statisticsCertificatesEmployeePanel");
+        getContentPane().add(statisticsFollowedTrainingPanel, "statisticsFollowedTrainingPanel");
+        getContentPane().add(statisticsTrainingParticipationPanel, "statisticsTrainingParticipationPanel");
 
        
         newLoginPane.addActionListener(new ActionListener() {
@@ -269,12 +275,15 @@ public class MainFrame extends JFrame{
                     } else if ("TrainingRequestsMenu".equals(command)) {
                     	//show trainingRequestMenu
                     	layout.show(getContentPane(), "trainingrequestPanel");
-                    } else if ("goToTrainingStatistics".equals(command)) {
+                    } else if ("goToStatisticsFollowedTraining".equals(command)) {
                     	//show trainingRequestMenu
-                
-                    } else if ("goToEmployeeStatistics".equals(command)) {
+                    	layout.show(getContentPane(), "statisticsFollowedTrainingPanel");
+                    } else if ("goToStatisticsTrainingParticipation".equals(command)) {
                     	//show trainingRequestMenu
-                
+                    	layout.show(getContentPane(), "statisticsTrainingParticipationPanel");
+                    } else if ("goToStatisticsCertificatesEmployee".equals(command)) {
+                    	//show trainingRequestMenu
+                    	layout.show(getContentPane(), "statisticsCertificatesEmployeePanel");
                     } 
                 }
             });
@@ -570,12 +579,107 @@ public class MainFrame extends JFrame{
                         } else if ("updateQuestion".equals(command)) {
                         	//update question from survey
                         	
-                        }else if ("btnConfirmSurvey".equals(command)) {
-                        	//Confirm the survey
-                        	
+                        }else if ("confirmSurvey".equals(command)) {
+                        	//Confirm the survey and go back to newtrainingsessionpane
+                        	layout.show(getContentPane(), "NewTrainingSessionPane");
                         }
                     }
                 });
+        		
+        		statisticsCertificatesEmployeePanel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String command = e.getActionCommand();
+                        System.out.println(command);
+                        if ("TrainingMenu".equals(command)) {
+                        	//show trainingPane
+                        	layout.show(getContentPane(), "trainingPanel");
+                        } else if ("TrainingSessionMenu".equals(command)) {
+                        	//show trainingSessionPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+                        } else	if ("EmployeesMenu".equals(command)) {
+                        	//show employeesPane
+                        	layout.show(getContentPane(), "employeePanel");
+                        } else if ("StatisticsMenu".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "statistiekenPanel");
+                        } else if ("TrainingRequestsMenu".equals(command)) {
+                        	//show trainingRequestMenu
+                        	layout.show(getContentPane(), "trainingrequestPanel");
+                        } else if ("showcertTrainingsEmployee".equals(command)) {
+                        	// laad data van employee certificates op JTable
+                        	
+                        } else if ("backCertToStatistics".equals(command)) {
+                        	// Terug naar statistiekenpanel
+                        	layout.show(getContentPane(), "statistiekenPanel");
+                        } 
+                        
+                    }
+                });
+        		
+        		statisticsFollowedTrainingPanel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String command = e.getActionCommand();
+                        System.out.println(command);
+                        if ("TrainingMenu".equals(command)) {
+                        	//show trainingPane
+                        	layout.show(getContentPane(), "trainingPanel");
+                        } else if ("TrainingSessionMenu".equals(command)) {
+                        	//show trainingSessionPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+                        } else	if ("EmployeesMenu".equals(command)) {
+                        	//show employeesPane
+                        	layout.show(getContentPane(), "employeePanel");
+                        } else if ("StatisticsMenu".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "statistiekenPanel");
+                        } else if ("TrainingRequestsMenu".equals(command)) {
+                        	//show trainingRequestMenu
+                        	layout.show(getContentPane(), "trainingrequestPanel");
+                        } else if ("showFollowedTrainings".equals(command)) {
+                        	// laad data van employee gevolgde trainingen op JTable
+                        	
+                        } else if ("backFollowedToStatistics".equals(command)) {
+                        	// Terug naar statistiekenpanel
+                        	layout.show(getContentPane(), "statistiekenPanel");
+                        } 
+                        
+                    }
+                });
+        		
+        		statisticsTrainingParticipationPanel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String command = e.getActionCommand();
+                        System.out.println(command);
+                        if ("TrainingMenu".equals(command)) {
+                        	//show trainingPane
+                        	layout.show(getContentPane(), "trainingPanel");
+                        } else if ("TrainingSessionMenu".equals(command)) {
+                        	//show trainingSessionPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+                        } else	if ("EmployeesMenu".equals(command)) {
+                        	//show employeesPane
+                        	layout.show(getContentPane(), "employeePanel");
+                        } else if ("StatisticsMenu".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "statistiekenPanel");
+                        } else if ("TrainingRequestsMenu".equals(command)) {
+                        	//show trainingRequestMenu
+                        	layout.show(getContentPane(), "trainingrequestPanel");
+                        } else if ("showParticipationTrainingsEmployee".equals(command)) {
+                        	// laad data van employee die de meeste trainingen gevolgd heeft volgens jaar op JTable
+                        	
+                        } else if ("backPartToStatistics".equals(command)) {
+                        	// Terug naar statistiekenpanel
+                        	layout.show(getContentPane(), "statistiekenPanel");
+                        } 
+                        
+                    }
+                });
+        		
+        		
         
         layout.show(getContentPane(), "layout");
 	}

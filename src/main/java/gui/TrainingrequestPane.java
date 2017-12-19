@@ -199,7 +199,7 @@ public class TrainingrequestPane extends JPanel {
 		JScrollPane sclBook = new JScrollPane(tbTrainingrequest);
 		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclBook.setBounds(30, 145, 840, 564);
+		sclBook.setBounds(30, 145, 840, 530);
 		add(sclBook);
 		ListSelectionModel selectedRowBook = tbTrainingrequest.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
@@ -303,7 +303,7 @@ public class TrainingrequestPane extends JPanel {
         add(txtCountrySearch);
         
         JLabel TrainingreqBorder = new JLabel("");
-        TrainingreqBorder.setBounds(891, 230, 374, 479);
+        TrainingreqBorder.setBounds(891, 230, 295, 445);
         TrainingreqBorder.setBorder(border);
         add(TrainingreqBorder);
         

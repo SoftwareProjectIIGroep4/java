@@ -25,9 +25,9 @@ public class TrainingSessionInfoPane extends JPanel {
 	private JTextArea txtPaymentInfo;
 	private JButton btnCancelTrainingSession;
 	private JLabel lblTrainingSessionTitle;
-	private JToggleButton jtbInfo;
-	private JToggleButton jtbEnlistedPeople;
-	private JToggleButton jtbBooks;
+	private JButton jtbInfo;
+	private JButton jtbEnlistedPeople;
+	private JButton jtbBooks;
 	private JButton jtbTraining;
 	private JButton jtbEmployees;
 	private JButton jtbStatistics;
@@ -44,7 +44,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		
 		jtbTraining = new JButton("Training");
-		jtbTraining.addMouseListener(new MouseAdapter() {
+		/*jtbTraining.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseEntered(MouseEvent e) {
 		        jtbTraining.setBorder(border);
@@ -53,7 +53,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		    public void mouseExited(MouseEvent e) {
 		        jtbTraining.setBorder(null);
 		    }
-		});
+		});*/
 		jtbTraining.setBackground(Color.WHITE);
 		jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbTraining.setOpaque(true);
@@ -62,7 +62,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		add(jtbTraining);
 		
 		jtbTrainingSession = new JButton("Training session");
-		jtbTrainingSession.addMouseListener(new MouseAdapter() {
+		/*jtbTrainingSession.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseEntered(MouseEvent e) {
 		        jtbTrainingSession.setBorder(border);
@@ -71,7 +71,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		    public void mouseExited(MouseEvent e) {
 		        jtbTrainingSession.setBorder(null);
 		    }
-		});
+		});*/
 		jtbTrainingSession.setBackground(Color.WHITE);
 		jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbTrainingSession.setOpaque(true);
@@ -80,7 +80,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		add(jtbTrainingSession);
 		
 		jtbEmployees = new JButton("Employees");
-		jtbEmployees.addMouseListener(new MouseAdapter() {
+		/*jtbEmployees.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseEntered(MouseEvent e) {
 		        jtbEmployees.setBorder(border);
@@ -89,7 +89,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		    public void mouseExited(MouseEvent e) {
 		        jtbEmployees.setBorder(null);
 		    }
-		});
+		});*/
 		jtbEmployees.setBackground(Color.WHITE);
 		jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbEmployees.setOpaque(true);
@@ -98,7 +98,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		add(jtbEmployees);
 		
 		jtbStatistics = new JButton("Statistics");
-		jtbStatistics.addMouseListener(new MouseAdapter() {
+		/*jtbStatistics.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseEntered(MouseEvent e) {
 		        jtbStatistics.setBorder(border);
@@ -107,7 +107,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		    public void mouseExited(MouseEvent e) {
 		        jtbStatistics.setBorder(null);
 		    }
-		});
+		});*/
 		jtbStatistics.setBackground(Color.WHITE);
 		jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbStatistics.setOpaque(true);
@@ -116,7 +116,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		add(jtbStatistics);
 		
 		jtbTrainingRequests = new JButton("Training requests");
-		jtbTrainingRequests.addMouseListener(new MouseAdapter() {
+		/*jtbTrainingRequests.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseEntered(MouseEvent e) {
 		        jtbTrainingRequests.setBorder(border);
@@ -125,7 +125,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		    public void mouseExited(MouseEvent e) {
 		        jtbTrainingRequests.setBorder(null);
 		    }
-		});
+		});*/
 		jtbTrainingRequests.setBackground(Color.WHITE);
 		jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbTrainingRequests.setOpaque(true);
@@ -158,9 +158,9 @@ public class TrainingSessionInfoPane extends JPanel {
 		btnCancelTrainingSession.setActionCommand("CancelTrainingSession");
 		add(btnCancelTrainingSession);
 		
-		jtbInfo = new JToggleButton("Info");
-		jtbInfo.setBackground(SystemColor.control);
-		jtbInfo.addMouseListener(new MouseAdapter() {
+		jtbInfo = new JButton("Info");
+		//jtbInfo.setBackground(SystemColor.control);
+		/*jtbInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				jtbInfo.setBackground(Color.WHITE);
@@ -169,7 +169,7 @@ public class TrainingSessionInfoPane extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				jtbInfo.setBackground(SystemColor.control);
 			}
-		});
+		});*/
 		jtbInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		jtbInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbInfo.setOpaque(true);
@@ -177,8 +177,8 @@ public class TrainingSessionInfoPane extends JPanel {
 		jtbInfo.setActionCommand("Info");
 		add(jtbInfo);
 		
-		jtbEnlistedPeople = new JToggleButton("Enlisted people");
-		jtbEnlistedPeople.addMouseListener(new MouseAdapter() {
+		jtbEnlistedPeople = new JButton("Enlisted people");
+		/*jtbEnlistedPeople.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				jtbEnlistedPeople.setBackground(Color.WHITE);
@@ -187,7 +187,7 @@ public class TrainingSessionInfoPane extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				jtbEnlistedPeople.setBackground(SystemColor.control);
 			}
-			});
+			});*/
 		jtbEnlistedPeople.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		jtbEnlistedPeople.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbEnlistedPeople.setOpaque(true);
@@ -195,8 +195,8 @@ public class TrainingSessionInfoPane extends JPanel {
 		jtbEnlistedPeople.setActionCommand("EnlistedPeople");
 		add(jtbEnlistedPeople);
 		
-		jtbBooks = new JToggleButton("Books");
-		jtbBooks.addMouseListener(new MouseAdapter() {
+		jtbBooks = new JButton("Books");
+		/*jtbBooks.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				jtbBooks.setBackground(Color.WHITE);
@@ -205,7 +205,7 @@ public class TrainingSessionInfoPane extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				jtbBooks.setBackground(SystemColor.control);
 			}
-		});
+		});*/
 		jtbBooks.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		jtbBooks.setBounds(750, 165, 100, 50);
 		jtbBooks.setHorizontalAlignment(SwingConstants.CENTER);

@@ -204,16 +204,16 @@ public class TrainingPane extends JPanel {
 	        
 	        btnSelectTraining = new JButton("Select Training");
 	        btnSelectTraining.setActionCommand("goToSelectTraining");
-	        btnSelectTraining.setBounds(869, 136, 160, 64);
+	        btnSelectTraining.setBounds(901, 136, 151, 64);
 			add(btnSelectTraining);
 			
 			btnAddNewTraining = new JButton("Add New Training");
 			btnAddNewTraining.setActionCommand("goToAddTraining");
-			btnAddNewTraining.setBounds(1080, 136, 160, 64);
+			btnAddNewTraining.setBounds(1098, 136, 151, 64);
 			add(btnAddNewTraining);
         
         JLabel lblEmployeeExplanation = new JLabel("Here is a list of the Trainings");
-        lblEmployeeExplanation.setBounds(20, 80, 231, 28);
+        lblEmployeeExplanation.setBounds(31, 86, 231, 28);
         add(lblEmployeeExplanation);
         
         Object [] columnHeadersSession = {"Training name","City","From","Until","Price"};
@@ -276,7 +276,7 @@ public class TrainingPane extends JPanel {
 	    JScrollPane sclBook = new JScrollPane(tbTraining);
 		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclBook.setBounds(31, 119, 789, 578);
+		sclBook.setBounds(31, 119, 840, 530);
 		add(sclBook);
 		ListSelectionModel selectedRowBook = tbTraining.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
@@ -292,7 +292,7 @@ public class TrainingPane extends JPanel {
 		});
         	 
 		txtTrainingName = new JTextField();
-		txtTrainingName.setBounds(958, 368, 189, 35);
+		txtTrainingName.setBounds(958, 333, 189, 35);
 		txtTrainingName.setColumns(10);
 		txtTrainingName.addFocusListener(new FocusAdapter() {
         	@Override
@@ -309,7 +309,7 @@ public class TrainingPane extends JPanel {
         add(txtTrainingName);
         
         txtCityTraining = new JTextField();
-        txtCityTraining.setBounds(958, 442, 189, 35);
+        txtCityTraining.setBounds(958, 403, 189, 35);
         txtCityTraining.setColumns(10);
 		txtCityTraining.addFocusListener(new FocusAdapter() {
         	@Override
@@ -326,7 +326,7 @@ public class TrainingPane extends JPanel {
         add(txtCityTraining);
         
         txtFromTraining = new JTextField();
-        txtFromTraining.setBounds(958, 503, 189, 35);
+        txtFromTraining.setBounds(958, 464, 189, 35);
         txtFromTraining.setColumns(10);
         txtFromTraining.addFocusListener(new FocusAdapter() {
         	@Override
@@ -343,7 +343,7 @@ public class TrainingPane extends JPanel {
         add(txtFromTraining);
        
         txtUntilTraining = new JTextField();
-        txtUntilTraining.setBounds(958, 574, 189, 35);
+        txtUntilTraining.setBounds(958, 526, 189, 35);
         txtUntilTraining.setColumns(10);
         txtUntilTraining.addFocusListener(new FocusAdapter() {
         	@Override
@@ -361,7 +361,7 @@ public class TrainingPane extends JPanel {
         
         
         txtPriceTraining = new JTextField();
-        txtPriceTraining.setBounds(958, 638, 189, 35);
+        txtPriceTraining.setBounds(958, 590, 189, 35);
         txtPriceTraining.setColumns(10);
         txtPriceTraining.addFocusListener(new FocusAdapter() {
         	@Override
@@ -379,37 +379,32 @@ public class TrainingPane extends JPanel {
 		
         
         JLabel lblTextSearchTraining = new JLabel("SEARCH TRAINING");
-        lblTextSearchTraining.setBounds(929, 299, 144, 28);
+        lblTextSearchTraining.setBounds(932, 253, 144, 28);
         add(lblTextSearchTraining);
         
         JLabel lblTrainingName = new JLabel("Training name");
-        lblTrainingName.setBounds(958, 347, 100, 21);
+        lblTrainingName.setBounds(958, 301, 100, 21);
         add(lblTrainingName);
         
         JLabel lblFromTraining = new JLabel("From");
-        lblFromTraining.setBounds(958, 478, 100, 14);
+        lblFromTraining.setBounds(958, 449, 100, 14);
         add(lblFromTraining);
                
         JLabel lblUntilTraining = new JLabel("Until");
-        lblUntilTraining.setBounds(958, 549, 105, 14);
+        lblUntilTraining.setBounds(958, 510, 105, 14);
         add(lblUntilTraining);
         
         JLabel trainingSearchBorder = new JLabel("");
-        trainingSearchBorder.setBounds(929, 333, 279, 376);
+        trainingSearchBorder.setBounds(932, 285, 279, 364);
         trainingSearchBorder.setBorder(border);
         add(trainingSearchBorder);
-        
-        JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(20, 106, 812, 603);
-		lblBackBorder.setBorder(border);
-		add(lblBackBorder);
 		
 		JLabel lblPriceTraining = new JLabel("Price");
-		lblPriceTraining.setBounds(958, 606, 115, 21);
+		lblPriceTraining.setBounds(958, 572, 115, 21);
 		add(lblPriceTraining);
 		
-		JLabel lblCityTraining = new JLabel("Until");
-		lblCityTraining.setBounds(958, 414, 100, 28);
+		JLabel lblCityTraining = new JLabel("City");
+		lblCityTraining.setBounds(958, 379, 100, 28);
 		add(lblCityTraining);
 		
 		

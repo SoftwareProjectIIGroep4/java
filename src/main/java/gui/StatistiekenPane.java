@@ -23,13 +23,16 @@ public class StatistiekenPane extends JPanel {
 	private JButton jtbStatistics;
 	private JButton jtbTrainingSession;
 	private JButton jtbTrainingRequests;
-	private JButton btnTrainingStatistics;
-	private JButton btnEmployeeStatistics;
+	private JLabel lblNewLabel_2;
+	private JButton btnParticipationTrainingsEmployeeStatistics;
+	private JButton btnParticipationMaxEmployeeStatistics;
+	private JButton btnCertEmployeeStatistics;
 	
 	/**
 	 * Create the panel.
 	 */
 	public StatistiekenPane() {
+		
 		Border border = BorderFactory.createLineBorder(Color.BLACK,1);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
@@ -135,26 +138,32 @@ public class StatistiekenPane extends JPanel {
         lblNewLabel_1.setOpaque(true);
         add(lblNewLabel_1);
         
-        JLabel lblNewLabel_2 = new JLabel("Choose the category of which you want to see the statistics");
+        lblNewLabel_2 = new JLabel("Choose an option to consult statistics");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNewLabel_2.setBounds(442, 142, 422, 38);
+        lblNewLabel_2.setBounds(471, 103, 296, 35);
         add(lblNewLabel_2);
         
-        btnTrainingStatistics = new JButton("Training");
-        btnTrainingStatistics.setActionCommand("goToTrainingStatistics");
-        btnTrainingStatistics.setBounds(555, 214, 177, 38);
-        add(btnTrainingStatistics);
+        btnParticipationTrainingsEmployeeStatistics = new JButton("Trainings the employee took part of");
+        btnParticipationTrainingsEmployeeStatistics.setActionCommand("goToStatisticsFollowedTraining");
+        btnParticipationTrainingsEmployeeStatistics.setBounds(481, 165, 238, 46);
+        add(btnParticipationTrainingsEmployeeStatistics);
         
-        btnEmployeeStatistics = new JButton("Employees");
-        btnEmployeeStatistics.setActionCommand("goToEmployeeStatistics");
-        btnEmployeeStatistics.setBounds(555, 286, 177, 38);
-        add(btnEmployeeStatistics);
+        btnParticipationMaxEmployeeStatistics = new JButton("Who participated to the most trainings");
+        btnParticipationMaxEmployeeStatistics.setActionCommand("goToStatisticsTrainingParticipation");
+        btnParticipationMaxEmployeeStatistics.setBounds(481, 235, 238, 46);
+        add(btnParticipationMaxEmployeeStatistics);
+        
+        btnCertEmployeeStatistics = new JButton("Which certificates does an employee have");
+        btnCertEmployeeStatistics.setActionCommand("goToStatisticsCertificatesEmployee");
+        btnCertEmployeeStatistics.setBounds(481, 304, 238, 46);
+        add(btnCertEmployeeStatistics);
         
 	}
 	
 	public void addActionListener(ActionListener listener) {
-		btnEmployeeStatistics.addActionListener(listener);
-		btnTrainingStatistics.addActionListener(listener);
+		btnParticipationTrainingsEmployeeStatistics.addActionListener(listener);
+		btnParticipationMaxEmployeeStatistics.addActionListener(listener);
+		btnCertEmployeeStatistics.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
