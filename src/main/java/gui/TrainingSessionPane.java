@@ -56,10 +56,13 @@ public class TrainingSessionPane extends JPanel {
 	private JTextField txtFromTrainingSession;
 	private JTextField txtUntilTrainingSession;
 	private JButton btnAddTrainingSession;
+	private JButton btnShowTrainingSession;
 	private DefaultTableModel modelSession;
 	private DefaultTableModel tableModel;
+	private String trainingSessionID;
+	
 
-	private JButton btnShowTrainingSession;
+	
 
 
 	/*
@@ -184,19 +187,19 @@ public class TrainingSessionPane extends JPanel {
 	        add(lblNewLabel_1);
 		
 		
-		Object [] columnHeadersSession = {"Training name","City","Date","Hour"};
+		Object [] columnHeadersSession = {"Training ID", "Training name","City","Date","Hour"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data = new ArrayList<String[]>();
 		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
 			data.add(new String[] {
-
+					String.valueOf(entry.getValue().getTrainingSessionId()),
 					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
 					String.valueOf(entry.getValue().getDate()) ,
 					String.valueOf(entry.getValue().getStartHour())}
 			);
-}
+		}
 		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersSession) {
 
 		    @Override
@@ -236,6 +239,9 @@ public class TrainingSessionPane extends JPanel {
 					//GET ROW
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
 					//doe iets hier
+					String[] teStrings=data.get(selectedRow);
+					trainingSessionID = teStrings[0];
+					System.out.println(teStrings[0]);
 				}
 			}
 		});
@@ -245,13 +251,18 @@ public class TrainingSessionPane extends JPanel {
 		btnAddTrainingSession.setBounds(820, 138, 160, 64);
 		add(btnAddTrainingSession);
 		
+		btnShowTrainingSession = new JButton("Show training session");
+		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
+		btnShowTrainingSession.setBounds(1000, 138, 160, 64);
+		add(btnShowTrainingSession);
+		
 
 		JLabel lblFilters = new JLabel("Filters");
 		lblFilters.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblFilters.setBounds(820, 212, 46, 16);
 		add(lblFilters);
 		
-		JCheckBox chckbxMonday = new JCheckBox("Monday");
+		/*JCheckBox chckbxMonday = new JCheckBox("Monday");
 		chckbxMonday.setBounds(841, 288, 97, 23);
 		add(chckbxMonday);
 		
@@ -277,7 +288,7 @@ public class TrainingSessionPane extends JPanel {
 		
 		JCheckBox chckbxSunday = new JCheckBox("Sunday");
 		chckbxSunday.setBounds(841, 366, 97, 23);
-		add(chckbxSunday);
+		add(chckbxSunday);*/
 		
 		JLabel lblFrom = new JLabel("From:");
 		lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -332,6 +343,7 @@ public class TrainingSessionPane extends JPanel {
 	
 	public void addActionListener(ActionListener listener) {
 		btnAddTrainingSession.addActionListener(listener);
+		btnShowTrainingSession.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
@@ -351,5 +363,8 @@ public class TrainingSessionPane extends JPanel {
 		
 		tableModel.addRow(row);
 	
+	}
+	public int getTrainingSessionID() {
+		return Integer.parseInt(trainingSessionID);
 	}
 }

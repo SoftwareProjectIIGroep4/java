@@ -6,6 +6,8 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,6 +18,10 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import models.Address;
+import models.TrainingInfo;
+import models.TrainingSession;
 
 public class TrainingSessionInfoPane extends JPanel {
 	
@@ -34,10 +40,25 @@ public class TrainingSessionInfoPane extends JPanel {
 	private JButton jtbTrainingSession;
 	private JButton jtbTrainingRequests;
 
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+	ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
+	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+	ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
+	
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Create the panel.
 	 */
 	public TrainingSessionInfoPane() {
+		
+		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
@@ -265,19 +286,43 @@ public class TrainingSessionInfoPane extends JPanel {
 	public String getGeneralInfo() {
         return txtGeneralInfo.getText();
     }
-	public void setGeneralInfo(String text) {
-        txtGeneralInfo.setText(text);
+	public void setGeneralInfo(int id) {
+		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
+			if (entry.getValue().getTrainingSessionId()==id) {
+				for (Map.Entry<Integer, TrainingInfo>  entry2 : listTraingInfo.entrySet()) {
+					if (entry2.getValue().getTrainingId()==entry.getValue().getTrainingId()) {
+						txtGeneralInfo.setText(entry2.getValue().getInfoGeneral());
+					}
+				}		
+			}
+		}
     }
 	public String getExamInfo() {
         return txtExamInfo.getText();
     }
-	public void setExamInfo(String text) {
-		txtExamInfo.setText(text);
+	public void setExamInfo(int id) {
+		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
+			if (entry.getValue().getTrainingSessionId()==id) {
+				for (Map.Entry<Integer, TrainingInfo>  entry2 : listTraingInfo.entrySet()) {
+					if (entry2.getValue().getTrainingId()==entry.getValue().getTrainingId()) {
+						txtExamInfo.setText(entry2.getValue().getInfoExam());
+					}
+				}		
+			}
+		}
     }
 	public String getPaymentInfo() {
         return txtPaymentInfo.getText();
     }
-	public void setPaymentInfo(String text) {
-		txtPaymentInfo.setText(text);
+	public void setPaymentInfo(int id) {
+		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
+			if (entry.getValue().getTrainingSessionId()==id) {
+				for (Map.Entry<Integer, TrainingInfo>  entry2 : listTraingInfo.entrySet()) {
+					if (entry2.getValue().getTrainingId()==entry.getValue().getTrainingId()) {
+						txtPaymentInfo.setText(entry2.getValue().getInfoPayment());
+					}
+				}		
+			}
+		}
     }
 }

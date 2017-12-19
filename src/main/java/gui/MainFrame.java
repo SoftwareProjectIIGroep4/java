@@ -230,6 +230,10 @@ public class MainFrame extends JFrame {
                     } else if ("goToTrainingSessionInfo".equals(command)) {
                         //show trainingRequestMenu
                         layout.show(getContentPane(), "TrainingSessionInfoPane");
+                        System.out.println(trainingSessionPanel.getTrainingSessionID());
+                        newTrainingSessionInfoPane.setGeneralInfo(trainingSessionPanel.getTrainingSessionID());
+                        newTrainingSessionInfoPane.setExamInfo(trainingSessionPanel.getTrainingSessionID());
+                        newTrainingSessionInfoPane.setPaymentInfo(trainingSessionPanel.getTrainingSessionID());
                     }
                     
                 }
