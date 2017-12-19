@@ -16,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Font;
 import javax.swing.JButton;
 
-public class StatistiekenPane extends JPanel {
+public class StatisticsPane extends JPanel {
 
 	private JButton jtbTraining;
 	private JButton jtbEmployees;
@@ -31,7 +31,7 @@ public class StatistiekenPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public StatistiekenPane() {
+	public StatisticsPane() {
 		
 		Border border = BorderFactory.createLineBorder(Color.BLACK,1);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -140,22 +140,22 @@ public class StatistiekenPane extends JPanel {
         
         lblNewLabel_2 = new JLabel("Choose an option to consult statistics");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNewLabel_2.setBounds(471, 103, 296, 35);
+        lblNewLabel_2.setBounds(492, 103, 296, 35);
         add(lblNewLabel_2);
         
         btnParticipationTrainingsEmployeeStatistics = new JButton("Trainings the employee took part of");
         btnParticipationTrainingsEmployeeStatistics.setActionCommand("goToStatisticsFollowedTraining");
-        btnParticipationTrainingsEmployeeStatistics.setBounds(481, 165, 238, 46);
+        btnParticipationTrainingsEmployeeStatistics.setBounds(481, 165, 286, 46);
         add(btnParticipationTrainingsEmployeeStatistics);
         
         btnParticipationMaxEmployeeStatistics = new JButton("Who participated to the most trainings");
         btnParticipationMaxEmployeeStatistics.setActionCommand("goToStatisticsTrainingParticipation");
-        btnParticipationMaxEmployeeStatistics.setBounds(481, 235, 238, 46);
+        btnParticipationMaxEmployeeStatistics.setBounds(481, 235, 286, 46);
         add(btnParticipationMaxEmployeeStatistics);
         
         btnCertEmployeeStatistics = new JButton("Which certificates does an employee have");
         btnCertEmployeeStatistics.setActionCommand("goToStatisticsCertificatesEmployee");
-        btnCertEmployeeStatistics.setBounds(481, 304, 238, 46);
+        btnCertEmployeeStatistics.setBounds(481, 304, 286, 46);
         add(btnCertEmployeeStatistics);
         
 	}
