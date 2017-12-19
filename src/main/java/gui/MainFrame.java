@@ -7,22 +7,39 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+
+import org.omg.CORBA.PRIVATE_MEMBER;
+import org.omg.CORBA.PUBLIC_MEMBER;
+import org.w3c.dom.css.ElementCSSInlineStyle;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 
 import gui.EmployeePane;
+import models.Address;
 import models.Employee;
+import models.TrainingInfo;
+import models.TrainingSession;
+import models.Login;
+import models.Token;
+import gui.LoginPane;
 
-
-
-
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame {
+	private static int keeper;
 
 	private JPanel contentPane;
 
@@ -57,7 +74,7 @@ public class MainFrame extends JFrame{
         TrainingSessionPane trainingSessionPanel = new TrainingSessionPane();
         NewTrainingSessionPane newNewTrainingSessionPanel = new NewTrainingSessionPane();
         EmployeePane employeePanel = new EmployeePane();
-        StatistiekenPane statistiekenPanel = new StatistiekenPane();    
+        StatisticsPane statisticsPanel = new StatisticsPane();    
         TrainingrequestPane trainingrequestPanel = new TrainingrequestPane();
         TrainingSessionBookPane newTrainingSessionBookPane = new TrainingSessionBookPane();
         TrainingSessionPoeplePane newTrainingSessionPoeplePane = new TrainingSessionPoeplePane();
@@ -65,8 +82,14 @@ public class MainFrame extends JFrame{
         SelectTrainingPane newSelectTrainingPane = new SelectTrainingPane();
         NewTrianingPane newNewTrianingPane = new NewTrianingPane();
         AddTeacherPane addTeacherPanel = new AddTeacherPane(); 
+
         AddBookPane addBookPanel = new AddBookPane(); 
-        AddSurveyPane addSurveyPanel = new AddSurveyPane(); 
+        AddSurveyPane addSurveyPanel = new AddSurveyPane();
+        StatisticsCertificatesEmployeePane statisticsCertificatesEmployeePanel = new StatisticsCertificatesEmployeePane();
+        StatisticsFollowedTrainingPane statisticsFollowedTrainingPanel = new StatisticsFollowedTrainingPane();
+        StatisticsTrainingParticipationPane statisticsTrainingParticipationPanel = new StatisticsTrainingParticipationPane();
+
+
         
         getContentPane().add(newLoginPane, "loginPanel");
         getContentPane().add(homePanel, "homePanel");
@@ -74,7 +97,7 @@ public class MainFrame extends JFrame{
         getContentPane().add(trainingSessionPanel, "trainingSessionPanel");
         getContentPane().add(newNewTrainingSessionPanel, "NewTrainingSessionPane");
         getContentPane().add(employeePanel, "employeePanel");
-        getContentPane().add(statistiekenPanel, "statistiekenPanel");
+        getContentPane().add(statisticsPanel, "statisticsPanel");
         getContentPane().add(trainingrequestPanel, "trainingrequestPanel");
         getContentPane().add(newTrainingSessionBookPane, "TrainingSessionBookPane");
         getContentPane().add(newTrainingSessionPoeplePane, "TrainingSessionPoeplePane");
@@ -83,17 +106,41 @@ public class MainFrame extends JFrame{
         getContentPane().add(newNewTrianingPane, "NewTrianingPane");
         getContentPane().add(addTeacherPanel, "addTeacherPanel");
         getContentPane().add(addBookPanel, "addBookPanel");
+
         getContentPane().add(addSurveyPanel, "addSurveyPanel");
 
+        getContentPane().add(statisticsCertificatesEmployeePanel, "statisticsCertificatesEmployeePanel");
+        getContentPane().add(statisticsFollowedTrainingPanel, "statisticsFollowedTrainingPanel");
+        getContentPane().add(statisticsTrainingParticipationPanel, "statisticsTrainingParticipationPanel");
+
+
        
+        
         newLoginPane.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String command = e.getActionCommand();
                 System.out.println(command);
+              
                 if ("Login".equals(command)) {
+                	Token token= new Token();
+                	try {
+						 token =Login.authorizeAcces(newLoginPane.getEmail(), newLoginPane.getPassword());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                	if (token !=null) {
                 	newLoginPane.changeColor();
                     layout.show(getContentPane(), "homePanel");
+                    }
+                	else {
+                		newLoginPane.changeColor();
+                        layout.show(getContentPane(), "homePanel");
+                	}
                 }
             }
         });
@@ -114,7 +161,7 @@ public class MainFrame extends JFrame{
                 	layout.show(getContentPane(), "employeePanel");
                 } else if ("StatisticsMenu".equals(command)) {
                 	//show statisticsSessionPane
-                	layout.show(getContentPane(), "statistiekenPanel");
+                	layout.show(getContentPane(), "statisticsPanel");
                 } else if ("TrainingRequestsMenu".equals(command)) {
                 	//show trainingRequestMenu
                 	layout.show(getContentPane(), "trainingrequestPanel");
@@ -138,11 +185,15 @@ public class MainFrame extends JFrame{
                 	layout.show(getContentPane(), "employeePanel");
                 } else if ("StatisticsMenu".equals(command)) {
                 	//show statisticsSessionPane
-                	layout.show(getContentPane(), "statistiekenPanel");
+                	layout.show(getContentPane(), "statisticsPanel");
                 } else if ("TrainingRequestsMenu".equals(command)) {
                 	//show trainingRequestMenu
                 	layout.show(getContentPane(), "trainingrequestPanel");
                 } else if ("goToSelectTraining".equals(command)) {
+                	setKeeper(trainingPanel.getTabelID());
+                	new SelectTrainingPane();
+                	//SelectTrainingPane newSelectTrainingPane = new SelectTrainingPane();
+                	//getContentPane().add(newSelectTrainingPane, "SelectTrainingPane");
                 	//show selectTrainingMenu
                 	layout.show(getContentPane(), "SelectTrainingPane");
                 }else if ("goToAddTraining".equals(command)) {
@@ -169,7 +220,7 @@ public class MainFrame extends JFrame{
                     	layout.show(getContentPane(), "employeePanel");
                     } else if ("StatisticsMenu".equals(command)) {
                     	//show statisticsSessionPane
-                    	layout.show(getContentPane(), "statistiekenPanel");
+                    	layout.show(getContentPane(), "statisticsPanel");
                     } else if ("TrainingRequestsMenu".equals(command)) {
                     	//show trainingRequestMenu
                     	layout.show(getContentPane(), "trainingrequestPanel");
@@ -180,6 +231,7 @@ public class MainFrame extends JFrame{
                         //show trainingRequestMenu
                         layout.show(getContentPane(), "TrainingSessionInfoPane");
                     }
+                    
                 }
             });
         	
@@ -199,7 +251,7 @@ public class MainFrame extends JFrame{
                     	layout.show(getContentPane(), "employeePanel");
                     } else if ("StatisticsMenu".equals(command)) {
                     	//show statisticsSessionPane
-                    	layout.show(getContentPane(), "statistiekenPanel");
+                    	layout.show(getContentPane(), "statisticsPanel");
                     } else if ("TrainingRequestsMenu".equals(command)) {
                     	//show trainingRequestMenu
                     	layout.show(getContentPane(), "trainingrequestPanel");
@@ -207,6 +259,33 @@ public class MainFrame extends JFrame{
                     	//show trainingRequestMenu
                     	layout.show(getContentPane(), "trainingSessionPanel");
                     } else if ("SaveTrainingSession".equals(command)) {
+                    	TrainingSession tSession=new TrainingSession();
+                    	 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy/MM/dd");  
+                    	Date date=new Date();
+						try {
+							date = formatter1.parse(newNewTrainingSessionPanel.getDate());
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                    	tSession.setDate(date);
+                    	DateFormat formatter = new SimpleDateFormat("hh:mm a");
+                    	try {
+							tSession.setStartHour(new java.sql.Time(formatter.parse(newNewTrainingSessionPanel.getStartHour()).getTime()));
+							tSession.setEndHour(new java.sql.Time(formatter.parse(newNewTrainingSessionPanel.getEndHour()).getTime()));
+                    	} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                    	Address address=new Address();
+                    	address.setAdministrativeArea(newNewTrainingSessionPanel.getAdministrativeArea());
+                    	address.setLocality(newNewTrainingSessionPanel.getLocality());
+                    	address.setPostalCode(Integer.parseInt(newNewTrainingSessionPanel.getPostalCode()));
+                    	address.setStreetAddress(newNewTrainingSessionPanel.getStreetAddress());
+                    	address.setCountry(newNewTrainingSessionPanel.getCountry());
+                    	address.setPremise(newNewTrainingSessionPanel.getPremise());
+                    	
+                    	
                     	//save de data voor training session gebruik getters
                     	layout.show(getContentPane(), "trainingSessionPanel");
                     } else if ("addTeacher".equals(command)) {
@@ -214,7 +293,7 @@ public class MainFrame extends JFrame{
                     	layout.show(getContentPane(), "addTeacherPanel");
                     } else if ("searchTrainingSession".equals(command)) {
                     	// bevestigen van je trainingdiejezoek bevestigen nog maken, geen layout!
-                    	layout.show(getContentPane(), "addTeacherPanel");
+                    	
                     } else if ("addBook".equals(command)) {
                     	// layout.show van je book toevoegen nog maken
                     	layout.show(getContentPane(), "addBookPanel");
@@ -241,7 +320,7 @@ public class MainFrame extends JFrame{
                 	layout.show(getContentPane(), "employeePanel");
                 } else if ("StatisticsMenu".equals(command)) {
                 	//show statisticsSessionPane
-                	layout.show(getContentPane(), "statistiekenPanel");
+                	layout.show(getContentPane(), "statisticsPanel");
                 } else if ("TrainingRequestsMenu".equals(command)) {
                 	//show trainingRequestMenu
                 	layout.show(getContentPane(), "trainingrequestPanel");
@@ -249,7 +328,7 @@ public class MainFrame extends JFrame{
             }
         });
         	
-        		statistiekenPanel.addActionListener(new ActionListener() {
+        		statisticsPanel.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String command = e.getActionCommand();
@@ -265,16 +344,19 @@ public class MainFrame extends JFrame{
                     	layout.show(getContentPane(), "employeePanel");
                     } else if ("StatisticsMenu".equals(command)) {
                     	//show statisticsSessionPane
-                    	layout.show(getContentPane(), "statistiekenPanel");
+                    	layout.show(getContentPane(), "statisticsPanel");
                     } else if ("TrainingRequestsMenu".equals(command)) {
                     	//show trainingRequestMenu
                     	layout.show(getContentPane(), "trainingrequestPanel");
-                    } else if ("goToTrainingStatistics".equals(command)) {
+                    } else if ("goToStatisticsFollowedTraining".equals(command)) {
                     	//show trainingRequestMenu
-                
-                    } else if ("goToEmployeeStatistics".equals(command)) {
+                    	layout.show(getContentPane(), "statisticsFollowedTrainingPanel");
+                    } else if ("goToStatisticsTrainingParticipation".equals(command)) {
                     	//show trainingRequestMenu
-                
+                    	layout.show(getContentPane(), "statisticsTrainingParticipationPanel");
+                    } else if ("goToStatisticsCertificatesEmployee".equals(command)) {
+                    	//show trainingRequestMenu
+                    	layout.show(getContentPane(), "statisticsCertificatesEmployeePanel");
                     } 
                 }
             });
@@ -295,7 +377,7 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "employeePanel");
                         } else if ("StatisticsMenu".equals(command)) {
                         	//show statisticsSessionPane
-                        	layout.show(getContentPane(), "statistiekenPanel");
+                        	layout.show(getContentPane(), "statisticsPanel");
                         } else if ("TrainingRequestsMenu".equals(command)) {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
@@ -319,7 +401,7 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "employeePanel");
                         } else if ("StatisticsMenu".equals(command)) {
                         	//show statisticsSessionPane
-                        	layout.show(getContentPane(), "statistiekenPanel");
+                        	layout.show(getContentPane(), "statisticsPanel");
                         } else if ("TrainingRequestsMenu".equals(command)) {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
@@ -359,7 +441,7 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "employeePanel");
                         } else if ("StatisticsMenu".equals(command)) {
                         	//show statisticsSessionPane
-                        	layout.show(getContentPane(), "statistiekenPanel");
+                        	layout.show(getContentPane(), "statisticsPanel");
                         } else if ("TrainingRequestsMenu".equals(command)) {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
@@ -401,7 +483,7 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "employeePanel");
                         } else if ("StatisticsMenu".equals(command)) {
                         	//show statisticsSessionPane
-                        	layout.show(getContentPane(), "statistiekenPanel");
+                        	layout.show(getContentPane(), "statisticsPanel");
                         } else if ("TrainingRequestsMenu".equals(command)) {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
@@ -435,7 +517,7 @@ public class MainFrame extends JFrame{
                         	//show trainingSessionPane
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("MakeTrainingSession".equals(command)) {
-                        	//show newTrainingSessionPane
+                        	
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
                         }
                         
@@ -459,7 +541,7 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "employeePanel");
                         } else if ("StatisticsMenu".equals(command)) {
                         	//show statisticsSessionPane
-                        	layout.show(getContentPane(), "statistiekenPanel");
+                        	layout.show(getContentPane(), "statisticsPanel");
                         } else if ("TrainingRequestsMenu".equals(command)) {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
@@ -468,7 +550,27 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("SaveTraining".equals(command)) {
                         	//cancel trainingSession
-                        	
+                        	if(newNewTrianingPane.getTitle()==null|| newNewTrianingPane.getDescription()==null|| newNewTrianingPane.getNumberOfDays()==0|| newNewTrianingPane.getDescriptionExam()==null|| newNewTrianingPane.getDescriptionPayement()==null|| newNewTrianingPane.getPrice()==0) {
+                        		//open een error message
+                        	}
+                        	else {
+                        	TrainingInfo trainingInfo = new TrainingInfo(newNewTrianingPane.getTitle(), 
+                        			newNewTrianingPane.getDescription(), 
+                        			newNewTrianingPane.getNumberOfDays(), 
+                        			newNewTrianingPane.getDescriptionExam(),
+                        			newNewTrianingPane.getDescriptionPayement(),
+                        			newNewTrianingPane.getPrice(),
+                        			newNewTrianingPane.getSurveyId());
+                        	try {
+								trainingInfo.save();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+                        	}
                         } else if ("AddNewTraining".equals(command)) {
                         	//show TrainingSessoinInfoPane
                         	
@@ -498,7 +600,7 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "employeePanel");
                         } else if ("StatisticsMenu".equals(command)) {
                         	//show statisticsSessionPane
-                        	layout.show(getContentPane(), "statistiekenPanel");
+                        	layout.show(getContentPane(), "statisticsPanel");
                         } else if ("TrainingRequestsMenu".equals(command)) {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
@@ -526,7 +628,7 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "employeePanel");
                         } else if ("StatisticsMenu".equals(command)) {
                         	//show statisticsSessionPane
-                        	layout.show(getContentPane(), "statistiekenPanel");
+                        	layout.show(getContentPane(), "statisticsPanel");
                         } else if ("TrainingRequestsMenu".equals(command)) {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
@@ -538,7 +640,7 @@ public class MainFrame extends JFrame{
                 });
         		
         		
-        		/*addSurveyPanel.addActionListener(new ActionListener() {
+        		addSurveyPanel.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String command = e.getActionCommand();
@@ -554,20 +656,131 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "employeePanel");
                         } else if ("StatisticsMenu".equals(command)) {
                         	//show statisticsSessionPane
-                        	layout.show(getContentPane(), "statistiekenPanel");
+                        	layout.show(getContentPane(), "statisticsPanel");
                         } else if ("TrainingRequestsMenu".equals(command)) {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
-                        } else if ("goToAddTrainingSession".equals(command)) {
-                        	//show trainingRequestMenu
+                        } else if ("backToNewTrainingSession".equals(command)) {
+                        	//Back to newtrainingsessionpanel
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
-                        } else if ("goToTrainingSessionInfo".equals(command)) {
-                            //show trainingRequestMenu
-                            layout.show(getContentPane(), "TrainingSessionInfoPane");
+                        } else if ("addQuestion".equals(command)) {
+                        	//add question to survey
+                        	
+                        } else if ("deleteQuestion".equals(command)) {
+                        	//delete question from survey
+                        	
+                        } else if ("updateQuestion".equals(command)) {
+                        	//update question from survey
+                        	
+                        }else if ("confirmSurvey".equals(command)) {
+                        	//Confirm the survey and go back to newtrainingsessionpane
+                        	layout.show(getContentPane(), "NewTrainingSessionPane");
                         }
                     }
-                });*/
+                });
+        		
+        		statisticsCertificatesEmployeePanel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String command = e.getActionCommand();
+                        System.out.println(command);
+                        if ("TrainingMenu".equals(command)) {
+                        	//show trainingPane
+                        	layout.show(getContentPane(), "trainingPanel");
+                        } else if ("TrainingSessionMenu".equals(command)) {
+                        	//show trainingSessionPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+                        } else	if ("EmployeesMenu".equals(command)) {
+                        	//show employeesPane
+                        	layout.show(getContentPane(), "employeePanel");
+                        } else if ("StatisticsMenu".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "statisticsPanel");
+                        } else if ("TrainingRequestsMenu".equals(command)) {
+                        	//show trainingRequestMenu
+                        	layout.show(getContentPane(), "trainingrequestPanel");
+                        } else if ("showcertTrainingsEmployee".equals(command)) {
+                        	// laad data van employee certificates op JTable
+                        	
+                        } else if ("backCertToStatistics".equals(command)) {
+                        	// Terug naar statistiekenpanel
+                        	layout.show(getContentPane(), "statisticsPanel");
+                        } 
+                        
+                    }
+                });
+        		
+        		statisticsFollowedTrainingPanel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String command = e.getActionCommand();
+                        System.out.println(command);
+                        if ("TrainingMenu".equals(command)) {
+                        	//show trainingPane
+                        	layout.show(getContentPane(), "trainingPanel");
+                        } else if ("TrainingSessionMenu".equals(command)) {
+                        	//show trainingSessionPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+                        } else	if ("EmployeesMenu".equals(command)) {
+                        	//show employeesPane
+                        	layout.show(getContentPane(), "employeePanel");
+                        } else if ("StatisticsMenu".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "statisticsPanel");
+                        } else if ("TrainingRequestsMenu".equals(command)) {
+                        	//show trainingRequestMenu
+                        	layout.show(getContentPane(), "trainingrequestPanel");
+                        } else if ("showFollowedTrainings".equals(command)) {
+                        	// laad data van employee gevolgde trainingen op JTable
+                        	
+                        } else if ("backFollowedToStatistics".equals(command)) {
+                        	// Terug naar statistiekenpanel
+                        	layout.show(getContentPane(), "statisticsPanel");
+                        } 
+                        
+                    }
+                });
+        		
+        		statisticsTrainingParticipationPanel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String command = e.getActionCommand();
+                        System.out.println(command);
+                        if ("TrainingMenu".equals(command)) {
+                        	//show trainingPane
+                        	layout.show(getContentPane(), "trainingPanel");
+                        } else if ("TrainingSessionMenu".equals(command)) {
+                        	//show trainingSessionPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+                        } else	if ("EmployeesMenu".equals(command)) {
+                        	//show employeesPane
+                        	layout.show(getContentPane(), "employeePanel");
+                        } else if ("StatisticsMenu".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "statisticsPanel");
+                        } else if ("TrainingRequestsMenu".equals(command)) {
+                        	//show trainingRequestMenu
+                        	layout.show(getContentPane(), "trainingrequestPanel");
+                        } else if ("showParticipationTrainingsEmployee".equals(command)) {
+                        	// laad data van employee die de meeste trainingen gevolgd heeft volgens jaar op JTable
+                        	
+                        } else if ("backPartToStatistics".equals(command)) {
+                        	// Terug naar statistiekenpanel
+                        	layout.show(getContentPane(), "statisticsPanel");
+                        } 
+                        
+                    }
+                });
+        		
+        		
         
         layout.show(getContentPane(), "layout");
+	}
+	public static int getKeeper() {
+		
+		return keeper;
+	}
+	public void setKeeper(int keeper) {
+		this.keeper=keeper;
 	}
 }

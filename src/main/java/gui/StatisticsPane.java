@@ -16,27 +16,30 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Font;
 import javax.swing.JButton;
 
-public class StatistiekenPane extends JPanel {
+public class StatisticsPane extends JPanel {
 
-	private JToggleButton jtbTraining;
-	private JToggleButton jtbEmployees;
-	private JToggleButton jtbStatistics;
-	private JToggleButton jtbTrainingSession;
-	private JToggleButton jtbTrainingRequests;
-	private JButton btnTrainingStatistics;
-	private JButton btnEmployeeStatistics;
+	private JButton jtbTraining;
+	private JButton jtbEmployees;
+	private JButton jtbStatistics;
+	private JButton jtbTrainingSession;
+	private JButton jtbTrainingRequests;
+	private JLabel lblNewLabel_2;
+	private JButton btnParticipationTrainingsEmployeeStatistics;
+	private JButton btnParticipationMaxEmployeeStatistics;
+	private JButton btnCertEmployeeStatistics;
 	
 	/**
 	 * Create the panel.
 	 */
-	public StatistiekenPane() {
+	public StatisticsPane() {
+		
 		Border border = BorderFactory.createLineBorder(Color.BLACK,1);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 
 
-		jtbTraining = new JToggleButton("Training");
-        jtbTraining.addMouseListener(new MouseAdapter() {
+		jtbTraining = new JButton("Training");
+       /* jtbTraining.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 jtbTraining.setBorder(border);
@@ -45,7 +48,7 @@ public class StatistiekenPane extends JPanel {
             public void mouseExited(MouseEvent e) {
                 jtbTraining.setBorder(null);
             }
-        });
+        });*/
         jtbTraining.setBackground(Color.WHITE);
         jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
         jtbTraining.setOpaque(true);
@@ -53,8 +56,8 @@ public class StatistiekenPane extends JPanel {
         jtbTraining.setBounds(133, 0, 211, 75);
         add(jtbTraining);
         
-        jtbTrainingSession = new JToggleButton("Training session");
-        jtbTrainingSession.addMouseListener(new MouseAdapter() {
+        jtbTrainingSession = new JButton("Training session");
+       /* jtbTrainingSession.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 jtbTrainingSession.setBorder(border);
@@ -63,7 +66,7 @@ public class StatistiekenPane extends JPanel {
             public void mouseExited(MouseEvent e) {
                 jtbTrainingSession.setBorder(null);
             }
-        });
+        });*/
         jtbTrainingSession.setBackground(Color.WHITE);
         jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
         jtbTrainingSession.setOpaque(true);
@@ -71,8 +74,8 @@ public class StatistiekenPane extends JPanel {
         jtbTrainingSession.setBounds(344, 0, 211, 75);
         add(jtbTrainingSession);
         
-        jtbEmployees = new JToggleButton("Employees");
-        jtbEmployees.addMouseListener(new MouseAdapter() {
+        jtbEmployees = new JButton("Employees");
+       /* jtbEmployees.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 jtbEmployees.setBorder(border);
@@ -81,7 +84,7 @@ public class StatistiekenPane extends JPanel {
             public void mouseExited(MouseEvent e) {
                 jtbEmployees.setBorder(null);
             }
-        });
+        });*/
         jtbEmployees.setBackground(Color.WHITE);
         jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
         jtbEmployees.setOpaque(true);
@@ -89,8 +92,8 @@ public class StatistiekenPane extends JPanel {
         jtbEmployees.setBounds(555, 0, 212, 75);
         add(jtbEmployees);
         
-        jtbStatistics = new JToggleButton("Statistics");
-        jtbStatistics.addMouseListener(new MouseAdapter() {
+        jtbStatistics = new JButton("Statistics");
+       /* jtbStatistics.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 jtbStatistics.setBorder(border);
@@ -99,7 +102,7 @@ public class StatistiekenPane extends JPanel {
             public void mouseExited(MouseEvent e) {
                 jtbStatistics.setBorder(null);
             }
-        });
+        });*/
         jtbStatistics.setBackground(Color.WHITE);
         jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
         jtbStatistics.setOpaque(true);
@@ -107,8 +110,8 @@ public class StatistiekenPane extends JPanel {
         jtbStatistics.setBounds(767, 0, 212, 75);
         add(jtbStatistics);
         
-        jtbTrainingRequests = new JToggleButton("Training requests");
-        jtbTrainingRequests.addMouseListener(new MouseAdapter() {
+        jtbTrainingRequests = new JButton("Training requests");
+      /*  jtbTrainingRequests.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 jtbTrainingRequests.setBorder(border);
@@ -117,7 +120,7 @@ public class StatistiekenPane extends JPanel {
             public void mouseExited(MouseEvent e) {
                 jtbTrainingRequests.setBorder(null);
             }
-        });
+        });*/
         jtbTrainingRequests.setBackground(Color.WHITE);
         jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
         jtbTrainingRequests.setOpaque(true);
@@ -135,26 +138,32 @@ public class StatistiekenPane extends JPanel {
         lblNewLabel_1.setOpaque(true);
         add(lblNewLabel_1);
         
-        JLabel lblNewLabel_2 = new JLabel("Choose the category of which you want to see the statistics");
+        lblNewLabel_2 = new JLabel("Choose an option to consult statistics");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblNewLabel_2.setBounds(442, 142, 422, 38);
+        lblNewLabel_2.setBounds(492, 103, 296, 35);
         add(lblNewLabel_2);
         
-        btnTrainingStatistics = new JButton("Training");
-        btnTrainingStatistics.setActionCommand("goToTrainingStatistics");
-        btnTrainingStatistics.setBounds(555, 214, 177, 38);
-        add(btnTrainingStatistics);
+        btnParticipationTrainingsEmployeeStatistics = new JButton("Trainings the employee took part of");
+        btnParticipationTrainingsEmployeeStatistics.setActionCommand("goToStatisticsFollowedTraining");
+        btnParticipationTrainingsEmployeeStatistics.setBounds(481, 165, 286, 46);
+        add(btnParticipationTrainingsEmployeeStatistics);
         
-        btnEmployeeStatistics = new JButton("Employees");
-        btnEmployeeStatistics.setActionCommand("goToEmployeeStatistics");
-        btnEmployeeStatistics.setBounds(555, 286, 177, 38);
-        add(btnEmployeeStatistics);
+        btnParticipationMaxEmployeeStatistics = new JButton("Who participated to the most trainings");
+        btnParticipationMaxEmployeeStatistics.setActionCommand("goToStatisticsTrainingParticipation");
+        btnParticipationMaxEmployeeStatistics.setBounds(481, 235, 286, 46);
+        add(btnParticipationMaxEmployeeStatistics);
+        
+        btnCertEmployeeStatistics = new JButton("Which certificates does an employee have");
+        btnCertEmployeeStatistics.setActionCommand("goToStatisticsCertificatesEmployee");
+        btnCertEmployeeStatistics.setBounds(481, 304, 286, 46);
+        add(btnCertEmployeeStatistics);
         
 	}
 	
 	public void addActionListener(ActionListener listener) {
-		btnEmployeeStatistics.addActionListener(listener);
-		btnTrainingStatistics.addActionListener(listener);
+		btnParticipationTrainingsEmployeeStatistics.addActionListener(listener);
+		btnParticipationMaxEmployeeStatistics.addActionListener(listener);
+		btnCertEmployeeStatistics.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
