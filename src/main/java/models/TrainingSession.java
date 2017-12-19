@@ -24,13 +24,13 @@ public class TrainingSession {
 	private boolean cancelled;
 	private int surveyId;		
 	
-	public int getSurveyId() {
+/**	public int getSurveyId() {
 		return surveyId;
 	}
 
 	public void setSurveyId(int surveyId) {
 		this.surveyId = surveyId;
-	}
+	} */
 
 	public TrainingSession() {
 		super();		

@@ -3,7 +3,17 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -22,6 +32,21 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+
+import dataAccess.CertificateAccess;
+import dataAccess.EmployeeAccess;
+import dataAccess.TrainingInfoAccess;
+import models.Certificate;
+import models.Employee;
+import models.TrainingInfo;
+
 public class StatisticsCertificatesEmployeePane extends JPanel {
 
 	private int selectedRow;
@@ -37,11 +62,18 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 	private JScrollPane sclCertEmployeeStatistics;
 	private ListSelectionModel selectedRowCertEmployeeStatistics;
 	private JButton btnBackCertStatistics;
+	private JLabel lblNameFixed;
+	private JLabel lblName;
+	private JLabel lblFirstName;
 	
 	
 	/**
 	 * Create the panel.
 	 */
+	
+	
+	private List<String[]> certData = null;
+	
 	public StatisticsCertificatesEmployeePane() {
 
 		setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -159,11 +191,11 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 	        add(lblUitlegCert);
 	        
 	        txtCertEmployeeID = new JTextField();
-	        txtCertEmployeeID.setBounds(44, 266, 241, 33);
+	        txtCertEmployeeID.setBounds(44, 266, 61, 33);
 	        add(txtCertEmployeeID);
 	        txtCertEmployeeID.setColumns(10);
 	        
-	        Object [] columnheaderEmployeeCertStatistics = {"First name","Last name","Certificate title"};
+	        Object [] columnheaderEmployeeCertStatistics = {"Certificate title"};
 			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
 			Object[][] data = {
 			
@@ -180,8 +212,8 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 			    }
 			};
 			tbCertEmployeeStatistics = new JTable(tableCertEmployeeStatistics);
-			tbCertEmployeeStatistics.setBackground(Color.red);
-			tbCertEmployeeStatistics.setForeground(Color.blue);
+			//tbCertEmployeeStatistics.setBackground(Color.red);
+			//tbCertEmployeeStatistics.setForeground(Color.blue);
 			tbCertEmployeeStatistics.setModel(tableCertEmployeeStatistics);
 			tbCertEmployeeStatistics.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tbCertEmployeeStatistics.setRowSelectionAllowed(true);
@@ -218,19 +250,208 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 			});
 			
 			btnShowEmployeeCertStatistics = new JButton("Show information");
-			btnShowEmployeeCertStatistics.setActionCommand("showcertTrainingsEmployee");
+			btnShowEmployeeCertStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int employeeNr = Integer.parseInt(txtCertEmployeeID.getText());
+					Employee searchEmployee = new Employee();
+					
+					try {
+						searchEmployee = EmployeeAccess.get(employeeNr);
+						//	searchUser = UserAccess.get(employeeID);
+						//	searchEmployee = EmployeeAccess.get(searchUser.empID);
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (URISyntaxException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					//setEmployeeID(employeeID);
+					//!!!// nog checken bij none-valid employee ID
+					lblName.setText(searchEmployee.getLastName());
+					lblFirstName.setText(searchEmployee.getFirstName());
+				
+					HashMap<Integer, Certificate> listCertificateInfo = new HashMap<Integer, Certificate>();
+
+					try {
+						listCertificateInfo = CertificateAccess.getUserCertificateInfos(employeeNr);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+					List<String[]> certData = new ArrayList<String[]>();
+					for(Map.Entry<Integer, Certificate> lijst: listCertificateInfo.entrySet()) {
+
+						try {
+
+							certData.add(new String[] {
+									CertificateAccess.get(lijst.getValue().getCertificateID()).getTitel()
+							});
+
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (URISyntaxException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					if (listCertificateInfo.isEmpty()) {
+						certData.add(new String[] {
+							"No Certification Earned"	
+						});
+					}
+					
+					DefaultTableModel tableModel = new DefaultTableModel(certData.toArray(new Object[][] {}), columnheaderEmployeeCertStatistics) {
+						@Override
+						public boolean isCellEditable(int row, int column) {
+							//all cells false
+							return false;
+						}
+					};
+					//tbEmployeeHistoryTraining = new JTable(tableModel);
+					tbCertEmployeeStatistics.setModel(tableModel);
+					//tbEmployeeHistoryTraining.setModel(defTableModelHistoryTraining);
+					tbCertEmployeeStatistics.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					tbCertEmployeeStatistics.setRowSelectionAllowed(true);
+
+					final TableColumnModel columnmodelTraining = tbCertEmployeeStatistics.getColumnModel();
+					for (int column = 0; column < tbCertEmployeeStatistics.getColumnCount(); column++) {
+						int width = 15; // Min width
+						for (int row = 0; row < tbCertEmployeeStatistics.getRowCount(); row++) {
+							TableCellRenderer renderer = tbCertEmployeeStatistics.getCellRenderer(row, column);
+							Component comp = tbCertEmployeeStatistics.prepareRenderer(renderer, row, column);
+							width = Math.max(comp.getPreferredSize().width +1 , width);
+						}
+						if(width > 300)
+							width=300;
+						columnmodelTraining.getColumn(column).setPreferredWidth(width);
+					}
+				
+				}
+				
+			});
 			btnShowEmployeeCertStatistics.setBounds(44, 310, 158, 45);
 			add(btnShowEmployeeCertStatistics);
 			
 			JLabel lblExplanationOfTableCert = new JLabel("Certificates of employee");
 			lblExplanationOfTableCert.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblExplanationOfTableCert.setBounds(358, 132, 326, 33);
+			lblExplanationOfTableCert.setBounds(358, 132, 183, 33);
 			add(lblExplanationOfTableCert);
 			
 			btnBackCertStatistics = new JButton("Back");
+			btnBackCertStatistics.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// hier nog tabel blanco zetten!
+					txtCertEmployeeID.setText("");
+					lblName.setText("");
+					lblFirstName.setText("");
+				}
+			});
 			btnBackCertStatistics.setActionCommand("backCertToStatistics");
 			btnBackCertStatistics.setBounds(44, 131, 144, 45);
 			add(btnBackCertStatistics);
+			
+			lblNameFixed = new JLabel("Name:");
+			lblNameFixed.setBounds(555, 141, 61, 16);
+			add(lblNameFixed);
+			
+			lblName = new JLabel("");
+			lblName.setBounds(602, 141, 144, 16);
+			add(lblName);
+			
+			lblFirstName = new JLabel("");
+			lblFirstName.setBounds(758, 141, 144, 16);
+			add(lblFirstName);
+			
+			JButton btnMakePdfCertificates = new JButton("Get PDF");
+			btnMakePdfCertificates.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// sources: https://www.tutorialspoint.com/itext/index.htm
+					// DESTPDF is string met path+naam waar we aangemaakt PDF-bestand bewaren
+
+					int employeeNr = Integer.parseInt(txtCertEmployeeID.getText());
+					String employeeNaam = lblName.getText();
+					String employeeVoornaam = lblFirstName.getText();
+
+					final String DESTPDF ="results/certificate" + employeeNr + "_" + employeeNaam + "_" + employeeVoornaam + ".pdf";
+					File file = new File(DESTPDF);
+					file.getParentFile().mkdirs();
+
+					//initialize PDF Writer
+					FileOutputStream fos = null;
+					try {
+						fos = new FileOutputStream(DESTPDF);
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					PdfWriter writer = new PdfWriter(fos);
+					//initialize PDFDocument
+					PdfDocument pdf = new PdfDocument(writer);
+					//initialize document
+					Document doc = new Document(pdf);
+					// add paragraph to document
+					doc.add(new Paragraph ("Certificates Overview - EmployeeID: " +  employeeNr + " - " + employeeNaam + ", " + employeeVoornaam +""));
+
+					HashMap<Integer, Certificate> listCertificateInfo = new HashMap<Integer, Certificate>();
+
+					try {
+						listCertificateInfo = CertificateAccess.getUserCertificateInfos(employeeNr);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+					certData = new ArrayList<String[]>();
+					for(Map.Entry<Integer, Certificate> lijst: listCertificateInfo.entrySet()) {
+
+						Paragraph naamTraining;
+						try {
+							naamTraining = new Paragraph ("Name Training: " + CertificateAccess.get(lijst.getValue().getCertificateID()).getTitel());
+							doc.add(naamTraining);
+							//creating imageDataObject
+							if (CertificateAccess.get(lijst.getValue().getCertificateID()).getPicture() != null) {
+								ImageData fotodata = ImageDataFactory.create(CertificateAccess.get(lijst.getValue().getCertificateID()).getPicture());
+								Image foto = new Image(fotodata);
+								// add image to document, AutoScale true
+								doc.add(foto.setAutoScale(true));
+							}
+							else {
+								Paragraph noCert = new Paragraph ("Certification not yet received.");
+								doc.add(noCert);
+							}
+
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (URISyntaxException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}				
+
+					}
+					if (listCertificateInfo.isEmpty()) {
+						Paragraph warning = new Paragraph ("No Certificates - No Training Succeeded");
+						doc.add(warning);
+					}
+					//close document
+					doc.close();
+					// print action executed
+					System.out.println("PDF-document " + DESTPDF + " created");
+				}
+			});
+			btnMakePdfCertificates.setBounds(44, 369, 158, 45);
+			add(btnMakePdfCertificates);
+			
 		
 	}
 

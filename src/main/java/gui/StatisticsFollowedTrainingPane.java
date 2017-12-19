@@ -18,12 +18,26 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import dataAccess.AddressAccess;
+import dataAccess.EmployeeAccess;
+import dataAccess.TrainingInfoAccess;
+import dataAccess.TrainingSessionAccess;
+import models.Employee;
+import models.TrainingInfo;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import java.awt.event.ActionEvent;
 
 public class StatisticsFollowedTrainingPane extends JPanel {
 
@@ -34,16 +48,25 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 	private JButton jtbTrainingSession;
 	private JButton jtbTrainingRequests;
 	private JButton btnShowEmployeeFollowedTrainings;
-	private JTextField txtEmployeeID;
 	private JTable tbFollowedTrainingsEmployee;
 	private DefaultTableModel tableFollowedTrainingEmployee;
 	private JScrollPane sclFollowedTrainingsEmployee;
 	private ListSelectionModel selectedRowFollowedTrainings;
 	private JButton btnBackFollowedTrainingStatistics;
+	private JTextField txtTrainingEmployeeID;
+	private JLabel lblNameFixed;
+	private JLabel lblName;
+	private JLabel lblFirstName;
+	private JLabel lblTotalOfDaysFixed;
+	private JLabel lblTotalOfPriceFixed;
+	private JLabel lblTotalOfDays;
+	private JLabel lblTotalOfPrice;
 	
 	/**
 	 * Create the panel.
 	 */
+	private List<String[]> trainingData = null;
+	
 	public StatisticsFollowedTrainingPane() {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
@@ -159,12 +182,23 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 	        lblUitleg.setBounds(44, 222, 260, 33);
 	        add(lblUitleg);
 	        
-	        txtEmployeeID = new JTextField();
-	        txtEmployeeID.setBounds(44, 266, 241, 33);
-	        add(txtEmployeeID);
-	        txtEmployeeID.setColumns(10);
+	        lblName = new JLabel("");
+			lblName.setBounds(767, 141, 144, 16);
+			add(lblName);
+			
+			lblFirstName = new JLabel("");
+			lblFirstName.setBounds(915, 141, 144, 16);
+			add(lblFirstName);
+			
+			lblTotalOfPriceFixed = new JLabel("Total of Price:");
+			lblTotalOfPriceFixed.setBounds(44, 423, 158, 16);
+			add(lblTotalOfPriceFixed);
+			
+			lblTotalOfDays = new JLabel("");
+			lblTotalOfDays.setBounds(204, 379, 100, 16);
+			add(lblTotalOfDays);
 	        
-	        Object [] columnheaderEmployeeStatistics = {"First name","Last name","Training name","City","From","Until","Price"};
+	        Object [] columnheaderEmployeeStatistics = {"Training name", "Date", "City", "Number of Days","Price"};
 			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
 			Object[][] data = {
 			
@@ -181,8 +215,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 			    }
 			};
 			tbFollowedTrainingsEmployee = new JTable(tableFollowedTrainingEmployee);
-			tbFollowedTrainingsEmployee.setBackground(Color.red);
-			tbFollowedTrainingsEmployee.setForeground(Color.blue);
 			tbFollowedTrainingsEmployee.setModel(tableFollowedTrainingEmployee);
 			tbFollowedTrainingsEmployee.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tbFollowedTrainingsEmployee.setRowSelectionAllowed(true);
@@ -218,10 +250,122 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 				}
 			});
 			
+			
+			
 			btnShowEmployeeFollowedTrainings = new JButton("Show information");
-			btnShowEmployeeFollowedTrainings.setActionCommand("showFollowedTrainings");
+			btnShowEmployeeFollowedTrainings.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//lblTrainingID.setText("");
+					//lblTrainingName.setText("");
+					//lblShowImageIcon.setIcon(null);
+					int totaalDagen;
+					float totaalPrijs;
+					totaalDagen = 0;
+					totaalPrijs = 0;
+					int employeeID = Integer.parseInt(txtTrainingEmployeeID.getText());
+
+					System.out.println("ljlkj" + employeeID + txtTrainingEmployeeID.getText());
+					// ! ! ! !// check employeeid en userid verschil?		
+					Employee searchEmployee = new Employee();
+					
+					try {
+						searchEmployee = EmployeeAccess.get(employeeID);
+						//	searchUser = UserAccess.get(employeeID);
+						//	searchEmployee = EmployeeAccess.get(searchUser.empID);
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (URISyntaxException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					//setEmployeeID(employeeID);
+					//!!!// nog checken bij none-valid employee ID
+					lblName.setText(searchEmployee.getLastName());
+					lblFirstName.setText(searchEmployee.getFirstName());
+
+					HashMap<Integer, TrainingInfo> listTrainingInfo = new HashMap<Integer, TrainingInfo>();
+
+					try {
+						listTrainingInfo = TrainingInfoAccess.getUserTrainingInfos(employeeID);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+					 trainingData = new ArrayList<String[]>();
+					
+					for(Map.Entry<Integer, TrainingInfo> lijst: listTrainingInfo.entrySet()) {
+
+						try {
+							totaalDagen = totaalDagen + TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getNumberOfDays();
+							totaalPrijs = totaalPrijs + TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getPrice();
+							
+							trainingData.add(new String[] {
+									TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getName(),
+									String.valueOf(TrainingSessionAccess.get(lijst.getValue().getTrainingId()).getDate()),
+									AddressAccess.get(TrainingSessionAccess.get(lijst.getValue().getTrainingId()).getAddressId()).getLocality(),
+									String.valueOf(TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getNumberOfDays()),
+									String.valueOf(TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getPrice())
+									
+							});
+
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (URISyntaxException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					
+					lblTotalOfPrice.setText(String.valueOf(totaalPrijs));
+					lblTotalOfDays.setText(String.valueOf(totaalDagen));
+					
+					if (listTrainingInfo.isEmpty()) {
+						trainingData.add(new String[] {
+							"No Training Followed Yet"	
+						});
+					}
+					
+					DefaultTableModel tableModel = new DefaultTableModel(trainingData.toArray(new Object[][] {}), columnheaderEmployeeStatistics) {
+						@Override
+						public boolean isCellEditable(int row, int column) {
+							//all cells false
+							return false;
+						}
+					};
+					//tbEmployeeHistoryTraining = new JTable(tableModel);
+					tbFollowedTrainingsEmployee.setModel(tableModel);
+					//tbEmployeeHistoryTraining.setModel(defTableModelHistoryTraining);
+					tbFollowedTrainingsEmployee.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					tbFollowedTrainingsEmployee.setRowSelectionAllowed(true);
+
+					final TableColumnModel columnmodelTraining = tbFollowedTrainingsEmployee.getColumnModel();
+					for (int column = 0; column < tbFollowedTrainingsEmployee.getColumnCount(); column++) {
+						int width = 15; // Min width
+						for (int row = 0; row < tbFollowedTrainingsEmployee.getRowCount(); row++) {
+							TableCellRenderer renderer = tbFollowedTrainingsEmployee.getCellRenderer(row, column);
+							Component comp = tbFollowedTrainingsEmployee.prepareRenderer(renderer, row, column);
+							width = Math.max(comp.getPreferredSize().width +1 , width);
+						}
+						if(width > 300)
+							width=300;
+						columnmodelTraining.getColumn(column).setPreferredWidth(width);
+					}
+					
+				}
+			});
+
 			btnShowEmployeeFollowedTrainings.setBounds(44, 310, 158, 45);
 			add(btnShowEmployeeFollowedTrainings);
+			
+			lblNameFixed = new JLabel("Name:");
+			lblNameFixed.setBounds(696, 141, 61, 16);
+			add(lblNameFixed);
 			
 			JLabel lblExplanationOfTable = new JLabel("Employee took part in the following trainings");
 			lblExplanationOfTable.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -229,9 +373,32 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 			add(lblExplanationOfTable);
 			
 			btnBackFollowedTrainingStatistics = new JButton("Back");
+			btnBackFollowedTrainingStatistics.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					lblTotalOfPrice.setText("");
+					lblTotalOfDays.setText("");
+					// hier nog tabel blanco zetten!
+					txtTrainingEmployeeID.setText("");
+				}
+			});
 			btnBackFollowedTrainingStatistics.setActionCommand("backFollowedToStatistics");
 			btnBackFollowedTrainingStatistics.setBounds(44, 131, 144, 45);
 			add(btnBackFollowedTrainingStatistics);
+			
+			txtTrainingEmployeeID = new JTextField();
+			txtTrainingEmployeeID.setColumns(10);
+			txtTrainingEmployeeID.setBounds(44, 267, 61, 33);
+			add(txtTrainingEmployeeID);
+			
+			lblTotalOfDaysFixed = new JLabel("Total of Days:");
+			lblTotalOfDaysFixed.setBounds(44, 379, 158, 16);
+			add(lblTotalOfDaysFixed);
+			
+			
+			
+			lblTotalOfPrice = new JLabel("");
+			lblTotalOfPrice.setBounds(204, 423, 115, 16);
+			add(lblTotalOfPrice);
 			
 	}
 	
@@ -245,7 +412,4 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		jtbTrainingSession.addActionListener(listener);
     }
 	
-	public String getEmployeeIDFollowedTraining() {
-		return txtEmployeeID.getText();
-	}
 }

@@ -97,7 +97,7 @@ public class ExtraInfoEmployee extends JPanel {
 	public void setEmployeeID(int nieuwewaarde) {
 		employeeID = nieuwewaarde;
 	}
-	
+
 	private	List<String[]> data1 = null;
 
 	public ExtraInfoEmployee() {
@@ -206,12 +206,12 @@ public class ExtraInfoEmployee extends JPanel {
 		lblNewLabel_1.setOpaque(true);
 		add(lblNewLabel_1);
 
-		JLabel employeeLabel = new JLabel("User search by ID: ");
+		JLabel employeeLabel = new JLabel("Employee search by ID: ");
 		employeeLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		employeeLabel.setBounds(40, 100, 184, 39);
 		add(employeeLabel);
 
-		JLabel firstnameLabel = new JLabel("User ID:");
+		JLabel firstnameLabel = new JLabel("Employee ID:");
 		firstnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		firstnameLabel.setBounds(40, 150, 85, 25);
 		add(firstnameLabel);
@@ -248,12 +248,12 @@ public class ExtraInfoEmployee extends JPanel {
 		lblShowImageIcon.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblShowImageIcon.setBounds(669, 282, 521, 427);
 		add(lblShowImageIcon);
-		
+
 		textFieldEmployeeID = new JTextField();
 		textFieldEmployeeID.setBounds(133, 149, 147, 28);
 		add(textFieldEmployeeID);
 		textFieldEmployeeID.setColumns(10);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("view certificate");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_2.setBounds(669, 253, 264, 25);
@@ -266,7 +266,7 @@ public class ExtraInfoEmployee extends JPanel {
 		JLabel lblTrainingNameFixed = new JLabel("Training Name:");
 		lblTrainingNameFixed.setBounds(669, 206, 104, 16);
 		add(lblTrainingNameFixed);
-		
+
 		uploadCertificate = new JButton("Upload Certificate");
 		uploadCertificate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -275,7 +275,7 @@ public class ExtraInfoEmployee extends JPanel {
 					trainingID = Integer.parseInt(lblTrainingID.getText());
 				} catch(NumberFormatException ex) {
 					System.out.println("dit is de labeltraining" + lblTrainingID);
-				}
+				} // employeenr is wel degelijk de userid van onze tabel! (niet van Odata)
 				int employeeNr = Integer.parseInt(textFieldEmployeeID.getText());
 				String trainingName = lblTrainingName.getText();
 				CertificateAccess cA = new CertificateAccess();
@@ -346,13 +346,11 @@ public class ExtraInfoEmployee extends JPanel {
 				lblTrainingName.setText("");
 				lblShowImageIcon.setIcon(null);
 				employeeID = Integer.parseInt(textFieldEmployeeID.getText());
-		
+
 				System.out.println("ljlkj" + employeeID + textFieldEmployeeID.getText());
-// ! ! ! !				// check employeeid en userid verschil?		
+				// ! ! ! !// check employeeid en userid verschil?		
 				Employee searchEmployee = new Employee();
-				//	Employee searchUser = new User(); // id van de GUI
-
-
+				
 				try {
 					searchEmployee = EmployeeAccess.get(employeeID);
 					//	searchUser = UserAccess.get(employeeID);
@@ -365,7 +363,7 @@ public class ExtraInfoEmployee extends JPanel {
 					e2.printStackTrace();
 				}
 				//setEmployeeID(employeeID);
-//!!!				// nog checken bij none-valid employee ID
+				//!!!// nog checken bij none-valid employee ID
 				lblLastName.setText(searchEmployee.getLastName());
 				lblFirstName.setText(searchEmployee.getFirstName());
 
@@ -399,6 +397,13 @@ public class ExtraInfoEmployee extends JPanel {
 						e1.printStackTrace();
 					}
 				}
+				
+				if (listTrainingInfo.isEmpty()) {
+					data1.add(new String[] {
+						"No Training Followed Yet"	
+					});
+				}
+				
 				DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersHistoryTraining) {
 					@Override
 					public boolean isCellEditable(int row, int column) {
@@ -435,7 +440,7 @@ public class ExtraInfoEmployee extends JPanel {
 						lblShowImageIcon.setIcon(null);
 						if(!selectedRowBook.isSelectionEmpty()) {
 							//GET ROW
-							
+
 							int userid = Integer.parseInt(textFieldEmployeeID.getText());
 							int selectedRow = selectedRowBook.getMinSelectionIndex();
 							String[] test = data1.get(selectedRow);
@@ -460,7 +465,7 @@ public class ExtraInfoEmployee extends JPanel {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							} 
-							
+
 							if (certID != 0) {
 								try {
 									certZoek = Cache.certificateCache.get(certID);
@@ -474,7 +479,7 @@ public class ExtraInfoEmployee extends JPanel {
 									ImageIcon imageIcon = new ImageIcon(new ImageIcon(certZoek.getPicture()).getImage().getScaledInstance(521, 427, ABORT));
 									lblShowImageIcon.setIcon(imageIcon);
 								}
-								
+
 							}
 							else {
 								System.out.println("Kan het gevraagde certificaat niet vinden");
@@ -490,10 +495,10 @@ public class ExtraInfoEmployee extends JPanel {
 		btnListOfTrainings.setBounds(40, 233, 256, 29);
 		add(btnListOfTrainings);
 
-		
-		
+
+/**
 		// wegdoen, wordt niet gebruikt
-//!!		//hier nog fucntie koppelen aan je selectie van de rij!
+		//!!		//hier nog fucntie koppelen aan je selectie van de rij!
 		JButton btnShow = new JButton("Show");
 		btnShow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -527,18 +532,18 @@ public class ExtraInfoEmployee extends JPanel {
 		});
 
 		btnShow.setBounds(901, 234, 117, 29);
-		add(btnShow);
+		add(btnShow); */
 
 		JButton btnMakePdfCertificates = new JButton("Make PDF Certificates Employee");
 		btnMakePdfCertificates.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// sources: https://www.tutorialspoint.com/itext/index.htm
 				// DESTPDF is string met path+naam waar we aangemaakt PDF-bestand bewaren
-				
+
 				int employeeNr = Integer.parseInt(textFieldEmployeeID.getText());
 				String employeeNaam = lblLastName.getText();
 				String employeeVoornaam = lblFirstName.getText();
-				
+
 				final String DESTPDF ="results/certificate" + employeeNr + "_" + employeeNaam + "_" + employeeVoornaam + ".pdf";
 				File file = new File(DESTPDF);
 				file.getParentFile().mkdirs();
@@ -570,7 +575,7 @@ public class ExtraInfoEmployee extends JPanel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-						
+
 				List<String[]> certData = new ArrayList<String[]>();
 				for(Map.Entry<Integer, Certificate> lijst: listCertificateInfo.entrySet()) {
 
@@ -586,10 +591,10 @@ public class ExtraInfoEmployee extends JPanel {
 							doc.add(foto.setAutoScale(true));
 						}
 						else {
-							Paragraph noCert = new Paragraph ("Certification not yet earned.");
+							Paragraph noCert = new Paragraph ("Certification not yet received.");
 							doc.add(noCert);
 						}
-						
+
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -612,9 +617,9 @@ public class ExtraInfoEmployee extends JPanel {
 		});
 		btnMakePdfCertificates.setBounds(308, 233, 256, 29);
 		add(btnMakePdfCertificates);
-		
-		
-		
+
+
+
 
 	}
 
