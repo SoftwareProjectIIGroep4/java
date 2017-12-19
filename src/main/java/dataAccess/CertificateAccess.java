@@ -28,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -102,12 +103,15 @@ public class CertificateAccess extends RestRequest {
 		jFileChooser.setDialogTitle("Select your Certificate");
 		jFileChooser.setMultiSelectionEnabled(false);
 		
-		//chooser.setAcceptAllFileFilterUsed(false); als je geen all files wilt kiezen!
+		//jFileChooser.setAcceptAllFileFilterUsed(false); als je geen all files wilt kiezen!
 		// met meerdere files doet hij het niet, nog nakijken
-		jFileChooser.setFileFilter(new FileTypeFilter(".png", "PNG"));
-		jFileChooser.setFileFilter(new FileTypeFilter(".pdf", "PDF"));
-		jFileChooser.setFileFilter(new FileTypeFilter(".jpg", "JPG"));
-	
+		//jFileChooser.setFileFilter(new FileTypeFilter(".png", "PNG"));
+		//jFileChooser.setFileFilter(new FileTypeFilter(".pdf", "PDF"));
+		//jFileChooser.setFileFilter(new FileTypeFilter(".jpg", "JPG"));
+		jFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("PDF", "pdf"));
+		jFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("PNG", "png"));
+		jFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("JPG", "jpg"));
+		jFileChooser.setAcceptAllFileFilterUsed(false);
 
 		int result = jFileChooser.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
