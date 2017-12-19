@@ -70,6 +70,7 @@ public class MainFrame extends JFrame{
         StatisticsCertificatesEmployeePane statisticsCertificatesEmployeePanel = new StatisticsCertificatesEmployeePane();
         StatisticsFollowedTrainingPane statisticsFollowedTrainingPanel = new StatisticsFollowedTrainingPane();
         StatisticsTrainingParticipationPane statisticsTrainingParticipationPanel = new StatisticsTrainingParticipationPane();
+
         
         getContentPane().add(newLoginPane, "loginPanel");
         getContentPane().add(homePanel, "homePanel");
@@ -86,6 +87,7 @@ public class MainFrame extends JFrame{
         getContentPane().add(newNewTrianingPane, "NewTrianingPane");
         getContentPane().add(addTeacherPanel, "addTeacherPanel");
         getContentPane().add(addBookPanel, "addBookPanel");
+
         getContentPane().add(addSurveyPanel, "addSurveyPanel");
         getContentPane().add(statisticsCertificatesEmployeePanel, "statisticsCertificatesEmployeePanel");
         getContentPane().add(statisticsFollowedTrainingPanel, "statisticsFollowedTrainingPanel");
