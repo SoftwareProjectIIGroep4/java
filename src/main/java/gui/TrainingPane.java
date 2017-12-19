@@ -18,7 +18,6 @@ import java.util.StringTokenizer;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
- Ruben
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
