@@ -47,21 +47,25 @@ import java.awt.event.ActionEvent;
 
 public class TrainingSessionPane extends JPanel {
 
-	private JToggleButton jtbTraining;
-	private JToggleButton jtbEmployees;
-	private JToggleButton jtbStatistics;
-	private JToggleButton jtbTrainingSession;
-	private JToggleButton jtbTrainingRequests;
+	private JButton jtbTraining;
+	private JButton jtbEmployees;
+	private JButton jtbStatistics;
+	private JButton jtbTrainingSession;
+	private JButton jtbTrainingRequests;
 	private JTable tbSession;
 	private JTextField txtFromTrainingSession;
 	private JTextField txtUntilTrainingSession;
 	private JButton btnAddTrainingSession;
 	private DefaultTableModel modelSession;
 	private DefaultTableModel tableModel;
-	
-	/**
+
+	private JButton btnShowTrainingSession;
+
+
+	/*
 	 * Create the panel.
 	 */
+	
 	public TrainingSessionPane() {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -79,8 +83,8 @@ public class TrainingSessionPane extends JPanel {
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
-	        jtbTraining = new JToggleButton("Training");
-	        jtbTraining.addMouseListener(new MouseAdapter() {
+	        jtbTraining = new JButton("Training");
+	      /*  jtbTraining.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbTraining.setBorder(border);
@@ -89,7 +93,7 @@ public class TrainingSessionPane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbTraining.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbTraining.setBackground(Color.WHITE);
 	        jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTraining.setOpaque(true);
@@ -97,8 +101,8 @@ public class TrainingSessionPane extends JPanel {
 	        jtbTraining.setBounds(133, 0, 211, 75);
 	        add(jtbTraining);
 	        
-	        jtbTrainingSession = new JToggleButton("Training session");
-	        jtbTrainingSession.addMouseListener(new MouseAdapter() {
+	        jtbTrainingSession = new JButton("Training session");
+	       /* jtbTrainingSession.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbTrainingSession.setBorder(border);
@@ -107,7 +111,7 @@ public class TrainingSessionPane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbTrainingSession.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbTrainingSession.setBackground(Color.WHITE);
 	        jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTrainingSession.setOpaque(true);
@@ -115,8 +119,8 @@ public class TrainingSessionPane extends JPanel {
 	        jtbTrainingSession.setBounds(344, 0, 211, 75);
 	        add(jtbTrainingSession);
 	        
-	        jtbEmployees = new JToggleButton("Employees");
-	        jtbEmployees.addMouseListener(new MouseAdapter() {
+	        jtbEmployees = new JButton("Employees");
+	        /*jtbEmployees.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbEmployees.setBorder(border);
@@ -125,7 +129,7 @@ public class TrainingSessionPane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbEmployees.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbEmployees.setBackground(Color.WHITE);
 	        jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbEmployees.setOpaque(true);
@@ -133,8 +137,8 @@ public class TrainingSessionPane extends JPanel {
 	        jtbEmployees.setBounds(555, 0, 212, 75);
 	        add(jtbEmployees);
 	        
-	        jtbStatistics = new JToggleButton("Statistics");
-	        jtbStatistics.addMouseListener(new MouseAdapter() {
+	        jtbStatistics = new JButton("Statistics");
+	        /*jtbStatistics.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbStatistics.setBorder(border);
@@ -143,7 +147,7 @@ public class TrainingSessionPane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbStatistics.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbStatistics.setBackground(Color.WHITE);
 	        jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbStatistics.setOpaque(true);
@@ -151,8 +155,8 @@ public class TrainingSessionPane extends JPanel {
 	        jtbStatistics.setBounds(767, 0, 212, 75);
 	        add(jtbStatistics);
 	        
-	        jtbTrainingRequests = new JToggleButton("Training requests");
-	        jtbTrainingRequests.addMouseListener(new MouseAdapter() {
+	        jtbTrainingRequests = new JButton("Training requests");
+	       /* jtbTrainingRequests.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbTrainingRequests.setBorder(border);
@@ -161,7 +165,7 @@ public class TrainingSessionPane extends JPanel {
 	            public void mouseExited(MouseEvent e) {
 	                jtbTrainingRequests.setBorder(null);
 	            }
-	        });
+	        });*/
 	        jtbTrainingRequests.setBackground(Color.WHITE);
 	        jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTrainingRequests.setOpaque(true);
@@ -221,7 +225,7 @@ public class TrainingSessionPane extends JPanel {
 		JScrollPane sclBook = new JScrollPane(tbSession);
 		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclBook.setBounds(30, 116, 730, 582);
+		sclBook.setBounds(30, 116, 730, 550);
 		add(sclBook);
 		ListSelectionModel selectedRowBook = tbSession.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
@@ -236,68 +240,62 @@ public class TrainingSessionPane extends JPanel {
 			}
 		});
 		
-		
-		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(20, 106, 750, 603);
-		lblBackBorder.setBorder(border);
-		add(lblBackBorder);
-		
 		btnAddTrainingSession = new JButton("Add training session");
 		btnAddTrainingSession.setActionCommand("goToAddTrainingSession");
 		btnAddTrainingSession.setBounds(820, 138, 160, 64);
 		add(btnAddTrainingSession);
 		
-		
+
 		JLabel lblFilters = new JLabel("Filters");
 		lblFilters.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblFilters.setBounds(800, 255, 46, 16);
+		lblFilters.setBounds(820, 212, 46, 16);
 		add(lblFilters);
 		
 		JCheckBox chckbxMonday = new JCheckBox("Monday");
-		chckbxMonday.setBounds(820, 304, 97, 23);
+		chckbxMonday.setBounds(841, 288, 97, 23);
 		add(chckbxMonday);
 		
 		JCheckBox chckbxTeusday = new JCheckBox("Tuesday");
-		chckbxTeusday.setBounds(977, 304, 97, 23);
+		chckbxTeusday.setBounds(979, 288, 97, 23);
 		add(chckbxTeusday);
 		
 		JCheckBox chckbxWednesday = new JCheckBox("Wednesday");
-		chckbxWednesday.setBounds(820, 340, 97, 23);
+		chckbxWednesday.setBounds(841, 314, 97, 23);
 		add(chckbxWednesday);
 		
 		JCheckBox chckbxThursday = new JCheckBox("Thursday");
-		chckbxThursday.setBounds(977, 340, 97, 23);
+		chckbxThursday.setBounds(979, 314, 97, 23);
 		add(chckbxThursday);
 		
 		JCheckBox chckbxFriday = new JCheckBox("Friday");
-		chckbxFriday.setBounds(820, 376, 97, 23);
+		chckbxFriday.setBounds(841, 340, 97, 23);
 		add(chckbxFriday);
 		
 		JCheckBox chckbxSaturday = new JCheckBox("Saturday");
-		chckbxSaturday.setBounds(977, 376, 97, 23);
+		chckbxSaturday.setBounds(979, 340, 97, 23);
 		add(chckbxSaturday);
 		
 		JCheckBox chckbxSunday = new JCheckBox("Sunday");
-		chckbxSunday.setBounds(820, 412, 97, 23);
+		chckbxSunday.setBounds(841, 366, 97, 23);
 		add(chckbxSunday);
 		
 		JLabel lblFrom = new JLabel("From:");
 		lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblFrom.setBounds(820, 458, 46, 14);
+		lblFrom.setBounds(841, 421, 46, 14);
 		add(lblFrom);
 		
 		JLabel lblUntil = new JLabel("Until:");
 		lblUntil.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblUntil.setBounds(820, 511, 46, 14);
+		lblUntil.setBounds(841, 481, 46, 14);
 		add(lblUntil);
 		
 		JLabel lblBackBorder2 = new JLabel("");
-		lblBackBorder2.setBounds(800, 282, 450, 427);
+		lblBackBorder2.setBounds(820, 239, 385, 427);
 		lblBackBorder2.setBorder(border);
 		add(lblBackBorder2);
 		
 		txtFromTrainingSession = new JTextField();
-		txtFromTrainingSession.setBounds(876, 450, 189, 35);
+		txtFromTrainingSession.setBounds(911, 413, 189, 35);
 		txtFromTrainingSession.setColumns(10);
 		txtFromTrainingSession.addFocusListener(new FocusAdapter() {
         	@Override
@@ -314,7 +312,7 @@ public class TrainingSessionPane extends JPanel {
         add(txtFromTrainingSession);
 		
         txtUntilTrainingSession = new JTextField();
-        txtUntilTrainingSession.setBounds(876, 503, 189, 35);
+        txtUntilTrainingSession.setBounds(911, 473, 189, 35);
         txtUntilTrainingSession.setColumns(10);
         txtUntilTrainingSession.addFocusListener(new FocusAdapter() {
         	@Override
