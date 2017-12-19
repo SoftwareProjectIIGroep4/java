@@ -42,9 +42,9 @@ public class TrainingSessionPane extends JPanel {
 	private JTextField txtFromTrainingSession;
 	private JTextField txtUntilTrainingSession;
 	private JButton btnAddTrainingSession;
-	private JButton btnShowTrainingSession;
-	
-	
+	private DefaultTableModel modelSession;
+	private DefaultTableModel tableModel;
+
 	/*
 	 * Create the panel.
 	 */
@@ -158,13 +158,13 @@ public class TrainingSessionPane extends JPanel {
 		
 		
 		Object [] columnHeadersSession = {"Training name","City","Date","Hour"};
-		DefaultTableModel modelSession = new DefaultTableModel();
+		modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		Object[][] data = {
 				//table data schrijven
 		};
 		tbSession = new JTable(data, columnHeadersSession);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersSession) {
+		tableModel = new DefaultTableModel(data, columnHeadersSession) {
 
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -217,11 +217,6 @@ public class TrainingSessionPane extends JPanel {
 		btnAddTrainingSession.setBounds(820, 138, 160, 64);
 		add(btnAddTrainingSession);
 		
-		btnShowTrainingSession = new JButton("Show training session");
-		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
-		btnShowTrainingSession.setBounds(1030, 138, 160, 64);
-		add(btnShowTrainingSession);
-		
 		JLabel lblFilters = new JLabel("Filters");
 		lblFilters.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblFilters.setBounds(800, 255, 46, 16);
@@ -231,7 +226,7 @@ public class TrainingSessionPane extends JPanel {
 		chckbxMonday.setBounds(820, 304, 97, 23);
 		add(chckbxMonday);
 		
-		JCheckBox chckbxTeusday = new JCheckBox("Teusday");
+		JCheckBox chckbxTeusday = new JCheckBox("Tuesday");
 		chckbxTeusday.setBounds(977, 304, 97, 23);
 		add(chckbxTeusday);
 		
@@ -308,7 +303,6 @@ public class TrainingSessionPane extends JPanel {
 	
 	public void addActionListener(ActionListener listener) {
 		btnAddTrainingSession.addActionListener(listener);
-		btnShowTrainingSession.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
@@ -324,5 +318,9 @@ public class TrainingSessionPane extends JPanel {
 		return txtUntilTrainingSession.getText();
 	}
 	
+	public void addRowToTrainingSessionTable(Object[] row) {
+		
+		tableModel.addRow(row);
 	
+	}
 }

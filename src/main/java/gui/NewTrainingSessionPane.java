@@ -51,6 +51,10 @@ public class NewTrainingSessionPane extends JPanel {
 	private JToggleButton jtbStatistics;
 	private JToggleButton jtbTrainingSession;
 	private JToggleButton jtbTrainingRequests;
+	private JButton btnAddTeacher;
+	private JButton btnSearch;
+	private JButton btnAddBook;
+	private JButton btnaddSurvey;
 	
 	/**
 	 * Create the panel.
@@ -261,7 +265,7 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		add(txtEndHour);
 		
-		JLabel lblAdministrativeArea = new JLabel("Administrative area");
+		JLabel lblAdministrativeArea = new JLabel("Region");
 		lblAdministrativeArea.setBounds(50, 448, 100, 14);
 		add(lblAdministrativeArea);
 		
@@ -282,8 +286,8 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		add(txtAdministrativeArea);
 		
-		JLabel lblLocality = new JLabel("Locality");
-		lblLocality.setBounds(50, 519, 46, 14);
+		JLabel lblLocality = new JLabel("City");
+		lblLocality.setBounds(50, 519, 59, 14);
 		add(lblLocality);
 		
 		txtLocality = new JTextField();
@@ -345,7 +349,7 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		add(txtStreetAddress);
 		
-		JLabel lblPremise = new JLabel("Premise");
+		JLabel lblPremise = new JLabel("PO Box");
 		lblPremise.setBounds(425, 519, 46, 14);
 		add(lblPremise);
 		
@@ -388,7 +392,7 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		add(txtCountry);
 		
-		JLabel lblResaerchFortTraining = new JLabel("Resaerch for Training");
+		JLabel lblResaerchFortTraining = new JLabel("Research for Training");
 		lblResaerchFortTraining.setBounds(816, 200, 150, 14);
 		add(lblResaerchFortTraining);
 		
@@ -458,7 +462,7 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		
 		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(30, 186, 750, 484);
+		lblBackBorder.setBounds(6, 186, 750, 484);
 		lblBackBorder.setBorder(border);
 		add(lblBackBorder);
 		
@@ -466,11 +470,35 @@ public class NewTrainingSessionPane extends JPanel {
 		lblBackBorder2.setBounds(800, 186, 450, 484);
 		lblBackBorder2.setBorder(border);
 		add(lblBackBorder2);
+
+		btnAddTeacher = new JButton("Add Teacher");
+		btnAddTeacher.setActionCommand("addTeacher");
+		btnAddTeacher.setBounds(425, 200, 117, 54);
+		add(btnAddTeacher);
 		
+		btnSearch = new JButton("Search");
+		btnSearch.setActionCommand("searchTrainingSession");
+		btnSearch.setBounds(1123, 225, 117, 29);
+		add(btnSearch);
+		
+		btnAddBook = new JButton("Add Book");
+		btnAddBook.setActionCommand("addBook");
+		btnAddBook.setBounds(425, 271, 117, 50);
+		add(btnAddBook);
+		
+		btnaddSurvey = new JButton("Add Survey");
+		btnaddSurvey.setActionCommand("addSurvey");
+		btnaddSurvey.setBounds(589, 200, 117, 54);
+		add(btnaddSurvey);
+
 	}
 	public void addActionListener(ActionListener listener) {
 		btnBack.addActionListener(listener);
 		btnSave.addActionListener(listener);
+		btnAddTeacher.addActionListener(listener);
+		btnSearch.addActionListener(listener);
+		btnAddBook.addActionListener(listener);
+		btnaddSurvey.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
