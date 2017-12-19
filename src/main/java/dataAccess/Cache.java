@@ -83,7 +83,7 @@ public class Cache {
 					return TeacherAccess.get(key);
 				}
 			});
-	public static LoadingCache<Integer, TrainingInfo> trainingInfoCache = CacheBuilder.newBuilder().maximumSize(100)
+	public static LoadingCache<Integer, TrainingInfo> trainingInfoCache = CacheBuilder.newBuilder().maximumSize(300)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, TrainingInfo>() {
 
 				@Override

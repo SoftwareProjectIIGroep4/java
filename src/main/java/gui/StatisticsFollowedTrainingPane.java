@@ -1,19 +1,14 @@
 package gui;
 
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -22,32 +17,41 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
+
+import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ActionEvent;
 
-public class HomePane extends JPanel {
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
+public class StatisticsFollowedTrainingPane extends JPanel {
+
+	private int selectedRow;
 	private JButton jtbTraining;
 	private JButton jtbEmployees;
 	private JButton jtbStatistics;
 	private JButton jtbTrainingSession;
 	private JButton jtbTrainingRequests;
+	private JButton btnShowEmployeeFollowedTrainings;
+	private JTextField txtEmployeeID;
+	private JTable tbFollowedTrainingsEmployee;
+	private DefaultTableModel tableFollowedTrainingEmployee;
+	private JScrollPane sclFollowedTrainingsEmployee;
+	private ListSelectionModel selectedRowFollowedTrainings;
+	private JButton btnBackFollowedTrainingStatistics;
 	
 	/**
 	 * Create the panel.
 	 */
-	public HomePane() {
+	public StatisticsFollowedTrainingPane() {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
 	        jtbTraining = new JButton("Training");
-	       /* jtbTraining.addMouseListener(new MouseAdapter() {
+	        /*jtbTraining.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbTraining.setBorder(border);
@@ -57,6 +61,7 @@ public class HomePane extends JPanel {
 	                jtbTraining.setBorder(null);
 	            }
 	        });*/
+	       
 	        jtbTraining.setBackground(Color.WHITE);
 	        jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTraining.setOpaque(true);
@@ -75,6 +80,7 @@ public class HomePane extends JPanel {
 	                jtbTrainingSession.setBorder(null);
 	            }
 	        });*/
+	      
 	        jtbTrainingSession.setBackground(Color.WHITE);
 	        jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTrainingSession.setOpaque(true);
@@ -83,7 +89,7 @@ public class HomePane extends JPanel {
 	        add(jtbTrainingSession);
 	        
 	        jtbEmployees = new JButton("Employees");
-	       /* jtbEmployees.addMouseListener(new MouseAdapter() {
+	      /*  jtbEmployees.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbEmployees.setBorder(border);
@@ -93,6 +99,7 @@ public class HomePane extends JPanel {
 	                jtbEmployees.setBorder(null);
 	            }
 	        });*/
+	       
 	        jtbEmployees.setBackground(Color.WHITE);
 	        jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbEmployees.setOpaque(true);
@@ -101,7 +108,7 @@ public class HomePane extends JPanel {
 	        add(jtbEmployees);
 	        
 	        jtbStatistics = new JButton("Statistics");
-	     /*   jtbStatistics.addMouseListener(new MouseAdapter() {
+	        /*jtbStatistics.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbStatistics.setBorder(border);
@@ -111,6 +118,7 @@ public class HomePane extends JPanel {
 	                jtbStatistics.setBorder(null);
 	            }
 	        });*/
+	        
 	        jtbStatistics.setBackground(Color.WHITE);
 	        jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbStatistics.setOpaque(true);
@@ -119,7 +127,7 @@ public class HomePane extends JPanel {
 	        add(jtbStatistics);
 	        
 	        jtbTrainingRequests = new JButton("Training requests");
-	      /*  jtbTrainingRequests.addMouseListener(new MouseAdapter() {
+	       /* jtbTrainingRequests.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                jtbTrainingRequests.setBorder(border);
@@ -146,13 +154,98 @@ public class HomePane extends JPanel {
 	        lblNewLabel_1.setOpaque(true);
 	        add(lblNewLabel_1);
 	        
+	        JLabel lblUitleg = new JLabel("Write employeeID to get information");
+	        lblUitleg.setFont(new Font("Tahoma", Font.BOLD, 14));
+	        lblUitleg.setBounds(44, 222, 260, 33);
+	        add(lblUitleg);
+	        
+	        txtEmployeeID = new JTextField();
+	        txtEmployeeID.setBounds(44, 266, 241, 33);
+	        add(txtEmployeeID);
+	        txtEmployeeID.setColumns(10);
+	        
+	        Object [] columnheaderEmployeeStatistics = {"First name","Last name","Training name","City","From","Until","Price"};
+			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
+			Object[][] data = {
+			
+					
+					
+			};
+			
+			tableFollowedTrainingEmployee = new DefaultTableModel(data, columnheaderEmployeeStatistics)
+			{
+			    @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+			};
+			tbFollowedTrainingsEmployee = new JTable(tableFollowedTrainingEmployee);
+			tbFollowedTrainingsEmployee.setBackground(Color.red);
+			tbFollowedTrainingsEmployee.setForeground(Color.blue);
+			tbFollowedTrainingsEmployee.setModel(tableFollowedTrainingEmployee);
+			tbFollowedTrainingsEmployee.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			tbFollowedTrainingsEmployee.setRowSelectionAllowed(true);
+		    final TableColumnModel columnmodelTraining = tbFollowedTrainingsEmployee.getColumnModel();
+		    for (int column = 0; column < tbFollowedTrainingsEmployee.getColumnCount(); column++) {
+		        int width = 15; // Min width
+		        for (int row = 0; row < tbFollowedTrainingsEmployee.getRowCount(); row++) {
+		            TableCellRenderer renderer = tbFollowedTrainingsEmployee.getCellRenderer(row, column);
+		            Component comp = tbFollowedTrainingsEmployee.prepareRenderer(renderer, row, column);
+		            width = Math.max(comp.getPreferredSize().width +1 , width);
+		        }
+		        if(width > 300)
+		            width=300;
+		        columnmodelTraining.getColumn(column).setPreferredWidth(width);
+		    }
+			
+		    sclFollowedTrainingsEmployee = new JScrollPane(tbFollowedTrainingsEmployee);
+		    sclFollowedTrainingsEmployee.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		    sclFollowedTrainingsEmployee.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		    sclFollowedTrainingsEmployee.setBounds(358, 176, 856, 469);
+			add(sclFollowedTrainingsEmployee);
+			
+			selectedRowFollowedTrainings = tbFollowedTrainingsEmployee.getSelectionModel();
+			selectedRowFollowedTrainings.addListSelectionListener(new ListSelectionListener() {
+				@Override
+				public void valueChanged(ListSelectionEvent arg0) {
+					// TODO Auto-generated method stub
+					if(!selectedRowFollowedTrainings.isSelectionEmpty()) {
+						//GET ROW
+						selectedRow = selectedRowFollowedTrainings.getMinSelectionIndex();
+						//doe iets hier
+					}
+				}
+			});
+			
+			btnShowEmployeeFollowedTrainings = new JButton("Show information");
+			btnShowEmployeeFollowedTrainings.setActionCommand("showFollowedTrainings");
+			btnShowEmployeeFollowedTrainings.setBounds(44, 310, 158, 45);
+			add(btnShowEmployeeFollowedTrainings);
+			
+			JLabel lblExplanationOfTable = new JLabel("Employee took part in the following trainings");
+			lblExplanationOfTable.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblExplanationOfTable.setBounds(358, 132, 326, 33);
+			add(lblExplanationOfTable);
+			
+			btnBackFollowedTrainingStatistics = new JButton("Back");
+			btnBackFollowedTrainingStatistics.setActionCommand("backFollowedToStatistics");
+			btnBackFollowedTrainingStatistics.setBounds(44, 131, 144, 45);
+			add(btnBackFollowedTrainingStatistics);
+			
 	}
 	
 	public void addActionListener(ActionListener listener) {
+		btnShowEmployeeFollowedTrainings.addActionListener(listener);
+		btnBackFollowedTrainingStatistics.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
 		jtbEmployees.addActionListener(listener);
 		jtbTrainingSession.addActionListener(listener);
     }
+	
+	public String getEmployeeIDFollowedTraining() {
+		return txtEmployeeID.getText();
+	}
 }

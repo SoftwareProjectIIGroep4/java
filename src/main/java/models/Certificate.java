@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import dataAccess.AddressAccess;
 import dataAccess.Cache;
 import dataAccess.CertificateAccess;
@@ -30,6 +32,7 @@ import com.itextpdf.layout.element.Paragraph;
  *
  */
 //test test
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Certificate {	
 	private int certificateID;
 	private int trainingID;

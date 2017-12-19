@@ -34,20 +34,28 @@ import java.awt.event.ActionEvent;
 public class AddSurveyPane extends JPanel {
 
 	private int selectedRow;
-	private JToggleButton jtbTraining;
-	private JToggleButton jtbEmployees;
-	private JToggleButton jtbStatistics;
-	private JToggleButton jtbTrainingSession;
-	private JToggleButton jtbTrainingRequests;
+	private JButton jtbTraining;
+	private JButton jtbEmployees;
+	private JButton jtbStatistics;
+	private JButton jtbTrainingSession;
+	private JButton jtbTrainingRequests;
 	private JButton btnConfirmSurvey;
-	private DefaultTableModel modelSurvey;
-	private DefaultTableModel tableModel;
+	private DefaultTableModel tableQuestionsSurveyModel;
+	private DefaultTableModel modelHistoryQuestionsSurvey;
 	private JTable tbSurvey;
+	private JTable tbAskedQuestions;
+	private JScrollPane sclQuestionsSurvey;  
+	private JScrollPane sclHistoryQuestions;
 	private JButton btnAddQuestion;
 	private JButton btnDeleteQuestion;
 	private JButton btnUpdateQuestion;
 	private JTextField txtAddQuestion;
 	private JButton btnBackToNewTrainingsession;
+	private ListSelectionModel selectedRowQuestionsSurvey;
+	private ListSelectionModel selectedRowHistoryQuestions;
+	
+	
+	
 	
 	/**
 	 * Create the panel.
@@ -58,7 +66,7 @@ public class AddSurveyPane extends JPanel {
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
-	        jtbTraining = new JToggleButton("Training");
+	        jtbTraining = new JButton("Training");
 	        jtbTraining.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
@@ -77,7 +85,7 @@ public class AddSurveyPane extends JPanel {
 	        jtbTraining.setBounds(133, 0, 211, 75);
 	        add(jtbTraining);
 	        
-	        jtbTrainingSession = new JToggleButton("Training session");
+	        jtbTrainingSession = new JButton("Training session");
 	        jtbTrainingSession.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
@@ -96,7 +104,7 @@ public class AddSurveyPane extends JPanel {
 	        jtbTrainingSession.setBounds(344, 0, 211, 75);
 	        add(jtbTrainingSession);
 	        
-	        jtbEmployees = new JToggleButton("Employees");
+	        jtbEmployees = new JButton("Employees");
 	        jtbEmployees.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
@@ -115,7 +123,7 @@ public class AddSurveyPane extends JPanel {
 	        jtbEmployees.setBounds(555, 0, 212, 75);
 	        add(jtbEmployees);
 	        
-	        jtbStatistics = new JToggleButton("Statistics");
+	        jtbStatistics = new JButton("Statistics");
 	        jtbStatistics.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
@@ -134,7 +142,7 @@ public class AddSurveyPane extends JPanel {
 	        jtbStatistics.setBounds(767, 0, 212, 75);
 	        add(jtbStatistics);
 	        
-	        jtbTrainingRequests = new JToggleButton("Training requests");
+	        jtbTrainingRequests = new JButton("Training requests");
 	        jtbTrainingRequests.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
@@ -162,14 +170,15 @@ public class AddSurveyPane extends JPanel {
 	        lblNewLabel_1.setOpaque(true);
 	        add(lblNewLabel_1);
 	        
-	        Object [] columnHeadersEmployees = {"Questions"};
+	        Object [] columnHeaderQuestionsSurvey = {"Questions for the survey"};
+			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
 			Object[][] data = {
 			
 					
 					
 			};
 			
-			tableModel = new DefaultTableModel(data, columnHeadersEmployees)
+			tableQuestionsSurveyModel = new DefaultTableModel(data, columnHeaderQuestionsSurvey)
 			{
 			    @Override
 			    public boolean isCellEditable(int row, int column) {
@@ -177,10 +186,10 @@ public class AddSurveyPane extends JPanel {
 			       return false;
 			    }
 			};
-			tbSurvey = new JTable(tableModel);
+			tbSurvey = new JTable(tableQuestionsSurveyModel);
 			tbSurvey.setBackground(Color.red);
 			tbSurvey.setForeground(Color.blue);
-			tbSurvey.setModel(tableModel);
+			tbSurvey.setModel(tableQuestionsSurveyModel);
 			tbSurvey.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tbSurvey.setRowSelectionAllowed(true);
 		    final TableColumnModel columnmodelTraining = tbSurvey.getColumnModel();
@@ -196,19 +205,74 @@ public class AddSurveyPane extends JPanel {
 		        columnmodelTraining.getColumn(column).setPreferredWidth(width);
 		    }
 			
-		    JScrollPane sclEmployee = new JScrollPane(tbSurvey);
-		    sclEmployee.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		    sclEmployee.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		    sclEmployee.setBounds(30, 173, 789, 527);
-			add(sclEmployee);
-			ListSelectionModel selectedRowEmployees = tbSurvey.getSelectionModel();
-			selectedRowEmployees.addListSelectionListener(new ListSelectionListener() {
+		    sclQuestionsSurvey = new JScrollPane(tbSurvey);
+		    sclQuestionsSurvey.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		    sclQuestionsSurvey.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		    sclQuestionsSurvey.setBounds(488, 176, 403, 505);
+			add(sclQuestionsSurvey);
+			selectedRowQuestionsSurvey = tbSurvey.getSelectionModel();
+			selectedRowQuestionsSurvey.addListSelectionListener(new ListSelectionListener() {
 				@Override
 				public void valueChanged(ListSelectionEvent arg0) {
 					// TODO Auto-generated method stub
-					if(!selectedRowEmployees.isSelectionEmpty()) {
+					if(!selectedRowQuestionsSurvey.isSelectionEmpty()) {
 						//GET ROW
-						selectedRow = selectedRowEmployees.getMinSelectionIndex();
+						selectedRow = selectedRowQuestionsSurvey.getMinSelectionIndex();
+						//doe iets hier
+					}
+				}
+			});
+	        
+			
+			//-------------------------------------------------------------------------------
+			
+			Object [] columnHeadersHistoryQuestions = {"Previous questions from surveys"};
+			Object[][] data1 = {
+			
+					
+					
+			};
+			
+			modelHistoryQuestionsSurvey = new DefaultTableModel(data1, columnHeadersHistoryQuestions)
+			{
+			    @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+			};
+			tbAskedQuestions = new JTable(modelHistoryQuestionsSurvey);
+			tbAskedQuestions.setBackground(Color.red);
+			tbAskedQuestions.setForeground(Color.blue);
+			tbAskedQuestions.setModel(modelHistoryQuestionsSurvey);
+			tbAskedQuestions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			tbAskedQuestions.setRowSelectionAllowed(true);
+		    final TableColumnModel columnmodelTraining1 = tbAskedQuestions.getColumnModel();
+		    for (int column = 0; column < tbAskedQuestions.getColumnCount(); column++) {
+		        int width = 15; // Min width
+		        for (int row = 0; row < tbAskedQuestions.getRowCount(); row++) {
+		            TableCellRenderer renderer = tbAskedQuestions.getCellRenderer(row, column);
+		            Component comp = tbAskedQuestions.prepareRenderer(renderer, row, column);
+		            width = Math.max(comp.getPreferredSize().width +1 , width);
+		        }
+		        if(width > 300)
+		            width=300;
+		        columnmodelTraining1.getColumn(column).setPreferredWidth(width);
+		    }
+			
+		    sclHistoryQuestions = new JScrollPane(tbAskedQuestions);
+		    sclHistoryQuestions.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		    sclHistoryQuestions.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		    sclHistoryQuestions.setBounds(30, 176, 403, 505);
+			add(sclHistoryQuestions);
+			selectedRowHistoryQuestions = tbAskedQuestions.getSelectionModel();
+			selectedRowHistoryQuestions.addListSelectionListener(new ListSelectionListener() {
+				@Override
+				public void valueChanged(ListSelectionEvent arg0) {
+					// TODO Auto-generated method stub
+					if(!selectedRowHistoryQuestions.isSelectionEmpty()) {
+						//GET ROW
+						selectedRow = selectedRowHistoryQuestions.getMinSelectionIndex();
 						//doe iets hier
 					}
 				}
@@ -226,37 +290,28 @@ public class AddSurveyPane extends JPanel {
 	        
 	        btnAddQuestion = new JButton("Add question");
 	        btnAddQuestion.setActionCommand("addQuestion");
-	        btnAddQuestion.setBounds(942, 350, 203, 41);
+	        btnAddQuestion.setBounds(987, 350, 203, 41);
 	        add(btnAddQuestion);
 	        
 	        btnDeleteQuestion = new JButton("Delete question");
 	        btnDeleteQuestion.setActionCommand("deleteQuestion");
-	        btnDeleteQuestion.setBounds(942, 402, 203, 41);
+	        btnDeleteQuestion.setBounds(987, 402, 203, 41);
 	        add(btnDeleteQuestion);
 	        
 	        btnUpdateQuestion = new JButton("Update question");
 	        btnUpdateQuestion.setActionCommand("updateQuestion");
-	        btnUpdateQuestion.setBounds(942, 454, 203, 41);
+	        btnUpdateQuestion.setBounds(987, 454, 203, 41);
 	        add(btnUpdateQuestion);
 	        
 	        txtAddQuestion = new JTextField();
-	        txtAddQuestion.setBounds(876, 298, 330, 41);
+	        txtAddQuestion.setBounds(922, 298, 330, 41);
 	        add(txtAddQuestion);
 	        txtAddQuestion.setColumns(10);
 	        
 	        JLabel lblAddQuestionExpl = new JLabel("Type your question here");
 	        lblAddQuestionExpl.setFont(new Font("Tahoma", Font.BOLD, 14));
-	        lblAddQuestionExpl.setBounds(876, 263, 235, 24);
+	        lblAddQuestionExpl.setBounds(922, 263, 235, 24);
 	        add(lblAddQuestionExpl);
-	        
-	        tbSurvey.addMouseListener(new MouseAdapter() {
-	        @Override
-	        public void mouseClicked(MouseEvent e) {
-	        	
-	        	int i = tbSurvey.getSelectedRow();
-	        		
-	        }
-	     });
 	        
 	}
 	

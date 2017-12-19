@@ -71,7 +71,6 @@ import com.itextpdf.layout.element.Image;
 
 
 public class ExtraInfoEmployee extends JPanel {
-
 	private int selectedRow;
 	private JToggleButton jtbTraining;
 	private JToggleButton jtbEmployees;
@@ -86,7 +85,6 @@ public class ExtraInfoEmployee extends JPanel {
 	private JButton btnListOfTrainings;
 	private JTextField textFieldEmployeeID;
 	private int employeeID;
-
 
 	/**
 	 * Create the panel.
