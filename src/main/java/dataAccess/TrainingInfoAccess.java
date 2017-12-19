@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
-
+ 
 import models.TrainingInfo;
 
 public class TrainingInfoAccess extends RestRequest {

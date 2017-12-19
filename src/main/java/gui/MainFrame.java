@@ -1,5 +1,5 @@
 package gui;
-
+ 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
@@ -73,8 +73,12 @@ public class MainFrame extends JFrame {
         TrainingPane trainingPanel = new TrainingPane();
         TrainingSessionPane trainingSessionPanel = new TrainingSessionPane();
         NewTrainingSessionPane newNewTrainingSessionPanel = new NewTrainingSessionPane();
-        EmployeePane employeePanel = new EmployeePane();
-        StatisticsPane statisticsPanel = new StatisticsPane();    
+         StatisticsPane statisticsPanel = new StatisticsPane();    
+
+        //EmployeePane employeePanel = new EmployeePane();
+        ExtraInfoEmployee employeePanel = new ExtraInfoEmployee();
+        StatistiekenPane statistiekenPanel = new StatistiekenPane();    
+
         TrainingrequestPane trainingrequestPanel = new TrainingrequestPane();
         TrainingSessionBookPane newTrainingSessionBookPane = new TrainingSessionBookPane();
         TrainingSessionPoeplePane newTrainingSessionPoeplePane = new TrainingSessionPoeplePane();
