@@ -44,10 +44,11 @@ public class TrainingSessionPane extends JPanel {
 	private JButton btnAddTrainingSession;
 	private DefaultTableModel modelSession;
 	private DefaultTableModel tableModel;
-	
-	/**
+
+	/*
 	 * Create the panel.
 	 */
+	
 	public TrainingSessionPane() {
 		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
