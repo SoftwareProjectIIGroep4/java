@@ -66,7 +66,6 @@ public class MainFrame extends JFrame{
         NewTrianingPane newNewTrianingPane = new NewTrianingPane();
         AddTeacherPane addTeacherPanel = new AddTeacherPane(); 
         AddBookPane addBookPanel = new AddBookPane(); 
-        AddSurveyPane addSurveyPanel = new AddSurveyPane(); 
         
         getContentPane().add(newLoginPane, "loginPanel");
         getContentPane().add(homePanel, "homePanel");
@@ -83,7 +82,6 @@ public class MainFrame extends JFrame{
         getContentPane().add(newNewTrianingPane, "NewTrianingPane");
         getContentPane().add(addTeacherPanel, "addTeacherPanel");
         getContentPane().add(addBookPanel, "addBookPanel");
-        getContentPane().add(addSurveyPanel, "addSurveyPanel");
 
        
         newLoginPane.addActionListener(new ActionListener() {
