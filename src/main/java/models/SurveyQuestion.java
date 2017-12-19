@@ -21,21 +21,18 @@ public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }
 	private ArrayList<SurveyAnswer> answers;
 	private typeQuestion qType;
 //METHODS
-	public SurveyQuestion(int questionID, int surveyID, String question, ArrayList<SurveyAnswer> answers,
-			typeQuestion qType) {
+	public SurveyQuestion(int questionID, int surveyID, String question, ArrayList<SurveyAnswer> answers) {
 		super();
 		this.questionID = questionID;
 		this.surveyID = surveyID;
 		this.question = question;
 		this.answers = answers;
-		this.qType = qType;
 	}
-	public SurveyQuestion(int questionID, int surveyID, String question,typeQuestion qType) {
+	public SurveyQuestion(int questionID, int surveyID, String question) {
 		super();
 		this.questionID = questionID;
 		this.surveyID = surveyID;
 		this.question = question;
-		this.qType = qType;
 	}
 	
 	public int getSurveyID() {
