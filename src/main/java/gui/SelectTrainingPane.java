@@ -3,8 +3,13 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,6 +25,14 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+
+import org.omg.CORBA.PUBLIC_MEMBER;
+
+import com.itextpdf.kernel.pdf.filters.IFilterHandler;
+
+import models.TrainingInfo;
+import models.TrainingSession;
 
 public class SelectTrainingPane extends JPanel {
 	
@@ -27,11 +40,18 @@ public class SelectTrainingPane extends JPanel {
 	private JButton btnCancel;
 	private JButton btnMakeTrainingSession;
 	private int selectedRow;
+	TrainingPane trainingPane;
+	////////////////////////////////
+	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+	
+	////////////////////////////////
 
 	/**
 	 * Create the panel.
 	 */
+	
 	public SelectTrainingPane() {
+		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
@@ -55,17 +75,32 @@ public class SelectTrainingPane extends JPanel {
 		Object [] columnHeadersTraining = {"Title","Number of Days","Price"};
 		DefaultTableModel modelTraining = new DefaultTableModel();
 		modelTraining.setColumnIdentifiers(columnHeadersTraining);
-		Object[][] data = {
+		List<String[]> data1 = new ArrayList<String[]>();
+		
+		System.out.println("test2::"+MainFrame.getKeeper());
+		for (Map.Entry<Integer, TrainingInfo>  entry : listTraingInfo.entrySet()) {
+			if (entry.getValue().getTrainingId()==MainFrame.getKeeper()) {
+			data1.add(new String[] {
+					entry.getValue().getName(),
+					String.valueOf(entry.getValue().getNumberOfDays()),
+					String.valueOf(entry.getValue().getPrice())
+					}
+			
+					
+			);
+			}
+		}
+		
+		DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersTraining) {
+		   
 
-		};
-		tbTraining = new JTable(data, columnHeadersTraining);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersTraining) {
-		    @Override
+			@Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
 		    }
 		};
+		tbTraining = new JTable(tableModel);
 		tbTraining.setModel(tableModel);
 		tbTraining.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbTraining.setRowSelectionAllowed(true);
@@ -84,7 +119,7 @@ public class SelectTrainingPane extends JPanel {
 		JScrollPane sclTraining = new JScrollPane(tbTraining);
 		sclTraining.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclTraining.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclTraining.setBounds(20, 59, 530, 560);
+		sclTraining.setBounds(20, 59, 510, 560);
 		add(sclTraining);
 		ListSelectionModel selectedRowBook = tbTraining.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
@@ -112,5 +147,6 @@ public class SelectTrainingPane extends JPanel {
 	public int getSelectedRow() {
 		return selectedRow;
 	}
+	
 
 }

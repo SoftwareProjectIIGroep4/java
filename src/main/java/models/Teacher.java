@@ -3,9 +3,12 @@ package models;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import dataAccess.Cache;
 import dataAccess.TeacherAccess;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Teacher {
 	private int teacherId;
 	private String firstName;

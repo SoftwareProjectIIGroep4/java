@@ -4,9 +4,13 @@ import java.net.URISyntaxException;
 
 import javax.management.openmbean.OpenDataException;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import dataAccess.AddressAccess;
 import dataAccess.Cache;
 import dataAccess.SurveyAnswerAcces;;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SurveyAnswer {
 //DATAMEMBRS
 	private int AnswerID,questionID,userID;

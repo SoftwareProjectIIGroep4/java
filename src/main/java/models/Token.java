@@ -1,9 +1,14 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Token {
 //DATAMEMBERS
 	private int userID;
 	private String token;
+	
+	private Token userToken;
 //METHODS
 	public Token(int userID, String token) {
 		super();

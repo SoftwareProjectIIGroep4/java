@@ -1,7 +1,8 @@
 package models;
 
-import gui.EmployeePane;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee {
 	private int employeeID;
 	private String lastName;

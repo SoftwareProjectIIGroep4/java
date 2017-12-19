@@ -11,6 +11,7 @@ import dataAccess.Cache;
 import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TrainingInfo {
 	private int trainingId;	
 	private String name;
@@ -19,15 +20,17 @@ public class TrainingInfo {
 	private String infoExam;
 	private String infoPayment;
 	private float price;
+	private int SurveyId;
 	private HashMap<Integer, TrainingSession> sessions;
 			
 	public TrainingInfo() {
-		super();
-		sessions = new HashMap<Integer, TrainingSession>();
+		//super();
+		//sessions = new HashMap<Integer, TrainingSession>();
 	}
+	
 
 	public TrainingInfo(String name, String infoGeneral, int numberOfDays, String infoExam, String infoPayment,
-			float price) {
+			float price,int SurveyId) {
 		super();
 		this.name = name;
 		this.infoGeneral = infoGeneral;
@@ -35,8 +38,19 @@ public class TrainingInfo {
 		this.infoExam = infoExam;
 		this.infoPayment = infoPayment;
 		this.price = price;
+		this.SurveyId=SurveyId;
 		sessions = new HashMap<Integer, TrainingSession>();
 	}
+
+	public int getSurveyId() {
+		return SurveyId;
+	}
+
+
+	public void setSurveyId(int surveyId) {
+		SurveyId = surveyId;
+	}
+
 
 	public TrainingInfo(int trainingId, String name, String infoGeneral, int numberOfDays, String infoExam,
 			String infoPayment, float price) {
@@ -49,6 +63,10 @@ public class TrainingInfo {
 		this.infoPayment = infoPayment;
 		this.price = price;
 		sessions = new HashMap<Integer, TrainingSession>();
+	}
+	
+	public static HashMap<Integer, TrainingInfo> getByUserId(int userid) throws IOException, URISyntaxException {
+		return TrainingInfoAccess.getUserTrainingInfos(userid);
 	}
 	
 	public void save() throws URISyntaxException, IOException {		
