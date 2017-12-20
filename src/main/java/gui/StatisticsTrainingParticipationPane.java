@@ -22,6 +22,23 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import dataAccess.AddressAccess;
+import dataAccess.EmployeeAccess;
+import dataAccess.TrainingInfoAccess;
+import dataAccess.TrainingSessionAccess;
+import models.Employee;
+import models.TrainingInfo;
+import models.TrainingSession;
+
 public class StatisticsTrainingParticipationPane extends JPanel {
 
 	private int selectedRow;
@@ -40,6 +57,10 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	
+	private List <String[]> employeeData = null;
+	HashMap<Integer, Employee> employeeMap = null;
+	
 	public StatisticsTrainingParticipationPane() {
 		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -48,6 +69,14 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
 		  btnTraining = new JButton("Training"); 
+		 /* btnTraining.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// bestaande tabel blanco op zetten!
+					tableModel.getDataVector().removeAllElements();
+					tableModel.fireTableDataChanged();
+
+				}
+			});*/
 		  btnTraining.setBackground(Color.WHITE);
 		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		  btnTraining.setOpaque(true);
@@ -99,7 +128,7 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 	        add(txtYear);
 	        txtYear.setColumns(10);
 	        
-	        Object [] columnheaderEmployeePartStatistics = {"EmployeeID","First name","Last name","Number of participations" };
+	        Object [] columnheaderEmployeePartStatistics = {"EmployeeID","First name","Last name"};
 			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
 			Object[][] data = {
 			

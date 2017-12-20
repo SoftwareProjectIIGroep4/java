@@ -80,16 +80,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
 		btnTraining = new JButton("Training");
-		/*jtbTraining.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTraining.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTraining.setBorder(null);
-	            }
-	        });*/
 		btnTraining.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// velden op blanco zetten
@@ -112,16 +102,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		add(btnTraining);
 
 		btnTrainingsession = new JButton("Training session");
-		/* jtbTrainingSession.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTrainingSession.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTrainingSession.setBorder(null);
-	            }
-	        });*/
 		btnTrainingsession.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// velden op blanco zetten
@@ -144,16 +124,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		add(btnTrainingsession);
 
 		btnEmployees = new JButton("Employees");
-		/*  jtbEmployees.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbEmployees.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbEmployees.setBorder(null);
-	            }
-	        });*/
 		btnEmployees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// velden op blanco zetten
@@ -176,16 +146,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		add(btnEmployees);
 
 		btnStatistics = new JButton("Statistics");
-		/*jtbStatistics.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbStatistics.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbStatistics.setBorder(null);
-	            }
-	        });*/
 		btnStatistics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// velden op blanco zetten
