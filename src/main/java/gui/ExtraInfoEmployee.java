@@ -110,6 +110,7 @@ public class ExtraInfoEmployee extends JPanel {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 
+
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
 
@@ -216,6 +217,7 @@ public class ExtraInfoEmployee extends JPanel {
 		lblNewLabel_1.setBounds(1190, 0, 75, 75);
 		lblNewLabel_1.setOpaque(true);
 		add(lblNewLabel_1);
+
 
 
 		JLabel employeeLabel = new JLabel("Employee search by ID: ");

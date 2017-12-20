@@ -218,7 +218,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		JLabel lblNewLabel_1 = new JLabel("Profiel");
 		lblNewLabel_1.setBounds(1190, 0, 75, 75);
 		lblNewLabel_1.setOpaque(true);
-		add(lblNewLabel_1);
+		add(lblNewLabel_1);n
 
 		JLabel lblUitlegCert = new JLabel("Write employeeID to get information");
 		lblUitlegCert.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -492,8 +492,10 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnShowEmployeeCertStatistics.addActionListener(listener);
 		btnBackCertStatistics.addActionListener(listener);
 
+
 		btnTraining.addActionListener(listener);
 		//jtbTrainingRequests.addActionListener(listener);
+
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);

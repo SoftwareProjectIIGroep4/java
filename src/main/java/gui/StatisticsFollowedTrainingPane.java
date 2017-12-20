@@ -76,6 +76,7 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 
+
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
 		btnTraining = new JButton("Training");
@@ -464,6 +465,7 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnShowEmployeeFollowedTrainings.addActionListener(listener);
 		btnBackFollowedTrainingStatistics.addActionListener(listener);
 		btnTraining.addActionListener(listener);
+
 		//jtbTrainingRequests.addActionListener(listener);
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
