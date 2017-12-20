@@ -107,7 +107,7 @@ public class ExtraInfoEmployee extends JPanel {
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
 		jtbTraining = new JToggleButton("Training");
-		jtbTraining.addMouseListener(new MouseAdapter() {
+		/**	jtbTraining.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				jtbTraining.setBorder(border);
@@ -116,7 +116,7 @@ public class ExtraInfoEmployee extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				jtbTraining.setBorder(null);
 			}
-		});
+		});*/
 		jtbTraining.setBackground(Color.WHITE);
 		jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbTraining.setOpaque(true);
@@ -125,7 +125,7 @@ public class ExtraInfoEmployee extends JPanel {
 		add(jtbTraining);
 
 		jtbTrainingSession = new JToggleButton("Training session");
-		jtbTrainingSession.addMouseListener(new MouseAdapter() {
+		/**jtbTrainingSession.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				jtbTrainingSession.setBorder(border);
@@ -134,7 +134,7 @@ public class ExtraInfoEmployee extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				jtbTrainingSession.setBorder(null);
 			}
-		});
+		}); */
 		jtbTrainingSession.setBackground(Color.WHITE);
 		jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbTrainingSession.setOpaque(true);
@@ -143,7 +143,7 @@ public class ExtraInfoEmployee extends JPanel {
 		add(jtbTrainingSession);
 
 		jtbEmployees = new JToggleButton("Employees");
-		jtbEmployees.addMouseListener(new MouseAdapter() {
+		/**	jtbEmployees.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				jtbEmployees.setBorder(border);
@@ -152,7 +152,7 @@ public class ExtraInfoEmployee extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				jtbEmployees.setBorder(null);
 			}
-		});
+		}); */
 		jtbEmployees.setBackground(Color.WHITE);
 		jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbEmployees.setOpaque(true);
@@ -161,7 +161,7 @@ public class ExtraInfoEmployee extends JPanel {
 		add(jtbEmployees);
 
 		jtbStatistics = new JToggleButton("Statistics");
-		jtbStatistics.addMouseListener(new MouseAdapter() {
+		/**	jtbStatistics.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				jtbStatistics.setBorder(border);
@@ -170,7 +170,7 @@ public class ExtraInfoEmployee extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				jtbStatistics.setBorder(null);
 			}
-		});
+		}); */
 		jtbStatistics.setBackground(Color.WHITE);
 		jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbStatistics.setOpaque(true);
@@ -179,7 +179,7 @@ public class ExtraInfoEmployee extends JPanel {
 		add(jtbStatistics);
 
 		jtbTrainingRequests = new JToggleButton("Training requests");
-		jtbTrainingRequests.addMouseListener(new MouseAdapter() {
+		/**	jtbTrainingRequests.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				jtbTrainingRequests.setBorder(border);
@@ -188,7 +188,7 @@ public class ExtraInfoEmployee extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				jtbTrainingRequests.setBorder(null);
 			}
-		});
+		}); */
 		jtbTrainingRequests.setBackground(Color.WHITE);
 		jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbTrainingRequests.setOpaque(true);
@@ -350,7 +350,7 @@ public class ExtraInfoEmployee extends JPanel {
 				System.out.println("ljlkj" + employeeID + textFieldEmployeeID.getText());
 				// ! ! ! !// check employeeid en userid verschil?		
 				Employee searchEmployee = new Employee();
-				
+
 				try {
 					searchEmployee = EmployeeAccess.get(employeeID);
 					//	searchUser = UserAccess.get(employeeID);
@@ -397,13 +397,13 @@ public class ExtraInfoEmployee extends JPanel {
 						e1.printStackTrace();
 					}
 				}
-				
+
 				if (listTrainingInfo.isEmpty()) {
 					data1.add(new String[] {
-						"No Training Followed Yet"	
+							"No Training Followed Yet"	
 					});
 				}
-				
+
 				DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersHistoryTraining) {
 					@Override
 					public boolean isCellEditable(int row, int column) {
@@ -447,7 +447,6 @@ public class ExtraInfoEmployee extends JPanel {
 							String trainingID = test[0];
 							int intTrainingID = Integer.parseInt(trainingID);
 							String trainingNaam = test[1];
-							//lblLastName.setText(String.valueOf(testID));
 							lblTrainingID.setText(String.valueOf(trainingID));
 							lblTrainingName.setText(trainingNaam);
 							//lblShowImageIcon.
@@ -483,7 +482,7 @@ public class ExtraInfoEmployee extends JPanel {
 							}
 							else {
 								System.out.println("Kan het gevraagde certificaat niet vinden");
-
+								lblShowImageIcon.setText("          Certification not yet received.          ");
 							}
 						}
 					}
@@ -496,7 +495,7 @@ public class ExtraInfoEmployee extends JPanel {
 		add(btnListOfTrainings);
 
 
-/**
+		/**
 		// wegdoen, wordt niet gebruikt
 		//!!		//hier nog fucntie koppelen aan je selectie van de rij!
 		JButton btnShow = new JButton("Show");
@@ -618,13 +617,7 @@ public class ExtraInfoEmployee extends JPanel {
 		btnMakePdfCertificates.setBounds(308, 233, 256, 29);
 		add(btnMakePdfCertificates);
 
-
-
-
 	}
-
-
-
 
 
 	public void addActionListener(ActionListener listener) {
