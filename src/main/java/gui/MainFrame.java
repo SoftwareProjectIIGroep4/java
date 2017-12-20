@@ -1,37 +1,21 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.Time;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.table.DefaultTableModel;
-
-import org.omg.CORBA.PRIVATE_MEMBER;
-import org.omg.CORBA.PUBLIC_MEMBER;
-import org.w3c.dom.css.ElementCSSInlineStyle;
-
-import javax.swing.JButton;
-import javax.swing.JTable;
-
 import gui.EmployeePane;
 import models.Address;
-import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
 import models.Login;
@@ -43,9 +27,9 @@ import gui.LoginPane;
 
 public class MainFrame extends JFrame {
 	private static int keeper;
-	private int teacherId=-1;
+	private int teacherId=1;
 	private static ArrayList<SurveyQuestion>surveyQuestions = new ArrayList<SurveyQuestion>();
-	private Survey survey;
+	private int surveyId=1;
 
 	private JPanel contentPane;
 
@@ -265,34 +249,42 @@ public class MainFrame extends JFrame {
                     	//show trainingRequestMenu
                     	layout.show(getContentPane(), "trainingSessionPanel");
                     } else if ("SaveTrainingSession".equals(command)) {
-                    	if(newNewTrianingPane.getTitle().equals("")|| 
-                    			newNewTrianingPane.getDescription().equals("")|| 
-                    			newNewTrianingPane.getNumberOfDays()==0|| 
-                    			newNewTrianingPane.getDescriptionExam().equals("")|| 
-                    			newNewTrianingPane.getDescriptionPayement().equals("")||
-                    			newNewTrianingPane.getPrice()==0||
-                    			teacherId==-1)
+                    	if(newNewTrainingSessionPanel.getTitle().equals("")|| 
+                    			newNewTrainingSessionPanel.getDate()==null|| 
+                    			newNewTrainingSessionPanel.getStartHour()==null|| 
+                    			newNewTrainingSessionPanel.getEndHour()==null||
+                    			newNewTrainingSessionPanel.getAdministrativeArea().equals("")||
+                    			newNewTrainingSessionPanel.getLocality().equals("")||
+                    			newNewTrainingSessionPanel.getPostalCode().equals("")||
+                    			newNewTrainingSessionPanel.getStreetAddress().equals("")||
+                    			newNewTrainingSessionPanel.getCountry().equals("")||
+                    			newNewTrainingSessionPanel.getPremise().equals("")//||
+                    		    //teacherId==-1||
+                    			//surveyId==-1
+                    			)
                     	{
-                    		//open een error message
+                    		
                     		System.out.println("error message");
+                    		System.out.println(newNewTrainingSessionPanel.getStartHour().toString());
+                    		System.out.println(newNewTrainingSessionPanel.getEndHour().toString());
+
+                    		
              
                     	} else {
                     	TrainingSession tSession=new TrainingSession();
                     	tSession.setTrainingId(getKeeper());
-                    	 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy/MM/dd");  
-                    	Date date=new Date();						
-                    	DateFormat formatter = new SimpleDateFormat("hh:mm a");
-                    	try {
-							date = formatter1.parse(newNewTrainingSessionPanel.getDate());
-
-							tSession.setStartHour(new java.sql.Time(formatter.parse(newNewTrainingSessionPanel.getStartHour()).getTime()));
-							tSession.setEndHour(new java.sql.Time(formatter.parse(newNewTrainingSessionPanel.getEndHour()).getTime()));
-                    	} catch (ParseException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-                    	tSession.setDate(date);
-
+         
+                    	 
+                    							
+                    	
+                    	
+                    	tSession.setDate(newNewTrainingSessionPanel.getDate());
+                    	//tSession.setStartHour(Time.newNewTrainingSessionPanel.getStartHour());
+                    	//tSession.setEndHour(newNewTrainingSessionPanel.getEndHour());
+                    	
+                    	tSession.setStartHour(newNewTrainingSessionPanel.getStartHour());
+                    	tSession.setStartHour(newNewTrainingSessionPanel.getEndHour());
+						
                     	Address address=new Address();
                     	address.setAdministrativeArea(newNewTrainingSessionPanel.getAdministrativeArea());
                     	address.setLocality(newNewTrainingSessionPanel.getLocality());
@@ -306,6 +298,16 @@ public class MainFrame extends JFrame {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                    	tSession.setAddressId(address.getAddressId());
+                    	System.out.println("teacherid::"+teacherId);
+                    	tSession.setTeacherId(teacherId);
+                    	tSession.setSurveyId(surveyId);
+                    	try {
+							tSession.save();
+						} catch (URISyntaxException | IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
@@ -577,7 +579,15 @@ public class MainFrame extends JFrame {
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("SaveTraining".equals(command)) {
                         	//cancel trainingSession
-                        	if(newNewTrianingPane.getTitle()==null|| newNewTrianingPane.getDescription()==null|| newNewTrianingPane.getNumberOfDays()==0|| newNewTrianingPane.getDescriptionExam()==null|| newNewTrianingPane.getDescriptionPayement()==null|| newNewTrianingPane.getPrice()==0) {
+                        	if(newNewTrianingPane.getTitle().equals("")|| 
+                        	newNewTrianingPane.getDescription().equals("")|| 
+                        	newNewTrianingPane.getNumberOfDays()==0|| 
+                        	newNewTrianingPane.getDescriptionExam().equals("")|| 
+                        	newNewTrianingPane.getDescriptionPayement().equals("")|| 
+                        	newNewTrianingPane.getPrice()==0) {
+                        		
+                        		
+                        		
                         		//open een error message
                         	}
                         	else {
@@ -755,8 +765,7 @@ public class MainFrame extends JFrame {
                         	}
                         	
                         }else if ("confirmSurvey".equals(command)) {
-                        	survey=new Survey();
-                        	survey.setSurveyQuestions(surveyQuestions);
+                        	Survey survey=new Survey();                       
                         	try {
 								survey.save();
 							} catch (URISyntaxException e1) {
@@ -766,6 +775,19 @@ public class MainFrame extends JFrame {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
+                        	for (int i=0;i<surveyQuestions.size();i++) {
+                        		surveyQuestions.get(i).setSurveyID(survey.getSurveyID());
+                        		try {
+									surveyQuestions.get(i).save();
+								} catch (URISyntaxException | IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+                        	}
+                        	surveyId=survey.getSurveyID();
+                        	
+
+                        	
                         	
                         	
                         	

@@ -4,8 +4,10 @@ import java.awt.List;
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -26,7 +28,9 @@ import models.LogFileHelper;
 import models.Token;
 import models.TrainingInfo;
 import models.TrainingSession;
-import models.Login;;
+import models.Login;
+import models.Survey;
+import models.SurveyQuestion;;
 
 public class App {
 	 public static void main(String[] args) throws IOException, URISyntaxException {
@@ -71,10 +75,15 @@ public class App {
 		    
 		    System.exit(0);
 		  };*/
-		 Token t = Login.authorizeAcces("NDavolio", "1Davolio");
-		 if(t==null) {
-			 System.out.println("foutieve invoer");
-		 }
+		 SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
+    	 Date date=new Date();
+    	 try {
+			date = formatter1.parse("12/12/1997");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	 System.out.println(date.toString());
 		 
 		 
 	 };
