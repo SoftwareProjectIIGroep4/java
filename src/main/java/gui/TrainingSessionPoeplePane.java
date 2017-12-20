@@ -7,6 +7,10 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,6 +30,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import models.Employee;
+import models.FollowingTraining;
+import models.TrainingInfo;
+import models.TrainingSession;
+
 public class TrainingSessionPoeplePane extends JPanel {
 	private int selectedRow;
 	private JButton btnBack;
@@ -43,6 +52,19 @@ public class TrainingSessionPoeplePane extends JPanel {
 	private JButton jtbStatistics;
 	private JButton jtbTrainingSession;
 	private JButton jtbTrainingRequests;
+	
+	
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			
+		ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
+		ConcurrentMap<Integer, FollowingTraining> listFollowingTraining=dataAccess.Cache.followingTraingCache.asMap();
+		ConcurrentMap<Integer, Employee> ListEmployee=dataAccess.Cache.employeeCache.asMap();
+		
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Create the panel.
 	 */
@@ -222,14 +244,24 @@ public class TrainingSessionPoeplePane extends JPanel {
 		jtbBooks.setActionCommand("Books");
 		add(jtbBooks);
 		
-		Object [] columnHeadersBook = {"Employee name","Department","Function","Status"};
-		DefaultTableModel modelBook = new DefaultTableModel();
-		modelBook.setColumnIdentifiers(columnHeadersBook);
-		Object[][] data = {
-
-		};
-		tbEmployee = new JTable(data, columnHeadersBook);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersBook) {
+		Object [] columnHeadersEmployee = {"Employee name","Department"};
+		//,"Function","Status"
+		DefaultTableModel modelSession = new DefaultTableModel();
+		modelSession.setColumnIdentifiers(columnHeadersEmployee);
+		List<String[]> data = new ArrayList<String[]>();
+		for (Map.Entry<Integer, FollowingTraining>  entry : listFollowingTraining.entrySet()) {
+			data.add(new String[] {
+					String.valueOf(entry.getValue().getTraingSessionId()),
+					//listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
+					//String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
+					String.valueOf(entry.getValue().getUserID()) 
+					//String.valueOf(entry.getValue().getStartHour())
+					
+					});
+			System.out.println("test" + String.valueOf(entry.getValue().getTraingSessionId()));
+			
+		}
+		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersEmployee) {
 
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -237,6 +269,7 @@ public class TrainingSessionPoeplePane extends JPanel {
 		       return false;
 		    }
 		};
+		tbEmployee = new JTable(tableModel);
 		tbEmployee.setModel(tableModel);
 		tbEmployee.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -345,6 +378,9 @@ public class TrainingSessionPoeplePane extends JPanel {
     }
 	public int getSelectedRow() {
 		return selectedRow;
+	}
+	public void setTableEmployeeOpID(int id){
+		
 	}
 
 }

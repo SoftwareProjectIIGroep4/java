@@ -11,6 +11,7 @@ import models.Address;
 import models.Certificate;
 import models.Employee;
 import models.Faq;
+import models.FollowingTraining;
 import models.Teacher;
 import models.TrainingInfo;
 import models.TrainingSession;
@@ -91,6 +92,14 @@ public class Cache {
 					return TrainingInfoAccess.get(key);
 				}
 			});
+
+	public static LoadingCache<Integer,FollowingTraining> followingTraingCache = CacheBuilder.newBuilder().maximumSize(100)
+					.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, FollowingTraining>() {
+                @Override
+                public FollowingTraining load(Integer key) throws Exception {
+                    return FollowingTraingAcces.get(key);
+                }
+            });
 	
 	public static LoadingCache<Integer, TrainingSession> trainingSessionCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, TrainingSession>() {
@@ -100,6 +109,7 @@ public class Cache {
 					return TrainingSessionAccess.get(key);
 				}
 			});
+	
 	public static void loadAllSurverQuestions() throws IOException, URISyntaxException {
 		surveyQuestionCache.putAll(SurveyQuestionAcces.getAllSurveyQuestions());
 	}
@@ -154,4 +164,8 @@ public class Cache {
 	public static void loadAllBooks() throws IOException, URISyntaxException {
 		bookCache.putAll(BookAccess.getAll());
 	}
+	
+	public static void loadAllFollowingTraining() throws IOException, URISyntaxException {
+        followingTraingCache.putAll(FollowingTraingAcces.getAll());
+    }
 }

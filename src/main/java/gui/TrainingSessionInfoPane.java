@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import models.Address;
+import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
 
@@ -46,9 +46,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		
 		
 	ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
-	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
-	ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
-	
+	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();	
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
