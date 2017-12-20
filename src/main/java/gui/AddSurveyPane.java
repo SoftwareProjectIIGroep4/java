@@ -4,11 +4,17 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.RenderingHints.Key;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -24,6 +30,16 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+
+import dataAccess.Cache;
+import dataAccess.SurveyQuestionAcces;
+import models.Address;
+import models.SurveyQuestion;
+import models.Survey;
+import models.SurveyAnswer;
+import models.TrainingInfo;
+import models.TrainingSession;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -59,7 +75,19 @@ public class AddSurveyPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	/////////////////////////////////////////////////////////////
+	
+	
+	ConcurrentMap<Integer, SurveyQuestion> listSQuestions =dataAccess.Cache.surveyQuestionCache.asMap();
+	
+	
+	/////////////////////////////////////////////////////////////
 	public AddSurveyPane() {
+		try {
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		;
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
@@ -108,14 +136,23 @@ public class AddSurveyPane extends JPanel {
 	        add(lblNewLabel_1);
 	        
 	        Object [] columnHeaderQuestionsSurvey = {"Questions for the survey"};
-			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
-			Object[][] data = {
+	        List<String[]> data1 = new ArrayList<String[]>();	       
+			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);       
+	        
+	        for (int i =0;i<MainFrame.getSurveyQuestions().size();i++) {
+
+				
+				data1.add(new String[] {
+						
+						MainFrame.getSurveyQuestions().get(i).getQuestion()
+						
+						
+				});
+		
+
+			}
 			
-					
-					
-			};
-			
-			tableQuestionsSurveyModel = new DefaultTableModel(data, columnHeaderQuestionsSurvey)
+			tableQuestionsSurveyModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeaderQuestionsSurvey)
 			{
 			    @Override
 			    public boolean isCellEditable(int row, int column) {
@@ -164,13 +201,20 @@ public class AddSurveyPane extends JPanel {
 			//-------------------------------------------------------------------------------
 			
 			Object [] columnHeadersHistoryQuestions = {"Previous questions from surveys"};
-			Object[][] data1 = {
+			List<String[]> data = new ArrayList<String[]>();
+
+			for (Map.Entry<Integer, SurveyQuestion>  entry : listSQuestions.entrySet()) {
+				
+				data.add(new String[] {
+						entry.getValue().getQuestion()
+						
+						
+				});
+		
+
+			}
 			
-					
-					
-			};
-			
-			modelHistoryQuestionsSurvey = new DefaultTableModel(data1, columnHeadersHistoryQuestions)
+			DefaultTableModel modelHistoryQuestionsSurvey = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersHistoryQuestions)
 			{
 			    @Override
 			    public boolean isCellEditable(int row, int column) {
@@ -179,6 +223,7 @@ public class AddSurveyPane extends JPanel {
 			    }
 			};
 			tbAskedQuestions = new JTable(modelHistoryQuestionsSurvey);
+			tbAskedQuestions.setModel(modelHistoryQuestionsSurvey);
 			tbAskedQuestions.setBackground(Color.red);
 			tbAskedQuestions.setForeground(Color.blue);
 			tbAskedQuestions.setModel(modelHistoryQuestionsSurvey);
@@ -265,6 +310,11 @@ public class AddSurveyPane extends JPanel {
     }
 	
 	public String getAddQuestion() {
-		return txtAddQuestion.getText();
+	
+	return txtAddQuestion.getText();
 	}
+	public void clear() {
+		txtAddQuestion.setText("");
+	}
+	
 }
