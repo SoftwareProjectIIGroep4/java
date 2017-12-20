@@ -23,14 +23,6 @@ public class TrainingSession {
 	private Time endHour;
 	private boolean cancelled;
 	private int surveyId;		
-	
-/**	public int getSurveyId() {
-		return surveyId;
-	}
-
-	public void setSurveyId(int surveyId) {
-		this.surveyId = surveyId;
-	} */
 
 	public TrainingSession() {
 		super();		

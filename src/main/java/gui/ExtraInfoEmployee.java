@@ -71,20 +71,20 @@ import com.itextpdf.layout.element.Image;
 
 
 public class ExtraInfoEmployee extends JPanel {
-	private int selectedRow;
-	private JToggleButton jtbTraining;
-	private JToggleButton jtbEmployees;
-	private JToggleButton jtbStatistics;
-	private JToggleButton jtbTrainingSession;
-	private JToggleButton jtbTrainingRequests;
-	private JTable tbEmployeeHistoryTraining;
-	private JTable tbEmployeeHistoryBook;
-	private JButton uploadCertificate;
-	private DefaultTableModel modelEmployeeHistoryTraining;
-	private DefaultTableModel modelEmployeeHistoryBooks;
-	private JButton btnListOfTrainings;
-	private JTextField textFieldEmployeeID;
-	private int employeeID;
+		
+		private int selectedRow;
+		private JButton btnTraining;
+		private JButton btnEmployees;
+		private JButton btnStatistics;
+		private JButton btnTrainingSession;
+		private JTable tbEmployeeHistoryTraining;
+		private JTable tbEmployeeHistoryBook;
+		private JButton uploadCertificate;
+		private DefaultTableModel modelEmployeeHistoryTraining;
+		private DefaultTableModel modelEmployeeHistoryBooks;
+		private JButton btnListOfTrainings;
+	  private JTextField textFieldEmployeeID;
+	  private int employeeID;
 
 	/**
 	 * Create the panel.
@@ -105,6 +105,7 @@ public class ExtraInfoEmployee extends JPanel {
 		setLayout(null);
 
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+
 
 		jtbTraining = new JToggleButton("Training");
 		/**	jtbTraining.addMouseListener(new MouseAdapter() {
@@ -205,6 +206,7 @@ public class ExtraInfoEmployee extends JPanel {
 		lblNewLabel_1.setBounds(1190, 0, 75, 75);
 		lblNewLabel_1.setOpaque(true);
 		add(lblNewLabel_1);
+
 
 		JLabel employeeLabel = new JLabel("Employee search by ID: ");
 		employeeLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -395,6 +397,7 @@ public class ExtraInfoEmployee extends JPanel {
 					} catch (URISyntaxException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+
 					}
 				}
 
@@ -493,6 +496,7 @@ public class ExtraInfoEmployee extends JPanel {
 
 		btnListOfTrainings.setBounds(40, 233, 256, 29);
 		add(btnListOfTrainings);
+
 
 
 		/**
@@ -624,10 +628,9 @@ public class ExtraInfoEmployee extends JPanel {
 
 		uploadCertificate.addActionListener(listener);
 		btnListOfTrainings.addActionListener(listener);
-		jtbTraining.addActionListener(listener);
-		jtbTrainingRequests.addActionListener(listener);
-		jtbStatistics.addActionListener(listener);
-		jtbEmployees.addActionListener(listener);
-		jtbTrainingSession.addActionListener(listener);
+		btnTraining.addActionListener(listener);
+		btnStatistics.addActionListener(listener);
+		btnEmployees.addActionListener(listener);
+		btnTrainingSession.addActionListener(listener);
 	}
 }

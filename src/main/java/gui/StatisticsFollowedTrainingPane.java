@@ -43,11 +43,10 @@ import java.awt.event.ActionEvent;
 public class StatisticsFollowedTrainingPane extends JPanel {
 
 	private int selectedRow;
-	private JButton jtbTraining;
-	private JButton jtbEmployees;
-	private JButton jtbStatistics;
-	private JButton jtbTrainingSession;
-	private JButton jtbTrainingRequests;
+	private JButton btnTraining;
+	private JButton btnEmployees;
+	private JButton btnStatistics;
+	private JButton btnTrainingsession;
 	private JButton btnShowEmployeeFollowedTrainings;
 	private JTable tbFollowedTrainingsEmployee;
 	private DefaultTableModel tableFollowedTrainingEmployee;
@@ -72,6 +71,7 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 	HashMap<Integer, TrainingSession> trainingSessionsMap = null;
 
 	public StatisticsFollowedTrainingPane() {
+		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 

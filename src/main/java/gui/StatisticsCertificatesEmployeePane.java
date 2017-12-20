@@ -50,11 +50,10 @@ import models.TrainingInfo;
 public class StatisticsCertificatesEmployeePane extends JPanel {
 
 	private int selectedRow;
-	private JButton jtbTraining;
-	private JButton jtbEmployees;
-	private JButton jtbStatistics;
-	private JButton jtbTrainingSession;
-	private JButton jtbTrainingRequests;
+	private JButton btnTraining;
+	private JButton btnEmployees;
+	private JButton btnStatistics;
+	private JButton btnTrainingsession;
 	private JButton btnShowEmployeeCertStatistics;
 	private JTextField txtCertEmployeeID;
 	private JTable tbCertEmployeeStatistics;
@@ -79,6 +78,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
+
 
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
@@ -457,6 +457,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 	public void addActionListener(ActionListener listener) {
 		btnShowEmployeeCertStatistics.addActionListener(listener);
 		btnBackCertStatistics.addActionListener(listener);
+
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
