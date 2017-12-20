@@ -53,13 +53,10 @@ public class TrainingSessionPane extends JPanel {
 	private JButton jtbTrainingSession;
 	private JButton jtbTrainingRequests;
 	private JTable tbSession;
-<<<<<<< HEAD
 	private JTextField txtFromTrainingSession;
 	private JTextField txtUntilTrainingSession;
 	private JButton btnAddTrainingSession;
 	private JButton btnShowTrainingSession;
-=======
->>>>>>> refs/remotes/origin/master
 	private DefaultTableModel modelSession;
 	private DefaultTableModel tableModel;
 	private String trainingSessionID;
@@ -130,14 +127,9 @@ public class TrainingSessionPane extends JPanel {
 	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
 	        lblNewLabel_1.setOpaque(true);
 	        add(lblNewLabel_1);
-<<<<<<< HEAD
-		
 		
 		Object [] columnHeadersSession = {"Training ID", "Training name","City","Date","Hour"};
-=======
-				
-		Object [] columnHeadersSession = {"Training name","City","Date","Hour"};
->>>>>>> refs/remotes/origin/master
+
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data = new ArrayList<String[]>();
@@ -201,7 +193,6 @@ public class TrainingSessionPane extends JPanel {
 		btnShowTrainingSession.setBounds(1072,138,160,64);
 		add(btnShowTrainingSession);
 		
-<<<<<<< HEAD
 		btnShowTrainingSession = new JButton("Show training session");
 		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
 		btnShowTrainingSession.setBounds(1000, 138, 160, 64);
@@ -294,22 +285,18 @@ public class TrainingSessionPane extends JPanel {
         	}
         });
         add(txtUntilTrainingSession);
-=======
+        
 		JLabel lblNewLabel_2 = new JLabel("List of training sessions");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(31, 86, 278, 28);
 		add(lblNewLabel_2);
->>>>>>> refs/remotes/origin/master
+
 		
 	}
 	
 	public void addActionListener(ActionListener listener) {
-<<<<<<< HEAD
 		btnAddTrainingSession.addActionListener(listener);
 		btnShowTrainingSession.addActionListener(listener);
-=======
-		btnShowTrainingSession.addActionListener(listener);
->>>>>>> refs/remotes/origin/master
 		jtbTraining.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
 		jtbEmployees.addActionListener(listener);

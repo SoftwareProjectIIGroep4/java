@@ -171,10 +171,8 @@ public class Cache {
 		bookCache.putAll(BookAccess.getAll());
 	}
 	
-<<<<<<< HEAD
 	/*public static void loadAllFollowingTraining() throws IOException, URISyntaxException {
         followingTraingCache.putAll(FollowingTraingAcces.getAll());
     }*/
-=======
->>>>>>> refs/remotes/origin/master
+
 }
