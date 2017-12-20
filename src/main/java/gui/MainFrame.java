@@ -92,9 +92,7 @@ public class MainFrame extends JFrame {
         StatisticsPane statisticsPanel = new StatisticsPane();    
         ExtraInfoEmployee employeePanel = new ExtraInfoEmployee();
 
-       // StatistiekenPane statistiekenPanel = new StatistiekenPane();    
-
-        TrainingrequestPane trainingrequestPanel = new TrainingrequestPane();
+      
         TrainingSessionBookPane newTrainingSessionBookPane = new TrainingSessionBookPane();
         TrainingSessionPoeplePane newTrainingSessionPoeplePane = new TrainingSessionPoeplePane();
         TrainingSessionInfoPane newTrainingSessionInfoPane = new TrainingSessionInfoPane();
@@ -256,8 +254,8 @@ public class MainFrame extends JFrame {
                     	//show statisticsSessionPane
                     	layout.show(getContentPane(), "statisticsPanel");
                     } else if ("backToTrainingSession".equals(command)) {
-                    	//show trainingsessionPane
-                    	layout.show(getContentPane(), "trainingSessionPanel");
+                    	//show TrainingPane
+                    	layout.show(getContentPane(), "trainingPanel");
                     } else if ("SaveTrainingSession".equals(command)) {
                     	if(newNewTrianingPane.getTitle().equals("")|| 
                     			newNewTrianingPane.getDescription().equals("")|| 
