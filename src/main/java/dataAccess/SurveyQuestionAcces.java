@@ -13,8 +13,8 @@ import models.SurveyQuestion;
 public class SurveyQuestionAcces extends RestRequest {
 	
 	public static SurveyQuestion get(Integer surveyQuestionID) throws IOException, URISyntaxException {
-		String JSONAdr = getAllOrOne(new URI(Constants.SURVEY_QUESTIONS_SOURCE + surveyQuestionID));
-		SurveyQuestion surveyQuestion= mapper.readValue(JSONAdr, SurveyQuestion.class);
+		String JSONSurveyQ = getAllOrOne(new URI(Constants.SURVEY_QUESTIONS_SOURCE + surveyQuestionID));
+		SurveyQuestion surveyQuestion= mapper.readValue(JSONSurveyQ, SurveyQuestion.class);
 		return surveyQuestion;
 	}
 
