@@ -348,13 +348,7 @@ public class TrainingSessionPane extends JPanel {
 	
 	public void addActionListener(ActionListener listener) {
 		btnAddTrainingSession.addActionListener(listener);
-<<<<<<< HEAD
 		btnShowTrainingSession.addActionListener(listener);
-=======
-
-	//	btnShowTrainingSession.addActionListener(listener);
-
->>>>>>> refs/remotes/origin/master
 		jtbTraining.addActionListener(listener);
 		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);

@@ -245,9 +245,9 @@ public class TrainingPane extends JPanel {
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getCountry()), 
 					String.valueOf(entry.getValue().getStartHour()) ,
 					String.valueOf(entry.getValue().getEndHour()), 
-					String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getPrice())}
-					
+					String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getPrice())}		
 			);
+			System.out.println("testdata: " + String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getTrainingId()));
 	
 
 }
