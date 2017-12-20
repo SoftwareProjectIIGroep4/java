@@ -60,6 +60,8 @@ public class Cache {
 					return EmployeeAccess.get(key);
 				}
 			});
+	
+	
 	public static LoadingCache<Integer, Certificate> certificateCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Certificate>() {
 
@@ -93,13 +95,15 @@ public class Cache {
 				}
 			});
 
-	public static LoadingCache<Integer,FollowingTraining> followingTraingCache = CacheBuilder.newBuilder().maximumSize(100)
+	/*
+	 public static LoadingCache<Integer,FollowingTraining> followingTraingCache = CacheBuilder.newBuilder().maximumSize(100)
 					.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, FollowingTraining>() {
                 @Override
                 public FollowingTraining load(Integer key) throws Exception {
                     return FollowingTraingAcces.get(key);
                 }
             });
+    */
 	
 	public static LoadingCache<Integer, TrainingSession> trainingSessionCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, TrainingSession>() {
@@ -165,7 +169,7 @@ public class Cache {
 		bookCache.putAll(BookAccess.getAll());
 	}
 	
-	public static void loadAllFollowingTraining() throws IOException, URISyntaxException {
+	/*public static void loadAllFollowingTraining() throws IOException, URISyntaxException {
         followingTraingCache.putAll(FollowingTraingAcces.getAll());
-    }
+    }*/
 }

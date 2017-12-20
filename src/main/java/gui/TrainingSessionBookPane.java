@@ -7,6 +7,10 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -25,6 +29,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+
+import models.Address;
+import models.Book;
+import models.TrainingInfo;
+import models.TrainingSession;
 
 public class TrainingSessionBookPane extends JPanel {
 	private int selectedRow;
@@ -47,6 +56,18 @@ public class TrainingSessionBookPane extends JPanel {
 	 * Create the panel.
 	 */
 	public TrainingSessionBookPane() {
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				
+		ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
+		ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+		ConcurrentMap<Long, Book> ListBook=dataAccess.Cache.bookCache.asMap();
+		
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
@@ -233,13 +254,19 @@ public class TrainingSessionBookPane extends JPanel {
 		add(lblResearch);
 		
 		Object [] columnHeadersBook = {"isbn","Title","Author","Price","Publisher"};
-		DefaultTableModel modelBook = new DefaultTableModel();
-		modelBook.setColumnIdentifiers(columnHeadersBook);
-		Object[][] data = {
-					
-		};
-		tbBook = new JTable(data, columnHeadersBook);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersBook) {
+		DefaultTableModel modelSession = new DefaultTableModel();
+		modelSession.setColumnIdentifiers(columnHeadersBook);
+		List<String[]> data = new ArrayList<String[]>();
+		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
+			data.add(new String[] {
+					String.valueOf(entry.getValue().getTrainingSessionId()),
+					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
+					//String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
+					String.valueOf(entry.getValue().getDate()) ,
+					String.valueOf(entry.getValue().getStartHour())}
+			);
+		}
+		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersBook) {
 
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
