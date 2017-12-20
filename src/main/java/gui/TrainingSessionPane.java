@@ -53,10 +53,13 @@ public class TrainingSessionPane extends JPanel {
 	private JButton jtbTrainingSession;
 	private JButton jtbTrainingRequests;
 	private JTable tbSession;
+<<<<<<< HEAD
 	private JTextField txtFromTrainingSession;
 	private JTextField txtUntilTrainingSession;
 	private JButton btnAddTrainingSession;
 	private JButton btnShowTrainingSession;
+=======
+>>>>>>> refs/remotes/origin/master
 	private DefaultTableModel modelSession;
 	private DefaultTableModel tableModel;
 	private String trainingSessionID;
@@ -86,95 +89,37 @@ public class TrainingSessionPane extends JPanel {
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
-	        jtbTraining = new JButton("Training");
-	      /*  jtbTraining.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTraining.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTraining.setBorder(null);
-	            }
-	        });*/
+	        jtbTraining = new JButton("Training"); 
 	        jtbTraining.setBackground(Color.WHITE);
 	        jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTraining.setOpaque(true);
 	        jtbTraining.setActionCommand("TrainingMenu");
-	        jtbTraining.setBounds(133, 0, 211, 75);
+	        jtbTraining.setBounds(124, 0, 264, 75);
 	        add(jtbTraining);
 	        
 	        jtbTrainingSession = new JButton("Training session");
-	       /* jtbTrainingSession.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTrainingSession.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTrainingSession.setBorder(null);
-	            }
-	        });*/
 	        jtbTrainingSession.setBackground(Color.WHITE);
 	        jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbTrainingSession.setOpaque(true);
 	        jtbTrainingSession.setActionCommand("TrainingSessionMenu");
-	        jtbTrainingSession.setBounds(344, 0, 211, 75);
+	        jtbTrainingSession.setBounds(387, 0, 264, 75);
 	        add(jtbTrainingSession);
 	        
 	        jtbEmployees = new JButton("Employees");
-	        /*jtbEmployees.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbEmployees.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbEmployees.setBorder(null);
-	            }
-	        });*/
 	        jtbEmployees.setBackground(Color.WHITE);
 	        jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbEmployees.setOpaque(true);
 	        jtbEmployees.setActionCommand("EmployeesMenu");
-	        jtbEmployees.setBounds(555, 0, 212, 75);
+	        jtbEmployees.setBounds(650, 0, 264, 75);
 	        add(jtbEmployees);
 	        
 	        jtbStatistics = new JButton("Statistics");
-	        /*jtbStatistics.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbStatistics.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbStatistics.setBorder(null);
-	            }
-	        });*/
 	        jtbStatistics.setBackground(Color.WHITE);
 	        jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbStatistics.setOpaque(true);
 	        jtbStatistics.setActionCommand("StatisticsMenu");
-	        jtbStatistics.setBounds(767, 0, 212, 75);
+	        jtbStatistics.setBounds(912, 0, 264, 75);
 	        add(jtbStatistics);
-	        
-	        jtbTrainingRequests = new JButton("Training requests");
-	       /* jtbTrainingRequests.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTrainingRequests.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTrainingRequests.setBorder(null);
-	            }
-	        });*/
-	        jtbTrainingRequests.setBackground(Color.WHITE);
-	        jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
-	        jtbTrainingRequests.setOpaque(true);
-	        jtbTrainingRequests.setActionCommand("TrainingRequestsMenu");
-	        jtbTrainingRequests.setBounds(979, 0, 211, 75);
-	        add(jtbTrainingRequests);
 	        
 	        JLabel lblNewLabel = new JLabel("logo");
 	        lblNewLabel.setBounds(0, 0, 133, 75);
@@ -182,12 +127,17 @@ public class TrainingSessionPane extends JPanel {
 	        add(lblNewLabel);
 	        
 	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1190, 0, 75, 75);
+	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
 	        lblNewLabel_1.setOpaque(true);
 	        add(lblNewLabel_1);
+<<<<<<< HEAD
 		
 		
 		Object [] columnHeadersSession = {"Training ID", "Training name","City","Date","Hour"};
+=======
+				
+		Object [] columnHeadersSession = {"Training name","City","Date","Hour"};
+>>>>>>> refs/remotes/origin/master
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data = new ArrayList<String[]>();
@@ -228,7 +178,7 @@ public class TrainingSessionPane extends JPanel {
 		JScrollPane sclBook = new JScrollPane(tbSession);
 		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclBook.setBounds(30, 116, 730, 550);
+		sclBook.setBounds(31, 119, 1007, 530);
 		add(sclBook);
 		ListSelectionModel selectedRowBook = tbSession.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
@@ -246,11 +196,12 @@ public class TrainingSessionPane extends JPanel {
 			}
 		});
 		
-		btnAddTrainingSession = new JButton("Add training session");
-		btnAddTrainingSession.setActionCommand("goToAddTrainingSession");
-		btnAddTrainingSession.setBounds(820, 138, 160, 64);
-		add(btnAddTrainingSession);
+		btnShowTrainingSession = new JButton("Show training session");
+		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
+		btnShowTrainingSession.setBounds(1072,138,160,64);
+		add(btnShowTrainingSession);
 		
+<<<<<<< HEAD
 		btnShowTrainingSession = new JButton("Show training session");
 		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
 		btnShowTrainingSession.setBounds(1000, 138, 160, 64);
@@ -343,26 +294,28 @@ public class TrainingSessionPane extends JPanel {
         	}
         });
         add(txtUntilTrainingSession);
+=======
+		JLabel lblNewLabel_2 = new JLabel("List of training sessions");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_2.setBounds(31, 86, 278, 28);
+		add(lblNewLabel_2);
+>>>>>>> refs/remotes/origin/master
 		
 	}
 	
 	public void addActionListener(ActionListener listener) {
+<<<<<<< HEAD
 		btnAddTrainingSession.addActionListener(listener);
 		btnShowTrainingSession.addActionListener(listener);
+=======
+		btnShowTrainingSession.addActionListener(listener);
+>>>>>>> refs/remotes/origin/master
 		jtbTraining.addActionListener(listener);
-		jtbTrainingRequests.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
 		jtbEmployees.addActionListener(listener);
 		jtbTrainingSession.addActionListener(listener);
     }
 	
-	public String getFromTrainingrequest() {
-		return txtFromTrainingSession.getText();
-	}
-	
-	public String getUntilTrainingrequest() {
-		return txtUntilTrainingSession.getText();
-	}
 	
 	public void addRowToTrainingSessionTable(Object[] row) {
 		

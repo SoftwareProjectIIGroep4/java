@@ -10,7 +10,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dataAccess.Cache;
 import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
+<<<<<<< HEAD
  
+=======
+
+
+
+>>>>>>> refs/remotes/origin/master
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TrainingInfo {
 	private int trainingId;	

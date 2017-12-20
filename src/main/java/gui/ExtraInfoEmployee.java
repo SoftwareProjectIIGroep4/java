@@ -71,12 +71,12 @@ import com.itextpdf.layout.element.Image;
 
 
 public class ExtraInfoEmployee extends JPanel {
+
 	private int selectedRow;
-	private JToggleButton jtbTraining;
-	private JToggleButton jtbEmployees;
-	private JToggleButton jtbStatistics;
-	private JToggleButton jtbTrainingSession;
-	private JToggleButton jtbTrainingRequests;
+	private JButton btnTraining;
+	private JButton btnEmployees;
+	private JButton btnStatistics;
+	private JButton btnTrainingSession;
 	private JTable tbEmployeeHistoryTraining;
 	private JTable tbEmployeeHistoryBook;
 	private JButton uploadCertificate;
@@ -85,6 +85,12 @@ public class ExtraInfoEmployee extends JPanel {
 	private JButton btnListOfTrainings;
 	private JTextField textFieldEmployeeID;
 	private int employeeID;
+	private JLabel lblTrainingID;
+	private JLabel lblTrainingName;
+	private JLabel lblFirstName;
+	private JLabel lblLastName;
+	private JLabel lblShowImageIcon;
+	private DefaultTableModel tableModel;
 
 	/**
 	 * Create the panel.
@@ -97,89 +103,95 @@ public class ExtraInfoEmployee extends JPanel {
 	public void setEmployeeID(int nieuwewaarde) {
 		employeeID = nieuwewaarde;
 	}
-	
+
 	private	List<String[]> data1 = null;
 
 	public ExtraInfoEmployee() {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 
+
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
-		jtbTraining = new JToggleButton("Training");
-		jtbTraining.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				jtbTraining.setBorder(border);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jtbTraining.setBorder(null);
+
+		btnTraining = new JButton("Training");
+		btnTraining.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldEmployeeID.setText("");
+				lblTrainingID.setText("");
+				lblTrainingName.setText("");
+				lblFirstName.setText("");
+				lblLastName.setText("");
+				lblShowImageIcon.setIcon(null);
+				tableModel.getDataVector().removeAllElements();
 			}
 		});
-		jtbTraining.setBackground(Color.WHITE);
-		jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTraining.setOpaque(true);
-		jtbTraining.setActionCommand("TrainingMenu");
-		jtbTraining.setBounds(133, 0, 211, 75);
-		add(jtbTraining);
+		btnTraining.setBackground(Color.WHITE);
+		btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
+		btnTraining.setOpaque(true);
+		btnTraining.setActionCommand("TrainingMenu");
+		btnTraining.setBounds(133, 0, 211, 75);
+		add(btnTraining);
 
-		jtbTrainingSession = new JToggleButton("Training session");
-		jtbTrainingSession.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				jtbTrainingSession.setBorder(border);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jtbTrainingSession.setBorder(null);
+		btnTrainingSession = new JButton("Training session");
+		btnTrainingSession.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldEmployeeID.setText("");
+				lblTrainingID.setText("");
+				lblTrainingName.setText("");
+				lblFirstName.setText("");
+				lblLastName.setText("");
+				lblShowImageIcon.setIcon(null);
+				tableModel.getDataVector().removeAllElements();
 			}
 		});
-		jtbTrainingSession.setBackground(Color.WHITE);
-		jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTrainingSession.setOpaque(true);
-		jtbTrainingSession.setActionCommand("TrainingSessionMenu");
-		jtbTrainingSession.setBounds(344, 0, 211, 75);
-		add(jtbTrainingSession);
+		btnTrainingSession.setBackground(Color.WHITE);
+		btnTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
+		btnTrainingSession.setOpaque(true);
+		btnTrainingSession.setActionCommand("TrainingSessionMenu");
+		btnTrainingSession.setBounds(344, 0, 211, 75);
+		add(btnTrainingSession);
 
-		jtbEmployees = new JToggleButton("Employees");
-		jtbEmployees.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				jtbEmployees.setBorder(border);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jtbEmployees.setBorder(null);
+		btnEmployees = new JButton("Employees");
+		btnEmployees.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldEmployeeID.setText("");
+				lblTrainingID.setText("");
+				lblTrainingName.setText("");
+				lblFirstName.setText("");
+				lblLastName.setText("");
+				lblShowImageIcon.setIcon(null);
+				tableModel.getDataVector().removeAllElements();
 			}
 		});
-		jtbEmployees.setBackground(Color.WHITE);
-		jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbEmployees.setOpaque(true);
-		jtbEmployees.setActionCommand("EmployeesMenu");
-		jtbEmployees.setBounds(555, 0, 212, 75);
-		add(jtbEmployees);
+		btnEmployees.setBackground(Color.WHITE);
+		btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
+		btnEmployees.setOpaque(true);
+		btnEmployees.setActionCommand("EmployeesMenu");
+		btnEmployees.setBounds(555, 0, 212, 75);
+		add(btnEmployees);
 
-		jtbStatistics = new JToggleButton("Statistics");
-		jtbStatistics.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				jtbStatistics.setBorder(border);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jtbStatistics.setBorder(null);
+		btnStatistics = new JButton("Statistics");
+		btnStatistics.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldEmployeeID.setText("");
+				lblTrainingID.setText("");
+				lblTrainingName.setText("");
+				lblFirstName.setText("");
+				lblLastName.setText("");
+				lblShowImageIcon.setIcon(null);
+				tableModel.getDataVector().removeAllElements();
 			}
 		});
-		jtbStatistics.setBackground(Color.WHITE);
-		jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbStatistics.setOpaque(true);
-		jtbStatistics.setActionCommand("StatisticsMenu");
-		jtbStatistics.setBounds(767, 0, 212, 75);
-		add(jtbStatistics);
+		btnStatistics.setBackground(Color.WHITE);
+		btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
+		btnStatistics.setOpaque(true);
+		btnStatistics.setActionCommand("StatisticsMenu");
+		btnStatistics.setBounds(767, 0, 212, 75);
+		add(btnStatistics);
 
-		jtbTrainingRequests = new JToggleButton("Training requests");
-		jtbTrainingRequests.addMouseListener(new MouseAdapter() {
+		/**	jtbTrainingRequests = new JToggleButton("Training requests");
+		/**	jtbTrainingRequests.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				jtbTrainingRequests.setBorder(border);
@@ -188,13 +200,13 @@ public class ExtraInfoEmployee extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				jtbTrainingRequests.setBorder(null);
 			}
-		});
+		}); 
 		jtbTrainingRequests.setBackground(Color.WHITE);
 		jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
 		jtbTrainingRequests.setOpaque(true);
 		jtbTrainingRequests.setActionCommand("TrainingRequestsMenu");
 		jtbTrainingRequests.setBounds(979, 0, 211, 75);
-		add(jtbTrainingRequests);
+		add(jtbTrainingRequests); */
 
 		JLabel lblNewLabel = new JLabel("logo");
 		lblNewLabel.setBounds(0, 0, 133, 75);
@@ -206,12 +218,14 @@ public class ExtraInfoEmployee extends JPanel {
 		lblNewLabel_1.setOpaque(true);
 		add(lblNewLabel_1);
 
-		JLabel employeeLabel = new JLabel("User search by ID: ");
+
+
+		JLabel employeeLabel = new JLabel("Employee search by ID: ");
 		employeeLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		employeeLabel.setBounds(40, 100, 184, 39);
 		add(employeeLabel);
 
-		JLabel firstnameLabel = new JLabel("User ID:");
+		JLabel firstnameLabel = new JLabel("Employee ID:");
 		firstnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		firstnameLabel.setBounds(40, 150, 85, 25);
 		add(firstnameLabel);
@@ -221,12 +235,12 @@ public class ExtraInfoEmployee extends JPanel {
 		lblFirstNameFixed.setBounds(332, 150, 93, 25);
 		add(lblFirstNameFixed);
 
-		JLabel lblLastName = new JLabel("");
+		lblLastName = new JLabel("");
 		lblLastName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblLastName.setBounds(425, 200, 155, 25);
 		add(lblLastName);
 
-		JLabel lblFirstName = new JLabel("");
+		lblFirstName = new JLabel("");
 		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblFirstName.setBounds(425, 146, 155, 25);
 		add(lblFirstName);
@@ -236,24 +250,24 @@ public class ExtraInfoEmployee extends JPanel {
 		lblLastNameFixed.setBounds(332, 205, 81, 16);
 		add(lblLastNameFixed);
 
-		JLabel lblTrainingName = new JLabel("");
+		lblTrainingName = new JLabel("");
 		lblTrainingName.setBounds(776, 200, 255, 22);
 		add(lblTrainingName);
 
-		JLabel lblTrainingID = new JLabel("");
+		lblTrainingID = new JLabel("");
 		lblTrainingID.setBounds(776, 150, 117, 21);
 		add(lblTrainingID);
 
-		JLabel lblShowImageIcon = new JLabel("");
+		lblShowImageIcon = new JLabel("");
 		lblShowImageIcon.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblShowImageIcon.setBounds(669, 282, 521, 427);
 		add(lblShowImageIcon);
-		
+
 		textFieldEmployeeID = new JTextField();
 		textFieldEmployeeID.setBounds(133, 149, 147, 28);
 		add(textFieldEmployeeID);
 		textFieldEmployeeID.setColumns(10);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("view certificate");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_2.setBounds(669, 253, 264, 25);
@@ -266,7 +280,7 @@ public class ExtraInfoEmployee extends JPanel {
 		JLabel lblTrainingNameFixed = new JLabel("Training Name:");
 		lblTrainingNameFixed.setBounds(669, 206, 104, 16);
 		add(lblTrainingNameFixed);
-		
+
 		uploadCertificate = new JButton("Upload Certificate");
 		uploadCertificate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -275,7 +289,7 @@ public class ExtraInfoEmployee extends JPanel {
 					trainingID = Integer.parseInt(lblTrainingID.getText());
 				} catch(NumberFormatException ex) {
 					System.out.println("dit is de labeltraining" + lblTrainingID);
-				}
+				} // employeenr is wel degelijk de userid van onze tabel! (niet van Odata)
 				int employeeNr = Integer.parseInt(textFieldEmployeeID.getText());
 				String trainingName = lblTrainingName.getText();
 				CertificateAccess cA = new CertificateAccess();
@@ -307,7 +321,7 @@ public class ExtraInfoEmployee extends JPanel {
 
 		List<String[]> data = new ArrayList<String[]>();
 
-		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersHistoryTraining) {
+		tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersHistoryTraining) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				//all cells false
@@ -346,12 +360,10 @@ public class ExtraInfoEmployee extends JPanel {
 				lblTrainingName.setText("");
 				lblShowImageIcon.setIcon(null);
 				employeeID = Integer.parseInt(textFieldEmployeeID.getText());
-		
-				System.out.println("ljlkj" + employeeID + textFieldEmployeeID.getText());
-// ! ! ! !				// check employeeid en userid verschil?		
-				Employee searchEmployee = new Employee();
-				//	Employee searchUser = new User(); // id van de GUI
 
+				System.out.println("ljlkj" + employeeID + textFieldEmployeeID.getText());
+				// ! ! ! !// check employeeid en userid verschil?		
+				Employee searchEmployee = new Employee();
 
 				try {
 					searchEmployee = EmployeeAccess.get(employeeID);
@@ -365,7 +377,7 @@ public class ExtraInfoEmployee extends JPanel {
 					e2.printStackTrace();
 				}
 				//setEmployeeID(employeeID);
-//!!!				// nog checken bij none-valid employee ID
+				//!!!// nog checken bij none-valid employee ID
 				lblLastName.setText(searchEmployee.getLastName());
 				lblFirstName.setText(searchEmployee.getFirstName());
 
@@ -397,9 +409,17 @@ public class ExtraInfoEmployee extends JPanel {
 					} catch (URISyntaxException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+
 					}
 				}
-				DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersHistoryTraining) {
+
+				if (listTrainingInfo.isEmpty()) {
+					data1.add(new String[] {
+							"No Training Followed Yet"	
+					});
+				}
+
+				tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersHistoryTraining) {
 					@Override
 					public boolean isCellEditable(int row, int column) {
 						//all cells false
@@ -435,14 +455,13 @@ public class ExtraInfoEmployee extends JPanel {
 						lblShowImageIcon.setIcon(null);
 						if(!selectedRowBook.isSelectionEmpty()) {
 							//GET ROW
-							
+
 							int userid = Integer.parseInt(textFieldEmployeeID.getText());
 							int selectedRow = selectedRowBook.getMinSelectionIndex();
 							String[] test = data1.get(selectedRow);
 							String trainingID = test[0];
 							int intTrainingID = Integer.parseInt(trainingID);
 							String trainingNaam = test[1];
-							//lblLastName.setText(String.valueOf(testID));
 							lblTrainingID.setText(String.valueOf(trainingID));
 							lblTrainingName.setText(trainingNaam);
 							//lblShowImageIcon.
@@ -460,7 +479,7 @@ public class ExtraInfoEmployee extends JPanel {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							} 
-							
+
 							if (certID != 0) {
 								try {
 									certZoek = Cache.certificateCache.get(certID);
@@ -474,11 +493,11 @@ public class ExtraInfoEmployee extends JPanel {
 									ImageIcon imageIcon = new ImageIcon(new ImageIcon(certZoek.getPicture()).getImage().getScaledInstance(521, 427, ABORT));
 									lblShowImageIcon.setIcon(imageIcon);
 								}
-								
+
 							}
 							else {
 								System.out.println("Kan het gevraagde certificaat niet vinden");
-
+								lblShowImageIcon.setText("          Certification not yet received.          ");
 							}
 						}
 					}
@@ -490,10 +509,11 @@ public class ExtraInfoEmployee extends JPanel {
 		btnListOfTrainings.setBounds(40, 233, 256, 29);
 		add(btnListOfTrainings);
 
-		
-		
+
+
+		/**
 		// wegdoen, wordt niet gebruikt
-//!!		//hier nog fucntie koppelen aan je selectie van de rij!
+		//!!		//hier nog fucntie koppelen aan je selectie van de rij!
 		JButton btnShow = new JButton("Show");
 		btnShow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -527,18 +547,18 @@ public class ExtraInfoEmployee extends JPanel {
 		});
 
 		btnShow.setBounds(901, 234, 117, 29);
-		add(btnShow);
+		add(btnShow); */
 
 		JButton btnMakePdfCertificates = new JButton("Make PDF Certificates Employee");
 		btnMakePdfCertificates.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// sources: https://www.tutorialspoint.com/itext/index.htm
 				// DESTPDF is string met path+naam waar we aangemaakt PDF-bestand bewaren
-				
+
 				int employeeNr = Integer.parseInt(textFieldEmployeeID.getText());
 				String employeeNaam = lblLastName.getText();
 				String employeeVoornaam = lblFirstName.getText();
-				
+
 				final String DESTPDF ="results/certificate" + employeeNr + "_" + employeeNaam + "_" + employeeVoornaam + ".pdf";
 				File file = new File(DESTPDF);
 				file.getParentFile().mkdirs();
@@ -570,7 +590,7 @@ public class ExtraInfoEmployee extends JPanel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-						
+
 				List<String[]> certData = new ArrayList<String[]>();
 				for(Map.Entry<Integer, Certificate> lijst: listCertificateInfo.entrySet()) {
 
@@ -586,10 +606,10 @@ public class ExtraInfoEmployee extends JPanel {
 							doc.add(foto.setAutoScale(true));
 						}
 						else {
-							Paragraph noCert = new Paragraph ("Certification not yet earned.");
+							Paragraph noCert = new Paragraph ("Certification not yet received.");
 							doc.add(noCert);
 						}
-						
+
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -612,24 +632,17 @@ public class ExtraInfoEmployee extends JPanel {
 		});
 		btnMakePdfCertificates.setBounds(308, 233, 256, 29);
 		add(btnMakePdfCertificates);
-		
-		
-		
 
 	}
-
-
-
 
 
 	public void addActionListener(ActionListener listener) {
 
 		uploadCertificate.addActionListener(listener);
 		btnListOfTrainings.addActionListener(listener);
-		jtbTraining.addActionListener(listener);
-		jtbTrainingRequests.addActionListener(listener);
-		jtbStatistics.addActionListener(listener);
-		jtbEmployees.addActionListener(listener);
-		jtbTrainingSession.addActionListener(listener);
+		btnTraining.addActionListener(listener);
+		btnStatistics.addActionListener(listener);
+		btnEmployees.addActionListener(listener);
+		btnTrainingSession.addActionListener(listener);
 	}
 }

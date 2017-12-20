@@ -31,14 +31,13 @@ public class TrainingSessionInfoPane extends JPanel {
 	private JTextArea txtPaymentInfo;
 	private JButton btnCancelTrainingSession;
 	private JLabel lblTrainingSessionTitle;
-	private JButton jtbInfo;
-	private JButton jtbEnlistedPeople;
-	private JButton jtbBooks;
-	private JButton jtbTraining;
-	private JButton jtbEmployees;
-	private JButton jtbStatistics;
-	private JButton jtbTrainingSession;
-	private JButton jtbTrainingRequests;
+	private JButton btnInfo;
+	private JButton btnEnlistedPeople;
+	private JButton btnBooks;
+	private JButton btnTraining;
+	private JButton btnEmployees;
+	private JButton btnStatistics;
+	private JButton btnTrainingsession;
 
 	
 	
@@ -60,107 +59,49 @@ public class TrainingSessionInfoPane extends JPanel {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		
-		jtbTraining = new JButton("Training");
-		/*jtbTraining.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jtbTraining.setBorder(border);
-		    }
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jtbTraining.setBorder(null);
-		    }
-		});*/
-		jtbTraining.setBackground(Color.WHITE);
-		jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTraining.setOpaque(true);
-		jtbTraining.setActionCommand("TrainingMenu");
-		jtbTraining.setBounds(133, 0, 211, 75);
-		add(jtbTraining);
-		
-		jtbTrainingSession = new JButton("Training session");
-		/*jtbTrainingSession.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jtbTrainingSession.setBorder(border);
-		    }
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jtbTrainingSession.setBorder(null);
-		    }
-		});*/
-		jtbTrainingSession.setBackground(Color.WHITE);
-		jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTrainingSession.setOpaque(true);
-		jtbTrainingSession.setActionCommand("TrainingSessionMenu");
-		jtbTrainingSession.setBounds(344, 0, 211, 75);
-		add(jtbTrainingSession);
-		
-		jtbEmployees = new JButton("Employees");
-		/*jtbEmployees.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jtbEmployees.setBorder(border);
-		    }
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jtbEmployees.setBorder(null);
-		    }
-		});*/
-		jtbEmployees.setBackground(Color.WHITE);
-		jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbEmployees.setOpaque(true);
-		jtbEmployees.setActionCommand("EmployeesMenu");
-		jtbEmployees.setBounds(555, 0, 212, 75);
-		add(jtbEmployees);
-		
-		jtbStatistics = new JButton("Statistics");
-		/*jtbStatistics.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jtbStatistics.setBorder(border);
-		    }
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jtbStatistics.setBorder(null);
-		    }
-		});*/
-		jtbStatistics.setBackground(Color.WHITE);
-		jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbStatistics.setOpaque(true);
-		jtbStatistics.setActionCommand("StatisticsMenu");
-		jtbStatistics.setBounds(767, 0, 212, 75);
-		add(jtbStatistics);
-		
-		jtbTrainingRequests = new JButton("Training requests");
-		/*jtbTrainingRequests.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jtbTrainingRequests.setBorder(border);
-		    }
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jtbTrainingRequests.setBorder(null);
-		    }
-		});*/
-		jtbTrainingRequests.setBackground(Color.WHITE);
-		jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTrainingRequests.setOpaque(true);
-		jtbTrainingRequests.setActionCommand("TrainingRequestsMenu");
-		jtbTrainingRequests.setBounds(979, 0, 211, 75);
-		add(jtbTrainingRequests);
-		
-		JLabel lblNewLabel = new JLabel("logo");
-		lblNewLabel.setBounds(0, 0, 133, 75);
-		lblNewLabel.setOpaque(true);
-		add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Profiel");
-		lblNewLabel_1.setBounds(1190, 0, 75, 75);
-		lblNewLabel_1.setOpaque(true);
-		add(lblNewLabel_1);
+		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+	        
+		  btnTraining = new JButton("Training"); 
+		  btnTraining.setBackground(Color.WHITE);
+		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
+		  btnTraining.setOpaque(true);
+		  btnTraining.setActionCommand("TrainingMenu");
+		  btnTraining.setBounds(124, 0, 264, 75);
+	        add(btnTraining);
+	        
+	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.setBackground(Color.WHITE);
+	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
+	        btnTrainingsession.setOpaque(true);
+	        btnTrainingsession.setActionCommand("TrainingSessionMenu");
+	        btnTrainingsession.setBounds(387, 0, 264, 75);
+	        add(btnTrainingsession);
+	        
+	        btnEmployees = new JButton("Employees");
+	        btnEmployees.setBackground(Color.WHITE);
+	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
+	        btnEmployees.setOpaque(true);
+	        btnEmployees.setActionCommand("EmployeesMenu");
+	        btnEmployees.setBounds(650, 0, 264, 75);
+	        add(btnEmployees);
+	        
+	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.setBackground(Color.WHITE);
+	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
+	        btnStatistics.setOpaque(true);
+	        btnStatistics.setActionCommand("StatisticsMenu");
+	        btnStatistics.setBounds(912, 0, 264, 75);
+	        add(btnStatistics);
+	        
+	        JLabel lblNewLabel = new JLabel("logo");
+	        lblNewLabel.setBounds(0, 0, 133, 75);
+	        lblNewLabel.setOpaque(true);
+	        add(lblNewLabel);
+	        
+	        JLabel lblNewLabel_1 = new JLabel("Profiel");
+	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
+	        lblNewLabel_1.setOpaque(true);
+	        add(lblNewLabel_1);
 		
 		btnBack = new JButton("<-  Back");
 		btnBack.setBounds(30, 100, 110, 50);
@@ -177,60 +118,29 @@ public class TrainingSessionInfoPane extends JPanel {
 		btnCancelTrainingSession.setActionCommand("CancelTrainingSession");
 		add(btnCancelTrainingSession);
 		
-		jtbInfo = new JButton("Info");
-		//jtbInfo.setBackground(SystemColor.control);
-		/*jtbInfo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				jtbInfo.setBackground(Color.WHITE);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jtbInfo.setBackground(SystemColor.control);
-			}
-		});*/
-		jtbInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		jtbInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbInfo.setOpaque(true);
-		jtbInfo.setBounds(450, 165, 100, 50);
-		jtbInfo.setActionCommand("Info");
-		add(jtbInfo);
+		btnInfo = new JButton("Info");
+		btnInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		btnInfo.setOpaque(true);
+		btnInfo.setBounds(450, 165, 100, 50);
+		btnInfo.setActionCommand("Info");
+		add(btnInfo);
 		
-		jtbEnlistedPeople = new JButton("Enlisted people");
-		/*jtbEnlistedPeople.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				jtbEnlistedPeople.setBackground(Color.WHITE);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jtbEnlistedPeople.setBackground(SystemColor.control);
-			}
-			});*/
-		jtbEnlistedPeople.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		jtbEnlistedPeople.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbEnlistedPeople.setOpaque(true);
-		jtbEnlistedPeople.setBounds(550, 165, 200, 50);
-		jtbEnlistedPeople.setActionCommand("EnlistedPeople");
-		add(jtbEnlistedPeople);
+		btnEnlistedPeople = new JButton("Enlisted people");
+		btnEnlistedPeople.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnEnlistedPeople.setHorizontalAlignment(SwingConstants.CENTER);
+		btnEnlistedPeople.setOpaque(true);
+		btnEnlistedPeople.setBounds(550, 165, 200, 50);
+		btnEnlistedPeople.setActionCommand("EnlistedPeople");
+		add(btnEnlistedPeople);
 		
-		jtbBooks = new JButton("Books");
-		/*jtbBooks.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				jtbBooks.setBackground(Color.WHITE);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jtbBooks.setBackground(SystemColor.control);
-			}
-		});*/
-		jtbBooks.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		jtbBooks.setBounds(750, 165, 100, 50);
-		jtbBooks.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbBooks.setOpaque(true);
-		jtbBooks.setActionCommand("Books");
-		add(jtbBooks);
+		btnBooks = new JButton("Books");
+		btnBooks.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnBooks.setBounds(750, 165, 100, 50);
+		btnBooks.setHorizontalAlignment(SwingConstants.CENTER);
+		btnBooks.setOpaque(true);
+		btnBooks.setActionCommand("Books");
+		add(btnBooks);
 		
 		JLabel lblGeneralInfo = new JLabel("General info");
 		lblGeneralInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -269,14 +179,13 @@ public class TrainingSessionInfoPane extends JPanel {
 	}
 	
 	public void addActionListener(ActionListener listener) {
-		jtbTraining.addActionListener(listener);
-		jtbTrainingRequests.addActionListener(listener);
-		jtbStatistics.addActionListener(listener);
-		jtbEmployees.addActionListener(listener);
-		jtbTrainingSession.addActionListener(listener);
-		jtbInfo.addActionListener(listener);
-		jtbEnlistedPeople.addActionListener(listener);
-		jtbBooks.addActionListener(listener);
+		btnTraining.addActionListener(listener);
+		btnStatistics.addActionListener(listener);
+		btnEmployees.addActionListener(listener);
+		btnTrainingsession.addActionListener(listener);
+		btnInfo.addActionListener(listener);
+		btnEnlistedPeople.addActionListener(listener);
+		btnBooks.addActionListener(listener);
 		btnBack.addActionListener(listener);
 		btnCancelTrainingSession.addActionListener(listener);
     }

@@ -17,25 +17,25 @@ public class SurveyQuestion {
 public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }
 //DATAMEMBERS
 	private int questionID,surveyID;
-	private String question;
+	private String content;
 	private ArrayList<SurveyAnswer> answers;
 	private typeQuestion qType;
 //METHODS
-	public SurveyQuestion(int questionID, int surveyID, String question, ArrayList<SurveyAnswer> answers,
-			typeQuestion qType) {
+	public SurveyQuestion(int questionID, int surveyID, String question, ArrayList<SurveyAnswer> answers) {
 		super();
 		this.questionID = questionID;
 		this.surveyID = surveyID;
-		this.question = question;
+		this.content = question;
 		this.answers = answers;
-		this.qType = qType;
 	}
-	public SurveyQuestion(int questionID, int surveyID, String question,typeQuestion qType) {
+	public SurveyQuestion(int questionID, int surveyID, String question) {
 		super();
 		this.questionID = questionID;
 		this.surveyID = surveyID;
-		this.question = question;
-		this.qType = qType;
+		this.content = question;
+	}
+	public SurveyQuestion() {
+	
 	}
 	
 	public int getSurveyID() {
@@ -47,11 +47,11 @@ public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }
 	}
 
 	public String getQuestion() {
-		return question;
+		return content;
 	}
 
-	public void setQuestion(String question) {
-		this.question = question;
+	public void setQuestions(String question) {
+		this.content = question;
 	}
 
 	public typeQuestion getqType() {
@@ -64,7 +64,7 @@ public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }
 
 	public SurveyQuestion(String question) {
 		super();
-		this.question = question;
+		this.content = question;
 	}
 	
 	public int getQuestionID() {
@@ -73,11 +73,11 @@ public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }
 	public void setQuestionID(int questionID) {
 		this.questionID = questionID;
 	}
-	public String getQuestions() {
-		return question;
+	public String getContent() {
+		return content;
 	}
-	public void setQuestions(String questions) {
-		this.question = questions;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public ArrayList<SurveyAnswer> getAnswers() {
 		return answers;
@@ -117,5 +117,43 @@ public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }
 			sb.append(answers.get(i).toString()+"\n");
 		}
 		return sb.toString();
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
+		result = prime * result + ((qType == null) ? 0 : qType.hashCode());
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + questionID;
+		result = prime * result + surveyID;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SurveyQuestion other = (SurveyQuestion) obj;
+		if (answers == null) {
+			if (other.answers != null)
+				return false;
+		} else if (!answers.equals(other.answers))
+			return false;
+		if (qType != other.qType)
+			return false;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
+		if (questionID != other.questionID)
+			return false;
+		if (surveyID != other.surveyID)
+			return false;
+		return true;
 	}
 }

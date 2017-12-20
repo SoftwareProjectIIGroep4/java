@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import models.Address;
 import models.FollowingTraining;
 
 
@@ -38,4 +39,5 @@ public class FollowingTraingAcces extends RestRequest {
 	public static void update(FollowingTraining followingTraining) throws URISyntaxException, IOException {
 		putObject(followingTraining, new URI(Constants.FOLLOWING_TRAINING_SOURCE + followingTraining.getTraingSessionId()));
 	}
+	
 }
