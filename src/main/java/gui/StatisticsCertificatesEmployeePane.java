@@ -218,7 +218,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		JLabel lblNewLabel_1 = new JLabel("Profiel");
 		lblNewLabel_1.setBounds(1190, 0, 75, 75);
 		lblNewLabel_1.setOpaque(true);
-		add(lblNewLabel_1);n
+		add(lblNewLabel_1);
 
 		JLabel lblUitlegCert = new JLabel("Write employeeID to get information");
 		lblUitlegCert.setFont(new Font("Tahoma", Font.BOLD, 14));
