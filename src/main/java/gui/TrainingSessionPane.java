@@ -53,7 +53,6 @@ public class TrainingSessionPane extends JPanel {
 	private JButton jtbTrainingSession;
 	private JButton jtbTrainingRequests;
 	private JTable tbSession;
-	private JButton btnAddTrainingSession;
 	private DefaultTableModel modelSession;
 	private DefaultTableModel tableModel;
 
@@ -179,11 +178,6 @@ public class TrainingSessionPane extends JPanel {
 			}
 		});
 		
-		btnAddTrainingSession = new JButton("Add training session");
-		btnAddTrainingSession.setActionCommand("goToAddTrainingSession");
-		btnAddTrainingSession.setBounds(1072, 213, 160, 64);
-		add(btnAddTrainingSession);
-		
 		btnShowTrainingSession = new JButton("Show training session");
 		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
 		btnShowTrainingSession.setBounds(1072,138,160,64);
@@ -197,7 +191,6 @@ public class TrainingSessionPane extends JPanel {
 	}
 	
 	public void addActionListener(ActionListener listener) {
-		btnAddTrainingSession.addActionListener(listener);
 		btnShowTrainingSession.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);

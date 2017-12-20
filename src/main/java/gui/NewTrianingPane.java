@@ -39,7 +39,6 @@ public class NewTrianingPane extends JPanel {
 	private JScrollPane sclDescription;
 	private JScrollPane sclDescriptionExam;
 	private JScrollPane sclDescriptionPayement;
-	private JButton btnSelectSurvey;
 	
 	/**
 	 * Create the panel.
@@ -102,11 +101,6 @@ public class NewTrianingPane extends JPanel {
 		btnSave.setBounds(170, 100, 110, 50);
 		btnSave.setActionCommand("SaveTraining");
 		add(btnSave);
-		
-		btnSelectSurvey = new JButton("Select Survey");
-		btnSelectSurvey.setActionCommand("selectSurvey");
-		btnSelectSurvey.setBounds(442, 210, 155, 54);
-		add(btnSelectSurvey);
 		
 		
 		lblAddNewTraining = new JLabel("Add new training");
@@ -190,7 +184,6 @@ public class NewTrianingPane extends JPanel {
 	public void addActionListener(ActionListener listener) {
 		btnBack.addActionListener(listener);
 		btnSave.addActionListener(listener);
-		btnSelectSurvey.addActionListener(listener);
 		btnTraining.addActionListener(listener);
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
