@@ -12,8 +12,8 @@ import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
 
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TrainingInfo {
 	private int trainingId;	
 	private String name;
