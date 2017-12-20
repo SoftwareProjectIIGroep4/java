@@ -31,7 +31,6 @@ import org.w3c.dom.css.ElementCSSInlineStyle;
 import javax.swing.JButton;
 import javax.swing.JTable;
 
-import gui.EmployeePane;
 import models.Address;
 import models.Employee;
 import models.TrainingInfo;
@@ -41,8 +40,9 @@ import models.Token;
 import gui.LoginPane;
 
 public class MainFrame extends JFrame {
+	
 	private static int keeper;
-public class MainFrame extends JFrame{
+
 	
 	// SOURCE: weten hoe GUI centraal zetten op scherm 
 	//https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
@@ -140,13 +140,9 @@ public class MainFrame extends JFrame{
 						e1.printStackTrace();
 					}
                 	if (token !=null) {
-                	newLoginPane.changeColor();
                     layout.show(getContentPane(), "homePanel");
                     }
-                	else {
-                		newLoginPane.changeColor();
-                        layout.show(getContentPane(), "homePanel");
-                	}
+                	
                 }
             }
         });
@@ -448,7 +444,7 @@ public class MainFrame extends JFrame{
                     public void actionPerformed(ActionEvent e) {
                         String command = e.getActionCommand();
                         System.out.println(command);
-                        if ("Cancel".equals(command)) {
+                        if ("BackToTrainingPane".equals(command)) {
                         	//show trainingSessionPane
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("MakeTrainingSession".equals(command)) {
@@ -510,12 +506,6 @@ public class MainFrame extends JFrame{
                         	layout.show(getContentPane(), "trainingPanel");
 
                         }
-                        else if ("selectSurvey".equals(command)) {
-                        //save de data voor training session gebruik getters
-                        //	naar de pane van Survey gaan.
-                        //	layout.show(getContentPane(), "trainingSessionPanel");
-                        }
-                        
                     }
                 });
         		

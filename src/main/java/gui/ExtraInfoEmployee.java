@@ -76,7 +76,7 @@ public class ExtraInfoEmployee extends JPanel {
 		private JButton btnTraining;
 		private JButton btnEmployees;
 		private JButton btnStatistics;
-		private JButton btnTrainingsession;
+		private JButton btnTrainingSession;
 		private JTable tbEmployeeHistoryTraining;
 		private JTable tbEmployeeHistoryBook;
 		private JButton uploadCertificate;
@@ -114,13 +114,13 @@ public class ExtraInfoEmployee extends JPanel {
 	  btnTraining.setBounds(124, 0, 264, 75);
         add(btnTraining);
         
-        btnTrainingsession = new JButton("Training session");
-        btnTrainingsession.setBackground(Color.WHITE);
-        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
-        btnTrainingsession.setOpaque(true);
-        btnTrainingsession.setActionCommand("TrainingSessionMenu");
-        btnTrainingsession.setBounds(387, 0, 264, 75);
-        add(btnTrainingsession);
+        btnTrainingSession = new JButton("Training session");
+        btnTrainingSession.setBackground(Color.WHITE);
+        btnTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
+        btnTrainingSession.setOpaque(true);
+        btnTrainingSession.setActionCommand("TrainingSessionMenu");
+        btnTrainingSession.setBounds(387, 0, 264, 75);
+        add(btnTrainingSession);
         
         btnEmployees = new JButton("Employees");
         btnEmployees.setBackground(Color.WHITE);
@@ -568,10 +568,9 @@ public class ExtraInfoEmployee extends JPanel {
 
 		uploadCertificate.addActionListener(listener);
 		btnListOfTrainings.addActionListener(listener);
-		jtbTraining.addActionListener(listener);
-		jtbTrainingRequests.addActionListener(listener);
-		jtbStatistics.addActionListener(listener);
-		jtbEmployees.addActionListener(listener);
-		jtbTrainingSession.addActionListener(listener);
+		btnTraining.addActionListener(listener);
+		btnStatistics.addActionListener(listener);
+		btnEmployees.addActionListener(listener);
+		btnTrainingSession.addActionListener(listener);
 	}
 }
