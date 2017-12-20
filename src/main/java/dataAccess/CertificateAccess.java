@@ -1,6 +1,6 @@
 package dataAccess;
 
-
+ 
 
 import java.awt.Color;
 import java.awt.Container;
@@ -28,11 +28,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import models.Certificate;
 import models.FileTypeFilter;
+import models.TrainingInfo;
+import models.UserCertificate;
 
 public class CertificateAccess extends RestRequest {
 	public static Certificate get(Integer certificateID) throws IOException, URISyntaxException {
@@ -52,6 +55,30 @@ public class CertificateAccess extends RestRequest {
 			certificateMap.put(certificate.getCertificateID(), certificate);
 		}
 		return certificateMap;
+	}
+	
+	public static HashMap<Integer, Certificate> getUserCertificateInfos(Integer userid) throws IOException, URISyntaxException {
+		String JSON = getAllOrOne(new URI(Constants.USER_SOURCE + userid + "/certificates"));
+		List<Certificate> certificateInfos = mapper.readValue(JSON, new TypeReference<List<Certificate>>() {
+		});
+		
+		HashMap<Integer, Certificate> certificateInfosMap = new HashMap<Integer, Certificate>();
+		
+		for (Certificate certificateInfo : certificateInfos) {
+			certificateInfosMap.put(certificateInfo.getCertificateID(), certificateInfo);
+		}
+		return certificateInfosMap;
+	}
+	
+	public static int getUserCertificateID(Integer userid, Integer trainingid) throws IOException, URISyntaxException {
+		String JSON = getAllOrOne(new URI(Constants.USER_SOURCE + userid + "/certificates?trainingid="+ trainingid));
+		int certificateID = mapper.readValue(JSON, new TypeReference<Integer>() {});
+		return certificateID;
+	}
+	
+	public static Certificate addCertificateUser(UserCertificate userCertificate) throws IOException, URISyntaxException {
+		String JSONcert = postObject(userCertificate, new URI(Constants.CERTIFICATE_SOURCE  + "usercertificate"));
+		return mapper.readValue(JSONcert, Certificate.class);
 	}
 
 	public static Certificate add(Certificate certificate) throws IOException, URISyntaxException {
@@ -76,11 +103,15 @@ public class CertificateAccess extends RestRequest {
 		jFileChooser.setDialogTitle("Select your Certificate");
 		jFileChooser.setMultiSelectionEnabled(false);
 		
-		//chooser.setAcceptAllFileFilterUsed(false); als je geen all files wilt kiezen!
+		//jFileChooser.setAcceptAllFileFilterUsed(false); als je geen all files wilt kiezen!
 		// met meerdere files doet hij het niet, nog nakijken
-		jFileChooser.setFileFilter(new FileTypeFilter(".png", "PNG"));
-		jFileChooser.setFileFilter(new FileTypeFilter(".pdf", "PDF"));
-		jFileChooser.setFileFilter(new FileTypeFilter(".jpg", "JPG"));
+		//jFileChooser.setFileFilter(new FileTypeFilter(".png", "PNG"));
+		//jFileChooser.setFileFilter(new FileTypeFilter(".pdf", "PDF"));
+		//jFileChooser.setFileFilter(new FileTypeFilter(".jpg", "JPG"));
+		jFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("PDF", "pdf"));
+		jFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("PNG", "png"));
+		jFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("JPG", "jpg"));
+		jFileChooser.setAcceptAllFileFilterUsed(false);
 
 		int result = jFileChooser.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
@@ -148,7 +179,7 @@ public class CertificateAccess extends RestRequest {
 	}
 	private static JLabel lblLabelCertificate = null;
 	public static void main(String[] args) throws URISyntaxException, IOException {
-		/**CertificateAccess cA = new CertificateAccess();
+		CertificateAccess cA = new CertificateAccess();
 		File bestand = null;
 		Certificate certificate = new Certificate();
 		certificate.setTrainingID(4);
@@ -163,8 +194,8 @@ public class CertificateAccess extends RestRequest {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-
+		}
+/** 
 		Certificate certZoek = new Certificate();
 		String naam = null;
 		byte[] foto = null;
@@ -205,11 +236,12 @@ public class CertificateAccess extends RestRequest {
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} */
 		
 		
 	}
 	
+
 
 }
 

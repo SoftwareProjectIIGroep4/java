@@ -18,9 +18,15 @@ public class EmployeeAccess extends RestRequest {
 		return mapper.readValue(JSONEmp, Employee.class);
 	}
 	
+<<<<<<< HEAD
 	public static Employee getBySession(Integer sessionID) throws IOException, URISyntaxException {
 		String JSONEmp = getAllOrOne(new URI(Constants.TRAINING_SESSION_SOURCE + sessionID + "/users"));
 		return mapper.readValue(JSONEmp, Employee.class);
+=======
+	public static Integer getUserID(Integer employeeID) throws IOException, URISyntaxException {
+		String JSONUsr = getAllOrOne(new URI(Constants.EMPLOYEE_SOURCE + employeeID + "/user"));
+		return mapper.readValue(JSONUsr, Integer.class);
+>>>>>>> refs/remotes/origin/master
 	}
 
 	// Get all employees working for specified manager

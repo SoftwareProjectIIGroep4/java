@@ -10,7 +10,7 @@ import dataAccess.AddressAccess;
 import dataAccess.Cache;
 import dataAccess.CertificateAccess;
 
-/** out of comments plaatsen bij gebruik PDF
+/** out of comments plaatsen bij gebruik PDF */
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,7 +24,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.Paragraph;
-
+ 
 /**
  * 
  * @author jan
@@ -177,7 +177,7 @@ public class Certificate {
 	
 	/**
 	 * DESTPDF is string met path+naam waar we aangemaakt PDF-bestand bewaren
-	 
+	 */
 	public static final String DESTPDF ="results/helloworld.pdf";
 	
 	//to make PDF-file
@@ -194,7 +194,7 @@ public class Certificate {
  * @param destination + name of created PDF
  * @throws IOException
  
-	
+	*/
 public void createPDF(String dest) throws IOException {
 	//initialize PDF Writer
 	FileOutputStream fos = new FileOutputStream(dest);
@@ -236,7 +236,7 @@ public void createPDF(String dest) throws IOException {
 	// print action executed
 	System.out.println("PDF-document " + DESTPDF + " created");
 }
-	*/
+	
 	
 	
 
