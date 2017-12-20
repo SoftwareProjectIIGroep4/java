@@ -2,34 +2,41 @@ package models;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
-import java.util.HashMap;
+
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import dataAccess.Cache;
-import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TrainingSession {	
 	private int trainingSessionId;
 	private int addressId;
 	private int teacherId;
 	private int trainingId;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date date;
 	private Time startHour;
 	private Time endHour;
-	private boolean cancelled; 
-			
+	private boolean cancelled;
+	private int surveyId;		
 	
+	public int getSurveyId() {
+		return surveyId;
+	}
+
+	public void setSurveyId(int surveyId) {
+		this.surveyId = surveyId;
+	}
+
 	public TrainingSession() {
 		super();		
 	}
 
-	public TrainingSession(int addressId, int teacherId, int trainingId, Date date, Time startHour, Time endHour,
-			boolean cancelled) {
+	public TrainingSession(int addressId, int teacherId, int trainingId, Date date, Time startHour, Time endHour, boolean cancelled, int surveyId) {
 		super();
 		this.addressId = addressId;
 		this.teacherId = teacherId;
@@ -38,10 +45,11 @@ public class TrainingSession {
 		this.startHour = startHour;
 		this.endHour = endHour;
 		this.cancelled = cancelled;
+		this.surveyId = surveyId;
 	}
 
 	public TrainingSession(int trainingSessionId, int addressId, int teacherId, int trainingId, Date date,
-			Time startHour, Time endHour, boolean cancelled) {
+			Time startHour, Time endHour, boolean cancelled, int surveyId) {
 		super();
 		this.trainingSessionId = trainingSessionId;
 		this.addressId = addressId;
@@ -51,6 +59,7 @@ public class TrainingSession {
 		this.startHour = startHour;
 		this.endHour = endHour;
 		this.cancelled = cancelled;
+		this.surveyId = surveyId;
 	}
 
 	public void save() throws URISyntaxException, IOException {		
@@ -141,6 +150,14 @@ public class TrainingSession {
 
 	public void setCanceled(boolean cancelled) {
 		this.cancelled = cancelled;
+	}
+	
+	public int getSurveyId() {
+		return surveyId;
+	}
+
+	public void setSurveyId(int surveyId) {
+		this.surveyId = surveyId;
 	}
 	
 	public String toString() {

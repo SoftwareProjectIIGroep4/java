@@ -19,6 +19,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import models.TrainingInfo;
+
 public class NewTrianingPane extends JPanel {
 	
 	private JTextField txtTitle;
@@ -195,19 +197,20 @@ public class NewTrianingPane extends JPanel {
 		btnTrainingsession.addActionListener(listener);
     }
 	public String getTitle() {
+		
         return txtTitle.getText();
     }
 	public void setTitle(String text) {
 		txtTitle.setText(text);
     }
-	public String getNumberOfDays() {
-        return txtNumberOfDays.getText();
+	public int getNumberOfDays() {
+        return Integer.parseInt(txtNumberOfDays.getText());
     }
 	public void setNumberOfDays(String text) {
 		txtNumberOfDays.setText(text);
     }
-	public String getPrice() {
-        return txtPrice.getText();
+	public float getPrice() {
+        return Float.valueOf(txtPrice.getText());
     }
 	public void setPrice(String text) {
 		txtPrice.setText(text);
@@ -231,5 +234,10 @@ public class NewTrianingPane extends JPanel {
 	public void setDescription(String text) {
 		epDescription.setText(text);
     }
+
+	public int getSurveyId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

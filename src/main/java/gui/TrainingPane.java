@@ -16,6 +16,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -32,6 +35,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+
 import com.google.api.client.util.Key;
 import com.google.common.cache.Cache;
 
@@ -41,6 +45,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
+import models.TrainingInfo;
+import models.TrainingSession;
+import dataAccess.TrainingInfoAccess;
+import dataAccess.TrainingSessionAccess;
+
+import models.Address;
 import models.TrainingInfo;
 import models.TrainingSession;
 import dataAccess.TrainingInfoAccess;
@@ -57,18 +67,23 @@ public class TrainingPane extends JPanel {
 	private JButton btnAddNewTraining;
 	private JLabel lblCityTraining;
 	private JLabel lblNewLabel_2;
-	
+	private int tabelID;
 	
 	
 	/**
 	 * Create the panel.
 	 */
-	public TrainingPane() {
+
+	public TrainingPane() {	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		HashMap<Integer, TrainingSession> listTrainingssessions= new HashMap<Integer,TrainingSession>();
+		
 		try {
-			listTrainingssessions=TrainingSessionAccess.getAll();
+			dataAccess.Cache.loadAllAddresses();
+			dataAccess.Cache.loadAllTrainingInfos();
+			dataAccess.Cache.loadAllTrainingSessions();
+			
+ 
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -76,19 +91,17 @@ public class TrainingPane extends JPanel {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
+
+		ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
+		ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+		
+		ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
+
 		
 		HashMap<Integer, TrainingInfo> listTrainings= new HashMap<Integer,TrainingInfo>();
 		
-		try {
-			listTrainings =TrainingInfoAccess.getAll();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	
+
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
@@ -152,37 +165,31 @@ public class TrainingPane extends JPanel {
         lblEmployeeExplanation.setBounds(31, 86, 278, 28);
         add(lblEmployeeExplanation);
         
-        Object [] columnHeadersSession = {"Training name","City","From","Until","Price"};
+        Object [] columnHeadersSession = {"TrainingID","Training name","City","From","Until","Price"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data1 = new ArrayList<String[]>();
 		
 		
-					for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
-						
-						try {
-							data1.add(new String[] {
 
-									TrainingInfoAccess.get(entry.getValue().getTrainingId()).getName(), String.valueOf(dataAccess.AddressAccess.get(entry.getValue().getAddressId()).getCountry()), String.valueOf(entry.getValue().getStartHour()) ,String.valueOf(entry.getValue().getEndHour()), String.valueOf(TrainingInfoAccess.get(entry.getValue().getTrainingId()).getPrice())}
-									
-							
-							);
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (URISyntaxException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-		
-				}
-		
-		
-		
+		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
+			
+			
+			data1.add(new String[] {
+					String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getTrainingId()),
+					listTraingInfo.get(entry.getValue().getTrainingId()).getName(),
+					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getCountry()), 
+					String.valueOf(entry.getValue().getStartHour()) ,
+					String.valueOf(entry.getValue().getEndHour()), 
+					String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getPrice())}
+					
+			);
+	
+
+}
+			
 		DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersSession) {
 		
-
-
 
 			@Override
 		    public boolean isCellEditable(int row, int column) {
@@ -215,6 +222,7 @@ public class TrainingPane extends JPanel {
 		sclBook.setBounds(31, 119, 1007, 530);
 		add(sclBook);
 		ListSelectionModel selectedRowBook = tbTraining.getSelectionModel();
+		
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
@@ -222,14 +230,17 @@ public class TrainingPane extends JPanel {
 				if(!selectedRowBook.isSelectionEmpty()) {
 					//GET ROW
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
+					String[] teStrings=data1.get(selectedRow);
+					setTabelID(Integer.parseInt(teStrings[0]));
 					//doe iets hier
+					
 				}
+				
 			}
 		});
-		
-		
 				
 	}	
+	
 	
 	public void addActionListener(ActionListener listener) {
 		btnSelectTraining.addActionListener(listener);
@@ -239,5 +250,11 @@ public class TrainingPane extends JPanel {
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);
     }
+	public void setTabelID(int tabelid) {
+		this.tabelID=tabelid;
+	}
+	public int getTabelID() {
+		return tabelID;
+	}
 	
 }

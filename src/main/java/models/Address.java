@@ -3,9 +3,13 @@ package models;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import dataAccess.AddressAccess;
 import dataAccess.Cache;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Address {
 	private int addressId;
 	private String administrativeArea;
@@ -55,7 +59,7 @@ public class Address {
 		}
 		// Address heeft nog geen ID, maak het address aan
 		else {
-			addressId = (AddressAccess.add(this).getAddressId());
+			addressId = AddressAccess.add(this).getAddressId();
 			Cache.addressCache.put(addressId, this);
 		}
 	}

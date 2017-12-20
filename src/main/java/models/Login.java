@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import dataAccess.LoginAcces;
 import javax.crypto.spec.PBEKeySpec;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.crypto.SecretKeyFactory;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
@@ -15,6 +17,7 @@ import java.util.Base64;
 import models.Token;
 import models.UserLoginCred;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Login {
 //DATAMEMBERS
 		
@@ -44,10 +47,9 @@ public class Login {
 					String test =pepper(salt,loginPass);					
 					UserLoginCred u = new UserLoginCred(loginName,test);					
 					
-					return dataAccess.TokenAcces.getToken(u);
+					return dataAccess.TokenAcces.getToken(u);		
 					
-					
-				}
+				}				
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
