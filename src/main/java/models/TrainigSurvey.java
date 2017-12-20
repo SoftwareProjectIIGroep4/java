@@ -1,14 +1,14 @@
 package models;
 
-public class TraingSurveys {
+public class TrainigSurvey {
 	private int surveyId;
 	private int traingId;
-public TraingSurveys(int surveyId, int traingId) {
+public TrainigSurvey(int surveyId, int traingId) {
 		super();
 		this.surveyId = surveyId;
 		this.traingId = traingId;
 	}
-public TraingSurveys() {
+public TrainigSurvey() {
 	
 }
 public int getSurveyId() {

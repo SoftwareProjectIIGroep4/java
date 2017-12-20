@@ -31,6 +31,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import dataAccess.Cache;
+import dataAccess.SurveyQuestionAcces;
 import models.Address;
 import models.SurveyQuestion;
 import models.Survey;
@@ -78,11 +80,15 @@ public class AddSurveyPane extends JPanel {
 	
 	
 	ConcurrentMap<Integer, SurveyQuestion> listSQuestions =dataAccess.Cache.surveyQuestionCache.asMap();
-			
-
+	
 	
 	/////////////////////////////////////////////////////////////
 	public AddSurveyPane() {
+		try {
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		;
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
@@ -193,14 +199,23 @@ public class AddSurveyPane extends JPanel {
 	        add(lblNewLabel_1);
 	        
 	        Object [] columnHeaderQuestionsSurvey = {"Questions for the survey"};
-			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
-			Object[][] data = {
+	        List<String[]> data1 = new ArrayList<String[]>();	       
+			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);       
+	        
+	        for (int i =0;i<MainFrame.getSurveyQuestions().size();i++) {
+
+				
+				data1.add(new String[] {
+						
+						MainFrame.getSurveyQuestions().get(i).getQuestion()
+						
+						
+				});
+		
+
+			}
 			
-					
-					
-			};
-			
-			tableQuestionsSurveyModel = new DefaultTableModel(data, columnHeaderQuestionsSurvey)
+			tableQuestionsSurveyModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeaderQuestionsSurvey)
 			{
 			    @Override
 			    public boolean isCellEditable(int row, int column) {
@@ -249,21 +264,20 @@ public class AddSurveyPane extends JPanel {
 			//-------------------------------------------------------------------------------
 			
 			Object [] columnHeadersHistoryQuestions = {"Previous questions from surveys"};
-			List<String[]> data1 = new ArrayList<String[]>();
+			List<String[]> data = new ArrayList<String[]>();
 
 			for (Map.Entry<Integer, SurveyQuestion>  entry : listSQuestions.entrySet()) {
 				
-				
-				data1.add(new String[] {
+				data.add(new String[] {
 						entry.getValue().getQuestion()
 						
 						
 				});
 		
 
-	}
+			}
 			
-			DefaultTableModel modelHistoryQuestionsSurvey = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersHistoryQuestions)
+			DefaultTableModel modelHistoryQuestionsSurvey = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersHistoryQuestions)
 			{
 			    @Override
 			    public boolean isCellEditable(int row, int column) {
@@ -360,6 +374,11 @@ public class AddSurveyPane extends JPanel {
     }
 	
 	public String getAddQuestion() {
-		return txtAddQuestion.getText();
+	
+	return txtAddQuestion.getText();
 	}
+	public void clear() {
+		txtAddQuestion.setText("");
+	}
+	
 }

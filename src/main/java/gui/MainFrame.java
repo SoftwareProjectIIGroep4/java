@@ -35,6 +35,8 @@ import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
 import models.Login;
+import models.Survey;
+import models.SurveyQuestion;
 import models.Teacher;
 import models.Token;
 import gui.LoginPane;
@@ -42,6 +44,8 @@ import gui.LoginPane;
 public class MainFrame extends JFrame {
 	private static int keeper;
 	private int teacherId=-1;
+	private static ArrayList<SurveyQuestion>surveyQuestions = new ArrayList<SurveyQuestion>();
+	private Survey survey;
 
 	private JPanel contentPane;
 
@@ -320,6 +324,7 @@ public class MainFrame extends JFrame {
                     	// layout.show van je book toevoegen nog maken
                     	layout.show(getContentPane(), "addBookPanel");
                     } else if ("addSurvey".equals(command)) {
+                    	surveyQuestions.clear();
                     	// layout.show van je survey toevoegen nog maken
                     	layout.show(getContentPane(), "addSurveyPanel");
                     }                   
@@ -710,15 +715,61 @@ public class MainFrame extends JFrame {
                         	//Back to newtrainingsessionpanel
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
                         } else if ("addQuestion".equals(command)) {
+                        	if (addSurveyPanel.getAddQuestion().equals("")) {
+                        		//FOUT?
+                        	}
+                        	else {
+                        		System.out.println(addSurveyPanel.getAddQuestion());
+                        		surveyQuestions.add(new SurveyQuestion(addSurveyPanel.getAddQuestion()));
+                        		addSurveyPanel.clear();
+                        		
+                        		//new AddSurveyPane();
+                        		
+                        	}
                         	//add question to survey
                         	
                         } else if ("deleteQuestion".equals(command)) {
+                        	
+                        	if (addSurveyPanel.getAddQuestion().equals("")) {
+                        		//FOUT?
+                        	}
+                        	else {
+                        		for (int i =0;i<surveyQuestions.size();i++) {
+                        			if(surveyQuestions.get(i).getContent().equals(addSurveyPanel.getAddQuestion())) {
+                        				surveyQuestions.remove(i);
+                        			}
+                        		}
+                        	}
                         	//delete question from survey
                         	
                         } else if ("updateQuestion".equals(command)) {
-                        	//update question from survey
+                        	if (addSurveyPanel.getAddQuestion().equals("")) {
+                        		//FOUT?
+                        	}
+                        	else {
+                        		for (int i =0;i<surveyQuestions.size();i++) {
+                        			if(surveyQuestions.get(i).getContent().equals(addSurveyPanel.getAddQuestion())) {
+                        				surveyQuestions.set(i, new SurveyQuestion(addSurveyPanel.getAddQuestion()));
+                        			}
+                        		}
+                        	}
                         	
                         }else if ("confirmSurvey".equals(command)) {
+                        	survey=new Survey();
+                        	survey.setSurveyQuestions(surveyQuestions);
+                        	try {
+								survey.save();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+                        	
+                        	
+                        	
+                        	
                         	//Confirm the survey and go back to newtrainingsessionpane
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
                         }
@@ -821,6 +872,10 @@ public class MainFrame extends JFrame {
         		
         
         layout.show(getContentPane(), "layout");
+        
+	}
+	public static  ArrayList<SurveyQuestion> getSurveyQuestions() {
+		return surveyQuestions;
 	}
 	public static int getKeeper() {
 		
@@ -829,4 +884,5 @@ public class MainFrame extends JFrame {
 	public void setKeeper(int keeper) {
 		this.keeper=keeper;
 	}
+	
 }
