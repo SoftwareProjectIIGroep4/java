@@ -11,16 +11,21 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.Font;
 
 
 public class LoginPane extends JPanel {
 
-	private JTextField txtPassword;
+	private JPasswordField  txtPassword;
 	private JTextField txtEmail;
     private JButton btnLogin;
     private JLabel lblMessage;
+    private JLabel lblPassword;
+    private JLabel lblUsername;
+    private JLabel lblNewLabel;
 	
 	/**
 	 * Create the panel.
@@ -31,9 +36,9 @@ public class LoginPane extends JPanel {
 		
 		btnLogin = new JButton("Login");
 		btnLogin.setActionCommand("Login");
-		btnLogin.setBounds(192, 302, 89, 23);
+		btnLogin.setBounds(549, 381, 149, 50);
 		
-		txtPassword = new JTextField();
+		txtPassword = new JPasswordField ();
 		txtPassword.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -46,8 +51,7 @@ public class LoginPane extends JPanel {
 				txtPassword.selectAll();
 			}
 		});
-		txtPassword.setText("Password");
-		txtPassword.setBounds(143, 256, 192, 20);
+		txtPassword.setBounds(526, 338, 192, 20);
 		txtPassword.setColumns(10);
 		
 		txtEmail = new JTextField();
@@ -64,10 +68,9 @@ public class LoginPane extends JPanel {
 			}
 		});
 	
-		txtEmail.setText("Email");
 		txtEmail.selectAll();
 		txtEmail.setToolTipText("Vuur je email in.");
-		txtEmail.setBounds(143, 214, 192, 20);
+		txtEmail.setBounds(526, 249, 192, 20);
 		txtEmail.setColumns(10);
 		
 		lblMessage = new JLabel("");
@@ -79,23 +82,33 @@ public class LoginPane extends JPanel {
 		this.add(txtEmail);
 		this.add(txtPassword);
 		this.add(btnLogin);
+		
+		lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPassword.setBounds(526, 316, 96, 20);
+		add(lblPassword);
+		
+		lblUsername = new JLabel("Username");
+		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblUsername.setBounds(526, 223, 96, 20);
+		add(lblUsername);
+		
+		lblNewLabel = new JLabel("Welcome");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel.setBounds(569, 137, 129, 50);
+		add(lblNewLabel);
 			
 	}
 	
 	 public void addActionListener(ActionListener listener) {
 		 	btnLogin.addActionListener(listener);
 	    }
-	 void changeColor() {
-		 lblMessage.setText("Het email of wachtwoord is fout");
-			lblMessage.setForeground(Color.red);
-			this.add(lblMessage);
-
-	 }
+	 
 	 
 	 public String getEmail() {
 	        return txtEmail.getText();
 	    }
-	public String getPassword() {
+	 public String getPassword() {
 	        return txtPassword.getText();
 	   }
 }

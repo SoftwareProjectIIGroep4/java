@@ -37,7 +37,7 @@ import models.TrainingSession;
 public class SelectTrainingPane extends JPanel {
 	
 	private JTable tbTraining;
-	private JButton btnCancel;
+	private JButton btnBack;
 	private JButton btnMakeTrainingSession;
 	private int selectedRow;
 	TrainingPane trainingPane;
@@ -62,13 +62,13 @@ public class SelectTrainingPane extends JPanel {
 		lblSelectTraining.setBounds(10, 11, 250, 25);
 		add(lblSelectTraining);
 		
-		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(10, 638, 89, 23);
-		btnCancel.setActionCommand("Cancel");
-		add(btnCancel);
+		btnBack = new JButton("Back");
+		btnBack.setBounds(1071, 175, 172, 60);
+		btnBack.setActionCommand("BackToTrainingPane");
+		add(btnBack);
 		
 		btnMakeTrainingSession = new JButton("Make training session");
-		btnMakeTrainingSession.setBounds(410, 638, 150, 23);
+		btnMakeTrainingSession.setBounds(1071, 90, 172, 60);
 		btnMakeTrainingSession.setActionCommand("MakeTrainingSession");
 		add(btnMakeTrainingSession);
 		
@@ -119,7 +119,7 @@ public class SelectTrainingPane extends JPanel {
 		JScrollPane sclTraining = new JScrollPane(tbTraining);
 		sclTraining.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclTraining.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclTraining.setBounds(20, 59, 510, 560);
+		sclTraining.setBounds(20, 56, 1010, 563);
 		add(sclTraining);
 		ListSelectionModel selectedRowBook = tbTraining.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
@@ -134,13 +134,13 @@ public class SelectTrainingPane extends JPanel {
 		});
 		
 		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(10, 47, 550, 580);
+		lblBackBorder.setBounds(10, 47, 1030, 580);
 		lblBackBorder.setBorder(border);
 		add(lblBackBorder);
 	}
 	
 	public void addActionListener(ActionListener listener) {
-		btnCancel.addActionListener(listener);
+		btnBack.addActionListener(listener);
 		btnMakeTrainingSession.addActionListener(listener);
     }
 	

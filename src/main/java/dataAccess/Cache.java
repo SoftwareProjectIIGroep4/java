@@ -18,6 +18,7 @@ import models.Book;
 import models.SurveyAnswer;
 import models.SurveyQuestion;
 import models.Survey;
+import models.FollowingTraining;
 
 
 //Source: https://www.tutorialspoint.com/guava/guava_caching_utilities.htm
@@ -26,7 +27,7 @@ public class Cache {
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Survey>() {
 				@Override
 				public Survey load(Integer key) throws Exception {
-					return surveyCache.get(key);
+					return SurveyAcces.get(key);
 				}
 			});
 	
@@ -34,14 +35,14 @@ public class Cache {
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, SurveyAnswer>() {
 				@Override
 				public SurveyAnswer load(Integer key) throws Exception {
-					return surveyAnswerCache.get(key);
+					return SurveyAnswerAcces.get(key);
 				}
 			});
-	public static LoadingCache<Integer, SurveyQuestion> surveyQuestionCache = CacheBuilder.newBuilder().maximumSize(100)
+	public static LoadingCache<Integer, SurveyQuestion> surveyQuestionCache = CacheBuilder.newBuilder().maximumSize(500)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, SurveyQuestion>() {
 				@Override
 				public SurveyQuestion load(Integer key) throws Exception {
-					return surveyQuestionCache.get(key);
+					return SurveyQuestionAcces.get(key);
 				}
 			});
 	public static LoadingCache<Integer, Address> addressCache = CacheBuilder.newBuilder().maximumSize(100)
@@ -114,6 +115,7 @@ public class Cache {
 					return BookAccess.get(key);
 				}
 			});
+	
 	public static void loadAllSurveys() throws IOException, URISyntaxException {
 		surveyCache.putAll(SurveyAcces.getAllSurveys());
 	}
@@ -154,4 +156,5 @@ public class Cache {
 	public static void loadAllBooks() throws IOException, URISyntaxException {
 		bookCache.putAll(BookAccess.getAll());
 	}
+	
 }

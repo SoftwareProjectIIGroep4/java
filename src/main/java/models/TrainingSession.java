@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.Date;
 import java.sql.Time;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import dataAccess.Cache;
@@ -20,24 +22,13 @@ public class TrainingSession {
 	private Time startHour;
 	private Time endHour;
 	private boolean cancelled;
-	private int surveyId;
-	
-			
-	
-	public int getSurveyId() {
-		return surveyId;
-	}
-
-	public void setSurveyId(int surveyId) {
-		this.surveyId = surveyId;
-	}
+	private int surveyId;		
 
 	public TrainingSession() {
 		super();		
 	}
 
-	public TrainingSession(int addressId, int teacherId, int trainingId, Date date, Time startHour, Time endHour,
-			boolean cancelled,int surveyId) {
+	public TrainingSession(int addressId, int teacherId, int trainingId, Date date, Time startHour, Time endHour, boolean cancelled, int surveyId) {
 		super();
 		this.addressId = addressId;
 		this.teacherId = teacherId;
@@ -46,12 +37,11 @@ public class TrainingSession {
 		this.startHour = startHour;
 		this.endHour = endHour;
 		this.cancelled = cancelled;
-		this.surveyId=surveyId;
-		
+		this.surveyId = surveyId;
 	}
 
 	public TrainingSession(int trainingSessionId, int addressId, int teacherId, int trainingId, Date date,
-			Time startHour, Time endHour, boolean cancelled) {
+			Time startHour, Time endHour, boolean cancelled, int surveyId) {
 		super();
 		this.trainingSessionId = trainingSessionId;
 		this.addressId = addressId;
@@ -61,6 +51,7 @@ public class TrainingSession {
 		this.startHour = startHour;
 		this.endHour = endHour;
 		this.cancelled = cancelled;
+		this.surveyId = surveyId;
 	}
 
 	public void save() throws URISyntaxException, IOException {		
@@ -151,6 +142,14 @@ public class TrainingSession {
 
 	public void setCanceled(boolean cancelled) {
 		this.cancelled = cancelled;
+	}
+	
+	public int getSurveyId() {
+		return surveyId;
+	}
+
+	public void setSurveyId(int surveyId) {
+		this.surveyId = surveyId;
 	}
 	
 	public String toString() {
