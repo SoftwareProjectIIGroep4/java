@@ -71,20 +71,26 @@ import com.itextpdf.layout.element.Image;
 
 
 public class ExtraInfoEmployee extends JPanel {
-		
-		private int selectedRow;
-		private JButton btnTraining;
-		private JButton btnEmployees;
-		private JButton btnStatistics;
-		private JButton btnTrainingSession;
-		private JTable tbEmployeeHistoryTraining;
-		private JTable tbEmployeeHistoryBook;
-		private JButton uploadCertificate;
-		private DefaultTableModel modelEmployeeHistoryTraining;
-		private DefaultTableModel modelEmployeeHistoryBooks;
-		private JButton btnListOfTrainings;
-	  private JTextField textFieldEmployeeID;
-	  private int employeeID;
+
+	private int selectedRow;
+	private JButton btnTraining;
+	private JButton btnEmployees;
+	private JButton btnStatistics;
+	private JButton btnTrainingSession;
+	private JTable tbEmployeeHistoryTraining;
+	private JTable tbEmployeeHistoryBook;
+	private JButton uploadCertificate;
+	private DefaultTableModel modelEmployeeHistoryTraining;
+	private DefaultTableModel modelEmployeeHistoryBooks;
+	private JButton btnListOfTrainings;
+	private JTextField textFieldEmployeeID;
+	private int employeeID;
+	private JLabel lblTrainingID;
+	private JLabel lblTrainingName;
+	private JLabel lblFirstName;
+	private JLabel lblLastName;
+	private JLabel lblShowImageIcon;
+	private DefaultTableModel tableModel;
 
 	/**
 	 * Create the panel.
@@ -103,50 +109,115 @@ public class ExtraInfoEmployee extends JPanel {
 	public ExtraInfoEmployee() {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
-		
-		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-	        
-		  btnTraining = new JButton("Training"); 
-		  btnTraining.setBackground(Color.WHITE);
-		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
-		  btnTraining.setOpaque(true);
-		  btnTraining.setActionCommand("TrainingMenu");
-		  btnTraining.setBounds(124, 0, 264, 75);
-	        add(btnTraining);
-	        
-	        btnTrainingSession = new JButton("Training session");
-	        btnTrainingSession.setBackground(Color.WHITE);
-	        btnTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
-	        btnTrainingSession.setOpaque(true);
-	        btnTrainingSession.setActionCommand("TrainingSessionMenu");
-	        btnTrainingSession.setBounds(387, 0, 264, 75);
-	        add(btnTrainingSession);
-	        
-	        btnEmployees = new JButton("Employees");
-	        btnEmployees.setBackground(Color.WHITE);
-	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
-	        btnEmployees.setOpaque(true);
-	        btnEmployees.setActionCommand("EmployeesMenu");
-	        btnEmployees.setBounds(650, 0, 264, 75);
-	        add(btnEmployees);
-	        
-	        btnStatistics = new JButton("Statistics");
-	        btnStatistics.setBackground(Color.WHITE);
-	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
-	        btnStatistics.setOpaque(true);
-	        btnStatistics.setActionCommand("StatisticsMenu");
-	        btnStatistics.setBounds(912, 0, 264, 75);
-	        add(btnStatistics);
-	        
-	        JLabel lblNewLabel = new JLabel("logo");
-	        lblNewLabel.setBounds(0, 0, 133, 75);
-	        lblNewLabel.setOpaque(true);
-	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
+
+
+		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+
+
+		btnTraining = new JButton("Training");
+		btnTraining.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldEmployeeID.setText("");
+				lblTrainingID.setText("");
+				lblTrainingName.setText("");
+				lblFirstName.setText("");
+				lblLastName.setText("");
+				lblShowImageIcon.setIcon(null);
+				tableModel.getDataVector().removeAllElements();
+			}
+		});
+		btnTraining.setBackground(Color.WHITE);
+		btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
+		btnTraining.setOpaque(true);
+		btnTraining.setActionCommand("TrainingMenu");
+		btnTraining.setBounds(133, 0, 211, 75);
+		add(btnTraining);
+
+		btnTrainingSession = new JButton("Training session");
+		btnTrainingSession.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldEmployeeID.setText("");
+				lblTrainingID.setText("");
+				lblTrainingName.setText("");
+				lblFirstName.setText("");
+				lblLastName.setText("");
+				lblShowImageIcon.setIcon(null);
+				tableModel.getDataVector().removeAllElements();
+			}
+		});
+		btnTrainingSession.setBackground(Color.WHITE);
+		btnTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
+		btnTrainingSession.setOpaque(true);
+		btnTrainingSession.setActionCommand("TrainingSessionMenu");
+		btnTrainingSession.setBounds(344, 0, 211, 75);
+		add(btnTrainingSession);
+
+		btnEmployees = new JButton("Employees");
+		btnEmployees.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldEmployeeID.setText("");
+				lblTrainingID.setText("");
+				lblTrainingName.setText("");
+				lblFirstName.setText("");
+				lblLastName.setText("");
+				lblShowImageIcon.setIcon(null);
+				tableModel.getDataVector().removeAllElements();
+			}
+		});
+		btnEmployees.setBackground(Color.WHITE);
+		btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
+		btnEmployees.setOpaque(true);
+		btnEmployees.setActionCommand("EmployeesMenu");
+		btnEmployees.setBounds(555, 0, 212, 75);
+		add(btnEmployees);
+
+		btnStatistics = new JButton("Statistics");
+		btnStatistics.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldEmployeeID.setText("");
+				lblTrainingID.setText("");
+				lblTrainingName.setText("");
+				lblFirstName.setText("");
+				lblLastName.setText("");
+				lblShowImageIcon.setIcon(null);
+				tableModel.getDataVector().removeAllElements();
+			}
+		});
+		btnStatistics.setBackground(Color.WHITE);
+		btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
+		btnStatistics.setOpaque(true);
+		btnStatistics.setActionCommand("StatisticsMenu");
+		btnStatistics.setBounds(767, 0, 212, 75);
+		add(btnStatistics);
+
+		/**	jtbTrainingRequests = new JToggleButton("Training requests");
+		/**	jtbTrainingRequests.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				jtbTrainingRequests.setBorder(border);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				jtbTrainingRequests.setBorder(null);
+			}
+		}); 
+		jtbTrainingRequests.setBackground(Color.WHITE);
+		jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
+		jtbTrainingRequests.setOpaque(true);
+		jtbTrainingRequests.setActionCommand("TrainingRequestsMenu");
+		jtbTrainingRequests.setBounds(979, 0, 211, 75);
+		add(jtbTrainingRequests); */
+
+		JLabel lblNewLabel = new JLabel("logo");
+		lblNewLabel.setBounds(0, 0, 133, 75);
+		lblNewLabel.setOpaque(true);
+		add(lblNewLabel);
+
+		JLabel lblNewLabel_1 = new JLabel("Profiel");
+		lblNewLabel_1.setBounds(1190, 0, 75, 75);
+		lblNewLabel_1.setOpaque(true);
+		add(lblNewLabel_1);
+
 
 
 		JLabel employeeLabel = new JLabel("Employee search by ID: ");
@@ -164,12 +235,12 @@ public class ExtraInfoEmployee extends JPanel {
 		lblFirstNameFixed.setBounds(332, 150, 93, 25);
 		add(lblFirstNameFixed);
 
-		JLabel lblLastName = new JLabel("");
+		lblLastName = new JLabel("");
 		lblLastName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblLastName.setBounds(425, 200, 155, 25);
 		add(lblLastName);
 
-		JLabel lblFirstName = new JLabel("");
+		lblFirstName = new JLabel("");
 		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblFirstName.setBounds(425, 146, 155, 25);
 		add(lblFirstName);
@@ -179,15 +250,15 @@ public class ExtraInfoEmployee extends JPanel {
 		lblLastNameFixed.setBounds(332, 205, 81, 16);
 		add(lblLastNameFixed);
 
-		JLabel lblTrainingName = new JLabel("");
+		lblTrainingName = new JLabel("");
 		lblTrainingName.setBounds(776, 200, 255, 22);
 		add(lblTrainingName);
 
-		JLabel lblTrainingID = new JLabel("");
+		lblTrainingID = new JLabel("");
 		lblTrainingID.setBounds(776, 150, 117, 21);
 		add(lblTrainingID);
 
-		JLabel lblShowImageIcon = new JLabel("");
+		lblShowImageIcon = new JLabel("");
 		lblShowImageIcon.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblShowImageIcon.setBounds(669, 282, 521, 427);
 		add(lblShowImageIcon);
@@ -250,7 +321,7 @@ public class ExtraInfoEmployee extends JPanel {
 
 		List<String[]> data = new ArrayList<String[]>();
 
-		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersHistoryTraining) {
+		tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersHistoryTraining) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				//all cells false
@@ -348,7 +419,7 @@ public class ExtraInfoEmployee extends JPanel {
 					});
 				}
 
-				DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersHistoryTraining) {
+				tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersHistoryTraining) {
 					@Override
 					public boolean isCellEditable(int row, int column) {
 						//all cells false
