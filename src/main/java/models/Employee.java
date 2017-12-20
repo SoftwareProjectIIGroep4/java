@@ -1,8 +1,9 @@
 package models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Employee {
 	private int employeeID;
 	private String lastName;
