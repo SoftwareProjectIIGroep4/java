@@ -22,6 +22,7 @@ import dataAccess.CertificateAccess;
 import dataAccess.ClientCredentials;
 import dataAccess.GoogleBooksAPI;
 import dataAccess.TrainingSessionAccess;
+import dataAccess.UserAccess;
 import demos.Demo1;
 import models.Address;
 import models.Book;
@@ -36,13 +37,61 @@ import models.SurveyQuestion;;
 
 public class App {
 	 public static void main(String[] args) throws IOException, URISyntaxException {
+		    JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+
+		 
+		 System.out.println(UserAccess.get(1));
+		 
+		   /* JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+
+		    try {
+	
+		      String prefix = null;
+		      String query = "Java";
+		      for (String arg : args) {
+		        if ("--author".equals(arg)) {
+		          prefix = "inauthor:";
+		        } else if ("--isbn".equals(arg)) {
+		          prefix = "isbn:";
+		        } else if ("--title".equals(arg)) {
+		          prefix = "intitle:";
+		        } else if (arg.startsWith("--")) {
+		          System.err.println("Unknown argument: " + arg);
+		          System.exit(1);
+		        } else {
+		          query = arg;
+		        }
+		      }
+		      if (prefix != null) {
+		        query = prefix + query;
+		      }
+		      try {
+		    	  ArrayList<Book> testBooks = new ArrayList<>();
+		    	  testBooks= GoogleBooksAPI.queryGoogleBooks(jsonFactory, query);
+		        // Success!
+		      	System.out.println("DIT IS EEN TESTZONE PLS not ignore");
+		      	for (int i=0;i<testBooks.size();i++) {
+		      		System.out.println(testBooks.get(i).toString());
+		      	}
+		      	System.out.println("EINDE TESTZONE ");
+		        return;
+		      } catch (IOException e) {
+		        System.err.println(e.getMessage());
+		      }
+		    } catch (Throwable t) {
+		      t.printStackTrace();
+		    }
+		    
+		    System.exit(0);
+		  };
+	
 		 
 		 String s = "2017-01-01";
 	     Date date= Date.valueOf(s);
 		 
 		 TrainingSession session = new TrainingSession(62, 1, 6, new Date(date.getTime()).toString() , new Time(1510833600000L) , new Time(1510840800000L) , false, 1);
 		 session.save();
-     	
+     	*/
      	
 		 
 	 }
@@ -99,5 +148,7 @@ public class App {
 		System.out.println(certificate);
 		
 	}
+	
+	
 }
 

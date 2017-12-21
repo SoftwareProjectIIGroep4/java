@@ -91,16 +91,11 @@ public class MainFrame extends JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
         LoginPane newLoginPane =  new LoginPane();
-        HomePane homePanel = new HomePane();
         TrainingPane trainingPanel = new TrainingPane();
         TrainingSessionPane trainingSessionPanel = new TrainingSessionPane();
         NewTrainingSessionPane newNewTrainingSessionPanel = new NewTrainingSessionPane();
         StatisticsPane statisticsPanel = new StatisticsPane();    
         ExtraInfoEmployee employeePanel = new ExtraInfoEmployee();
-
-       // StatistiekenPane statistiekenPanel = new StatistiekenPane();    
-
-        //TrainingrequestPane trainingrequestPanel = new TrainingrequestPane();
         TrainingSessionBookPane newTrainingSessionBookPane = new TrainingSessionBookPane();
         TrainingSessionPoeplePane newTrainingSessionPoeplePane = new TrainingSessionPoeplePane();
         TrainingSessionInfoPane newTrainingSessionInfoPane = new TrainingSessionInfoPane();
@@ -116,7 +111,6 @@ public class MainFrame extends JFrame {
 
         
         getContentPane().add(newLoginPane, "loginPanel");
-        getContentPane().add(homePanel, "homePanel");
         getContentPane().add(trainingPanel, "trainingPanel");
         getContentPane().add(trainingSessionPanel, "trainingSessionPanel");
         getContentPane().add(newNewTrainingSessionPanel, "NewTrainingSessionPane");
@@ -183,30 +177,9 @@ public class MainFrame extends JFrame {
 						e1.printStackTrace();
 					}
                 	if (token !=null) {
-                    layout.show(getContentPane(), "homePanel");
+                    layout.show(getContentPane(), "trainingPanel");
                     }
                 	
-                }
-            }
-        });
-        
-        	homePanel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String command = e.getActionCommand();
-                System.out.println(command);
-                if ("TrainingMenu".equals(command)) {
-                	//show trainingPane
-                	layout.show(getContentPane(), "trainingPanel");
-                } else if ("TrainingSessionMenu".equals(command)) {
-                	//show trainingSessionPane
-                	layout.show(getContentPane(), "trainingSessionPanel");
-                } else	if ("EmployeesMenu".equals(command)) {
-                	//show employeesPane
-                	layout.show(getContentPane(), "employeePanel");
-                } else if ("StatisticsMenu".equals(command)) {
-                	//show statisticsSessionPane
-                	layout.show(getContentPane(), "statisticsPanel");
                 }
             }
         });
@@ -765,11 +738,11 @@ public class MainFrame extends JFrame {
                         		addSurveyPanel.gettableQuestionsSurveyModel().addRow(new Object[]{addSurveyPanel.getAddQuestion()});
                         		new AddSurveyPane();
                         		
-                        		//new AddSurveyPane();
-                        		
+                        		//new AddSurveyPane();	
                         	}
                         	//add question to survey
                         	
+
                         } else if ("deleteQuestion".equals(command)) {
                         	
                         	if (addSurveyPanel.getAddQuestion().equals("")) {
@@ -808,6 +781,7 @@ public class MainFrame extends JFrame {
                         	
                         }else if ("confirmSurvey".equals(command)) {
                         	Survey survey=new Survey();                       
+
                         	try {
 								survey.save();
 							} catch (URISyntaxException e1) {
@@ -817,6 +791,7 @@ public class MainFrame extends JFrame {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
+
                         	for (int i=0;i<surveyQuestions.size();i++) {
                         		surveyQuestions.get(i).setSurveyID(survey.getSurveyID());
                         		try {
@@ -835,6 +810,7 @@ public class MainFrame extends JFrame {
                         	
                         	
                         	
+
                         	//Confirm the survey and go back to newtrainingsessionpane
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
                         }
@@ -921,7 +897,6 @@ public class MainFrame extends JFrame {
                         	// Terug naar statistiekenpanel
                         	layout.show(getContentPane(), "statisticsPanel");
                         } 
-                        
                     }
                 });
         		
