@@ -60,6 +60,7 @@ public class TrainingSessionPane extends JPanel {
 	private DefaultTableModel modelSession;
 	private DefaultTableModel tableModel;
 	private String trainingSessionID;
+	private String addressID;
 	
 
 	
@@ -76,8 +77,6 @@ public class TrainingSessionPane extends JPanel {
 		ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
 		ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
 		ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -122,29 +121,27 @@ public class TrainingSessionPane extends JPanel {
 	        lblNewLabel.setBounds(0, 0, 133, 75);
 	        lblNewLabel.setOpaque(true);
 	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
 		
 		Object [] columnHeadersSession = {"Training ID", "Training name","City","Date","Hour"};
-
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data = new ArrayList<String[]>();
+		
 		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
 			data.add(new String[] {
 					String.valueOf(entry.getValue().getTrainingSessionId()),
 					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
 					String.valueOf(entry.getValue().getDate()) ,
-					String.valueOf(entry.getValue().getStartHour())}
+					String.valueOf(entry.getValue().getStartHour()),
+					String.valueOf(entry.getValue().getAddressId())
+					}
 			);
 		}
 		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersSession) {
 
-		    @Override
+
+			@Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
@@ -183,119 +180,26 @@ public class TrainingSessionPane extends JPanel {
 					//doe iets hier
 					String[] teStrings=data.get(selectedRow);
 					trainingSessionID = teStrings[0];
-					System.out.println(teStrings[0]);
+					addressID = teStrings[5];
 				}
 			}
 		});
-		
+
 		btnShowTrainingSession = new JButton("Show training session");
 		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
 		btnShowTrainingSession.setBounds(1072,138,160,64);
 		add(btnShowTrainingSession);
 		
-		btnShowTrainingSession = new JButton("Show training session");
-		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
-		btnShowTrainingSession.setBounds(1000, 138, 160, 64);
-		add(btnShowTrainingSession);
-		
 
-		//btnShowTrainingSession = new JButton("Show training session");
-		//btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
-		//btnShowTrainingSession.setBounds(1030, 138, 160, 64);
-		//add(btnShowTrainingSession);
 
-		JLabel lblFilters = new JLabel("Filters");
-		lblFilters.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblFilters.setBounds(820, 212, 46, 16);
-		add(lblFilters);
-		
-		/*JCheckBox chckbxMonday = new JCheckBox("Monday");
-		chckbxMonday.setBounds(841, 288, 97, 23);
-		add(chckbxMonday);
-		
-		JCheckBox chckbxTeusday = new JCheckBox("Tuesday");
-		chckbxTeusday.setBounds(979, 288, 97, 23);
-		add(chckbxTeusday);
-		
-		JCheckBox chckbxWednesday = new JCheckBox("Wednesday");
-		chckbxWednesday.setBounds(841, 314, 97, 23);
-		add(chckbxWednesday);
-		
-		JCheckBox chckbxThursday = new JCheckBox("Thursday");
-		chckbxThursday.setBounds(979, 314, 97, 23);
-		add(chckbxThursday);
-		
-		JCheckBox chckbxFriday = new JCheckBox("Friday");
-		chckbxFriday.setBounds(841, 340, 97, 23);
-		add(chckbxFriday);
-		
-		JCheckBox chckbxSaturday = new JCheckBox("Saturday");
-		chckbxSaturday.setBounds(979, 340, 97, 23);
-		add(chckbxSaturday);
-		
-		JCheckBox chckbxSunday = new JCheckBox("Sunday");
-		chckbxSunday.setBounds(841, 366, 97, 23);
-		add(chckbxSunday);*/
-		
-		JLabel lblFrom = new JLabel("From:");
-		lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblFrom.setBounds(841, 421, 46, 14);
-		add(lblFrom);
-		
-		JLabel lblUntil = new JLabel("Until:");
-		lblUntil.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblUntil.setBounds(841, 481, 46, 14);
-		add(lblUntil);
-		
-		JLabel lblBackBorder2 = new JLabel("");
-		lblBackBorder2.setBounds(820, 239, 385, 427);
-		lblBackBorder2.setBorder(border);
-		add(lblBackBorder2);
-		
-		txtFromTrainingSession = new JTextField();
-		txtFromTrainingSession.setBounds(911, 413, 189, 35);
-		txtFromTrainingSession.setColumns(10);
-		txtFromTrainingSession.addFocusListener(new FocusAdapter() {
-        	@Override
-        	public void focusGained(FocusEvent arg0) {
-        		txtFromTrainingSession.selectAll();
-        	}
-		});
-		txtFromTrainingSession.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		txtFromTrainingSession.selectAll();
-        	}
-        });
-        add(txtFromTrainingSession);
-		
-        txtUntilTrainingSession = new JTextField();
-        txtUntilTrainingSession.setBounds(911, 473, 189, 35);
-        txtUntilTrainingSession.setColumns(10);
-        txtUntilTrainingSession.addFocusListener(new FocusAdapter() {
-        	@Override
-        	public void focusGained(FocusEvent arg0) {
-        		txtUntilTrainingSession.selectAll();
-        	}
-		});
-        txtUntilTrainingSession.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		txtUntilTrainingSession.selectAll();
-        	}
-        });
-        add(txtUntilTrainingSession);
-        
 		JLabel lblNewLabel_2 = new JLabel("List of training sessions");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(31, 86, 278, 28);
 		add(lblNewLabel_2);
-
 		
 	}
 	
 	public void addActionListener(ActionListener listener) {
-		btnAddTrainingSession.addActionListener(listener);
 		btnShowTrainingSession.addActionListener(listener);
 		jtbTraining.addActionListener(listener);
 		jtbStatistics.addActionListener(listener);
@@ -311,5 +215,8 @@ public class TrainingSessionPane extends JPanel {
 	}
 	public int getTrainingSessionID() {
 		return Integer.parseInt(trainingSessionID);
+	}
+	public int getAddressID() {
+		return Integer.parseInt(addressID);
 	}
 }
