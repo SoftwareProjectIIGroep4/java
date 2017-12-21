@@ -229,7 +229,6 @@ public class TrainingSessionPoeplePane extends JPanel {
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
-				// TODO Auto-generated method stub
 				if(!selectedRowBook.isSelectionEmpty()) {
 					//GET ROW
 					selectedRow = selectedRowBook.getMinSelectionIndex();
@@ -261,24 +260,17 @@ public class TrainingSessionPoeplePane extends JPanel {
 	public void setListEmployee(int id) {
 		try {
 			Object [] columnHeadersEmployee = {"Employee ID","Employee name","Titel"};
-			System.out.println("2");
 			 HashMap<Integer, Employee> ListEmployee = EmployeeAccess.getBySession(id);
 			 List<String[]> data = new ArrayList<String[]>();
 				for (Integer  entry : ListEmployee.keySet()) {
-					System.out.println("1");
 					data.add(new String[] {
 							String.valueOf(ListEmployee.get(entry).getEmployeeID()),
 							ListEmployee.get(entry).getTitleOfCourtesy()+ " " +ListEmployee.get(entry).getFirstName() + " " + ListEmployee.get(entry).getLastName(),
 							ListEmployee.get(entry).getTitle()
 							}
 					);
-					System.out.println("test voor de print out");
-					
-					System.out.println("test" + ListEmployee.get(entry).getFirstName());
 				}
 				DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersEmployee) {
-
-
 					@Override
 				    public boolean isCellEditable(int row, int column) {
 				       //all cells false
@@ -291,8 +283,6 @@ public class TrainingSessionPoeplePane extends JPanel {
       exp.printStackTrace();
       
   }
-		
-		System.out.println("4");
 	}
 
 }

@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
@@ -30,8 +31,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import dataAccess.BookAccess;
+import dataAccess.EmployeeAccess;
 import models.Address;
 import models.Book;
+import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
 
@@ -171,7 +175,7 @@ public class TrainingSessionBookPane extends JPanel {
 		lblResearch.setBounds(30, 233, 70, 14);
 		add(lblResearch);
 		
-		Object [] columnHeadersBook = {"isbn","Title","Author","Price","Publisher"};
+		Object [] columnHeadersBook = {"isbn","Title",/*"Author",*/"Price","Publisher"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersBook);
 		List<String[]> data = new ArrayList<String[]>();
@@ -256,4 +260,46 @@ public class TrainingSessionBookPane extends JPanel {
 	public int getSelectedRow() {
 		return selectedRow;
 	}
+	public void setListBook(int id) {
+		try {
+			Object [] columnHeadersBook = {"id","Title",/*"Author",*/"Price","Publisher"};
+			System.out.println("toon trainingID" + String.valueOf(id));
+			HashMap<Long, Book> ListBook = BookAccess.getBooksByTrainingId(id);
+			System.out.println("toon toString book" + ListBook.toString());
+			 List<String[]> data = new ArrayList<String[]>();
+				for (Long  entry : ListBook.keySet()) {
+					System.out.println("book1");
+					data.add(new String[] {
+							String.valueOf(ListBook.get(entry).getBookID()),
+							ListBook.get(entry).getTitle(),
+							//ListBook.get(entry).getAuthor(),
+							String.valueOf(ListBook.get(entry).getPrice()),
+							ListBook.get(entry).getPublisher()
+							
+							}
+					);
+					System.out.println("test book voor de print out");
+					
+					System.out.println("test" + ListBook.get(entry).getTitle());
+				}
+				DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersBook) {
+
+
+					@Override
+				    public boolean isCellEditable(int row, int column) {
+				       //all cells false
+				       return false;
+				    }
+				};
+				tbBook.setModel(tableModel);
+		} catch (Exception exp) {
+			System.out.println("book§nope");
+			exp.printStackTrace();
+      
+		}
+				System.out.println("book4");
+	}
+
+	
+	
 }

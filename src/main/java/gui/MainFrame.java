@@ -262,12 +262,13 @@ public class MainFrame extends JFrame {
                     } else if ("goToTrainingSessionInfo".equals(command)) {
                         //show trainingsessioninfopane
                         layout.show(getContentPane(), "TrainingSessionInfoPane");
-                        System.out.println(trainingSessionPanel.getTrainingSessionID());
+                        System.out.println(trainingSessionPanel.getTrainingID());
                         newTrainingSessionInfoPane.setGeneralInfo(trainingSessionPanel.getTrainingSessionID());
                         newTrainingSessionInfoPane.setExamInfo(trainingSessionPanel.getTrainingSessionID());
                         newTrainingSessionInfoPane.setPaymentInfo(trainingSessionPanel.getTrainingSessionID());
                         newTrainingSessionMapPane.setImage(trainingSessionPanel.getAddressID());
                         newTrainingSessionPoeplePane.setListEmployee(trainingSessionPanel.getTrainingSessionID());
+                        newTrainingSessionBookPane.setListBook(trainingSessionPanel.getTrainingID());
                         
                     }
                     

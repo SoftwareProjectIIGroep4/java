@@ -61,6 +61,7 @@ public class TrainingSessionPane extends JPanel {
 	private DefaultTableModel tableModel;
 	private String trainingSessionID;
 	private String addressID;
+	private String trainingID;
 	
 
 	
@@ -134,7 +135,8 @@ public class TrainingSessionPane extends JPanel {
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
 					String.valueOf(entry.getValue().getDate()) ,
 					String.valueOf(entry.getValue().getStartHour()),
-					String.valueOf(entry.getValue().getAddressId())
+					String.valueOf(entry.getValue().getAddressId()),
+					String.valueOf(entry.getValue().getTrainingId())
 					}
 			);
 		}
@@ -181,6 +183,8 @@ public class TrainingSessionPane extends JPanel {
 					String[] teStrings=data.get(selectedRow);
 					trainingSessionID = teStrings[0];
 					addressID = teStrings[5];
+					trainingID = teStrings[6];
+					//System.out.println(trainingID);
 				}
 			}
 		});
@@ -218,5 +222,8 @@ public class TrainingSessionPane extends JPanel {
 	}
 	public int getAddressID() {
 		return Integer.parseInt(addressID);
+	}
+	public int getTrainingID() {
+		return Integer.parseInt(trainingID);
 	}
 }
