@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 import java.text.DateFormat;
@@ -28,7 +28,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import dataAccess.GoogleBooksAPI;
 import dataAccess.SurveyQuestionAcces;
 import dataAccess.TrainingInfoAccess;
-import gui.EmployeePane;
+//import gui.EmployeePane;
 import models.Address;
 import models.Book;
 import models.TrainingInfo;
@@ -44,11 +44,14 @@ import gui.LoginPane;
 public class MainFrame extends JFrame {
 	
 	private static int keeper;
-	private int teacherId=-1;
+	
 	private static ArrayList<SurveyQuestion>surveyQuestions = new ArrayList<SurveyQuestion>();
+	private int teacherId=-1;
 	private int surveyId=-1;
 	private int bookId=-1;
 	private int trainingId=-1;
+	private Book book ;
+	private TrainingBooks trainingBooks;
 		
 	
 
@@ -202,6 +205,7 @@ public class MainFrame extends JFrame {
                 	setKeeper(trainingPanel.getTabelID());
                 	trainingId=keeper;
                 	
+                	
                 	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
                 	for (Map.Entry<Integer, TrainingInfo>  entry : listTraingInfo.entrySet()) {
             			if (entry.getValue().getTrainingId()==MainFrame.getKeeper()) {
@@ -289,12 +293,10 @@ public class MainFrame extends JFrame {
                     			)
                     		
                     	{
-                    		
-                    		System.out.println("error message");
                     		System.out.println(newNewTrainingSessionPanel.getDate());
-                    		System.out.println(newNewTrainingSessionPanel.getStartHour().toString());
-                    		System.out.println(newNewTrainingSessionPanel.getEndHour().toString());
-
+                    		System.out.println(surveyId);
+                    		System.out.println(teacherId);
+                    		System.out.println(trainingId);
                     		
              
                     	} else {
@@ -304,8 +306,10 @@ public class MainFrame extends JFrame {
                     	 
                     							
                     	
+                    	String s = newNewTrainingSessionPanel.getDate();
+                    	Date date= Date.valueOf(s);
                     	
-                    	tSession.setDate(newNewTrainingSessionPanel.getDate());
+                    	tSession.setDate( new Date(date.getTime()).toString()+"T00:00:00");
                     	
                     	
                     	tSession.setStartHour(newNewTrainingSessionPanel.getStartHour());
@@ -516,6 +520,7 @@ public class MainFrame extends JFrame {
                         	//show trainingSessionPane
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("MakeTrainingSession".equals(command)) {
+                        	newSelectTrainingPane.getTableModel().setRowCount(0);
                         	
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
                         }
@@ -637,15 +642,23 @@ public class MainFrame extends JFrame {
                         String command = e.getActionCommand();
                         System.out.println(command);
                         if ("TrainingMenu".equals(command)) {
+                        	book=null;
+                        	trainingBooks=null;
                         	//show trainingPane
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("TrainingSessionMenu".equals(command)) {
+                        	book=null;
+                        	trainingBooks=null;
                         	//show trainingSessionPane
                         	layout.show(getContentPane(), "trainingSessionPanel");
                         } else	if ("EmployeesMenu".equals(command)) {
+                        	book=null;
+                        	trainingBooks=null;
                         	//show employeesPane
                         	layout.show(getContentPane(), "employeePanel");
                         } else if ("StatisticsMenu".equals(command)) {
+                        	book=null;
+                        	trainingBooks=null;
                         	//show statisticsSessionPane
                         	layout.show(getContentPane(), "statisticsPanel");
                         } else if ("addBookToTrainingsession".equals(command)) {
@@ -675,9 +688,11 @@ public class MainFrame extends JFrame {
                 		      try {
                 		    	  ArrayList<Book> testBooks = new ArrayList<>();
                 		    	  testBooks= GoogleBooksAPI.queryGoogleBooks(jsonFactory, query);
-                		    	  Book book = testBooks.get(0);
-                		    	 // TrainingBooks trainingBooks=new TrainingBooks(trainingId, book.getBookID());
+                		    	   book = testBooks.get(0);
+                		    	 
                 		    	  book.save();
+                		    	  trainingBooks=new TrainingBooks(trainingId, book.getIsbn());
+                		    	  trainingBooks.save();
                 		        // Succes
                 		      } catch (IOException e1) {
                 		        System.err.println(e1.getMessage());
@@ -900,5 +915,13 @@ public class MainFrame extends JFrame {
 	public void setKeeper(int keeper) {
 		this.keeper=keeper;
 	}
+	private  java.sql.Date convertUtilToSql(java.util.Date uDate) {
+		
+		       java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+		
+		       return sDate;
+		
+		    }
+
 	
 }

@@ -43,7 +43,7 @@ public class BookAccess extends RestRequest {
 				HashMap<Integer, Book> bookMap = new HashMap<Integer, Book>();
 
 				for (Book book : books) {
-					bookMap.put(book.getisbn(), book);
+					bookMap.put(book.getIsbn(), book);
 				}
 				return bookMap;			
 		}
@@ -62,7 +62,7 @@ public class BookAccess extends RestRequest {
 		}
 
 		public static void update(Book book) throws URISyntaxException, IOException {
-			putObject(book, new URI(Constants.BOOK_SOURCE + book.getisbn()));
+			putObject(book, new URI(Constants.BOOK_SOURCE + book.getIsbn()));
 		}
 
 		public static Book remove(Integer id) throws URISyntaxException, IOException {

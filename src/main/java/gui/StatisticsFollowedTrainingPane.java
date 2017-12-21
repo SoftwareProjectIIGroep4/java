@@ -30,7 +30,10 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -266,7 +269,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		});
 
 
-
 		btnShowEmployeeFollowedTrainings = new JButton("Show information");
 		btnShowEmployeeFollowedTrainings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -275,6 +277,9 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 				//lblShowImageIcon.setIcon(null);
 				int totaalDagen;
 				float totaalPrijs;
+				Date dag = null;
+				String dagomzetting;
+				SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 				totaalDagen = 0;
 				totaalPrijs = 0;
 				int employeeID = Integer.parseInt(txtTrainingEmployeeID.getText());
@@ -313,6 +318,8 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 
 				trainingData = new ArrayList<String[]>();
 				trainingSessionsMap = new HashMap<Integer, TrainingSession>();
+				
+				
 
 				for(Map.Entry<Integer, TrainingInfo> lijst: listTrainingInfo.entrySet()) {
 
@@ -320,9 +327,21 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 						totaalDagen = totaalDagen + TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getNumberOfDays();
 						totaalPrijs = totaalPrijs + TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getPrice();
 						trainingSessionsMap = TrainingSessionAccess.getByTrainingInfo(TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getTrainingId());
+						dagomzetting = trainingSessionsMap.entrySet().iterator().next().getValue().getDate();
+						//dagomzetting = DATE_FORMAT.format(dag);
+						try { // om van string naar date-object te gaan (vb: 2017-12-24T00:00:00)
+							dag = DATE_FORMAT.parse(dagomzetting);
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+						// om van date-object terug naar string te gaan, aangepast naar 2017-12-24
+						dagomzetting = DATE_FORMAT.format(dag);
 						trainingData.add(new String[] {
 								TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getName(),
-								String.valueOf(trainingSessionsMap.entrySet().iterator().next().getValue().getDate()),
+								//String.valueOf(trainingSessionsMap.entrySet().iterator().next().getValue().getDate()),
+								//trainingSessionsMap.entrySet().iterator().next().getValue().getDate(),
+								dagomzetting,
 								AddressAccess.get(trainingSessionsMap.entrySet().iterator().next().getValue().getAddressId()).getLocality(),
 								String.valueOf(TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getNumberOfDays()),
 								String.valueOf(TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getPrice())

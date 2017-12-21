@@ -2,11 +2,10 @@ package models;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Date;
+import java.sql.Date;
 import java.sql.Time;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import dataAccess.Cache;
@@ -18,7 +17,7 @@ public class TrainingSession {
 	private int addressId;
 	private int teacherId;
 	private int trainingId;
-	private Date date;
+	private String date;
 	private Time startHour;
 	private Time endHour;
 	private boolean cancelled;
@@ -28,7 +27,7 @@ public class TrainingSession {
 		super();		
 	}
 
-	public TrainingSession(int addressId, int teacherId, int trainingId, Date date, Time startHour, Time endHour, boolean cancelled, int surveyId) {
+	public TrainingSession(int addressId, int teacherId, int trainingId, String date, Time startHour, Time endHour, boolean cancelled, int surveyId) {
 		super();
 		this.addressId = addressId;
 		this.teacherId = teacherId;
@@ -40,7 +39,7 @@ public class TrainingSession {
 		this.surveyId = surveyId;
 	}
 
-	public TrainingSession(int trainingSessionId, int addressId, int teacherId, int trainingId, Date date,
+	public TrainingSession(int trainingSessionId, int addressId, int teacherId, int trainingId, String date,
 			Time startHour, Time endHour, boolean cancelled, int surveyId) {
 		super();
 		this.trainingSessionId = trainingSessionId;
@@ -112,11 +111,11 @@ public class TrainingSession {
 		this.trainingId = trainingId;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

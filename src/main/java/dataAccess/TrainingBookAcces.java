@@ -28,7 +28,7 @@ public class TrainingBookAcces extends RestRequest {
 		HashMap<Integer, TrainingBooks> traingingBooksMap = new HashMap<Integer, TrainingBooks>();
 
 		for (TrainingBooks trainingBook : trainingBooks) {
-			traingingBooksMap.put(trainingBook.getBoekId(), trainingBook);
+			traingingBooksMap.put(trainingBook.getIsbn(), trainingBook);
 		}
 		return traingingBooksMap;
 	}
@@ -40,7 +40,7 @@ public class TrainingBookAcces extends RestRequest {
 	}
 
 	public static void update(TrainingBooks trainingBook) throws URISyntaxException, IOException {
-		putObject(trainingBook, new URI(Constants.TRAINING_BOOKS_SOURCE + trainingBook.getBoekId()));
+		putObject(trainingBook, new URI(Constants.TRAINING_BOOKS_SOURCE + trainingBook.getIsbn()));
 	}
 
 	public static TrainingBooks remove(Integer id) throws URISyntaxException, IOException {
