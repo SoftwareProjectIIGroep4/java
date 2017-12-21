@@ -231,6 +231,7 @@ public class MainFrame extends JFrame {
                 	setKeeper(trainingPanel.getTabelID());
                 	trainingId=keeper;
                 	
+                	
                 	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
                 	for (Map.Entry<Integer, TrainingInfo>  entry : listTraingInfo.entrySet()) {
             			if (entry.getValue().getTrainingId()==MainFrame.getKeeper()) {
@@ -318,8 +319,9 @@ public class MainFrame extends JFrame {
                     			)
                     		
                     	{
-                    		
-
+                    		TrainingSession tSession=new TrainingSession();
+                    		tSession.setDate(newNewTrainingSessionPanel.getDate());
+                    		System.out.println(tSession.getDate());
                     		
              
                     	} else {
@@ -330,7 +332,7 @@ public class MainFrame extends JFrame {
                     							
                     	
                     	
-                    	tSession.setDate(newNewTrainingSessionPanel.getDate().toString());
+                    	tSession.setDate(newNewTrainingSessionPanel.getDate());
                     	
                     	
                     	tSession.setStartHour(newNewTrainingSessionPanel.getStartHour());
@@ -541,6 +543,7 @@ public class MainFrame extends JFrame {
                         	//show trainingSessionPane
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("MakeTrainingSession".equals(command)) {
+                        	newSelectTrainingPane.getTableModel().setRowCount(0);
                         	
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
                         }
