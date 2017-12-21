@@ -43,7 +43,7 @@ public class BookAccess extends RestRequest {
 				HashMap<Long, Book> bookMap = new HashMap<Long, Book>();
 
 				for (Book book : books) {
-					bookMap.put(book.getBookID(), book);
+					bookMap.put(book.getIsbn(), book);
 				}
 				return bookMap;	 		
 		}
@@ -55,7 +55,7 @@ public class BookAccess extends RestRequest {
 			HashMap<Long, Book> bookMap = new HashMap<Long, Book>();
 
 			for (Book book : books) {
-				bookMap.put(book.getBookID(), book);
+				bookMap.put(book.getIsbn(), book);
 			}
 			return bookMap;	       
         }
@@ -68,7 +68,7 @@ public class BookAccess extends RestRequest {
 			HashMap<Long, Book> bookMap = new HashMap<Long, Book>();
 
 			for (Book book : books) {
-				bookMap.put(book.getBookID(), book);
+				bookMap.put(book.getIsbn(), book);
 			}
 			return bookMap;			
 	}
@@ -86,7 +86,7 @@ public class BookAccess extends RestRequest {
 		}
 
 		public static void update(Book book) throws URISyntaxException, IOException {
-			putObject(book, new URI(Constants.BOOK_SOURCE + book.getBookID()));
+			putObject(book, new URI(Constants.BOOK_SOURCE + book.getIsbn()));
 		}
 
 		public static Book remove(Long id) throws URISyntaxException, IOException {

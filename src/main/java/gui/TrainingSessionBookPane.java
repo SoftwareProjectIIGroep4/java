@@ -270,17 +270,18 @@ public class TrainingSessionBookPane extends JPanel {
 				for (Long  entry : ListBook.keySet()) {
 					System.out.println("book1");
 					data.add(new String[] {
-							String.valueOf(ListBook.get(entry).getBookID()),
-							ListBook.get(entry).getTitle(),
+							String.valueOf(ListBook.get(entry).getIsbn()),
+							//String.valueOf(ListBook.get(entry).getBookID()),
+							ListBook.get(entry).getUrl(),
 							//ListBook.get(entry).getAuthor(),
-							String.valueOf(ListBook.get(entry).getPrice()),
-							ListBook.get(entry).getPublisher()
+							//String.valueOf(ListBook.get(entry).getPrice()),
+							//ListBook.get(entry).getPublisher()
 							
 							}
 					);
 					System.out.println("test book voor de print out");
 					
-					System.out.println("test" + ListBook.get(entry).getTitle());
+					System.out.println("test" + ListBook.get(entry).getUrl());
 				}
 				DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersBook) {
 
