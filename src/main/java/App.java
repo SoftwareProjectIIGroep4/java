@@ -34,7 +34,7 @@ import models.SurveyQuestion;;
 
 public class App {
 	 public static void main(String[] args) throws IOException, URISyntaxException {
-		   /* JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+		    JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 		    try {
 	
 		      String prefix = null;
@@ -58,7 +58,7 @@ public class App {
 		      }
 		      try {
 		    	  ArrayList<Book> testBooks = new ArrayList<>();
-		      testBooks= GoogleBooksAPI.queryGoogleBooks(jsonFactory, query);
+		    	  testBooks= GoogleBooksAPI.queryGoogleBooks(jsonFactory, query);
 		        // Success!
 		      	System.out.println("DIT IS EEN TESTZONE PLS not ignore");
 		      	for (int i=0;i<testBooks.size();i++) {
@@ -74,19 +74,11 @@ public class App {
 		    }
 		    
 		    System.exit(0);
-		  };*/
-		 SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
-    	 Date date=new Date();
-    	 try {
-			date = formatter1.parse("12/12/1997");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	 System.out.println(date.toString());
+		  };
+		
 		 
 		 
-	 };
+	
 
 	public static void trainingInfoTest() throws URISyntaxException, IOException, ExecutionException {
 		LogFileHelper.log("testuser", "testactie2");

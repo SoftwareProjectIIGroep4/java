@@ -4,18 +4,29 @@ import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.IntrospectionException;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Time;
 import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
+import dataAccess.GoogleBooksAPI;
+import dataAccess.SurveyQuestionAcces;
+import dataAccess.TrainingInfoAccess;
 import gui.EmployeePane;
 import models.Address;
+import models.Book;
 import models.TrainingInfo;
 import models.TrainingSession;
 import models.Login;
@@ -23,13 +34,18 @@ import models.Survey;
 import models.SurveyQuestion;
 import models.Teacher;
 import models.Token;
+import models.TrainingBooks;
 import gui.LoginPane;
 
 public class MainFrame extends JFrame {
 	private static int keeper;
-	private int teacherId=1;
+	private int teacherId=-1;
 	private static ArrayList<SurveyQuestion>surveyQuestions = new ArrayList<SurveyQuestion>();
-	private int surveyId=1;
+	private int surveyId=-1;
+	private int bookId=-1;
+	private int trainingId=-1;
+		
+	
 
 	private JPanel contentPane;
 
@@ -181,10 +197,21 @@ public class MainFrame extends JFrame {
                 	layout.show(getContentPane(), "trainingrequestPanel");
                 } else if ("goToSelectTraining".equals(command)) {
                 	setKeeper(trainingPanel.getTabelID());
-                	new SelectTrainingPane();
-                	//SelectTrainingPane newSelectTrainingPane = new SelectTrainingPane();
-                	//getContentPane().add(newSelectTrainingPane, "SelectTrainingPane");
-                	//show selectTrainingMenu
+                	trainingId=keeper;
+                	
+                	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+                	for (Map.Entry<Integer, TrainingInfo>  entry : listTraingInfo.entrySet()) {
+            			if (entry.getValue().getTrainingId()==MainFrame.getKeeper()) {
+            				newSelectTrainingPane.getTableModel().addRow(new Object[]{entry.getValue().getName(),
+            						String.valueOf(entry.getValue().getNumberOfDays()),
+            						String.valueOf(entry.getValue().getPrice())});
+            			
+            			
+            					
+            		
+            			}
+            		}
+                	
                 	layout.show(getContentPane(), "SelectTrainingPane");
                 }else if ("goToAddTraining".equals(command)) {
                 	//show addTrainingMenu
@@ -258,13 +285,16 @@ public class MainFrame extends JFrame {
                     			newNewTrainingSessionPanel.getPostalCode().equals("")||
                     			newNewTrainingSessionPanel.getStreetAddress().equals("")||
                     			newNewTrainingSessionPanel.getCountry().equals("")||
-                    			newNewTrainingSessionPanel.getPremise().equals("")//||
-                    		    //teacherId==-1||
-                    			//surveyId==-1
+                    			newNewTrainingSessionPanel.getPremise().equals("")||
+                    		    teacherId==-1||
+                    			surveyId==-1||
+                    			trainingId==-1
                     			)
+                    		
                     	{
                     		
                     		System.out.println("error message");
+                    		System.out.println(newNewTrainingSessionPanel.getDate());
                     		System.out.println(newNewTrainingSessionPanel.getStartHour().toString());
                     		System.out.println(newNewTrainingSessionPanel.getEndHour().toString());
 
@@ -279,11 +309,10 @@ public class MainFrame extends JFrame {
                     	
                     	
                     	tSession.setDate(newNewTrainingSessionPanel.getDate());
-                    	//tSession.setStartHour(Time.newNewTrainingSessionPanel.getStartHour());
-                    	//tSession.setEndHour(newNewTrainingSessionPanel.getEndHour());
+                    	
                     	
                     	tSession.setStartHour(newNewTrainingSessionPanel.getStartHour());
-                    	tSession.setStartHour(newNewTrainingSessionPanel.getEndHour());
+                    	tSession.setEndHour(newNewTrainingSessionPanel.getEndHour());
 						
                     	Address address=new Address();
                     	address.setAdministrativeArea(newNewTrainingSessionPanel.getAdministrativeArea());
@@ -311,6 +340,9 @@ public class MainFrame extends JFrame {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+                    	surveyId=-1;
+                    	teacherId=-1;
+                    	bookId=-1;
                     	
                     	
                     	//save de data voor training session gebruik getters
@@ -326,7 +358,7 @@ public class MainFrame extends JFrame {
                     	// layout.show van je book toevoegen nog maken
                     	layout.show(getContentPane(), "addBookPanel");
                     } else if ("addSurvey".equals(command)) {
-                    	surveyQuestions.clear();
+                    	
                     	// layout.show van je survey toevoegen nog maken
                     	layout.show(getContentPane(), "addSurveyPanel");
                     }                   
@@ -646,7 +678,6 @@ public class MainFrame extends JFrame {
                         		addTeacherPanel.getTeacherFirstnameSearch().equals("")||	
                         		addTeacherPanel.getTeacherEmailSearch().equals("")||
                         		addTeacherPanel.getTeacherPhonenumberSearch().equals("")) {
-                        		System.out.println("testif");
                         		//foutmedling?
                         	}
                         	else {
@@ -694,7 +725,43 @@ public class MainFrame extends JFrame {
                         	//show trainingRequestMenu
                         	layout.show(getContentPane(), "trainingrequestPanel");
                         } else if ("addBookToTrainingsession".equals(command)) {
-                        	// voeg boek bij trainingsession + show trainingsessionpane
+                        	JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+                		    try {
+                	
+                		      String prefix = null;
+                		      String query = addBookPanel.getBookTitleTrainingsession()+"--"+addBookPanel.getBookAuthorTrainingsession();
+                		      ArrayList<String> args=new ArrayList<String>();
+                		      for (String arg : args) {
+                		        if ("--author".equals(arg)) {
+                		          prefix = "inauthor:";
+                		        } else if ("--isbn".equals(arg)) {
+                		          prefix = "isbn:";
+                		        } else if ("--title".equals(arg)) {
+                		          prefix = "intitle:";
+                		        } else if (arg.startsWith("--")) {
+                		          System.err.println("Unknown argument: " + arg);
+                		          System.exit(1);
+                		        } else {
+                		          query = arg;
+                		        }
+                		      }
+                		      if (prefix != null) {
+                		        query = prefix + query;
+                		      }
+                		      try {
+                		    	  ArrayList<Book> testBooks = new ArrayList<>();
+                		    	  testBooks= GoogleBooksAPI.queryGoogleBooks(jsonFactory, query);
+                		    	  Book book = testBooks.get(0);
+                		    	 // TrainingBooks trainingBooks=new TrainingBooks(trainingId, book.getBookID());
+                		    	  book.save();
+                		        // Succes
+                		      } catch (IOException e1) {
+                		        System.err.println(e1.getMessage());
+                		      }
+                		    } catch (Throwable t) {
+                		      t.printStackTrace();
+                		    }
+                		    
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
                         } 
                     }
@@ -731,7 +798,9 @@ public class MainFrame extends JFrame {
                         	else {
                         		System.out.println(addSurveyPanel.getAddQuestion());
                         		surveyQuestions.add(new SurveyQuestion(addSurveyPanel.getAddQuestion()));
-                        		addSurveyPanel.clear();
+                        		
+                        		addSurveyPanel.gettableQuestionsSurveyModel().addRow(new Object[]{addSurveyPanel.getAddQuestion()});
+                        		new AddSurveyPane();
                         		
                         		//new AddSurveyPane();
                         		
@@ -744,11 +813,21 @@ public class MainFrame extends JFrame {
                         		//FOUT?
                         	}
                         	else {
+                        		
                         		for (int i =0;i<surveyQuestions.size();i++) {
                         			if(surveyQuestions.get(i).getContent().equals(addSurveyPanel.getAddQuestion())) {
                         				surveyQuestions.remove(i);
                         			}
                         		}
+                        		addSurveyPanel.gettableQuestionsSurveyModel().removeRow(1);
+                        		if (addSurveyPanel.gettableQuestionsSurveyModel().getRowCount() > 0) {
+                                    for (int i = addSurveyPanel.gettableQuestionsSurveyModel().getRowCount() - 1; i > -1; i--) {
+                                    	if (addSurveyPanel.gettableQuestionsSurveyModel().getValueAt(i, 0)==addSurveyPanel.getAddQuestion()) {
+                                    	addSurveyPanel.gettableQuestionsSurveyModel().removeRow(i);
+                                    	}
+                                    }
+                                }
+                        		
                         	}
                         	//delete question from survey
                         	
@@ -785,6 +864,7 @@ public class MainFrame extends JFrame {
 								}
                         	}
                         	surveyId=survey.getSurveyID();
+                        	surveyQuestions.clear();
                         	
 
                         	
