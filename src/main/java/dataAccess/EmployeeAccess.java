@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import models.Address;
 import models.Employee;
 
 //SOURCES: https://hc.apache.org/httpcomponents-client-4.5.x/httpclient/examples/org/apache/http/examples/client/ClientWithResponseHandler.java
@@ -19,9 +22,19 @@ public class EmployeeAccess extends RestRequest {
 	}
 	
 
-	public static Employee getBySession(Integer sessionID) throws IOException, URISyntaxException {
-		String JSONEmp = getAllOrOne(new URI(Constants.TRAINING_SESSION_SOURCE + sessionID + "/users"));
-		return mapper.readValue(JSONEmp, Employee.class);}
+	public static HashMap<Integer, Employee> getBySession(Integer sessionID) throws IOException, URISyntaxException {
+		String JSONEmp = getAllOrOne(new URI(Constants.TRAINING_SESSION_SOURCE + sessionID + "/employees"));
+		List<Employee> employees = mapper.readValue(JSONEmp, new TypeReference<List<Employee>>() {
+	});
+
+	HashMap<Integer, Employee> employeesMap = new HashMap<Integer, Employee>();
+
+	for (Employee employee : employees) {
+		employeesMap.put(employee.getEmployeeID(), employee);
+	}
+	return employeesMap;
+}
+	
 	public static Integer getUserID(Integer employeeID) throws IOException, URISyntaxException {
 		String JSONUsr = getAllOrOne(new URI(Constants.EMPLOYEE_SOURCE + employeeID + "/user"));
 		return mapper.readValue(JSONUsr, Integer.class);
