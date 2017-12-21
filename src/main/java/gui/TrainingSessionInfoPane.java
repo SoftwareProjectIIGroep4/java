@@ -38,7 +38,7 @@ public class TrainingSessionInfoPane extends JPanel {
 	private JButton btnEmployees;
 	private JButton btnStatistics;
 	private JButton btnTrainingsession;
-
+	private JButton btnMaps;
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +122,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		btnInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		btnInfo.setOpaque(true);
-		btnInfo.setBounds(450, 165, 100, 50);
+		btnInfo.setBounds(440, 165, 100, 50);
 		btnInfo.setActionCommand("Info");
 		add(btnInfo);
 		
@@ -130,17 +130,25 @@ public class TrainingSessionInfoPane extends JPanel {
 		btnEnlistedPeople.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEnlistedPeople.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEnlistedPeople.setOpaque(true);
-		btnEnlistedPeople.setBounds(550, 165, 200, 50);
+		btnEnlistedPeople.setBounds(540, 165, 200, 50);
 		btnEnlistedPeople.setActionCommand("EnlistedPeople");
 		add(btnEnlistedPeople);
 		
 		btnBooks = new JButton("Books");
 		btnBooks.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnBooks.setBounds(750, 165, 100, 50);
+		btnBooks.setBounds(740, 165, 100, 50);
 		btnBooks.setHorizontalAlignment(SwingConstants.CENTER);
 		btnBooks.setOpaque(true);
 		btnBooks.setActionCommand("Books");
 		add(btnBooks);
+		
+		btnMaps = new JButton("Map");
+		btnMaps.setOpaque(true);
+		btnMaps.setHorizontalAlignment(SwingConstants.CENTER);
+		btnMaps.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnMaps.setActionCommand("Map");
+		btnMaps.setBounds(840, 165, 100, 50);
+		add(btnMaps);
 		
 		JLabel lblGeneralInfo = new JLabel("General info");
 		lblGeneralInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -188,6 +196,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		btnBooks.addActionListener(listener);
 		btnBack.addActionListener(listener);
 		btnCancelTrainingSession.addActionListener(listener);
+		btnMaps.addActionListener(listener);
     }
 	
 	public String getGeneralInfo() {

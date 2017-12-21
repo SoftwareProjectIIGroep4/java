@@ -50,6 +50,7 @@ public class TrainingSessionBookPane extends JPanel {
 	private JButton btnEmployees;
 	private JButton btnStatistics;
 	private JButton btnTrainingsession;
+	private JButton btnMaps;
 
 	/**
 	 * Create the panel.
@@ -59,9 +60,9 @@ public class TrainingSessionBookPane extends JPanel {
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				
 				
-		ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
-		ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
-		ConcurrentMap<Long, Book> ListBook=dataAccess.Cache.bookCache.asMap();
+		//ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
+		//ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+		//ConcurrentMap<Long, Book> ListBook=dataAccess.Cache.bookCache.asMap();
 		
 		
 		
@@ -133,7 +134,7 @@ public class TrainingSessionBookPane extends JPanel {
 		btnInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		btnInfo.setOpaque(true);
-		btnInfo.setBounds(450, 165, 100, 50);
+		btnInfo.setBounds(440, 165, 100, 50);
 		btnInfo.setActionCommand("Info");
 		add(btnInfo);
 		
@@ -141,17 +142,25 @@ public class TrainingSessionBookPane extends JPanel {
 		btnEnlistedPeople.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEnlistedPeople.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEnlistedPeople.setOpaque(true);
-		btnEnlistedPeople.setBounds(550, 165, 200, 50);
+		btnEnlistedPeople.setBounds(540, 165, 200, 50);
 		btnEnlistedPeople.setActionCommand("EnlistedPeople");
 		add(btnEnlistedPeople);
 		
 		btnBooks = new JButton("Books");
 		btnBooks.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnBooks.setBounds(750, 165, 100, 50);
+		btnBooks.setBounds(740, 165, 100, 50);
 		btnBooks.setHorizontalAlignment(SwingConstants.CENTER);
 		btnBooks.setOpaque(true);
 		btnBooks.setActionCommand("Books");
 		add(btnBooks);
+		
+		btnMaps = new JButton("Map");
+		btnMaps.setOpaque(true);
+		btnMaps.setHorizontalAlignment(SwingConstants.CENTER);
+		btnMaps.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnMaps.setActionCommand("Map");
+		btnMaps.setBounds(840, 165, 100, 50);
+		add(btnMaps);
 		
 		txtSearch = new JTextField();
 		txtSearch.setBounds(100, 230, 250, 20);
@@ -166,7 +175,7 @@ public class TrainingSessionBookPane extends JPanel {
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersBook);
 		List<String[]> data = new ArrayList<String[]>();
-		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
+		/*for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
 			data.add(new String[] {
 					String.valueOf(entry.getValue().getTrainingSessionId()),
 					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
@@ -174,7 +183,7 @@ public class TrainingSessionBookPane extends JPanel {
 					String.valueOf(entry.getValue().getDate()) ,
 					String.valueOf(entry.getValue().getStartHour())}
 			);
-		}
+		}*/
 		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersBook) {
 
 		    @Override
@@ -183,6 +192,7 @@ public class TrainingSessionBookPane extends JPanel {
 		       return false;
 		    }
 		};
+		tbBook = new JTable(tableModel);
 		tbBook.setModel(tableModel);
 		tbBook.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -237,6 +247,7 @@ public class TrainingSessionBookPane extends JPanel {
 		btnInfo.addActionListener(listener);
 		btnEnlistedPeople.addActionListener(listener);
 		btnBooks.addActionListener(listener);
+		btnMaps.addActionListener(listener);
     }
 	
 	public String getSearch() {
