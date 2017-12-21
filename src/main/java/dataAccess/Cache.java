@@ -62,7 +62,6 @@ public class Cache {
 				}
 			});
 	
-	
 	public static LoadingCache<Integer, Certificate> certificateCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Certificate>() {
 

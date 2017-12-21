@@ -62,7 +62,7 @@ public class TrainingSessionBookPane extends JPanel {
 				
 		//ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
 		//ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
-		//ConcurrentMap<Long, Book> ListBook=dataAccess.Cache.bookCache.asMap();
+		ConcurrentMap<Long, Book> ListBook=dataAccess.Cache.bookCache.asMap();
 		
 		
 		
