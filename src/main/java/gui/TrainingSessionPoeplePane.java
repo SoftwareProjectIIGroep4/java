@@ -29,20 +29,17 @@ import javax.swing.table.TableColumnModel;
 public class TrainingSessionPoeplePane extends JPanel {
 	private int selectedRow;
 	private JButton btnBack;
-	private JTextField txtName;
-	private JTextField txtDepartment;
-	private JTextField txtFunction;
 	private JTable tbEmployee;
 	private JButton btnCancelTrainingSession;
 	private JLabel lblTrainingSessionTitle;
-	private JButton jtbInfo;
-	private JButton jtbEnlistedPeople;
-	private JButton jtbBooks;
-	private JButton jtbTraining;
-	private JButton jtbEmployees;
-	private JButton jtbStatistics;
-	private JButton jtbTrainingSession;
-	private JButton jtbTrainingRequests;
+	private JButton btnInfo;
+	private JButton btnEnlistedPeople;
+	private JButton btnBooks;
+	private JButton btnTraining;
+	private JButton btnEmployees;
+	private JButton btnStatistics;
+	private JButton btnTrainingsession;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -50,107 +47,49 @@ public class TrainingSessionPoeplePane extends JPanel {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		
-		jtbTraining = new JButton("Training");
-		/*jtbTraining.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jtbTraining.setBorder(border);
-		    }
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jtbTraining.setBorder(null);
-		    }
-		});*/
-		jtbTraining.setBackground(Color.WHITE);
-		jtbTraining.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTraining.setOpaque(true);
-		jtbTraining.setActionCommand("TrainingMenu");
-		jtbTraining.setBounds(133, 0, 211, 75);
-		add(jtbTraining);
-		
-		jtbTrainingSession = new JButton("Training session");
-		/*jtbTrainingSession.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jtbTrainingSession.setBorder(border);
-		    }
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jtbTrainingSession.setBorder(null);
-		    }
-		});*/
-		jtbTrainingSession.setBackground(Color.WHITE);
-		jtbTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTrainingSession.setOpaque(true);
-		jtbTrainingSession.setActionCommand("TrainingSessionMenu");
-		jtbTrainingSession.setBounds(344, 0, 211, 75);
-		add(jtbTrainingSession);
-		
-		jtbEmployees = new JButton("Employees");
-		/*jtbEmployees.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jtbEmployees.setBorder(border);
-		    }
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jtbEmployees.setBorder(null);
-		    }
-		});*/
-		jtbEmployees.setBackground(Color.WHITE);
-		jtbEmployees.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbEmployees.setOpaque(true);
-		jtbEmployees.setActionCommand("EmployeesMenu");
-		jtbEmployees.setBounds(555, 0, 212, 75);
-		add(jtbEmployees);
-		
-		jtbStatistics = new JButton("Statistics");
-		/*jtbStatistics.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jtbStatistics.setBorder(border);
-		    }
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jtbStatistics.setBorder(null);
-		    }
-		});*/
-		jtbStatistics.setBackground(Color.WHITE);
-		jtbStatistics.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbStatistics.setOpaque(true);
-		jtbStatistics.setActionCommand("StatisticsMenu");
-		jtbStatistics.setBounds(767, 0, 212, 75);
-		add(jtbStatistics);
-		
-		jtbTrainingRequests = new JButton("Training requests");
-		/*jtbTrainingRequests.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jtbTrainingRequests.setBorder(border);
-		    }
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jtbTrainingRequests.setBorder(null);
-		    }
-		});*/
-		jtbTrainingRequests.setBackground(Color.WHITE);
-		jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTrainingRequests.setOpaque(true);
-		jtbTrainingRequests.setActionCommand("TrainingRequestsMenu");
-		jtbTrainingRequests.setBounds(979, 0, 211, 75);
-		add(jtbTrainingRequests);
-		
-		JLabel lblNewLabel = new JLabel("logo");
-		lblNewLabel.setBounds(0, 0, 133, 75);
-		lblNewLabel.setOpaque(true);
-		add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Profiel");
-		lblNewLabel_1.setBounds(1190, 0, 75, 75);
-		lblNewLabel_1.setOpaque(true);
-		add(lblNewLabel_1);
+		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+	        
+		  btnTraining = new JButton("Training"); 
+		  btnTraining.setBackground(Color.WHITE);
+		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
+		  btnTraining.setOpaque(true);
+		  btnTraining.setActionCommand("TrainingMenu");
+		  btnTraining.setBounds(124, 0, 264, 75);
+	        add(btnTraining);
+	        
+	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.setBackground(Color.WHITE);
+	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
+	        btnTrainingsession.setOpaque(true);
+	        btnTrainingsession.setActionCommand("TrainingSessionMenu");
+	        btnTrainingsession.setBounds(387, 0, 264, 75);
+	        add(btnTrainingsession);
+	        
+	        btnEmployees = new JButton("Employees");
+	        btnEmployees.setBackground(Color.WHITE);
+	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
+	        btnEmployees.setOpaque(true);
+	        btnEmployees.setActionCommand("EmployeesMenu");
+	        btnEmployees.setBounds(650, 0, 264, 75);
+	        add(btnEmployees);
+	        
+	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.setBackground(Color.WHITE);
+	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
+	        btnStatistics.setOpaque(true);
+	        btnStatistics.setActionCommand("StatisticsMenu");
+	        btnStatistics.setBounds(912, 0, 264, 75);
+	        add(btnStatistics);
+	        
+	        JLabel lblNewLabel = new JLabel("logo");
+	        lblNewLabel.setBounds(0, 0, 133, 75);
+	        lblNewLabel.setOpaque(true);
+	        add(lblNewLabel);
+	        
+	        JLabel lblNewLabel_1 = new JLabel("Profiel");
+	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
+	        lblNewLabel_1.setOpaque(true);
+	        add(lblNewLabel_1);
 		
 		btnBack = new JButton("<-  Back");
 		btnBack.setBounds(30, 100, 110, 50);
@@ -167,60 +106,29 @@ public class TrainingSessionPoeplePane extends JPanel {
 		btnCancelTrainingSession.setActionCommand("CancelTrainingSession");
 		add(btnCancelTrainingSession);
 		
-		jtbInfo = new JButton("Info");
-		//jtbInfo.setBackground(SystemColor.control);
-		/*jtbInfo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				jtbInfo.setBackground(Color.WHITE);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jtbInfo.setBackground(SystemColor.control);
-			}
-		});*/
-		jtbInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		jtbInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbInfo.setOpaque(true);
-		jtbInfo.setBounds(450, 165, 100, 50);
-		jtbInfo.setActionCommand("Info");
-		add(jtbInfo);
+		btnInfo = new JButton("Info");
+		btnInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		btnInfo.setOpaque(true);
+		btnInfo.setBounds(450, 165, 100, 50);
+		btnInfo.setActionCommand("Info");
+		add(btnInfo);
 		
-		jtbEnlistedPeople = new JButton("Enlisted people");
-		/*jtbEnlistedPeople.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				jtbEnlistedPeople.setBackground(Color.WHITE);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jtbEnlistedPeople.setBackground(SystemColor.control);
-			}
-			});*/
-		jtbEnlistedPeople.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		jtbEnlistedPeople.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbEnlistedPeople.setOpaque(true);
-		jtbEnlistedPeople.setBounds(550, 165, 200, 50);
-		jtbEnlistedPeople.setActionCommand("EnlistedPeople");
-		add(jtbEnlistedPeople);
+		btnEnlistedPeople = new JButton("Enlisted people");
+		btnEnlistedPeople.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnEnlistedPeople.setHorizontalAlignment(SwingConstants.CENTER);
+		btnEnlistedPeople.setOpaque(true);
+		btnEnlistedPeople.setBounds(550, 165, 200, 50);
+		btnEnlistedPeople.setActionCommand("EnlistedPeople");
+		add(btnEnlistedPeople);
 		
-		jtbBooks = new JButton("Books");
-		/*jtbBooks.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				jtbBooks.setBackground(Color.WHITE);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				jtbBooks.setBackground(SystemColor.control);
-			}
-		});*/
-		jtbBooks.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		jtbBooks.setBounds(750, 165, 100, 50);
-		jtbBooks.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbBooks.setOpaque(true);
-		jtbBooks.setActionCommand("Books");
-		add(jtbBooks);
+		btnBooks = new JButton("Books");
+		btnBooks.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnBooks.setBounds(750, 165, 100, 50);
+		btnBooks.setHorizontalAlignment(SwingConstants.CENTER);
+		btnBooks.setOpaque(true);
+		btnBooks.setActionCommand("Books");
+		add(btnBooks);
 		
 		Object [] columnHeadersBook = {"Employee name","Department","Function","Status"};
 		DefaultTableModel modelBook = new DefaultTableModel();
@@ -261,7 +169,7 @@ public class TrainingSessionPoeplePane extends JPanel {
 		JScrollPane sclBook = new JScrollPane(tbEmployee);
 		sclBook.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclBook.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclBook.setBounds(30, 230, 840, 430);
+		sclBook.setBounds(30, 230, 1218, 430);
 		add(sclBook);
 		ListSelectionModel selectedRowBook = tbEmployee.getSelectionModel();
 		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
@@ -278,73 +186,21 @@ public class TrainingSessionPoeplePane extends JPanel {
 		
 		
 		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(20, 220, 860, 450);
+		lblBackBorder.setBounds(20, 220, 1237, 450);
 		lblBackBorder.setBorder(border);
 		add(lblBackBorder);
-		
-		txtName = new JTextField();
-		txtName.setBounds(910, 260, 300, 25);
-		txtName.setColumns(10);
-		add(txtName);
-
-		
-		JLabel lblName = new JLabel("Name:");
-		lblName.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblName.setBounds(910, 235, 46, 14);
-		add(lblName);
-		
-		JLabel lblDepartment = new JLabel("Department:");
-		lblDepartment.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblDepartment.setBounds(910, 306, 100, 14);
-		add(lblDepartment);
-		
-		txtDepartment = new JTextField();
-		txtDepartment.setBounds(910, 331, 300, 25);
-		txtDepartment.setColumns(10);
-		add(txtDepartment);
-
-		
-		JLabel lblFunction = new JLabel("Function:");
-		lblFunction.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblFunction.setBounds(910, 377, 100, 14);
-		add(lblFunction);
-		
-		txtFunction = new JTextField();
-		txtFunction.setBounds(910, 402, 300, 25);
-		txtFunction.setColumns(10);	
-		add(txtFunction);
-
-		
-		JLabel lblBackBorder2 = new JLabel("");
-		lblBackBorder2.setBounds(900, 220, 350, 450);
-		lblBackBorder2.setBorder(border);
-		add(lblBackBorder2);
 	}
 	
 	public void addActionListener(ActionListener listener) {
 		btnBack.addActionListener(listener);
 		btnCancelTrainingSession.addActionListener(listener);
-		jtbTraining.addActionListener(listener);
-		jtbTrainingRequests.addActionListener(listener);
-		jtbStatistics.addActionListener(listener);
-		jtbEmployees.addActionListener(listener);
-		jtbTrainingSession.addActionListener(listener);
-		jtbInfo.addActionListener(listener);
-		jtbEnlistedPeople.addActionListener(listener);
-		jtbBooks.addActionListener(listener);
+		btnTraining.addActionListener(listener);
+		btnStatistics.addActionListener(listener);
+		btnEmployees.addActionListener(listener);
+		btnTrainingsession.addActionListener(listener);
+		btnInfo.addActionListener(listener);
+		btnEnlistedPeople.addActionListener(listener);
+		btnBooks.addActionListener(listener);
     }
-	
-	public String getName() {
-        return txtName.getText();
-    }
-	public String getDepartment() {
-        return txtDepartment.getText();
-    }
-	public String getFunction() {
-        return txtFunction.getText();
-    }
-	public int getSelectedRow() {
-		return selectedRow;
-	}
 
 }
