@@ -64,20 +64,18 @@ public class GoogleBooksAPI {
 			      Book b = new Book();
 			      Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
 			      Volume.SaleInfo saleInfo = volume.getSaleInfo();
-			      System.out.println("==========");
-			      // Title.
-			      System.out.println("Title: " + volumeInfo.getTitle());
+			      
 			      //
 			      b.setPublisher(volumeInfo.getPublisher());			      
 			      // Author(s).
 			      java.util.List<String> authors = volumeInfo.getAuthors();
 			      if (authors != null && !authors.isEmpty()) {
-			        System.out.print("Author(s): ");
+			      
 			        for (int i = 0; i < authors.size(); ++i) {
-			          System.out.print(authors.get(i));
+			          
 			          b.addAuthor(authors.get(i));
 			          if (i < authors.size() - 1) {
-			            System.out.print(", ");
+			           
 			            b.addAuthor(", ");
 			          }
 			        }
@@ -85,30 +83,23 @@ public class GoogleBooksAPI {
 			      }
 			      // Description (if any).
 			      if (volumeInfo.getDescription() != null && volumeInfo.getDescription().length() > 0) {
-			        System.out.println("Description: " + volumeInfo.getDescription());
 			      }
 			      // Ratings (if any).
 			      if (volumeInfo.getRatingsCount() != null && volumeInfo.getRatingsCount() > 0) {
 			        int fullRating = (int) Math.round(volumeInfo.getAverageRating().doubleValue());
-			        System.out.print("User Rating: ");
 			        for (int i = 0; i < fullRating; ++i) {
-			          System.out.print("*");
 			        }
-			        System.out.println(" (" + volumeInfo.getRatingsCount() + " rating(s))");
 			      }
 			      // Price (if any).
 			      if (saleInfo != null && "FOR_SALE".equals(saleInfo.getSaleability())) {
 			        double save = saleInfo.getListPrice().getAmount() - saleInfo.getRetailPrice().getAmount();
 			        if (save > 0.0) {
-			          System.out.print("List: " + CURRENCY_FORMATTER.format(saleInfo.getListPrice().getAmount())
-			              + "  ");
+			          
 			        }
-			        System.out.print("Google eBooks Price: "
-			            + CURRENCY_FORMATTER.format(saleInfo.getRetailPrice().getAmount()));
+			        
 			        b.setPrice(saleInfo.getRetailPrice().getAmount());
 			        if (save > 0.0) {
-			          System.out.print("  You Save: " + CURRENCY_FORMATTER.format(save) + " ("
-			              + PERCENT_FORMATTER.format(save / saleInfo.getListPrice().getAmount()) + ")");
+			        
 			        }
 			        System.out.println();
 			      }
@@ -120,16 +111,13 @@ public class GoogleBooksAPI {
 			      } else if ("SAMPLE".equals(accessViewStatus)) {
 			        message = "A preview of this book is available from Google eBooks at:";
 			      }
-			      System.out.println(message);
+			      
 			      // Link to Google eBooks.
-			      System.out.println(volumeInfo.getInfoLink());
+			      
 			      b.setLink(volumeInfo.getInfoLink());
 			      listBooks.add(b);
 			    }
-			    System.out.println("==========");
-			    System.out.println(
-			        volumes.getTotalItems() + " total results at http://books.google.com/ebooks?q="
-			        + URLEncoder.encode(query, "UTF-8"));
+			   
 			    return listBooks;
 			  }
 }

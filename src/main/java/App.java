@@ -4,8 +4,10 @@ import java.awt.List;
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -27,14 +29,20 @@ import models.LogFileHelper;
 import models.Token;
 import models.TrainingInfo;
 import models.TrainingSession;
-import models.Login;;
- 
+import models.Login;
+import models.Survey;
+import models.SurveyQuestion;;
+
 public class App {
 	 public static void main(String[] args) throws IOException, URISyntaxException {
+
+		    JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+
 		 
 		 System.out.println(UserAccess.get(1));
 		 
 		   /* JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+
 		    try {
 	
 		      String prefix = null;
@@ -58,7 +66,7 @@ public class App {
 		      }
 		      try {
 		    	  ArrayList<Book> testBooks = new ArrayList<>();
-		      testBooks= GoogleBooksAPI.queryGoogleBooks(jsonFactory, query);
+		    	  testBooks= GoogleBooksAPI.queryGoogleBooks(jsonFactory, query);
 		        // Success!
 		      	System.out.println("DIT IS EEN TESTZONE PLS not ignore");
 		      	for (int i=0;i<testBooks.size();i++) {
@@ -74,14 +82,11 @@ public class App {
 		    }
 		    
 		    System.exit(0);
-		  };*/
-		 Token t = Login.authorizeAcces("NDavolio", "1Davolio");
-		 if(t==null) {
-			 System.out.println("foutieve invoer");
-		 }
+		  };
+		
 		 
 		 
-	 };
+	
 
 	public static void trainingInfoTest() throws URISyntaxException, IOException, ExecutionException {
 		LogFileHelper.log("testuser", "testactie2");

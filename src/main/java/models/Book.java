@@ -45,37 +45,36 @@ import dataAccess.ClientCredentials;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Book {
 
-		private long bookID;
+		private int isbn;
 		private String title;
 		private ArrayList<String>authors  = new ArrayList<>();
 		private String publisher;
-		 private String link;
+		 private String url;
 		private double price;
 		
 		
 		public Book() {
-			super();
 		}
 		
 		public Book(Book book) {
 			
-			this(book.bookID,book.title,book.authors,book.publisher,book.price);	
+			this(book.isbn,book.title,book.authors,book.publisher,book.price);	
 			
 		}
 
-		public Book(long isbn, String title, ArrayList<String> authors, String publisher, double price) {
+		public Book(int isbn, String title, ArrayList<String> authors, String publisher, double price) {
 			super();
-			this.bookID = isbn;
+			this.isbn = isbn;
 			this.title = title;
 			this.authors = authors;
 			this.publisher = publisher;
 			this.price = price;
 		}
 		public String getLink() {
-			return this.link;
+			return this.url;
 		}
 		public void setLink(String link) {
-			this.link=link;
+			this.url=link;
 		}
 		public ArrayList<String> getAuthors(){
 			return this.authors;
@@ -85,12 +84,12 @@ public class Book {
 		}
 
 
-		public long getBookID() {
-			return bookID;
+		public int getisbn() {
+			return isbn;
 		}
 
-		public void setBookID(long isbn) {
-			this.bookID = isbn;
+		public void setisbn(int isbn) {
+			this.isbn = isbn;
 		}
 
 
@@ -136,7 +135,7 @@ public class Book {
 		
 		public String toString() {
 			StringBuilder sbr=new StringBuilder();
-			sbr.append("bookID: "+bookID+'\n');
+			sbr.append("bookID: "+isbn+'\n');
 			sbr.append("Title: "+title+'\n');
 			for (int i=0;i<authors.size();i++) {
 			sbr.append("Author(s)"+'\n');
@@ -144,28 +143,28 @@ public class Book {
 			}
 			sbr.append("Publisher: "+publisher+'\n');
 			sbr.append("Price: "+price+'\n');
-			sbr.append("Link"+link+"\n");
+			sbr.append("Link: "+url+"\n");
 			return sbr.toString();	
 		} 
 		
 		
 		
 		public void save() throws URISyntaxException, IOException {
-			if (bookID != 0) {
+			if (isbn != 0) {
 				BookAccess.update(this);
-				Cache.bookCache.put(bookID, this);
+				Cache.bookCache.put(isbn, this);
 			}
 			else {
-				bookID = (BookAccess.add(this).getBookID());
-				Cache.bookCache.put(bookID, this);
+				isbn = (BookAccess.add(this).getisbn());
+				Cache.bookCache.put(isbn, this);
 			}
 		}
 		
 		
 		public void delete() throws URISyntaxException, IOException {
-			if (bookID != 0) {
-				BookAccess.remove(bookID);
-				Cache.bookCache.invalidate(bookID);
+			if (isbn != 0) {
+				BookAccess.remove(isbn);
+				Cache.bookCache.invalidate(isbn);
 			}
 		}
 		
@@ -184,7 +183,7 @@ public class Book {
 					return false;
 			} else if (!authors.equals(other.authors))
 				return false;
-			if (bookID != other.bookID)
+			if (isbn != other.isbn)
 				return false;
 			if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 				return false;
@@ -207,7 +206,7 @@ public class Book {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + ((authors == null) ? 0 : authors.hashCode());
-			result = prime * result + (int) (bookID ^ (bookID >>> 32));
+			result = prime * result + (int) (isbn ^ (isbn >>> 32));
 			long temp;
 			temp = Double.doubleToLongBits(price);
 			result = prime * result + (int) (temp ^ (temp >>> 32));

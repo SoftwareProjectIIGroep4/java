@@ -14,7 +14,7 @@ import models.SurveyQuestion;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Survey {
 	private int surveyID;
-	private ArrayList<SurveyQuestion> surveyQuestions;
+	private HashMap<Integer,SurveyQuestion> surveyQuestions= new HashMap<Integer,SurveyQuestion> ();
 
 	public Survey() {
 		super();
@@ -25,13 +25,13 @@ public class Survey {
 		this.surveyID = surveyID;
 	}
 	
-	public Survey(int surveyID, ArrayList<SurveyQuestion> surveyQuestions) {
+	public Survey(int surveyID, HashMap<Integer,SurveyQuestion>  surveyQuestions) {
 		super();
 		this.surveyID = surveyID;
 		this.surveyQuestions = surveyQuestions;
 	}
 	
-	public Survey(ArrayList<SurveyQuestion> surveyQuestions) {
+	public Survey(HashMap<Integer,SurveyQuestion>  surveyQuestions) {
 		super();
 		this.surveyID = surveyID;
 		this.surveyQuestions = surveyQuestions;
@@ -44,23 +44,23 @@ public class Survey {
 		this.surveyID = surveyID;
 	}
 	
-	public ArrayList<SurveyQuestion> getSurveyQuestions() {
+	public HashMap<Integer,SurveyQuestion> getSurveyQuestions() {
 		return surveyQuestions;
 	}
 	
-	public void setSurveyQuestions(ArrayList<SurveyQuestion> surveyQuestions) {
+	/*public void setSurveyQuestions(HashMap<Integer,SurveyQuestion>  surveyQuestions) {
 		this.surveyQuestions = surveyQuestions;
-	}
-	
-	/*public void setSurveyQuestions(ArrayList<SurveyQuestion> surveyQuestions) {
-		this.surveyQuestions = new HashMap<Integer, SurveyQuestion>();
-		for (SurveyQuestion surveyQuestion : surveyQuestions) {
-			this.surveyQuestions.put(surveyQuestion.getQuestionID(), surveyQuestion);
-		}
 	}*/
 	
+	public void setSurveyQuestions(ArrayList<SurveyQuestion> surveyQuestions) {
+		
+		for (SurveyQuestion surveyQuestion : surveyQuestions) {
+			this.surveyQuestions.put(getSurveyID(), surveyQuestion);
+		}
+	}
+	
 	public void addSurveyQuestion(SurveyQuestion question) {
-		surveyQuestions.add( question);
+		surveyQuestions.put(question.getQuestionID(),question);
 	}
 	
 	public void deleteSurveyQuestion(int questionId) {

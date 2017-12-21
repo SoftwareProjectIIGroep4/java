@@ -67,6 +67,9 @@ public class AddSurveyPane extends JPanel {
 	private ListSelectionModel selectedRowQuestionsSurvey;
 	private ListSelectionModel selectedRowHistoryQuestions;
 	
+	public DefaultTableModel gettableQuestionsSurveyModel() {
+		 return this.tableQuestionsSurveyModel;
+	 }
 	
 	
 	
@@ -137,18 +140,14 @@ public class AddSurveyPane extends JPanel {
 	        List<String[]> data1 = new ArrayList<String[]>();	       
 			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);       
 	        
-	        for (int i =0;i<MainFrame.getSurveyQuestions().size();i++) {
 
 				
 				data1.add(new String[] {
-						
-						MainFrame.getSurveyQuestions().get(i).getQuestion()
 						
 						
 				});
 		
 
-			}
 			
 			tableQuestionsSurveyModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeaderQuestionsSurvey)
 			{
@@ -188,12 +187,23 @@ public class AddSurveyPane extends JPanel {
 				public void valueChanged(ListSelectionEvent arg0) {
 					// TODO Auto-generated method stub
 					if(!selectedRowQuestionsSurvey.isSelectionEmpty()) {
-						//GET ROW
-						selectedRow = selectedRowQuestionsSurvey.getMinSelectionIndex();
-						//doe iets hier
+						int selectedRow = tbSurvey.getSelectedRow();
+						int selectedColumn= tbSurvey.getSelectedColumn();
+						
+						//tableQuestionsSurveyModel.removeRow(selectedRow);
+						
 					}
 				}
+
 			});
+			tbSurvey.addMouseListener(new MouseAdapter(){
+			     public void mouseClicked(MouseEvent e){
+			      if (e.getClickCount() == 2){
+			    	  int selectedRow = tbSurvey.getSelectedRow();
+			    	  tableQuestionsSurveyModel.removeRow(selectedRow);
+			         }
+			      }
+			     } );
 	        
 			
 			//-------------------------------------------------------------------------------
@@ -252,7 +262,13 @@ public class AddSurveyPane extends JPanel {
 					// TODO Auto-generated method stub
 					if(!selectedRowHistoryQuestions.isSelectionEmpty()) {
 						//GET ROW
-						selectedRow = selectedRowHistoryQuestions.getMinSelectionIndex();
+						int selectedRow = tbAskedQuestions.getSelectedRow();
+						int selectedColumn= tbAskedQuestions.getSelectedColumn();
+						
+						Object object=GetData(tbAskedQuestions, selectedRow, selectedColumn);
+						txtAddQuestion.setText(object.toString());
+						
+						
 						//doe iets hier
 					}
 				}
@@ -302,5 +318,16 @@ public class AddSurveyPane extends JPanel {
 	public void clear() {
 		txtAddQuestion.setText("");
 	}
+	
+	
+	public Object GetData(JTable table, int row_index, int col_index){
+		  return table.getModel().getValueAt(row_index, col_index);
+		  }  
+	public void mouseClicked(MouseEvent e,int selected) {
+		  if (e.getClickCount() >= 2) {
+			  tableQuestionsSurveyModel.removeRow(selected);
+		  }
+		}
+	
 	
 }
