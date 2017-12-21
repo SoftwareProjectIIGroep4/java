@@ -86,17 +86,17 @@ public class StatisticsPane extends JPanel {
         
         btnParticipationTrainingsEmployeeStatistics = new JButton("Trainings the employee took part of");
         btnParticipationTrainingsEmployeeStatistics.setActionCommand("goToStatisticsFollowedTraining");
-        btnParticipationTrainingsEmployeeStatistics.setBounds(481, 165, 286, 46);
+        btnParticipationTrainingsEmployeeStatistics.setBounds(461, 165, 327, 46);
         add(btnParticipationTrainingsEmployeeStatistics);
         
-        btnParticipationMaxEmployeeStatistics = new JButton("Who participated to the most trainings");
+        btnParticipationMaxEmployeeStatistics = new JButton("Which employee participated to the most trainings");
         btnParticipationMaxEmployeeStatistics.setActionCommand("goToStatisticsTrainingParticipation");
-        btnParticipationMaxEmployeeStatistics.setBounds(481, 235, 286, 46);
+        btnParticipationMaxEmployeeStatistics.setBounds(461, 235, 327, 46);
         add(btnParticipationMaxEmployeeStatistics);
         
         btnCertEmployeeStatistics = new JButton("Which certificates does an employee have");
         btnCertEmployeeStatistics.setActionCommand("goToStatisticsCertificatesEmployee");
-        btnCertEmployeeStatistics.setBounds(481, 304, 286, 46);
+        btnCertEmployeeStatistics.setBounds(461, 304, 327, 46);
         add(btnCertEmployeeStatistics);
         
 	}
