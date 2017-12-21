@@ -98,7 +98,7 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		btnTraining.setOpaque(true);
 		btnTraining.setActionCommand("TrainingMenu");
-		btnTraining.setBounds(133, 0, 211, 75);
+		btnTraining.setBounds(124, 0, 264, 75);
 		add(btnTraining);
 
 		btnTrainingsession = new JButton("Training session");
@@ -120,7 +120,7 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 		btnTrainingsession.setOpaque(true);
 		btnTrainingsession.setActionCommand("TrainingSessionMenu");
-		btnTrainingsession.setBounds(344, 0, 211, 75);
+		btnTrainingsession.setBounds(387, 0, 264, 75);
 		add(btnTrainingsession);
 
 		btnEmployees = new JButton("Employees");
@@ -142,7 +142,7 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEmployees.setOpaque(true);
 		btnEmployees.setActionCommand("EmployeesMenu");
-		btnEmployees.setBounds(555, 0, 212, 75);
+		btnEmployees.setBounds(650, 0, 264, 75);
 		add(btnEmployees);
 
 		btnStatistics = new JButton("Statistics");
@@ -164,7 +164,7 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		btnStatistics.setOpaque(true);
 		btnStatistics.setActionCommand("StatisticsMenu");
-		btnStatistics.setBounds(767, 0, 212, 75);
+		btnStatistics.setBounds(912, 0, 264, 75);
 		add(btnStatistics);
 
 		/**		jtbTrainingRequests = new JButton("Training requests");
@@ -425,8 +425,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnShowEmployeeFollowedTrainings.addActionListener(listener);
 		btnBackFollowedTrainingStatistics.addActionListener(listener);
 		btnTraining.addActionListener(listener);
-
-		//jtbTrainingRequests.addActionListener(listener);
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);

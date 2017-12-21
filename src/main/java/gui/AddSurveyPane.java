@@ -62,8 +62,6 @@ public class AddSurveyPane extends JPanel {
 	private JScrollPane sclQuestionsSurvey;  
 	private JScrollPane sclHistoryQuestions;
 	private JButton btnAddQuestion;
-	private JButton btnDeleteQuestion;
-	private JButton btnUpdateQuestion;
 	private JTextField txtAddQuestion;
 	private JButton btnBackToNewTrainingsession;
 	private ListSelectionModel selectedRowQuestionsSurvey;
@@ -275,16 +273,6 @@ public class AddSurveyPane extends JPanel {
 	        btnAddQuestion.setBounds(987, 350, 203, 41);
 	        add(btnAddQuestion);
 	        
-	        btnDeleteQuestion = new JButton("Delete question");
-	        btnDeleteQuestion.setActionCommand("deleteQuestion");
-	        btnDeleteQuestion.setBounds(987, 402, 203, 41);
-	        add(btnDeleteQuestion);
-	        
-	        btnUpdateQuestion = new JButton("Update question");
-	        btnUpdateQuestion.setActionCommand("updateQuestion");
-	        btnUpdateQuestion.setBounds(987, 454, 203, 41);
-	        add(btnUpdateQuestion);
-	        
 	        txtAddQuestion = new JTextField();
 	        txtAddQuestion.setBounds(922, 298, 330, 41);
 	        add(txtAddQuestion);
@@ -301,8 +289,6 @@ public class AddSurveyPane extends JPanel {
 		btnBackToNewTrainingsession.addActionListener(listener);
 		btnConfirmSurvey.addActionListener(listener);
 		btnAddQuestion.addActionListener(listener);
-		btnDeleteQuestion.addActionListener(listener);
-		btnUpdateQuestion.addActionListener(listener);
 		btnTraining.addActionListener(listener);
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);

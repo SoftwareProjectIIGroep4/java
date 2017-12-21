@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
@@ -30,11 +31,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
-import dataAccess.AddressAccess;
 import dataAccess.EmployeeAccess;
 import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
+
 import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
@@ -50,16 +52,19 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 	private JTextField txtYear;
 	private JTable tbEmployeeParticipationTrainings;
 	private DefaultTableModel tablePartEmployeeTraining;
+	private DefaultTableModel modelPartEmployees;
 	private JScrollPane sclPartEmployeeTrainings;
 	private ListSelectionModel selectedRowPartEmployeeTraining;
 	private JButton btnParticipationBackStatistics;
+	private JLabel lblFirstName;
+	private JLabel lblLastname;
+	
 	
 	/**
 	 * Create the panel.
 	 */
 	
 	private List <String[]> employeeData = null;
-	HashMap<Integer, Employee> employeeMap = null;
 	
 	public StatisticsTrainingParticipationPane() {
 		
@@ -69,22 +74,30 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
 		  btnTraining = new JButton("Training"); 
-		 /* btnTraining.addActionListener(new ActionListener() {
+		  btnTraining.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
-					// bestaande tabel blanco op zetten!
-					tableModel.getDataVector().removeAllElements();
-					tableModel.fireTableDataChanged();
-
+					// TODO Auto-generated method stub
+					tablePartEmployeeTraining.getDataVector().removeAllElements();
+					tablePartEmployeeTraining.fireTableDataChanged();
 				}
-			});*/
+			});
 		  btnTraining.setBackground(Color.WHITE);
 		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		  btnTraining.setOpaque(true);
 		  btnTraining.setActionCommand("TrainingMenu");
 		  btnTraining.setBounds(124, 0, 264, 75);
-	        add(btnTraining);
+	      add(btnTraining);
 	        
 	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					tablePartEmployeeTraining.getDataVector().removeAllElements();
+					tablePartEmployeeTraining.fireTableDataChanged();
+				}
+			});
 	        btnTrainingsession.setBackground(Color.WHITE);
 	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnTrainingsession.setOpaque(true);
@@ -93,6 +106,14 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 	        add(btnTrainingsession);
 	        
 	        btnEmployees = new JButton("Employees");
+	        btnEmployees.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					tablePartEmployeeTraining.getDataVector().removeAllElements();
+					tablePartEmployeeTraining.fireTableDataChanged();
+				}
+			});
 	        btnEmployees.setBackground(Color.WHITE);
 	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnEmployees.setOpaque(true);
@@ -101,6 +122,14 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 	        add(btnEmployees);
 	        
 	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					tablePartEmployeeTraining.getDataVector().removeAllElements();
+					tablePartEmployeeTraining.fireTableDataChanged();
+				}
+			});
 	        btnStatistics.setBackground(Color.WHITE);
 	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnStatistics.setOpaque(true);
@@ -123,53 +152,56 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 	        lblUitlegPart.setBounds(44, 222, 260, 33);
 	        add(lblUitlegPart);
 	        
+	        lblFirstName = new JLabel("");
+			lblFirstName.setBounds(74, 404, 149, 40);
+			add(lblFirstName);
+			
+			lblLastname = new JLabel("");
+			lblLastname.setBounds(74, 455, 114, 63);
+			add(lblLastname);
+			
 	        txtYear = new JTextField();
-	        txtYear.setBounds(44, 266, 241, 33);
+	        txtYear.setBounds(44, 266, 126, 33);
 	        add(txtYear);
 	        txtYear.setColumns(10);
 	        
-	        Object [] columnheaderEmployeePartStatistics = {"EmployeeID","First name","Last name"};
+	        Object [] columnheaderEmployeeStatistics = {"EmployeeID","First Name","Last Name"};
 			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
 			Object[][] data = {
-			
-					
-					
 			};
-			
-			tablePartEmployeeTraining = new DefaultTableModel(data, columnheaderEmployeePartStatistics)
+
+			tablePartEmployeeTraining  = new DefaultTableModel(data, columnheaderEmployeeStatistics)
 			{
-			    @Override
-			    public boolean isCellEditable(int row, int column) {
-			       //all cells false
-			       return false;
-			    }
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					//all cells false
+					return false;
+				}
 			};
-			tbEmployeeParticipationTrainings = new JTable(tablePartEmployeeTraining);
-			tbEmployeeParticipationTrainings.setBackground(Color.red);
-			tbEmployeeParticipationTrainings.setForeground(Color.blue);
-			tbEmployeeParticipationTrainings.setModel(tablePartEmployeeTraining);
+			tbEmployeeParticipationTrainings = new JTable(tablePartEmployeeTraining );
+			tbEmployeeParticipationTrainings.setModel(tablePartEmployeeTraining );
 			tbEmployeeParticipationTrainings.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tbEmployeeParticipationTrainings.setRowSelectionAllowed(true);
-		    final TableColumnModel columnmodelTraining = tbEmployeeParticipationTrainings.getColumnModel();
-		    for (int column = 0; column < tbEmployeeParticipationTrainings.getColumnCount(); column++) {
-		        int width = 15; // Min width
-		        for (int row = 0; row < tbEmployeeParticipationTrainings.getRowCount(); row++) {
-		            TableCellRenderer renderer = tbEmployeeParticipationTrainings.getCellRenderer(row, column);
-		            Component comp = tbEmployeeParticipationTrainings.prepareRenderer(renderer, row, column);
-		            width = Math.max(comp.getPreferredSize().width +1 , width);
-		        }
-		        if(width > 300)
-		            width=300;
-		        columnmodelTraining.getColumn(column).setPreferredWidth(width);
-		    }
-			
-		    sclPartEmployeeTrainings = new JScrollPane(tbEmployeeParticipationTrainings);
-		    sclPartEmployeeTrainings.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		    sclPartEmployeeTrainings.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		    sclPartEmployeeTrainings.setBounds(358, 176, 856, 469);
+			final TableColumnModel columnmodelTraining = tbEmployeeParticipationTrainings .getColumnModel();
+			for (int column = 0; column < tbEmployeeParticipationTrainings .getColumnCount(); column++) {
+				int width = 15; // Min width
+				for (int row = 0; row < tbEmployeeParticipationTrainings .getRowCount(); row++) {
+					TableCellRenderer renderer = tbEmployeeParticipationTrainings .getCellRenderer(row, column);
+					Component comp = tbEmployeeParticipationTrainings .prepareRenderer(renderer, row, column);
+					width = Math.max(comp.getPreferredSize().width +1 , width);
+				}
+				if(width > 300)
+					width=300;
+				columnmodelTraining.getColumn(column).setPreferredWidth(width);
+			}
+
+			sclPartEmployeeTrainings = new JScrollPane(tbEmployeeParticipationTrainings );
+			sclPartEmployeeTrainings.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			sclPartEmployeeTrainings.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			sclPartEmployeeTrainings.setBounds(358, 176, 856, 469);
 			add(sclPartEmployeeTrainings);
-			
-			selectedRowPartEmployeeTraining = tbEmployeeParticipationTrainings.getSelectionModel();
+
+			selectedRowPartEmployeeTraining = tbEmployeeParticipationTrainings .getSelectionModel();
 			selectedRowPartEmployeeTraining.addListSelectionListener(new ListSelectionListener() {
 				@Override
 				public void valueChanged(ListSelectionEvent arg0) {
@@ -181,9 +213,80 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 					}
 				}
 			});
-			
-			btnShowMaxParticipationTraining = new JButton("Show information");
-			btnShowMaxParticipationTraining.setActionCommand("showParticipationTrainingsEmployee");
+
+
+
+			btnShowMaxParticipationTraining  = new JButton("Show information");
+			btnShowMaxParticipationTraining .addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					int employeeID = Integer.parseInt(txtYear.getText());
+
+					System.out.println("ljlkj" + employeeID + txtYear.getText());
+					// ! ! ! !// check employeeid en userid verschil?		
+					Employee searchEmployee = new Employee();
+					HashMap<Integer, Employee> listEmployee = new HashMap<Integer, Employee>();
+					
+					try {
+						searchEmployee = EmployeeAccess.get(employeeID);
+					
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+					employeeData = new ArrayList<String[]>();
+
+					for(Map.Entry<Integer, Employee> lijst: listEmployee.entrySet()) {
+						
+							employeeData.add(new String[] {
+							String.valueOf(listEmployee.get(lijst.getValue()).getEmployeeID()),
+							String.valueOf(listEmployee.get(lijst.getValue()).getFirstName()),
+							String.valueOf(listEmployee.get(lijst.getValue()).getLastName())
+							});
+							
+						}
+						  
+
+				
+
+					if (listEmployee.isEmpty()) {
+						employeeData.add(new String[] {
+								"No Training Followed Yet"	
+						});
+					}
+
+					modelPartEmployees = new DefaultTableModel(employeeData.toArray(new Object[][] {}), columnheaderEmployeeStatistics) {
+						@Override
+						public boolean isCellEditable(int row, int column) {
+							//all cells false
+							return false;
+						}
+					};
+					tbEmployeeParticipationTrainings.setModel(modelPartEmployees);
+					tbEmployeeParticipationTrainings.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					tbEmployeeParticipationTrainings.setRowSelectionAllowed(true);
+
+					final TableColumnModel columnmodelTraining = tbEmployeeParticipationTrainings.getColumnModel();
+					for (int column = 0; column < tbEmployeeParticipationTrainings.getColumnCount(); column++) {
+						int width = 15; // Min width
+						for (int row = 0; row < tbEmployeeParticipationTrainings.getRowCount(); row++) {
+							TableCellRenderer renderer = tbEmployeeParticipationTrainings.getCellRenderer(row, column);
+							Component comp = tbEmployeeParticipationTrainings.prepareRenderer(renderer, row, column);
+							width = Math.max(comp.getPreferredSize().width +1 , width);
+						}
+						if(width > 300)
+							width=300;
+						columnmodelTraining.getColumn(column).setPreferredWidth(width);
+					}
+
+				}
+			});
+		
 			btnShowMaxParticipationTraining.setBounds(44, 310, 158, 45);
 			add(btnShowMaxParticipationTraining);
 			
@@ -196,8 +299,9 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 			btnParticipationBackStatistics.setActionCommand("backPartToStatistics");
 			btnParticipationBackStatistics.setBounds(44, 131, 144, 45);
 			add(btnParticipationBackStatistics);
+			
+			
 	}
-	
 	public void addActionListener(ActionListener listener) {
 		btnShowMaxParticipationTraining.addActionListener(listener);
 		btnParticipationBackStatistics.addActionListener(listener);
@@ -207,8 +311,5 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 		btnTrainingsession.addActionListener(listener);
     }
 	
-	public String getYear() {
-		return txtYear.getText();
-	}
+}			
 
-}
