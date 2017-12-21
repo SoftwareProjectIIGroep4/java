@@ -260,7 +260,7 @@ public class TrainingSessionPoeplePane extends JPanel {
 	
 	public void setListEmployee(int id) {
 		try {
-			Object [] columnHeadersEmployee = {"Employee ID","Employee name","Department","Function","Status"};
+			Object [] columnHeadersEmployee = {"Employee ID","Employee name","Titel"};
 			System.out.println("2");
 			 HashMap<Integer, Employee> ListEmployee = EmployeeAccess.getBySession(id);
 			 List<String[]> data = new ArrayList<String[]>();
@@ -268,18 +268,8 @@ public class TrainingSessionPoeplePane extends JPanel {
 					System.out.println("1");
 					data.add(new String[] {
 							String.valueOf(ListEmployee.get(entry).getEmployeeID()),
-							ListEmployee.get(entry).getFirstName() + " " + ListEmployee.get(entry).getLastName(),
-							ListEmployee.get(entry).getDepartment(),
-							ListEmployee.get(entry).getFunction(),
+							ListEmployee.get(entry).getTitleOfCourtesy()+ " " +ListEmployee.get(entry).getFirstName() + " " + ListEmployee.get(entry).getLastName(),
 							ListEmployee.get(entry).getTitle()
-							//String.valueOf(entry.getValue().getTrainingSessionId()),
-							//String.valueOf(entry.getValue().getEmployeeID()),
-							//entry.getFirstName()
-							///ListEmployee.get(entry).toString()
-							//listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
-							//String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
-							//String.valueOf(entry.getValue().getDate()) ,
-							//String.valueOf(entry.getValue().getStartHour())
 							}
 					);
 					System.out.println("test voor de print out");
