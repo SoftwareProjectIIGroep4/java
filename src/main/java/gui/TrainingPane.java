@@ -233,6 +233,7 @@ public class TrainingPane extends JPanel {
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
 					String[] teStrings=data1.get(selectedRow);
 					setTabelID(Integer.parseInt(teStrings[0]));
+					
 					//doe iets hier
 					
 				}

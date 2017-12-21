@@ -32,6 +32,7 @@ public class AddressAccess extends RestRequest {
 
 	public static Address add(Address address) throws IOException, URISyntaxException {
 		String JSONAdr = postObject(address, new URI(Constants.ADDRESS_SOURCE));
+		System.out.println(JSONAdr.toString());
 		return mapper.readValue(JSONAdr, Address.class);
 	}
 
