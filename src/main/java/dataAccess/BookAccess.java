@@ -48,6 +48,18 @@ public class BookAccess extends RestRequest {
 				return bookMap;			
 		}
 		
+		public static HashMap<Long, Book> getByTraining() throws IOException, URISyntaxException {
+			
+			String JSONBooks = getAllOrOne(new URI(Constants.BOOK_SOURCE));
+			List<Book> books = mapper.readValue(JSONBooks, new TypeReference<List<Book>>(){});
+
+			HashMap<Long, Book> bookMap = new HashMap<Long, Book>();
+
+			for (Book book : books) {
+				bookMap.put(book.getBookID(), book);
+			}
+			return bookMap;			
+	}
 		
 		public static Book get(Long isbn) throws IOException, URISyntaxException {
 			String JSONBooks = getAllOrOne(new URI(Constants.BOOK_SOURCE + isbn));
@@ -69,6 +81,8 @@ public class BookAccess extends RestRequest {
 			String JSONBooks = deleteObject(id, new URI(Constants.BOOK_SOURCE + id));
 			return mapper.readValue(JSONBooks, Book.class);
 		}
+		
+		
 		
 		/*Get a book by title
 		public static Book getBookByTitle(String title) {
