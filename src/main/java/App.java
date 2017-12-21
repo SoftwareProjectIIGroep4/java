@@ -34,55 +34,20 @@ import models.SurveyQuestion;;
 
 public class App {
 	 public static void main(String[] args) throws IOException, URISyntaxException {
-		    JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-		    try {
-	
-		      String prefix = null;
-		      String query = "Java";
-		      for (String arg : args) {
-		        if ("--author".equals(arg)) {
-		          prefix = "inauthor:";
-		        } else if ("--isbn".equals(arg)) {
-		          prefix = "isbn:";
-		        } else if ("--title".equals(arg)) {
-		          prefix = "intitle:";
-		        } else if (arg.startsWith("--")) {
-		          System.err.println("Unknown argument: " + arg);
-		          System.exit(1);
-		        } else {
-		          query = arg;
-		        }
-		      }
-		      if (prefix != null) {
-		        query = prefix + query;
-		      }
-		      try {
-		    	  ArrayList<Book> testBooks = new ArrayList<>();
-		    	  testBooks= GoogleBooksAPI.queryGoogleBooks(jsonFactory, query);
-		        // Success!
-		      	System.out.println("DIT IS EEN TESTZONE PLS not ignore");
-		      	for (int i=0;i<testBooks.size();i++) {
-		      		System.out.println(testBooks.get(i).toString());
-		      	}
-		      	System.out.println("EINDE TESTZONE ");
-		        return;
-		      } catch (IOException e) {
-		        System.err.println(e.getMessage());
-		      }
-		    } catch (Throwable t) {
-		      t.printStackTrace();
-		    }
-		    
-		    System.exit(0);
-		  };
+		 try {
+			trainingInfoTest();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		 
-		 
+	 }
 	
 
 	public static void trainingInfoTest() throws URISyntaxException, IOException, ExecutionException {
-		LogFileHelper.log("testuser", "testactie2");
-		TrainingSession session = new TrainingSession(33, 1, 6, new Date(System.currentTimeMillis()) , new Time(1510833600000L) , new Time(1510840800000L) , false, 342);
+
+		TrainingSession session = new TrainingSession(33, 1, 6, new Date(System.currentTimeMillis()).toString() , new Time(1510833600000L) , new Time(1510840800000L) , false, 342);
 		session.save();
 	}
 

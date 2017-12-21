@@ -43,119 +43,104 @@ import dataAccess.Cache;
 import dataAccess.ClientCredentials;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+	
 public class Book {
+	private int isbn;
+	private String url;
 
-		private int isbn;
-		private String title;
-		private ArrayList<String>authors  = new ArrayList<>();
-		private String publisher;
-		 private String url;
-		private double price;
+		public Book(int isbn, String url) {
+		super();
+		this.isbn = isbn;
+		this.url = url;
+	}
+
+
 		
 		
+		
+		
+		public int getIsbn() {
+			return isbn;
+		}
+
+		public void setIsbn(int isbn) {
+			this.isbn = isbn;
+		}
+
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+
 		public Book() {
 		}
 		
 		public Book(Book book) {
 			
-			this(book.isbn,book.title,book.authors,book.publisher,book.price);	
+			this(book.isbn,book.url);	
 			
 		}
 
-		public Book(int isbn, String title, ArrayList<String> authors, String publisher, double price) {
-			super();
-			this.isbn = isbn;
-			this.title = title;
-			this.authors = authors;
-			this.publisher = publisher;
-			this.price = price;
-		}
-		public String getLink() {
-			return this.url;
-		}
-		public void setLink(String link) {
-			this.url=link;
-		}
-		public ArrayList<String> getAuthors(){
-			return this.authors;
-		}
-		public void addAuthor(String author) {
-			this.authors.add(author);
-		}
-
-
-		public int getisbn() {
-			return isbn;
-		}
-
-		public void setisbn(int isbn) {
-			this.isbn = isbn;
-		}
-
-
-		public String getTitle() {
-			return title;
-		}
-
-
-		public void setTitle(String title) {
-			this.title = title;
-		}
-
-
-		/*public String getAuthor() {
-			return author;
-		}
-
-
-		public void setAuthor(String author) {
-			this.author = author;
-		}*/
-
-
-		public String getPublisher() {
-			return publisher;
-		}
-
-
-		public void setPublisher(String publisher) {
-			this.publisher = publisher;
-		}
-
 		
-		public double getPrice() {
-			return price;
-		}
-
-
-		public void setPrice(double price) {
-			this.price = price;
-		}
-
 		
 		public String toString() {
 			StringBuilder sbr=new StringBuilder();
 			sbr.append("bookID: "+isbn+'\n');
-			sbr.append("Title: "+title+'\n');
-			for (int i=0;i<authors.size();i++) {
-			sbr.append("Author(s)"+'\n');
-			sbr.append(authors.get(i)+'\n');
-			}
-			sbr.append("Publisher: "+publisher+'\n');
-			sbr.append("Price: "+price+'\n');
+			
 			sbr.append("Link: "+url+"\n");
 			return sbr.toString();	
 		} 
 		
 		
 		
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + isbn;
+			result = prime * result + ((url == null) ? 0 : url.hashCode());
+			return result;
+		}
+
+
+
+
+
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Book other = (Book) obj;
+			if (isbn != other.isbn)
+				return false;
+			if (url == null) {
+				if (other.url != null)
+					return false;
+			} else if (!url.equals(other.url))
+				return false;
+			return true;
+		}
+
+
+
+
+
+
 		public void save() throws URISyntaxException, IOException {
 			if (isbn != 0) {
 				BookAccess.update(this);
 				Cache.bookCache.put(isbn, this);
 			}
 			else {
-				isbn = (BookAccess.add(this).getisbn());
+				isbn = (BookAccess.add(this).getIsbn());
 				Cache.bookCache.put(isbn, this);
 			}
 		}
@@ -169,51 +154,7 @@ public class Book {
 		}
 		
 		
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Book other = (Book) obj;
-			if (authors == null) {
-				if (other.authors != null)
-					return false;
-			} else if (!authors.equals(other.authors))
-				return false;
-			if (isbn != other.isbn)
-				return false;
-			if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
-				return false;
-			if (publisher == null) {
-				if (other.publisher != null)
-					return false;
-			} else if (!publisher.equals(other.publisher))
-				return false;
-			if (title == null) {
-				if (other.title != null)
-					return false;
-			} else if (!title.equals(other.title))
-				return false;
-			return true;
-		}
 		
-		
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((authors == null) ? 0 : authors.hashCode());
-			result = prime * result + (int) (isbn ^ (isbn >>> 32));
-			long temp;
-			temp = Double.doubleToLongBits(price);
-			result = prime * result + (int) (temp ^ (temp >>> 32));
-			result = prime * result + ((publisher == null) ? 0 : publisher.hashCode());
-			result = prime * result + ((title == null) ? 0 : title.hashCode());
-			return result;
-		}
 	}
 		
 		

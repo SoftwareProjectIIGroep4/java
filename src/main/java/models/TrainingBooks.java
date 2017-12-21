@@ -9,11 +9,11 @@ import dataAccess.TrainingBookAcces;
 
 public class TrainingBooks {
 	private int trainingId;
-	private int boekId;
+	private int isbn;
 	public TrainingBooks(int trainingId, int boekId) {
 		super();
 		this.trainingId = trainingId;
-		this.boekId = boekId;
+		this.isbn = boekId;
 	}
 	public TrainingBooks() {
 		
@@ -24,29 +24,23 @@ public class TrainingBooks {
 	public void setTrainingId(int trainingId) {
 		this.trainingId = trainingId;
 	}
-	public int getBoekId() {
-		return boekId;
+	public int getIsbn() {
+		return isbn;
 	}
-	public void setBoekId(int boekId) {
-		this.boekId = boekId;
+	public void setIsbn(int boekId) {
+		this.isbn = boekId;
 	}
 
 	public void save() throws URISyntaxException, IOException {
-		// Address heeft al een ID, update het address
-		if (boekId != 0) {
-			TrainingBookAcces.update(this);
-			//Cache.put(boekId, this);
-		}
-		// Address heeft nog geen ID, maak het address aan
-		else {
-			boekId = TrainingBookAcces.add(this).getBoekId();
-			Cache.trainingBookCache.put(boekId, this);
-		}
+		
+			TrainingBookAcces.add(this);
+			Cache.trainingBookCache.put(isbn, this);
+		
 	}
 	public void delete() throws URISyntaxException, IOException {
-		if (boekId != 0) {
-			AddressAccess.remove(boekId);
-			Cache.addressCache.invalidate(boekId);
+		if (isbn != 0) {
+			AddressAccess.remove(isbn);
+			Cache.addressCache.invalidate(isbn);
 		}
 	}
 }

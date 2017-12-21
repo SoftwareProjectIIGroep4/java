@@ -127,7 +127,7 @@ public class Cache {
 				}
 			});
 	public static void loadAllTrainingBooks() throws IOException, URISyntaxException {
-		//bookCache.putAll(TrainingBookAcces.getAll());
+		trainingBookCache.putAll(TrainingBookAcces.getAll());
 	}
 	
 	public static void loadAllSurveys() throws IOException, URISyntaxException {
