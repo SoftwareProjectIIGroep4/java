@@ -18,7 +18,7 @@ public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }
 //DATAMEMBERS
 	private int questionID,surveyID;
 	private String content;
-	private ArrayList<SurveyAnswer> answers;
+	private ArrayList<SurveyAnswer> answers= new ArrayList<SurveyAnswer>();
 	private typeQuestion qType;
 //METHODS
 	public SurveyQuestion(int questionID, int surveyID, String question, ArrayList<SurveyAnswer> answers) {
@@ -96,7 +96,7 @@ public enum typeQuestion {NUMERICAL, TEXTUAL,FEELING }
 		}
 		//  heeft nog geen ID, maak het  aan
 		else {
-			questionID = (SurveyQuestionAcces.add(this).getQuestionID());
+			questionID = SurveyQuestionAcces.add(this).getQuestionID();
 			Cache.surveyQuestionCache.put(questionID, this);
 			
 		}

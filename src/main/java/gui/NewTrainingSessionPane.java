@@ -7,6 +7,11 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -420,13 +425,23 @@ public class NewTrainingSessionPane extends JPanel {
         return txtTitle.getText();
     }
 	public String getDate() {
-        return txtDate.getText();
+		/*SimpleDateFormat formatter1=new SimpleDateFormat("yyy/MM/dd");
+		try {
+		return	formatter1.parse(txtDate.getText());
+		
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;*/
+		return txtDate.getText();
     }
-	public String getStartHour() {
-        return txtStartHour.getText();
+	public Time getStartHour() {
+		return java.sql.Time.valueOf(txtStartHour.getText()+":00");
+
     }
-	public String getEndHour() {
-        return txtEndHour.getText();
+	public Time getEndHour() {
+		return java.sql.Time.valueOf(txtEndHour.getText()+":00");
     }
 	public String getAdministrativeArea() {
         return txtAdministrativeArea.getText();

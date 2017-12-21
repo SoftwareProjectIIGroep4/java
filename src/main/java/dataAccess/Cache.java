@@ -20,6 +20,7 @@ import models.SurveyAnswer;
 import models.SurveyQuestion;
 import models.Survey;
 import models.FollowingTraining;
+import models.TrainingBooks;;
 
 
 //Source: https://www.tutorialspoint.com/guava/guava_caching_utilities.htm
@@ -31,6 +32,8 @@ public class Cache {
 					return SurveyAcces.get(key);
 				}
 			});
+	
+	
 	
 	public static LoadingCache<Integer, SurveyAnswer> surveyAnswerCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, SurveyAnswer>() {
@@ -121,13 +124,23 @@ public class Cache {
 		surveyAnswerCache.putAll(SurveyAnswerAcces.getAllSurveyAnswers());
 	}	
 
-	public static LoadingCache<Long, Book> bookCache = CacheBuilder.newBuilder().maximumSize(100)
-			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Long, Book>() {
+	public static LoadingCache<Integer, Book> bookCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Book>() {
 				@Override
-				public Book load(Long key) throws Exception {
+				public Book load(Integer key) throws Exception {
 					return BookAccess.get(key);
 				}
 			});
+	public static LoadingCache<Integer,TrainingBooks > trainingBookCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, TrainingBooks>() {
+				@Override
+				public TrainingBooks load(Integer key) throws Exception {
+					return TrainingBookAcces.get(key);
+				}
+			});
+	public static void loadAllTrainingBooks() throws IOException, URISyntaxException {
+		trainingBookCache.putAll(TrainingBookAcces.getAll());
+	}
 	
 	public static void loadAllSurveys() throws IOException, URISyntaxException {
 		surveyCache.putAll(SurveyAcces.getAllSurveys());
@@ -169,9 +182,14 @@ public class Cache {
 	public static void loadAllBooks() throws IOException, URISyntaxException {
 		bookCache.putAll(BookAccess.getAll());
 	}
+<<<<<<< HEAD
 	
 	/*public static void loadAllFollowingTraining() throws IOException, URISyntaxException {
         followingTraingCache.putAll(FollowingTraingAcces.getAll());
     }*/
 
+=======
+	
+	
+>>>>>>> refs/remotes/origin/master
 }

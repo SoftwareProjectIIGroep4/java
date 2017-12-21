@@ -40,9 +40,10 @@ public class SelectTrainingPane extends JPanel {
 	private JButton btnBack;
 	private JButton btnMakeTrainingSession;
 	private int selectedRow;
+	private DefaultTableModel modelTraining,tableModel;
 	TrainingPane trainingPane;
 	////////////////////////////////
-	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+	private ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
 	
 	////////////////////////////////
 
@@ -73,11 +74,10 @@ public class SelectTrainingPane extends JPanel {
 		add(btnMakeTrainingSession);
 		
 		Object [] columnHeadersTraining = {"Title","Number of Days","Price"};
-		DefaultTableModel modelTraining = new DefaultTableModel();
+		modelTraining = new DefaultTableModel();
 		modelTraining.setColumnIdentifiers(columnHeadersTraining);
 		List<String[]> data1 = new ArrayList<String[]>();
 		
-		System.out.println("test2::"+MainFrame.getKeeper());
 		for (Map.Entry<Integer, TrainingInfo>  entry : listTraingInfo.entrySet()) {
 			if (entry.getValue().getTrainingId()==MainFrame.getKeeper()) {
 			data1.add(new String[] {
@@ -91,7 +91,7 @@ public class SelectTrainingPane extends JPanel {
 			}
 		}
 		
-		DefaultTableModel tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersTraining) {
+		   tableModel = new DefaultTableModel(data1.toArray(new Object[][] {}), columnHeadersTraining) {
 		   
 
 			@Override
@@ -147,6 +147,29 @@ public class SelectTrainingPane extends JPanel {
 	public int getSelectedRow() {
 		return selectedRow;
 	}
+
+	public DefaultTableModel getModelTraining() {
+		return modelTraining;
+	}
+
+	public ConcurrentMap<Integer, TrainingInfo> getListTraingInfo() {
+		return listTraingInfo;
+	}
+
+	public void setListTraingInfo(ConcurrentMap<Integer, TrainingInfo> listTraingInfo) {
+		this.listTraingInfo = listTraingInfo;
+	}
+
+	public DefaultTableModel getTableModel() {
+		return tableModel;
+	}
+
+	public void setTableModel(DefaultTableModel tableModel) {
+		this.tableModel = tableModel;
+	}
+
+	
+
 	
 
 }
