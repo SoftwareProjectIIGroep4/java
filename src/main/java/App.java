@@ -18,6 +18,7 @@ import dataAccess.CertificateAccess;
 import dataAccess.ClientCredentials;
 import dataAccess.GoogleBooksAPI;
 import dataAccess.TrainingSessionAccess;
+import dataAccess.UserAccess;
 import demos.Demo1;
 import models.Address;
 import models.Book;
@@ -30,6 +31,9 @@ import models.Login;;
  
 public class App {
 	 public static void main(String[] args) throws IOException, URISyntaxException {
+		 
+		 System.out.println(UserAccess.get(1));
+		 
 		   /* JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 		    try {
 	
@@ -130,5 +134,7 @@ public class App {
 		System.out.println(certificate);
 		
 	}
+	
+	
 }
 

@@ -36,7 +36,7 @@ import java.util.concurrent.ConcurrentMap;
 import dataAccess.EmployeeAccess;
 import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
-
+import dataAccess.UserAccess;
 import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
@@ -64,7 +64,7 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 	 * Create the panel.
 	 */
 	
-	private List <String[]> employeeData = null;
+	private List<String[]> employeeData = null;
 	
 	public StatisticsTrainingParticipationPane() {
 		
@@ -78,8 +78,9 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					tablePartEmployeeTraining.getDataVector().removeAllElements();
-					tablePartEmployeeTraining.fireTableDataChanged();
+					txtYear.setText("");
+					modelPartEmployees.getDataVector().removeAllElements();
+					modelPartEmployees.fireTableDataChanged();
 				}
 			});
 		  btnTraining.setBackground(Color.WHITE);
@@ -94,8 +95,9 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					tablePartEmployeeTraining.getDataVector().removeAllElements();
-					tablePartEmployeeTraining.fireTableDataChanged();
+					txtYear.setText("");
+					modelPartEmployees.getDataVector().removeAllElements();
+					modelPartEmployees.fireTableDataChanged();
 				}
 			});
 	        btnTrainingsession.setBackground(Color.WHITE);
@@ -110,8 +112,9 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					tablePartEmployeeTraining.getDataVector().removeAllElements();
-					tablePartEmployeeTraining.fireTableDataChanged();
+					txtYear.setText("");
+					modelPartEmployees.getDataVector().removeAllElements();
+					modelPartEmployees.fireTableDataChanged();
 				}
 			});
 	        btnEmployees.setBackground(Color.WHITE);
@@ -126,8 +129,9 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					tablePartEmployeeTraining.getDataVector().removeAllElements();
-					tablePartEmployeeTraining.fireTableDataChanged();
+					txtYear.setText("");
+					modelPartEmployees.getDataVector().removeAllElements();
+					modelPartEmployees.fireTableDataChanged();
 				}
 			});
 	        btnStatistics.setBackground(Color.WHITE);
@@ -223,9 +227,11 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 					int employeeID = Integer.parseInt(txtYear.getText());
 
 					System.out.println("ljlkj" + employeeID + txtYear.getText());
-					// ! ! ! !// check employeeid en userid verschil?		
+					// ! ! ! !// check employeeid en userid verschil?
+					
+					
 					Employee searchEmployee = new Employee();
-					HashMap<Integer, Employee> listEmployee = new HashMap<Integer, Employee>();
+					
 					
 					try {
 						searchEmployee = EmployeeAccess.get(employeeID);
@@ -238,20 +244,43 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 						e1.printStackTrace();
 					}
 					
+					HashMap<Integer, Employee> listEmployee = new HashMap<Integer, Employee>();
+					
+					try {
+						
+						listEmployee = EmployeeAccess.getAllEmployees();
+								
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 					
 					employeeData = new ArrayList<String[]>();
+					
 
 					for(Map.Entry<Integer, Employee> lijst: listEmployee.entrySet()) {
 						
+						try {
 							employeeData.add(new String[] {
-							String.valueOf(listEmployee.get(lijst.getValue()).getEmployeeID()),
-							String.valueOf(listEmployee.get(lijst.getValue()).getFirstName()),
-							String.valueOf(listEmployee.get(lijst.getValue()).getLastName())
+							String.valueOf(listEmployee.get(lijst.getValue().getEmployeeID()).getEmployeeID()),
+							EmployeeAccess.get(lijst.getValue().getEmployeeID()).getFirstName(),
+							EmployeeAccess.get(lijst.getValue().getEmployeeID()).getLastName()
+							
 							});
 							
-						}
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (URISyntaxException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
 						  
-
+					}	
 				
 
 					if (listEmployee.isEmpty()) {
@@ -296,13 +325,23 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 			add(lblExplanationOfTablePart);
 			
 			btnParticipationBackStatistics = new JButton("Back");
+			btnParticipationBackStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtYear.setText("");
+					modelPartEmployees.getDataVector().removeAllElements();
+					modelPartEmployees.fireTableDataChanged();
+				}
+			});
 			btnParticipationBackStatistics.setActionCommand("backPartToStatistics");
 			btnParticipationBackStatistics.setBounds(44, 131, 144, 45);
 			add(btnParticipationBackStatistics);
 			
 			
 	}
-	public void addActionListener(ActionListener listener) {
+			
+		public void addActionListener(ActionListener listener) {
 		btnShowMaxParticipationTraining.addActionListener(listener);
 		btnParticipationBackStatistics.addActionListener(listener);
 		btnTraining.addActionListener(listener);
