@@ -64,59 +64,20 @@ public class GoogleBooksAPI {
 			      Book b = new Book();
 			      Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
 			      Volume.SaleInfo saleInfo = volume.getSaleInfo();
+			      b.setUrl(volumeInfo.getInfoLink());
 			      
-			      //
-			      b.setPublisher(volumeInfo.getPublisher());			      
-			      // Author(s).
-			      java.util.List<String> authors = volumeInfo.getAuthors();
-			      if (authors != null && !authors.isEmpty()) {
+			      	listBooks.add(b);
+			   
+			      }
+			     
+			    
 			      
-			        for (int i = 0; i < authors.size(); ++i) {
-			          
-			          b.addAuthor(authors.get(i));
-			          if (i < authors.size() - 1) {
-			           
-			            b.addAuthor(", ");
-			          }
-			        }
-			        System.out.println();
-			      }
-			      // Description (if any).
-			      if (volumeInfo.getDescription() != null && volumeInfo.getDescription().length() > 0) {
-			      }
-			      // Ratings (if any).
-			      if (volumeInfo.getRatingsCount() != null && volumeInfo.getRatingsCount() > 0) {
-			        int fullRating = (int) Math.round(volumeInfo.getAverageRating().doubleValue());
-			        for (int i = 0; i < fullRating; ++i) {
-			        }
-			      }
-			      // Price (if any).
-			      if (saleInfo != null && "FOR_SALE".equals(saleInfo.getSaleability())) {
-			        double save = saleInfo.getListPrice().getAmount() - saleInfo.getRetailPrice().getAmount();
-			        if (save > 0.0) {
-			          
-			        }
-			        
-			        b.setPrice(saleInfo.getRetailPrice().getAmount());
-			        if (save > 0.0) {
-			        
-			        }
-			        System.out.println();
-			      }
-			      // Access status.
-			      String accessViewStatus = volume.getAccessInfo().getAccessViewStatus();
-			      String message = "Additional information about this book is available from Google eBooks at:";
-			      if ("FULL_PUBLIC_DOMAIN".equals(accessViewStatus)) {
-			        message = "This public domain book is available for free from Google eBooks at:";
-			      } else if ("SAMPLE".equals(accessViewStatus)) {
-			        message = "A preview of this book is available from Google eBooks at:";
-			      }
+			     
 			      
-			      // Link to Google eBooks.
+			      // Link  Google eBooks.
 			      
-			      b.setLink(volumeInfo.getInfoLink());
-			      listBooks.add(b);
-			    }
+			     
+			    
 			   
 			    return listBooks;
 			  }

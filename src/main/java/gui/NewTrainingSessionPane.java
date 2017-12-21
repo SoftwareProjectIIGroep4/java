@@ -424,8 +424,8 @@ public class NewTrainingSessionPane extends JPanel {
 	public String getTitle() {
         return txtTitle.getText();
     }
-	public Date getDate() {
-		SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyy");
+	public String getDate() {
+		/*SimpleDateFormat formatter1=new SimpleDateFormat("yyy/MM/dd");
 		try {
 		return	formatter1.parse(txtDate.getText());
 		
@@ -433,7 +433,8 @@ public class NewTrainingSessionPane extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return null;*/
+		return txtDate.getText();
     }
 	public Time getStartHour() {
 		return java.sql.Time.valueOf(txtStartHour.getText()+":00");
