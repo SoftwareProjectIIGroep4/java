@@ -18,7 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
- 
+import java.util.concurrent.ExecutionException;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -40,6 +41,7 @@ import javax.swing.table.TableColumnModel;
 
 import com.fasterxml.jackson.databind.util.TypeKey;
 
+import dataAccess.Cache;
 import dataAccess.EmployeeAccess;
 import models.Address;
 import models.Employee;
@@ -283,6 +285,63 @@ public class TrainingSessionPoeplePane extends JPanel {
       exp.printStackTrace();
       
   }
+	}
+	
+	public void setBtnCancelTrainingSession(int id) {	
+		TrainingSession session = null;
+        try {
+			session = Cache.trainingSessionCache.get(id);
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		if(session.isCancelled() == true) {
+			System.out.println("true");
+			btnCancelTrainingSession.setText("Uncancel training session");
+		} else {
+			System.out.println("false");
+			btnCancelTrainingSession.setText("Cancel training session");
+		}
+	}
+	
+	public void updateCancelTrainingSession(int id) {	
+		TrainingSession session = null;
+        try {
+			session = Cache.trainingSessionCache.get(id);
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		if(session.isCancelled() == true) {
+			System.out.println("true");
+			btnCancelTrainingSession.setText("Uncancel training session");
+			session.setCanceled(false);
+			try {
+				session.save();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			
+			System.out.println("false");
+			btnCancelTrainingSession.setText("Cancel training session");
+			session.setCanceled(true);
+			try {
+				session.save();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

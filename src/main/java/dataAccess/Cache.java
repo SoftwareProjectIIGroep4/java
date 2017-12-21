@@ -124,10 +124,10 @@ public class Cache {
 		surveyAnswerCache.putAll(SurveyAnswerAcces.getAllSurveyAnswers());
 	}	
 
-	public static LoadingCache<Integer, Book> bookCache = CacheBuilder.newBuilder().maximumSize(100)
-			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Book>() {
+	public static LoadingCache<Long, Book> bookCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Long, Book>() {
 				@Override
-				public Book load(Integer key) throws Exception {
+				public Book load(Long key) throws Exception {
 					return BookAccess.get(key);
 				}
 			});
@@ -182,14 +182,5 @@ public class Cache {
 	public static void loadAllBooks() throws IOException, URISyntaxException {
 		bookCache.putAll(BookAccess.getAll());
 	}
-<<<<<<< HEAD
-	
-	/*public static void loadAllFollowingTraining() throws IOException, URISyntaxException {
-        followingTraingCache.putAll(FollowingTraingAcces.getAll());
-    }*/
 
-=======
-	
-	
->>>>>>> refs/remotes/origin/master
 }

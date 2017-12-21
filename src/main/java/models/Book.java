@@ -45,10 +45,14 @@ import dataAccess.ClientCredentials;
 @JsonIgnoreProperties(ignoreUnknown = true)
 	
 public class Book {
+
 	private long isbn;
+
 	private String url;
 
+
 		public Book(long isbn, String url) {
+
 		super();
 		this.isbn = isbn;
 		this.url = url;
@@ -59,7 +63,9 @@ public class Book {
 		
 		
 		
+
 		public long getIsbn() {
+
 			return isbn;
 		}
 
@@ -103,6 +109,7 @@ public class Book {
 			result = prime * result + isbn;
 			result = prime * result + ((url == null) ? 0 : url.hashCode());
 			return (int) result;
+
 		}
 
 

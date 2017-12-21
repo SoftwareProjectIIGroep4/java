@@ -7,11 +7,14 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -32,6 +35,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
  
 import dataAccess.BookAccess;
+import dataAccess.Cache;
 import dataAccess.EmployeeAccess;
 import models.Address;
 import models.Book;
@@ -55,6 +59,7 @@ public class TrainingSessionBookPane extends JPanel {
 	private JButton btnStatistics;
 	private JButton btnTrainingsession;
 	private JButton btnMaps;
+	private MainFrame mainFrame;
 
 	/**
 	 * Create the panel.
@@ -129,7 +134,8 @@ public class TrainingSessionBookPane extends JPanel {
 		lblTrainingSessionTitle.setBounds(175, 115, 300, 25);
 		add(lblTrainingSessionTitle);
 		
-		btnCancelTrainingSession = new JButton("Cancel training session");
+		btnCancelTrainingSession = new JButton();
+		btnCancelTrainingSession.setText("Cancel training session");
 		btnCancelTrainingSession.setBounds(1039, 100, 200, 50);
 		btnCancelTrainingSession.setActionCommand("CancelTrainingSession");
 		add(btnCancelTrainingSession);
@@ -300,7 +306,62 @@ public class TrainingSessionBookPane extends JPanel {
 		}
 				System.out.println("book4");
 	}
+	
+	public void setBtnCancelTrainingSession(int id) {	
+		TrainingSession session = null;
+        try {
+			session = Cache.trainingSessionCache.get(id);
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		if(session.isCancelled() == true) {
+			System.out.println("true");
+			btnCancelTrainingSession.setText("Uncancel training session");
+		} else {
+			System.out.println("false");
+			btnCancelTrainingSession.setText("Cancel training session");
+		}
+	}
+	
+	public void updateCancelTrainingSession(int id) {	
+		TrainingSession session = null;
+        try {
+			session = Cache.trainingSessionCache.get(id);
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		if(session.isCancelled() == true) {
+			System.out.println("true");
+			btnCancelTrainingSession.setText("Uncancel training session");
+			session.setCanceled(false);
+			try {
+				session.save();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			
+			System.out.println("false");
+			btnCancelTrainingSession.setText("Cancel training session");
+			session.setCanceled(true);
+			try {
+				session.save();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
-	
-	
 }

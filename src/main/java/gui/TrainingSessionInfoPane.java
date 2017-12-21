@@ -6,8 +6,11 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -19,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import dataAccess.Cache;
 import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
@@ -241,4 +245,60 @@ public class TrainingSessionInfoPane extends JPanel {
 			}
 		}
     }
+	
+	public void setBtnCancelTrainingSession(int id) {	
+		TrainingSession session = null;
+        try {
+			session = Cache.trainingSessionCache.get(id);
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		if(session.isCancelled() == true) {
+			System.out.println("true");
+			btnCancelTrainingSession.setText("Uncancel training session");
+		} else {
+			System.out.println("false");
+			btnCancelTrainingSession.setText("Cancel training session");
+		}
+	}
+	public void updateCancelTrainingSession(int id) {	
+		TrainingSession session = null;
+        try {
+			session = Cache.trainingSessionCache.get(id);
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		if(session.isCancelled() == true) {
+			System.out.println("true");
+			btnCancelTrainingSession.setText("Uncancel training session");
+			session.setCanceled(false);
+			try {
+				session.save();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			
+			System.out.println("false");
+			btnCancelTrainingSession.setText("Cancel training session");
+			session.setCanceled(true);
+			try {
+				session.save();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

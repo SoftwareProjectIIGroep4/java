@@ -4,11 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutionException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -22,6 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import dataAccess.Cache;
 import models.Address;
 import models.TrainingInfo;
 import models.TrainingSession;
@@ -284,6 +288,63 @@ public class TrainingSessionMapPane extends JPanel {
 			     }
 			 //lblMaps = new JLabel(new ImageIcon(image));
 			 lblMaps.setIcon(new ImageIcon(image));
+		}
+	}
+	
+	public void setBtnCancelTrainingSession(int id) {	
+		TrainingSession session = null;
+        try {
+			session = Cache.trainingSessionCache.get(id);
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		if(session.isCancelled() == true) {
+			System.out.println("true");
+			btnCancelTrainingSession.setText("Uncancel training session");
+		} else {
+			System.out.println("false");
+			btnCancelTrainingSession.setText("Cancel training session");
+		}
+	}
+	
+	public void updateCancelTrainingSession(int id) {	
+		TrainingSession session = null;
+        try {
+			session = Cache.trainingSessionCache.get(id);
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		if(session.isCancelled() == true) {
+			System.out.println("true");
+			btnCancelTrainingSession.setText("Uncancel training session");
+			session.setCanceled(false);
+			try {
+				session.save();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			
+			System.out.println("false");
+			btnCancelTrainingSession.setText("Cancel training session");
+			session.setCanceled(true);
+			try {
+				session.save();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

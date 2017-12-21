@@ -364,12 +364,12 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 						totaalDagen = totaalDagen + TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getNumberOfDays();
 						totaalPrijs = totaalPrijs + TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getPrice();
 						trainingSessionsMap = TrainingSessionAccess.getByTrainingInfo(TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getTrainingId());
-						dag = trainingSessionsMap.entrySet().iterator().next().getValue().getDate();
-						dagomzetting = DATE_FORMAT.format(dag);
+						//dag = trainingSessionsMap.entrySet().iterator().next().getValue().getDate();
+						//dagomzetting = DATE_FORMAT.format(dag);
 						trainingData.add(new String[] {
 								TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getName(),
 								//String.valueOf(trainingSessionsMap.entrySet().iterator().next().getValue().getDate()),
-								dagomzetting,
+								//dagomzetting,
 								AddressAccess.get(trainingSessionsMap.entrySet().iterator().next().getValue().getAddressId()).getLocality(),
 								String.valueOf(TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getNumberOfDays()),
 								String.valueOf(TrainingInfoAccess.get(lijst.getValue().getTrainingId()).getPrice())
