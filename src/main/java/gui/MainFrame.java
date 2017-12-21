@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 import java.text.DateFormat;
@@ -44,8 +44,9 @@ import gui.LoginPane;
 public class MainFrame extends JFrame {
 	
 	private static int keeper;
-	private int teacherId=-1;
+	
 	private static ArrayList<SurveyQuestion>surveyQuestions = new ArrayList<SurveyQuestion>();
+	private int teacherId=-1;
 	private int surveyId=-1;
 	private int bookId=-1;
 	private int trainingId=-1;
@@ -319,9 +320,10 @@ public class MainFrame extends JFrame {
                     			)
                     		
                     	{
-                    		TrainingSession tSession=new TrainingSession();
-                    		tSession.setDate(newNewTrainingSessionPanel.getDate());
-                    		System.out.println(tSession.getDate());
+                    		System.out.println(newNewTrainingSessionPanel.getDate());
+                    		System.out.println(surveyId);
+                    		System.out.println(teacherId);
+                    		System.out.println(trainingId);
                     		
              
                     	} else {
@@ -331,8 +333,10 @@ public class MainFrame extends JFrame {
                     	 
                     							
                     	
+                    	String s = newNewTrainingSessionPanel.getDate();
+                    	Date date= Date.valueOf(s);
                     	
-                    	tSession.setDate(newNewTrainingSessionPanel.getDate());
+                    	tSession.setDate( new Date(date.getTime()).toString()+"T00:00:00");
                     	
                     	
                     	tSession.setStartHour(newNewTrainingSessionPanel.getStartHour());

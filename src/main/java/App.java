@@ -4,7 +4,7 @@ import java.awt.List;
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Map;
 import java.sql.Time;
 import java.text.ParseException;
@@ -36,23 +36,22 @@ import models.SurveyQuestion;;
 
 public class App {
 	 public static void main(String[] args) throws IOException, URISyntaxException {
-	
-			 Cache.loadAllTrainingSessions();
-			ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
-			for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
-				
-				
-				System.out.println(entry.getValue().getDate());
-
-	}
+		 
+		 String s = "2017-01-01";
+	     Date date= Date.valueOf(s);
+		 
+		 TrainingSession session = new TrainingSession(62, 1, 6, new Date(date.getTime()).toString() , new Time(1510833600000L) , new Time(1510840800000L) , false, 1);
+		 session.save();
+     	
+     	
 		 
 	 }
 
 
 	public static void trainingInfoTest() throws URISyntaxException, IOException, ExecutionException {
 
-		TrainingSession session = new TrainingSession(33, 1, 6, new Date(System.currentTimeMillis()) , new Time(1510833600000L) , new Time(1510840800000L) , false, 342);
-		session.save();
+		//TrainingSession session = new TrainingSession(33, 1, 6, new Date(System.currentTimeMillis()) , new Time(1510833600000L) , new Time(1510840800000L) , false, 342);
+		//session.save();
 	}
 
 	public static void trainingSessionTest() throws ExecutionException {
