@@ -267,6 +267,7 @@ public class MainFrame extends JFrame {
                         newTrainingSessionInfoPane.setExamInfo(trainingSessionPanel.getTrainingSessionID());
                         newTrainingSessionInfoPane.setPaymentInfo(trainingSessionPanel.getTrainingSessionID());
                         newTrainingSessionMapPane.setImage(trainingSessionPanel.getAddressID());
+                        newTrainingSessionPoeplePane.setListEmployee(trainingSessionPanel.getTrainingSessionID());
                         
                     }
                     

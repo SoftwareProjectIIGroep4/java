@@ -38,6 +38,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import com.fasterxml.jackson.databind.util.TypeKey;
+
 import dataAccess.EmployeeAccess;
 import models.Address;
 import models.Employee;
@@ -46,7 +48,6 @@ import models.TrainingSession;
 
 public class TrainingSessionPoeplePane extends JPanel {
 	private int selectedRow;
-	private int sessionID;
 	private JButton btnBack;
 	private JTable tbEmployee;
 	private JButton btnCancelTrainingSession;
@@ -68,7 +69,7 @@ public class TrainingSessionPoeplePane extends JPanel {
 		ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
 		ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
 		 try {
-			 HashMap<Integer, Employee> ListEmployee=EmployeeAccess.getBySession(1);
+			 HashMap<Integer, Employee> ListEmployee=EmployeeAccess.getBySession(0);
   } catch (Exception exp) {
   	 System.out.println("nope");
        exp.printStackTrace();
@@ -176,18 +177,18 @@ public class TrainingSessionPoeplePane extends JPanel {
 		DefaultTableModel modelEmployee = new DefaultTableModel();
 		modelEmployee.setColumnIdentifiers(columnHeadersEmployee);
 		List<String[]> data = new ArrayList<String[]>();
-		/*for (HashMap<Integer, Employee>  entry : ListEmployee) {
+		
 			data.add(new String[] {
 					//String.valueOf(entry.getValue().getTrainingSessionId()),
-					String.valueOf(entry.getValue().getEmployeeID()),
-					entry.getValue().getFirstName()
+					//String.valueOf(entry.getValue().getEmployeeID()),
+					//entry.getValue().getFirstName()
 					//listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
 					//String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
 					//String.valueOf(entry.getValue().getDate()) ,
 					//String.valueOf(entry.getValue().getStartHour())
 					}
 			);
-		}*/
+	
 		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersEmployee) {
 
 
@@ -256,5 +257,52 @@ public class TrainingSessionPoeplePane extends JPanel {
 		btnBooks.addActionListener(listener);
 		btnMaps.addActionListener(listener);
     }
+	
+	public void setListEmployee(int id) {
+		try {
+			Object [] columnHeadersEmployee = {"Employee ID","Employee name","Department","Function","Status"};
+			System.out.println("2");
+			 HashMap<Integer, Employee> ListEmployee = EmployeeAccess.getBySession(id);
+			 List<String[]> data = new ArrayList<String[]>();
+				for (Integer  entry : ListEmployee.keySet()) {
+					System.out.println("1");
+					data.add(new String[] {
+							String.valueOf(ListEmployee.get(entry).getEmployeeID()),
+							ListEmployee.get(entry).getFirstName() + " " + ListEmployee.get(entry).getLastName(),
+							ListEmployee.get(entry).getDepartment(),
+							ListEmployee.get(entry).getFunction(),
+							ListEmployee.get(entry).getTitle()
+							//String.valueOf(entry.getValue().getTrainingSessionId()),
+							//String.valueOf(entry.getValue().getEmployeeID()),
+							//entry.getFirstName()
+							///ListEmployee.get(entry).toString()
+							//listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
+							//String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
+							//String.valueOf(entry.getValue().getDate()) ,
+							//String.valueOf(entry.getValue().getStartHour())
+							}
+					);
+					System.out.println("test voor de print out");
+					
+					System.out.println("test" + ListEmployee.get(entry).getFirstName());
+				}
+				DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersEmployee) {
+
+
+					@Override
+				    public boolean isCellEditable(int row, int column) {
+				       //all cells false
+				       return false;
+				    }
+				};
+				tbEmployee.setModel(tableModel);
+ } catch (Exception exp) {
+ 	 System.out.println("nope");
+      exp.printStackTrace();
+      
+  }
+		
+		System.out.println("4");
+	}
 
 }
