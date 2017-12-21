@@ -82,16 +82,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
 		btnTraining = new JButton("Training");
-		/*jtbTraining.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTraining.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTraining.setBorder(null);
-	            }
-	        });*/
 		btnTraining.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// velden op blanco zetten
@@ -110,20 +100,10 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		btnTraining.setOpaque(true);
 		btnTraining.setActionCommand("TrainingMenu");
-		btnTraining.setBounds(133, 0, 211, 75);
+		btnTraining.setBounds(124, 0, 264, 75);
 		add(btnTraining);
 
 		btnTrainingsession = new JButton("Training session");
-		/* jtbTrainingSession.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTrainingSession.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTrainingSession.setBorder(null);
-	            }
-	        });*/
 		btnTrainingsession.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// velden op blanco zetten
@@ -142,20 +122,10 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 		btnTrainingsession.setOpaque(true);
 		btnTrainingsession.setActionCommand("TrainingSessionMenu");
-		btnTrainingsession.setBounds(344, 0, 211, 75);
+		btnTrainingsession.setBounds(387, 0, 264, 75);
 		add(btnTrainingsession);
 
 		btnEmployees = new JButton("Employees");
-		/*  jtbEmployees.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbEmployees.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbEmployees.setBorder(null);
-	            }
-	        });*/
 		btnEmployees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// velden op blanco zetten
@@ -174,20 +144,10 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEmployees.setOpaque(true);
 		btnEmployees.setActionCommand("EmployeesMenu");
-		btnEmployees.setBounds(555, 0, 212, 75);
+		btnEmployees.setBounds(650, 0, 264, 75);
 		add(btnEmployees);
 
 		btnStatistics = new JButton("Statistics");
-		/*jtbStatistics.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbStatistics.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbStatistics.setBorder(null);
-	            }
-	        });*/
 		btnStatistics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// velden op blanco zetten
@@ -206,7 +166,7 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		btnStatistics.setOpaque(true);
 		btnStatistics.setActionCommand("StatisticsMenu");
-		btnStatistics.setBounds(767, 0, 212, 75);
+		btnStatistics.setBounds(912, 0, 264, 75);
 		add(btnStatistics);
 
 		/**		jtbTrainingRequests = new JButton("Training requests");
@@ -472,8 +432,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnShowEmployeeFollowedTrainings.addActionListener(listener);
 		btnBackFollowedTrainingStatistics.addActionListener(listener);
 		btnTraining.addActionListener(listener);
-
-		//jtbTrainingRequests.addActionListener(listener);
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);

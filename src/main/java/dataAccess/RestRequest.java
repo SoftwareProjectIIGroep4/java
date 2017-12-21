@@ -36,7 +36,6 @@ public abstract class RestRequest {
                 throw new ClientProtocolException("Unexpected response status: " + status);
             }
         }
-
     };
     
     static String getAllOrOne(URI source) throws IOException {
