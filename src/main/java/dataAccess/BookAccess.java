@@ -45,7 +45,7 @@ public class BookAccess extends RestRequest {
 				for (Book book : books) {
 					bookMap.put(book.getBookID(), book);
 				}
-				return bookMap;			
+				return bookMap;	 		
 		}
 		
 		public static  HashMap<Long, Book>  getBooksByTrainingId(Integer id) throws IOException, URISyntaxException {

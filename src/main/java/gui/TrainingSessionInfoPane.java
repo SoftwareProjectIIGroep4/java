@@ -22,7 +22,7 @@ import javax.swing.border.EmptyBorder;
 import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
-
+ 
 public class TrainingSessionInfoPane extends JPanel {
 	
 	private JButton btnBack;

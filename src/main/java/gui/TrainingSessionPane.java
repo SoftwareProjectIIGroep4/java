@@ -186,7 +186,7 @@ public class TrainingSessionPane extends JPanel {
 					trainingID = teStrings[6];
 					//System.out.println(trainingID);
 				}
-			}
+			} 
 		});
 
 		btnShowTrainingSession = new JButton("Show training session");

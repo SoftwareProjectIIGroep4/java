@@ -38,7 +38,7 @@ public class TrainingSessionMapPane extends JPanel {
 	ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	 
 	private JButton btnBack;
 	private JButton btnCancelTrainingSession;
 	private JLabel lblTrainingSessionTitle;
