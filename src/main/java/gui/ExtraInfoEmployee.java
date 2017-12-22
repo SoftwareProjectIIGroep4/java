@@ -260,7 +260,7 @@ public class ExtraInfoEmployee extends JPanel {
 
 		lblShowImageIcon = new JLabel("");
 		lblShowImageIcon.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblShowImageIcon.setBounds(669, 282, 521, 427);
+		lblShowImageIcon.setBounds(669, 282, 521, 398);
 		add(lblShowImageIcon);
 
 		textFieldEmployeeID = new JTextField();
@@ -349,7 +349,7 @@ public class ExtraInfoEmployee extends JPanel {
 		JScrollPane sclTraining = new JScrollPane(tbEmployeeHistoryTraining);
 		sclTraining.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclTraining.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclTraining.setBounds(40, 282, 548, 427);
+		sclTraining.setBounds(40, 282, 548, 398);
 		add(sclTraining);
 
 
