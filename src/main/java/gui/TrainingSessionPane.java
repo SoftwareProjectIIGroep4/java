@@ -133,7 +133,7 @@ public class TrainingSessionPane extends JPanel {
 					String.valueOf(entry.getValue().getTrainingSessionId()),
 					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
-					String.valueOf(entry.getValue().getDate()) ,
+					entry.getValue().getDate().substring(0, 9) ,
 					String.valueOf(entry.getValue().getStartHour()),
 					String.valueOf(entry.getValue().getAddressId()),
 					String.valueOf(entry.getValue().getTrainingId())
