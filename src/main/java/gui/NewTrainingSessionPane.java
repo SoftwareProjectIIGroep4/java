@@ -47,7 +47,6 @@ public class NewTrainingSessionPane extends JPanel {
 	private JTextField txtStreetAddress;
 	private JTextField txtPremise;
 	private JTextField txtCountry;
-	private JTable tbTraining;
 	private JButton btnBack;
 	private JButton btnSave;
 	private JButton btnTraining;
@@ -122,11 +121,11 @@ public class NewTrainingSessionPane extends JPanel {
 		add(btnSave);
 		
 		JLabel lblTitle = new JLabel("Session title");
-		lblTitle.setBounds(50, 200, 100, 14);
+		lblTitle.setBounds(309, 221, 100, 14);
 		add(lblTitle);
 		
 		txtTitle = new JTextField();
-		txtTitle.setBounds(50, 225, 300, 25);
+		txtTitle.setBounds(309, 246, 300, 25);
 		txtTitle.setColumns(10);
 		txtTitle.addFocusListener(new FocusAdapter() {
 			@Override
@@ -143,11 +142,11 @@ public class NewTrainingSessionPane extends JPanel {
 		add(txtTitle);
 		
 		JLabel lblDate = new JLabel("Date");
-		lblDate.setBounds(50, 271, 46, 14);
+		lblDate.setBounds(309, 282, 46, 14);
 		add(lblDate);
 		
 		txtDate = new JTextField();
-		txtDate.setBounds(50, 296, 152, 25);
+		txtDate.setBounds(309, 307, 152, 25);
 		txtDate.setColumns(10);
 		txtDate.addFocusListener(new FocusAdapter() {
 			@Override
@@ -164,16 +163,16 @@ public class NewTrainingSessionPane extends JPanel {
 		add(txtDate);
 		
 		JLabel lblLocation = new JLabel("Location");
-		lblLocation.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblLocation.setBounds(50, 413, 100, 14);
+		lblLocation.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblLocation.setBounds(309, 423, 133, 14);
 		add(lblLocation);
 		
 		JLabel lblStartHour = new JLabel("Start hour");
-		lblStartHour.setBounds(50, 342, 100, 14);
+		lblStartHour.setBounds(309, 359, 100, 14);
 		add(lblStartHour);
 		
 		txtStartHour = new JTextField();
-		txtStartHour.setBounds(50, 367, 86, 25);
+		txtStartHour.setBounds(309, 384, 86, 25);
 		txtStartHour.setColumns(10);
 		txtStartHour.addFocusListener(new FocusAdapter() {
 			@Override
@@ -190,11 +189,11 @@ public class NewTrainingSessionPane extends JPanel {
 		add(txtStartHour);
 		
 		JLabel lblEndHour = new JLabel("End hour");
-		lblEndHour.setBounds(425, 342, 100, 14);
+		lblEndHour.setBounds(682, 359, 100, 14);
 		add(lblEndHour);
 		
 		txtEndHour = new JTextField();
-		txtEndHour.setBounds(425, 367, 86, 25);
+		txtEndHour.setBounds(682, 384, 86, 25);
 		txtEndHour.setColumns(10);
 		txtEndHour.addFocusListener(new FocusAdapter() {
 			@Override
@@ -211,11 +210,11 @@ public class NewTrainingSessionPane extends JPanel {
 		add(txtEndHour);
 		
 		JLabel lblAdministrativeArea = new JLabel("Region");
-		lblAdministrativeArea.setBounds(50, 448, 100, 14);
+		lblAdministrativeArea.setBounds(309, 448, 100, 14);
 		add(lblAdministrativeArea);
 		
 		txtAdministrativeArea = new JTextField();
-		txtAdministrativeArea.setBounds(50, 473, 300, 25);
+		txtAdministrativeArea.setBounds(309, 473, 300, 25);
 		txtAdministrativeArea.setColumns(10);
 		txtAdministrativeArea.addFocusListener(new FocusAdapter() {
 			@Override
@@ -232,11 +231,11 @@ public class NewTrainingSessionPane extends JPanel {
 		add(txtAdministrativeArea);
 		
 		JLabel lblLocality = new JLabel("City");
-		lblLocality.setBounds(50, 519, 59, 14);
+		lblLocality.setBounds(309, 519, 59, 14);
 		add(lblLocality);
 		
 		txtLocality = new JTextField();
-		txtLocality.setBounds(50, 544, 300, 25);
+		txtLocality.setBounds(309, 544, 300, 25);
 		txtLocality.setColumns(10);
 		txtLocality.addFocusListener(new FocusAdapter() {
 			@Override
@@ -253,11 +252,11 @@ public class NewTrainingSessionPane extends JPanel {
 		add(txtLocality);
 		
 		JLabel lblPostalCode = new JLabel("Postal code");
-		lblPostalCode.setBounds(50, 590, 100, 14);
+		lblPostalCode.setBounds(309, 590, 100, 14);
 		add(lblPostalCode);
 		
 		txtPostalCode = new JTextField();
-		txtPostalCode.setBounds(50, 615, 300, 25);
+		txtPostalCode.setBounds(309, 615, 300, 25);
 		txtPostalCode.setColumns(10);
 		txtPostalCode.addFocusListener(new FocusAdapter() {
 			@Override
@@ -274,11 +273,11 @@ public class NewTrainingSessionPane extends JPanel {
 		add(txtPostalCode);
 		
 		JLabel lblStreetAddress = new JLabel("Street address");
-		lblStreetAddress.setBounds(425, 448, 100, 14);
+		lblStreetAddress.setBounds(682, 448, 100, 14);
 		add(lblStreetAddress);
 		
 		txtStreetAddress = new JTextField();
-		txtStreetAddress.setBounds(413, 473, 300, 25);
+		txtStreetAddress.setBounds(682, 473, 300, 25);
 		txtStreetAddress.setColumns(10);
 		txtStreetAddress.addFocusListener(new FocusAdapter() {
 			@Override
@@ -295,11 +294,11 @@ public class NewTrainingSessionPane extends JPanel {
 		add(txtStreetAddress);
 		
 		JLabel lblPremise = new JLabel("PO Box");
-		lblPremise.setBounds(425, 519, 46, 14);
+		lblPremise.setBounds(682, 519, 46, 14);
 		add(lblPremise);
 		
 		txtPremise = new JTextField();
-		txtPremise.setBounds(425, 546, 300, 25);
+		txtPremise.setBounds(682, 544, 300, 25);
 		txtPremise.setColumns(10);
 		txtPremise.addFocusListener(new FocusAdapter() {
 			@Override
@@ -317,11 +316,11 @@ public class NewTrainingSessionPane extends JPanel {
 		
 		
 		JLabel lblCountry = new JLabel("Country");
-		lblCountry.setBounds(425, 590, 100, 14);
+		lblCountry.setBounds(682, 590, 100, 14);
 		add(lblCountry);
 		
 		txtCountry = new JTextField();
-		txtCountry.setBounds(425, 617, 300, 25);
+		txtCountry.setBounds(682, 615, 300, 25);
 		txtCountry.setColumns(10);
 		txtCountry.addFocusListener(new FocusAdapter() {
 			@Override
@@ -337,77 +336,29 @@ public class NewTrainingSessionPane extends JPanel {
 		});
 		add(txtCountry);
 		
-		
-		Object [] columnHeadersTraining = {"Title","Number of Days","Price"};
-		DefaultTableModel modelTraining = new DefaultTableModel();
-		modelTraining.setColumnIdentifiers(columnHeadersTraining);
-		Object[][] data = {
-
-		};
-		tbTraining = new JTable(data, columnHeadersTraining);
-		DefaultTableModel tableModel = new DefaultTableModel(data, columnHeadersTraining) {
-		    @Override
-		    public boolean isCellEditable(int row, int column) {
-		       //all cells false
-		       return false;
-		    }
-		};
-		tbTraining.setModel(tableModel);
-		tbTraining.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tbTraining.setRowSelectionAllowed(true);
-	    final TableColumnModel columnmodelTraining = tbTraining.getColumnModel();
-	    for (int column = 0; column < tbTraining.getColumnCount(); column++) {
-	        int width = 15; // Min width
-	        for (int row = 0; row < tbTraining.getRowCount(); row++) {
-	            TableCellRenderer renderer = tbTraining.getCellRenderer(row, column);
-	            Component comp = tbTraining.prepareRenderer(renderer, row, column);
-	            width = Math.max(comp.getPreferredSize().width +1 , width);
-	        }
-	        if(width > 300)
-	            width=300;
-	        columnmodelTraining.getColumn(column).setPreferredWidth(width);
-	    }
-		JScrollPane sclTraining = new JScrollPane(tbTraining);
-		sclTraining.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		sclTraining.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclTraining.setBounds(816, 186, 430, 484);
-		add(sclTraining);
-		
-		JLabel lblBackBorder2 = new JLabel("");
-		sclTraining.setColumnHeaderView(lblBackBorder2);
-		lblBackBorder2.setBorder(border);
-		ListSelectionModel selectedRowBook = tbTraining.getSelectionModel();
-		selectedRowBook.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				if(!selectedRowBook.isSelectionEmpty()) {
-					//GET ROW
-					//int selectedRow = selectedRowBook.getMinSelectionIndex();
-					//doe iets hier
-				}
-			}
-		});
-		
 		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(6, 186, 750, 484);
+		lblBackBorder.setBounds(253, 195, 825, 486);
 		lblBackBorder.setBorder(border);
 		add(lblBackBorder);
 
 		btnAddTeacher = new JButton("Add Teacher");
 		btnAddTeacher.setActionCommand("addTeacher");
-		btnAddTeacher.setBounds(425, 200, 117, 54);
+		btnAddTeacher.setBounds(1102, 231, 117, 54);
 		add(btnAddTeacher);
 		
 		btnAddBook = new JButton("Add Book");
 		btnAddBook.setActionCommand("addBook");
-		btnAddBook.setBounds(425, 271, 117, 50);
+		btnAddBook.setBounds(1102, 371, 117, 50);
 		add(btnAddBook);
 		
 		btnaddSurvey = new JButton("Add Survey");
 		btnaddSurvey.setActionCommand("addSurvey");
-		btnaddSurvey.setBounds(589, 200, 117, 54);
+		btnaddSurvey.setBounds(1102, 499, 117, 54);
 		add(btnaddSurvey);
+		
+		JLabel lblNewLabel_2 = new JLabel("(YYYY-MM-DD)");
+		lblNewLabel_2.setBounds(370, 282, 72, 14);
+		add(lblNewLabel_2);
 
 	}
 	public void addActionListener(ActionListener listener) {
@@ -425,15 +376,6 @@ public class NewTrainingSessionPane extends JPanel {
         return txtTitle.getText();
     }
 	public String getDate() {
-		/*SimpleDateFormat formatter1=new SimpleDateFormat("yyy/MM/dd");
-		try {
-		return	formatter1.parse(txtDate.getText());
-		
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;*/
 		return txtDate.getText();
     }
 	public Time getStartHour() {
@@ -461,5 +403,4 @@ public class NewTrainingSessionPane extends JPanel {
 	public String getCountry() {
         return txtCountry.getText();
     }
-	
 }
