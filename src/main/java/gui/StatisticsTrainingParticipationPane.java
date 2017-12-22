@@ -34,9 +34,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 import dataAccess.EmployeeAccess;
+import dataAccess.StatisticsAccess;
 import dataAccess.TrainingInfoAccess;
 import dataAccess.TrainingSessionAccess;
 import dataAccess.UserAccess;
+import models.EmpHighTrainingCount;
 import models.Employee;
 import models.TrainingInfo;
 import models.TrainingSession;
@@ -169,7 +171,7 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 	        add(txtYear);
 	        txtYear.setColumns(10);
 	        
-	        Object [] columnheaderEmployeeStatistics = {"EmployeeID","First Name","Last Name"};
+	        Object [] columnheaderEmployeeStatistics = {"EmployeeID","First Name","Last Name","Number of participations"};
 			//modelEmployees.setColumnIdentifiers(columnHeadersEmployees);
 			Object[][] data = {
 			};
@@ -224,17 +226,13 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 			btnShowMaxParticipationTraining .addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					int employeeID = Integer.parseInt(txtYear.getText());
-
-					System.out.println("ljlkj" + employeeID + txtYear.getText());
-					// ! ! ! !// check employeeid en userid verschil?
+					int count = Integer.parseInt(txtYear.getText());
 					
-					
-					Employee searchEmployee = new Employee();
-					
+					List<EmpHighTrainingCount> listTrainingCount = new ArrayList<EmpHighTrainingCount>();
 					
 					try {
-						searchEmployee = EmployeeAccess.get(employeeID);
+						
+						listTrainingCount = StatisticsAccess.getHighestTrainingCount(count);
 					
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -244,46 +242,23 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 						e1.printStackTrace();
 					}
 					
-					HashMap<Integer, Employee> listEmployee = new HashMap<Integer, Employee>();
+					List<String[]> employeeData = new ArrayList<String[]>();
 					
-					try {
+					for(int i = 0; i < listTrainingCount.size(); i++) {
 						
-						listEmployee = EmployeeAccess.getAllEmployees();
-								
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (URISyntaxException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-					
-					employeeData = new ArrayList<String[]>();
-					
-
-					for(Map.Entry<Integer, Employee> lijst: listEmployee.entrySet()) {
-						
-						try {
 							employeeData.add(new String[] {
-							String.valueOf(listEmployee.get(lijst.getValue().getEmployeeID()).getEmployeeID()),
-							EmployeeAccess.get(lijst.getValue().getEmployeeID()).getFirstName(),
-							EmployeeAccess.get(lijst.getValue().getEmployeeID()).getLastName()
-							
-							});
-							
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (URISyntaxException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} 
-						  
+													
+									String.valueOf(listTrainingCount.get(i).getEmployee().getEmployeeID()),
+									listTrainingCount.get(i).getEmployee().getFirstName(),
+									listTrainingCount.get(i).getEmployee().getLastName(),
+									String.valueOf(listTrainingCount.get(i).getCount())
+								
+							});		  
 					}	
 				
+				
 
-					if (listEmployee.isEmpty()) {
+					if (listTrainingCount.isEmpty()) {
 						employeeData.add(new String[] {
 								"No Training Followed Yet"	
 						});
