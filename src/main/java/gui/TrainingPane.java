@@ -166,23 +166,23 @@ public class TrainingPane extends JPanel {
         lblEmployeeExplanation.setBounds(31, 86, 278, 28);
         add(lblEmployeeExplanation);
         
-        Object [] columnHeadersSession = {"TrainingID","Training name","City","From","Until","Price"};
+        Object [] columnHeadersSession = {"TrainingID","Training name","Price"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data1 = new ArrayList<String[]>();
 		
 		
 
-		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
+		for (Map.Entry<Integer, TrainingInfo>  entry : listTraingInfo.entrySet()) {
 			
 			
 			data1.add(new String[] {
-					String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getTrainingId()),
-					listTraingInfo.get(entry.getValue().getTrainingId()).getName(),
-					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getCountry()), 
-					String.valueOf(entry.getValue().getStartHour()) ,
-					String.valueOf(entry.getValue().getEndHour()), 
-					String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getPrice())}		
+					String.valueOf(entry.getValue().getTrainingId()),
+					entry.getValue().getName(),
+					//String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getCountry()), 
+					//String.valueOf(entry.getValue().getStartHour()) ,
+					//String.valueOf(entry.getValue().getEndHour()), 
+					String.valueOf(entry.getValue().getPrice())}		
 			);
 			System.out.println("testdata: " + String.valueOf(listTraingInfo.get(entry.getValue().getTrainingId()).getTrainingId()));
 	
