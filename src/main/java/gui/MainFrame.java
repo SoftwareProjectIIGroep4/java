@@ -20,6 +20,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.google.api.client.json.JsonFactory;
@@ -27,6 +28,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import dataAccess.Cache;
 import dataAccess.GoogleBooksAPI;
+import dataAccess.SettingsAccess;
 import dataAccess.SurveyQuestionAcces;
 import dataAccess.TrainingInfoAccess;
 //import gui.EmployeePane;
@@ -35,6 +37,7 @@ import models.Book;
 import models.TrainingInfo;
 import models.TrainingSession;
 import models.Login;
+import models.Settings;
 import models.Survey;
 import models.SurveyQuestion;
 import models.Teacher;
@@ -54,6 +57,26 @@ public class MainFrame extends JFrame {
 	private Book book ;
 	private TrainingBooks trainingBooks;
 	private TrainingSession session;
+	private Settings settings;
+	
+	private LoginPane newLoginPane;
+	private TrainingPane trainingPanel;
+	private TrainingSessionPane trainingSessionPanel;
+	private NewTrainingSessionPane newNewTrainingSessionPanel;
+	private StatisticsPane statisticsPanel;
+	private ExtraInfoEmployee employeePanel;
+	private TrainingSessionBookPane newTrainingSessionBookPane;
+	private TrainingSessionPoeplePane newTrainingSessionPoeplePane;
+	private TrainingSessionInfoPane newTrainingSessionInfoPane;
+	private SelectTrainingPane newSelectTrainingPane;
+	private NewTrianingPane newNewTrianingPane;
+	private AddTeacherPane addTeacherPanel;
+	private AddBookPane addBookPanel;
+	private AddSurveyPane addSurveyPanel;
+	private StatisticsCertificatesEmployeePane statisticsCertificatesEmployeePanel;
+	private StatisticsFollowedTrainingPane statisticsFollowedTrainingPanel;
+	private StatisticsTrainingParticipationPane statisticsTrainingParticipationPanel;
+	private TrainingSessionMapPane newTrainingSessionMapPane;
 			
 	
 
@@ -89,27 +112,41 @@ public class MainFrame extends JFrame {
         final CardLayout layout = new CardLayout();
         getContentPane().setLayout(layout);
         
+        //get settings from dataservice and save them in chache
+        try {
+			this.settings = SettingsAccess.get();
+			Cache.settingsCache.put(1, settings);//opslaan in cache
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+			this.settings = new Settings(1, "company name");
+		} catch (URISyntaxException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+			this.settings = new Settings(1, "company name");
+		}
+        
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
-        LoginPane newLoginPane =  new LoginPane();
-        TrainingPane trainingPanel = new TrainingPane();
-        TrainingSessionPane trainingSessionPanel = new TrainingSessionPane();
-        NewTrainingSessionPane newNewTrainingSessionPanel = new NewTrainingSessionPane();
-        StatisticsPane statisticsPanel = new StatisticsPane();    
-        ExtraInfoEmployee employeePanel = new ExtraInfoEmployee();
-        TrainingSessionBookPane newTrainingSessionBookPane = new TrainingSessionBookPane();
-        TrainingSessionPoeplePane newTrainingSessionPoeplePane = new TrainingSessionPoeplePane();
-        TrainingSessionInfoPane newTrainingSessionInfoPane = new TrainingSessionInfoPane();
-        SelectTrainingPane newSelectTrainingPane = new SelectTrainingPane();
-        NewTrianingPane newNewTrianingPane = new NewTrianingPane();
-        AddTeacherPane addTeacherPanel = new AddTeacherPane();
-        AddBookPane addBookPanel = new AddBookPane(); 
-        AddSurveyPane addSurveyPanel = new AddSurveyPane();
-        StatisticsCertificatesEmployeePane statisticsCertificatesEmployeePanel = new StatisticsCertificatesEmployeePane();
-        StatisticsFollowedTrainingPane statisticsFollowedTrainingPanel = new StatisticsFollowedTrainingPane();
-        StatisticsTrainingParticipationPane statisticsTrainingParticipationPanel = new StatisticsTrainingParticipationPane();
-        TrainingSessionMapPane newTrainingSessionMapPane = new TrainingSessionMapPane();
+        this.newLoginPane =  new LoginPane();
+        this.trainingPanel = new TrainingPane();
+        this.trainingSessionPanel = new TrainingSessionPane();
+        this.newNewTrainingSessionPanel = new NewTrainingSessionPane();
+        this.statisticsPanel = new StatisticsPane();    
+        this.employeePanel = new ExtraInfoEmployee();
+        this.newTrainingSessionBookPane = new TrainingSessionBookPane();
+        this.newTrainingSessionPoeplePane = new TrainingSessionPoeplePane();
+        this.newTrainingSessionInfoPane = new TrainingSessionInfoPane();
+        this.newSelectTrainingPane = new SelectTrainingPane();
+        this.newNewTrianingPane = new NewTrianingPane();
+        this.addTeacherPanel = new AddTeacherPane();
+        this.addBookPanel = new AddBookPane(); 
+        this.addSurveyPanel = new AddSurveyPane();
+        this.statisticsCertificatesEmployeePanel = new StatisticsCertificatesEmployeePane();
+        this.statisticsFollowedTrainingPanel = new StatisticsFollowedTrainingPane();
+        this.statisticsTrainingParticipationPanel = new StatisticsTrainingParticipationPane();
+        this.newTrainingSessionMapPane = new TrainingSessionMapPane();
 
 
         
@@ -157,7 +194,9 @@ public class MainFrame extends JFrame {
                 } else if ("goToTrainingSessionInfo".equals(command)) {
                     //show trainingsessioninfopane
                     layout.show(getContentPane(), "TrainingSessionInfoPane");
-                }
+                } else if ("SettingsMenu".equals(command)) {
+            			settingsDialog();
+                } 
                 
             }
         });
@@ -224,7 +263,9 @@ public class MainFrame extends JFrame {
                 }else if ("goToAddTraining".equals(command)) {
                 	//show addTrainingMenu
                 	layout.show(getContentPane(), "NewTrianingPane");
-                }
+                } else if ("SettingsMenu".equals(command)) {
+            			settingsDialog();
+                } 
                 	
             }
         });
@@ -262,7 +303,9 @@ public class MainFrame extends JFrame {
                         
                         newTrainingSessionBookPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         
-                    }
+                    } else if ("SettingsMenu".equals(command)) {
+            			settingsDialog();
+                    } 
                     
                 }
             });
@@ -374,7 +417,9 @@ public class MainFrame extends JFrame {
                     	
                     	// layout.show van je survey toevoegen nog maken
                     	layout.show(getContentPane(), "addSurveyPanel");
-                    }                   
+                    }  else if ("SettingsMenu".equals(command)) {
+            			settingsDialog();
+                    }                     
                 }
             });
         	
@@ -404,6 +449,8 @@ public class MainFrame extends JFrame {
                     } else if ("goToStatisticsCertificatesEmployee".equals(command)) {
                     	//show StatisticsCertPane
                     	layout.show(getContentPane(), "statisticsCertificatesEmployeePanel");
+                    } else if ("SettingsMenu".equals(command)) {
+            			settingsDialog();
                     } 
                 }
             });
@@ -448,7 +495,9 @@ public class MainFrame extends JFrame {
                             //show TrainingSessoinMapsPane
                             layout.show(getContentPane(), "TrainingSessionMapPane");
                             newTrainingSessionMapPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
-                        }
+                        } else if ("SettingsMenu".equals(command)) {
+                			settingsDialog();
+                        } 
                     }
                 });
         		
@@ -493,7 +542,9 @@ public class MainFrame extends JFrame {
                             //show TrainingSessoinMapsPane
                             layout.show(getContentPane(), "TrainingSessionMapPane");
                             newTrainingSessionMapPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
-                        }
+                        }  else if ("SettingsMenu".equals(command)) {
+                			settingsDialog();
+                        } 
                         
                     }
                 });
@@ -538,7 +589,9 @@ public class MainFrame extends JFrame {
                             //show TrainingSessoinMapsPane
                             layout.show(getContentPane(), "TrainingSessionMapPane");
                             newTrainingSessionMapPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
-                        }
+                        }  else if ("SettingsMenu".equals(command)) {
+                			settingsDialog();
+                        } 
                         
                     }
                 });
@@ -584,7 +637,9 @@ public class MainFrame extends JFrame {
                             //show TrainingSessoinMapsPane
                             layout.show(getContentPane(), "TrainingSessionMapPane");
                             newTrainingSessionMapPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
-                        }
+                        }  else if ("SettingsMenu".equals(command)) {
+                			settingsDialog();
+                        } 
                     }
                 });
         		
@@ -710,6 +765,8 @@ public class MainFrame extends JFrame {
                         	
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
                         	}
+                        } else if ("SettingsMenu".equals(command)) {
+                			settingsDialog();
                         } 
                     }
                 });
@@ -781,7 +838,9 @@ public class MainFrame extends JFrame {
                 		    }
                 		    
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
-                        } 
+                        } else if ("SettingsMenu".equals(command)) {
+                			settingsDialog();
+                        }  
                     }
                 });
         		
@@ -892,6 +951,8 @@ public class MainFrame extends JFrame {
 
                         	//Confirm the survey and go back to newtrainingsessionpane
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
+                        } else if ("SettingsMenu".equals(command)) {
+                			settingsDialog();
                         }
                     }
                 });
@@ -919,7 +980,9 @@ public class MainFrame extends JFrame {
                         } else if ("backCertToStatistics".equals(command)) {
                         	// Terug naar statistiekenpanel
                         	layout.show(getContentPane(), "statisticsPanel");
-                        } 
+                        } else if ("SettingsMenu".equals(command)) {
+                			settingsDialog();
+                        }
                         
                     }
                 });
@@ -947,7 +1010,9 @@ public class MainFrame extends JFrame {
                         } else if ("backFollowedToStatistics".equals(command)) {
                         	// Terug naar statistiekenpanel
                         	layout.show(getContentPane(), "statisticsPanel");
-                        } 
+                        } else if ("SettingsMenu".equals(command)) {
+                			settingsDialog();
+                        }
                         
                     }
                 });
@@ -975,7 +1040,9 @@ public class MainFrame extends JFrame {
                         } else if ("backPartToStatistics".equals(command)) {
                         	// Terug naar statistiekenpanel
                         	layout.show(getContentPane(), "statisticsPanel");
-                        } 
+                        } else if ("SettingsMenu".equals(command)) {
+                			settingsDialog();
+                        }
                     }
                 });
         		
@@ -1009,6 +1076,50 @@ public class MainFrame extends JFrame {
 	public void setSession(TrainingSession session) {
 		this.session = session;
 	}
-
 	
+	public void settingsDialog() {
+		// show settings dialog
+		String s = (String)JOptionPane.showInputDialog(
+                null,
+                "Company name",
+                "Customized Dialog",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                settings.getCompanyName());
+
+	    if (s != null) {
+	    		//update settings
+	        settings.setCompanyName(s);
+	        //update cache
+	        Cache.settingsCache.put(1, settings);
+	        //put new settings object to server
+	        try {
+				SettingsAccess.update(settings);
+			} catch (URISyntaxException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    }
+	    //update all panes(oh lord)
+        this.trainingPanel.companyName.setText(settings.getCompanyName());
+        this.trainingSessionPanel.companyName.setText(settings.getCompanyName());
+        this.newNewTrainingSessionPanel.companyName.setText(settings.getCompanyName());
+        this.statisticsPanel.companyName.setText(settings.getCompanyName());
+        this.employeePanel.companyName.setText(settings.getCompanyName());
+        this.newNewTrianingPane.companyName.setText(settings.getCompanyName());
+        this.newTrainingSessionBookPane.companyName.setText(settings.getCompanyName());
+        this.newTrainingSessionPoeplePane.companyName.setText(settings.getCompanyName());
+        this.newTrainingSessionInfoPane.companyName.setText(settings.getCompanyName());
+        this.addTeacherPanel.companyName.setText(settings.getCompanyName());
+        this.addBookPanel.companyName.setText(settings.getCompanyName());
+        this.addSurveyPanel.companyName.setText(settings.getCompanyName());
+        this.statisticsCertificatesEmployeePanel.companyName.setText(settings.getCompanyName());
+        this.statisticsFollowedTrainingPanel.companyName.setText(settings.getCompanyName());
+        this.statisticsTrainingParticipationPanel.companyName.setText(settings.getCompanyName());
+        this.newTrainingSessionMapPane.companyName.setText(settings.getCompanyName());
+	}
 }
