@@ -166,7 +166,7 @@ public class TrainingPane extends JPanel {
         lblEmployeeExplanation.setBounds(31, 86, 278, 28);
         add(lblEmployeeExplanation);
         
-        Object [] columnHeadersSession = {"TrainingID","Training name","Price"};
+        Object [] columnHeadersSession = {"TrainingID","Training name","training info","Price"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data1 = new ArrayList<String[]>();
@@ -179,6 +179,7 @@ public class TrainingPane extends JPanel {
 			data1.add(new String[] {
 					String.valueOf(entry.getValue().getTrainingId()),
 					entry.getValue().getName(),
+					entry.getValue().getInfoGeneral(),
 					//String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getCountry()), 
 					//String.valueOf(entry.getValue().getStartHour()) ,
 					//String.valueOf(entry.getValue().getEndHour()), 
