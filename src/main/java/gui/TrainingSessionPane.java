@@ -53,10 +53,18 @@ public class TrainingSessionPane extends JPanel {
 	private JButton jtbTrainingSession;
 	private JButton jtbTrainingRequests;
 	private JTable tbSession;
+	private JTextField txtFromTrainingSession;
+	private JTextField txtUntilTrainingSession;
+	private JButton btnAddTrainingSession;
+	private JButton btnShowTrainingSession;
 	private DefaultTableModel modelSession;
 	private DefaultTableModel tableModel;
+	private String trainingSessionID;
+	private String addressID;
+	private String trainingID;
+	
 
-	private JButton btnShowTrainingSession;
+	
 
 
 	/*
@@ -70,8 +78,6 @@ public class TrainingSessionPane extends JPanel {
 		ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
 		ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
 		ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -116,28 +122,28 @@ public class TrainingSessionPane extends JPanel {
 	        lblNewLabel.setBounds(0, 0, 133, 75);
 	        lblNewLabel.setOpaque(true);
 	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
-				
-		Object [] columnHeadersSession = {"Training name","City","Date","Hour"};
+		
+		Object [] columnHeadersSession = {"Training ID", "Training name","City","Date","Hour"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data = new ArrayList<String[]>();
+		
 		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
 			data.add(new String[] {
-
+					String.valueOf(entry.getValue().getTrainingSessionId()),
 					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
 					String.valueOf(entry.getValue().getDate()) ,
-					String.valueOf(entry.getValue().getStartHour())}
+					String.valueOf(entry.getValue().getStartHour()),
+					String.valueOf(entry.getValue().getAddressId()),
+					String.valueOf(entry.getValue().getTrainingId())
+					}
 			);
-}
+		}
 		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersSession) {
 
-		    @Override
+
+			@Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
@@ -174,16 +180,21 @@ public class TrainingSessionPane extends JPanel {
 					//GET ROW
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
 					//doe iets hier
+					String[] teStrings=data.get(selectedRow);
+					trainingSessionID = teStrings[0];
+					addressID = teStrings[5];
+					trainingID = teStrings[6];
+					//System.out.println(trainingID);
 				}
-			}
+			} 
 		});
-		
+
 		btnShowTrainingSession = new JButton("Show training session");
 		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
 		btnShowTrainingSession.setBounds(1072,138,160,64);
 		add(btnShowTrainingSession);
 		
-		JLabel lblNewLabel_2 = new JLabel("List of training sessions");
+		JLabel lblNewLabel_2 = new JLabel("List of trainings");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(31, 86, 278, 28);
 		add(lblNewLabel_2);
@@ -203,5 +214,14 @@ public class TrainingSessionPane extends JPanel {
 		
 		tableModel.addRow(row);
 	
+	}
+	public int getTrainingSessionID() {
+		return Integer.parseInt(trainingSessionID);
+	}
+	public int getAddressID() {
+		return Integer.parseInt(addressID);
+	}
+	public int getTrainingID() {
+		return Integer.parseInt(trainingID);
 	}
 }

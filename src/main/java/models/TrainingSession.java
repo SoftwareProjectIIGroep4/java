@@ -143,14 +143,6 @@ public class TrainingSession {
 		this.cancelled = cancelled;
 	}
 	
-	public int getSurveyId() {
-		return surveyId;
-	}
-
-	public void setSurveyId(int surveyId) {
-		this.surveyId = surveyId;
-	}
-	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Training session ID: " + trainingSessionId + "\n");
