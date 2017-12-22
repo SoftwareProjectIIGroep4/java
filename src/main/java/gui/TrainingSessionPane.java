@@ -194,9 +194,7 @@ public class TrainingSessionPane extends JPanel {
 		btnShowTrainingSession.setBounds(1072,138,160,64);
 		add(btnShowTrainingSession);
 		
-
-
-		JLabel lblNewLabel_2 = new JLabel("List of training sessions");
+		JLabel lblNewLabel_2 = new JLabel("List of trainings");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(31, 86, 278, 28);
 		add(lblNewLabel_2);

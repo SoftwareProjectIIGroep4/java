@@ -85,16 +85,6 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
 		btnTraining = new JButton("Training");
-		/*jtbTraining.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTraining.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTraining.setBorder(null);
-	            }
-	        });*/
 		btnTraining.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// alle velden + table blanco zetten!
@@ -108,20 +98,10 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		btnTraining.setOpaque(true);
 		btnTraining.setActionCommand("TrainingMenu");
-		btnTraining.setBounds(133, 0, 211, 75);
+		btnTraining.setBounds(124, 0, 264, 75);
 		add(btnTraining);
 
 		btnTrainingsession = new JButton("Training session");
-		/* jtbTrainingSession.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTrainingSession.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTrainingSession.setBorder(null);
-	            }
-	        });*/
 		btnTrainingsession.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// alle velden + table blanco zetten!
@@ -135,20 +115,10 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 		btnTrainingsession.setOpaque(true);
 		btnTrainingsession.setActionCommand("TrainingSessionMenu");
-		btnTrainingsession.setBounds(344, 0, 211, 75);
+		btnTrainingsession.setBounds(388, 0, 264, 75);
 		add(btnTrainingsession);
 
 		btnEmployees = new JButton("Employees");
-		/*  jtbEmployees.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbEmployees.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbEmployees.setBorder(null);
-	            }
-	        });*/
 		btnEmployees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// alle velden + table blanco zetten!
@@ -162,20 +132,10 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEmployees.setOpaque(true);
 		btnEmployees.setActionCommand("EmployeesMenu");
-		btnEmployees.setBounds(555, 0, 212, 75);
+		btnEmployees.setBounds(652, 0, 264, 75);
 		add(btnEmployees);
 
 		btnStatistics = new JButton("Statistics");
-		/*jtbStatistics.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbStatistics.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbStatistics.setBorder(null);
-	            }
-	        });*/
 		btnStatistics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// alle velden + table blanco zetten!
@@ -189,26 +149,8 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		btnStatistics.setOpaque(true);
 		btnStatistics.setActionCommand("StatisticsMenu");
-		btnStatistics.setBounds(767, 0, 212, 75);
+		btnStatistics.setBounds(916, 0, 264, 75);
 		add(btnStatistics);
-
-		/**	jtbTrainingRequests = new JButton("Training requests");
-		/* jtbTrainingRequests.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTrainingRequests.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTrainingRequests.setBorder(null);
-	            }
-	        });
-		jtbTrainingRequests.setBackground(Color.WHITE);
-		jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTrainingRequests.setOpaque(true);
-		jtbTrainingRequests.setActionCommand("TrainingRequestsMenu");
-		jtbTrainingRequests.setBounds(979, 0, 211, 75);
-		add(jtbTrainingRequests); */
 
 		JLabel lblNewLabel = new JLabel("logo");
 		lblNewLabel.setBounds(0, 0, 133, 75);
@@ -379,7 +321,6 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnBackCertStatistics = new JButton("Back");
 		btnBackCertStatistics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// alle velden + table blanco zetten!
 				txtCertEmployeeID.setText("");
 				lblName.setText("");
 				lblFirstName.setText("");
@@ -491,11 +432,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 	public void addActionListener(ActionListener listener) {
 		btnShowEmployeeCertStatistics.addActionListener(listener);
 		btnBackCertStatistics.addActionListener(listener);
-
-
 		btnTraining.addActionListener(listener);
-		//jtbTrainingRequests.addActionListener(listener);
-
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);

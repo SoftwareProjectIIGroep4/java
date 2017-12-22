@@ -21,5 +21,5 @@ public class Constants {
 	public static final String USER_SOURCE = DATA_SOURCE + "users/";
 	public static final String USER_CERTIFICATES_SOURCE = DATA_SOURCE + "usercertificates/";
 	public static final String TOKEN_SOURCE= DATA_SOURCE +"token/";
-	
+	public static final String STATISTICS_SOURCE= DATA_SOURCE +"statistics/";
 }

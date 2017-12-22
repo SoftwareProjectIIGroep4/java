@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -50,6 +51,8 @@ public class TrainingSessionBookPane extends JPanel {
 	private JButton btnBack;
 	private JLabel lblTrainingSessionTitle;
 	private JButton btnCancelTrainingSession;
+	private DefaultTableModel tableModel;
+	private DefaultTableModel modelBook;
 	private JLabel lblResearch;
 	private JButton btnInfo;
 	private JButton btnEnlistedPeople;
@@ -83,6 +86,14 @@ public class TrainingSessionBookPane extends JPanel {
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
 		  btnTraining = new JButton("Training"); 
+		  btnTraining.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtSearch.setText("");
+					tableModel.getDataVector().removeAllElements();
+				}
+			});
 		  btnTraining.setBackground(Color.WHITE);
 		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		  btnTraining.setOpaque(true);
@@ -91,6 +102,14 @@ public class TrainingSessionBookPane extends JPanel {
 	        add(btnTraining);
 	        
 	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtSearch.setText("");
+					tableModel.getDataVector().removeAllElements();
+				}
+			});
 	        btnTrainingsession.setBackground(Color.WHITE);
 	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnTrainingsession.setOpaque(true);
@@ -99,6 +118,14 @@ public class TrainingSessionBookPane extends JPanel {
 	        add(btnTrainingsession);
 	        
 	        btnEmployees = new JButton("Employees");
+	        btnEmployees.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtSearch.setText("");
+					tableModel.getDataVector().removeAllElements();
+				}
+			});
 	        btnEmployees.setBackground(Color.WHITE);
 	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnEmployees.setOpaque(true);
@@ -107,6 +134,14 @@ public class TrainingSessionBookPane extends JPanel {
 	        add(btnEmployees);
 	        
 	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtSearch.setText("");
+					tableModel.getDataVector().removeAllElements();
+				}
+			});
 	        btnStatistics.setBackground(Color.WHITE);
 	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnStatistics.setOpaque(true);
@@ -124,7 +159,15 @@ public class TrainingSessionBookPane extends JPanel {
 	        lblNewLabel_1.setOpaque(true);
 	        add(lblNewLabel_1);
 		
-		btnBack = new JButton("<-  Back");
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				txtSearch.setText("");
+				tableModel.getDataVector().removeAllElements();
+			}
+		});
 		btnBack.setBounds(30, 100, 110, 50);
 		btnBack.setActionCommand("BackToTrainingSessoin");
 		add(btnBack);
@@ -134,8 +177,15 @@ public class TrainingSessionBookPane extends JPanel {
 		lblTrainingSessionTitle.setBounds(175, 115, 300, 25);
 		add(lblTrainingSessionTitle);
 		
-		btnCancelTrainingSession = new JButton();
-		btnCancelTrainingSession.setText("Cancel training session");
+		btnCancelTrainingSession = new JButton("Cancel training session");
+		btnCancelTrainingSession.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				txtSearch.setText("");
+				tableModel.getDataVector().removeAllElements();
+			}
+		});
 		btnCancelTrainingSession.setBounds(1039, 100, 200, 50);
 		btnCancelTrainingSession.setActionCommand("CancelTrainingSession");
 		add(btnCancelTrainingSession);
@@ -181,21 +231,14 @@ public class TrainingSessionBookPane extends JPanel {
 		lblResearch.setBounds(30, 233, 70, 14);
 		add(lblResearch);
 		
-		Object [] columnHeadersBook = {"isbn","Title",/*"Author",*/"Price","Publisher"};
-		DefaultTableModel modelSession = new DefaultTableModel();
-		modelSession.setColumnIdentifiers(columnHeadersBook);
-		List<String[]> data = new ArrayList<String[]>();
-		/*for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
-			data.add(new String[] {
-					String.valueOf(entry.getValue().getTrainingSessionId()),
-					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
-					//String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
-					String.valueOf(entry.getValue().getDate()) ,
-					String.valueOf(entry.getValue().getStartHour())}
-			);
-		}*/
-		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersBook) {
-
+		Object [] columnHeadersBook = {"isbn","Title","Author","Price","Publisher"};
+		DefaultTableModel modelBook = new DefaultTableModel();
+		modelBook.setColumnIdentifiers(columnHeadersBook);
+		Object[][] data = {
+					
+		};
+		tbBook = new JTable(data, columnHeadersBook);
+		tableModel = new DefaultTableModel(data, columnHeadersBook) {
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
@@ -300,7 +343,7 @@ public class TrainingSessionBookPane extends JPanel {
 				};
 				tbBook.setModel(tableModel);
 		} catch (Exception exp) {
-			System.out.println("book§nope");
+			System.out.println("bookï¿½nope");
 			exp.printStackTrace();
       
 		}

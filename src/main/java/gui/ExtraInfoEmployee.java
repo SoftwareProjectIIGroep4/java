@@ -130,7 +130,7 @@ public class ExtraInfoEmployee extends JPanel {
 		btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		btnTraining.setOpaque(true);
 		btnTraining.setActionCommand("TrainingMenu");
-		btnTraining.setBounds(133, 0, 211, 75);
+		btnTraining.setBounds(124, 0, 264, 75);
 		add(btnTraining);
 
 		btnTrainingSession = new JButton("Training session");
@@ -149,7 +149,7 @@ public class ExtraInfoEmployee extends JPanel {
 		btnTrainingSession.setHorizontalAlignment(SwingConstants.CENTER);
 		btnTrainingSession.setOpaque(true);
 		btnTrainingSession.setActionCommand("TrainingSessionMenu");
-		btnTrainingSession.setBounds(344, 0, 211, 75);
+		btnTrainingSession.setBounds(387, 0, 264, 75);
 		add(btnTrainingSession);
 
 		btnEmployees = new JButton("Employees");
@@ -168,7 +168,7 @@ public class ExtraInfoEmployee extends JPanel {
 		btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEmployees.setOpaque(true);
 		btnEmployees.setActionCommand("EmployeesMenu");
-		btnEmployees.setBounds(555, 0, 212, 75);
+		btnEmployees.setBounds(650, 0, 264, 75);
 		add(btnEmployees);
 
 		btnStatistics = new JButton("Statistics");
@@ -187,7 +187,7 @@ public class ExtraInfoEmployee extends JPanel {
 		btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		btnStatistics.setOpaque(true);
 		btnStatistics.setActionCommand("StatisticsMenu");
-		btnStatistics.setBounds(767, 0, 212, 75);
+		btnStatistics.setBounds(912, 0, 264, 75);
 		add(btnStatistics);
 
 		/**	jtbTrainingRequests = new JToggleButton("Training requests");
@@ -260,7 +260,7 @@ public class ExtraInfoEmployee extends JPanel {
 
 		lblShowImageIcon = new JLabel("");
 		lblShowImageIcon.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblShowImageIcon.setBounds(669, 282, 521, 427);
+		lblShowImageIcon.setBounds(669, 282, 521, 398);
 		add(lblShowImageIcon);
 
 		textFieldEmployeeID = new JTextField();
@@ -349,7 +349,7 @@ public class ExtraInfoEmployee extends JPanel {
 		JScrollPane sclTraining = new JScrollPane(tbEmployeeHistoryTraining);
 		sclTraining.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sclTraining.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		sclTraining.setBounds(40, 282, 548, 427);
+		sclTraining.setBounds(40, 282, 548, 398);
 		add(sclTraining);
 
 

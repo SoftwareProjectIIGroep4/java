@@ -107,7 +107,7 @@ public class TrainingSessionInfoPane extends JPanel {
 	        lblNewLabel_1.setOpaque(true);
 	        add(lblNewLabel_1);
 		
-		btnBack = new JButton("<-  Back");
+		btnBack = new JButton("Back");
 		btnBack.setBounds(30, 100, 110, 50);
 		btnBack.setActionCommand("BackToTrainingSessoin");
 		add(btnBack);
