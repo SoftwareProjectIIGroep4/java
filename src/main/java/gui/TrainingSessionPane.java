@@ -123,17 +123,18 @@ public class TrainingSessionPane extends JPanel {
 	        lblNewLabel.setOpaque(true);
 	        add(lblNewLabel);
 		
-		Object [] columnHeadersSession = {"Training ID", "Training name","City","Date","Hour"};
+		Object [] columnHeadersSession = {"Training ID","traingsession ID", "Training name","City","Date","Hour"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data = new ArrayList<String[]>();
 		
 		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
 			data.add(new String[] {
+					String.valueOf(entry.getValue().getTrainingId()),
 					String.valueOf(entry.getValue().getTrainingSessionId()),
 					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
-					String.valueOf(entry.getValue().getDate()) ,
+					entry.getValue().getDate().substring(0, 9) ,
 					String.valueOf(entry.getValue().getStartHour()),
 					String.valueOf(entry.getValue().getAddressId()),
 					String.valueOf(entry.getValue().getTrainingId())
@@ -194,7 +195,7 @@ public class TrainingSessionPane extends JPanel {
 		btnShowTrainingSession.setBounds(1072,138,160,64);
 		add(btnShowTrainingSession);
 		
-		JLabel lblNewLabel_2 = new JLabel("List of trainings");
+		JLabel lblNewLabel_2 = new JLabel("List of trainingssessions");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(31, 86, 278, 28);
 		add(lblNewLabel_2);
