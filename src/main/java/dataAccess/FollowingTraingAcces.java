@@ -10,7 +10,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import models.Address;
 import models.FollowingTraining;
 
+
 public class FollowingTraingAcces extends RestRequest {
+	
+	public static FollowingTraining get(Integer id) throws IOException, URISyntaxException {
+        String JSONFollowingt = getAllOrOne(new URI(Constants.FOLLOWING_TRAINING_SOURCE + id));
+        FollowingTraining followingTraining = mapper.readValue(JSONFollowingt, FollowingTraining.class);
+        return followingTraining;
+    }
 	
 	public static HashMap<Integer, FollowingTraining> getAll() throws IOException, URISyntaxException {
 		String JSONFollowingt = getAllOrOne(new URI(Constants.FOLLOWING_TRAINING_SOURCE));

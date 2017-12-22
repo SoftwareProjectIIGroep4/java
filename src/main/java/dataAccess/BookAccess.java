@@ -35,22 +35,46 @@ public class BookAccess extends RestRequest {
 		
 		
 		//Get all books
-		public static HashMap<Integer, Book> getAll() throws IOException, URISyntaxException {
+		public static HashMap<Long, Book> getAll() throws IOException, URISyntaxException {
 	
 				String JSONBooks = getAllOrOne(new URI(Constants.BOOK_SOURCE));
 				List<Book> books = mapper.readValue(JSONBooks, new TypeReference<List<Book>>(){});
 
-				HashMap<Integer, Book> bookMap = new HashMap<Integer, Book>();
+				HashMap<Long, Book> bookMap = new HashMap<Long, Book>();
 
 				for (Book book : books) {
 					bookMap.put(book.getIsbn(), book);
 				}
-				return bookMap;			
+				return bookMap;	 		
 		}
 		
+		public static  HashMap<Long, Book>  getBooksByTrainingId(Integer id) throws IOException, URISyntaxException {
+            String JSONBooks = getAllOrOne(new URI(Constants.TRAINING_INFO_SOURCE + id +"/books"));
+            List<Book> books = mapper.readValue(JSONBooks, new TypeReference<List<Book>>(){});
+
+			HashMap<Long, Book> bookMap = new HashMap<Long, Book>();
+
+			for (Book book : books) {
+				bookMap.put(book.getIsbn(), book);
+			}
+			return bookMap;	       
+        }
 		
-		public static Book get(Integer isbn) throws IOException, URISyntaxException {
-			String JSONBooks = getAllOrOne(new URI(Constants.BOOK_SOURCE + isbn));
+		public static HashMap<Long, Book> getByTraining() throws IOException, URISyntaxException {
+			
+			String JSONBooks = getAllOrOne(new URI(Constants.BOOK_SOURCE));
+			List<Book> books = mapper.readValue(JSONBooks, new TypeReference<List<Book>>(){});
+
+			HashMap<Long, Book> bookMap = new HashMap<Long, Book>();
+
+			for (Book book : books) {
+				bookMap.put(book.getIsbn(), book);
+			}
+			return bookMap;			
+	}
+		
+		public static Book get(Long key) throws IOException, URISyntaxException {
+			String JSONBooks = getAllOrOne(new URI(Constants.BOOK_SOURCE + key));
 			Book book = mapper.readValue(JSONBooks, Book.class);
 			return book;
 		}
@@ -65,10 +89,12 @@ public class BookAccess extends RestRequest {
 			putObject(book, new URI(Constants.BOOK_SOURCE + book.getIsbn()));
 		}
 
-		public static Book remove(Integer id) throws URISyntaxException, IOException {
-			String JSONBooks = deleteObject(id, new URI(Constants.BOOK_SOURCE + id));
+		public static Book remove(long isbn) throws URISyntaxException, IOException {
+			String JSONBooks = deleteObject(isbn, new URI(Constants.BOOK_SOURCE + isbn));
 			return mapper.readValue(JSONBooks, Book.class);
 		}
+		
+		
 		
 		/*Get a book by title
 		public static Book getBookByTitle(String title) {

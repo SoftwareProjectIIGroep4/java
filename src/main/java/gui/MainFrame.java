@@ -15,6 +15,7 @@ import java.sql.Time;
 import java.sql.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutionException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,7 @@ import javax.swing.JPanel;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-
+import dataAccess.Cache;
 import dataAccess.GoogleBooksAPI;
 import dataAccess.SurveyQuestionAcces;
 import dataAccess.TrainingInfoAccess;
@@ -52,7 +53,8 @@ public class MainFrame extends JFrame {
 	private int trainingId=-1;
 	private Book book ;
 	private TrainingBooks trainingBooks;
-		
+	private TrainingSession session;
+			
 	
 
 	
@@ -107,6 +109,7 @@ public class MainFrame extends JFrame {
         StatisticsCertificatesEmployeePane statisticsCertificatesEmployeePanel = new StatisticsCertificatesEmployeePane();
         StatisticsFollowedTrainingPane statisticsFollowedTrainingPanel = new StatisticsFollowedTrainingPane();
         StatisticsTrainingParticipationPane statisticsTrainingParticipationPanel = new StatisticsTrainingParticipationPane();
+        TrainingSessionMapPane newTrainingSessionMapPane = new TrainingSessionMapPane();
 
 
         
@@ -127,6 +130,8 @@ public class MainFrame extends JFrame {
         getContentPane().add(statisticsCertificatesEmployeePanel, "statisticsCertificatesEmployeePanel");
         getContentPane().add(statisticsFollowedTrainingPanel, "statisticsFollowedTrainingPanel");
         getContentPane().add(statisticsTrainingParticipationPanel, "statisticsTrainingParticipationPanel");
+        getContentPane().add(newTrainingSessionMapPane, "TrainingSessionMapPane");
+        
 
 
         employeePanel.addActionListener(new ActionListener() {
@@ -212,10 +217,6 @@ public class MainFrame extends JFrame {
             				newSelectTrainingPane.getTableModel().addRow(new Object[]{entry.getValue().getName(),
             						String.valueOf(entry.getValue().getNumberOfDays()),
             						String.valueOf(entry.getValue().getPrice())});
-            			
-            			
-            					
-            		
             			}
             		}
                 	
@@ -250,7 +251,17 @@ public class MainFrame extends JFrame {
                     	layout.show(getContentPane(), "NewTrainingSessionPane");
                     } else if ("goToTrainingSessionInfo".equals(command)) {
                         //show trainingsessioninfopane
+                    	
                         layout.show(getContentPane(), "TrainingSessionInfoPane");
+                        newTrainingSessionInfoPane.setGeneralInfo(trainingSessionPanel.getTrainingSessionID());
+                        newTrainingSessionInfoPane.setExamInfo(trainingSessionPanel.getTrainingSessionID());
+                        newTrainingSessionInfoPane.setPaymentInfo(trainingSessionPanel.getTrainingSessionID());
+                        newTrainingSessionMapPane.setImage(trainingSessionPanel.getAddressID());
+                        newTrainingSessionPoeplePane.setListEmployee(trainingSessionPanel.getTrainingSessionID());
+                        newTrainingSessionBookPane.setListBook(trainingSessionPanel.getTrainingID() );
+                        
+                        newTrainingSessionBookPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
+                        
                     }
                     
                 }
@@ -334,7 +345,8 @@ public class MainFrame extends JFrame {
                     	tSession.setAddressId(address.getAddressId());
                     	System.out.println("teacherid::"+teacherId);
                     	tSession.setTeacherId(teacherId);
-                    	tSession.setSurveyId(surveyId);
+                    	// TODO ik krijg hier een error
+                    	//tSession.setSurveyId(surveyId);
                     	try {
 							tSession.save();
 						} catch (URISyntaxException | IOException e1) {
@@ -419,16 +431,23 @@ public class MainFrame extends JFrame {
                         	layout.show(getContentPane(), "trainingSessionPanel");
                         } else if ("CancelTrainingSession".equals(command)) {
                         	//cancel trainingSession
-                        	
+                        	newTrainingSessionBookPane.updateCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         } else if ("Info".equals(command)) {
                             //show TrainingSessoinInfoPane
                             layout.show(getContentPane(), "TrainingSessionInfoPane");
+                            newTrainingSessionInfoPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         } else if ("EnlistedPeople".equals(command)) {
                             //show TrainingSessoinEnlistedPeoplePane
                             layout.show(getContentPane(), "TrainingSessionPoeplePane");
+                            newTrainingSessionPoeplePane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         } else if ("Books".equals(command)) {
                             //show TrainingSessoinBooksPane
                             layout.show(getContentPane(), "TrainingSessionBookPane");
+                            newTrainingSessionBookPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
+                        } else if ("Map".equals(command)) {
+                            //show TrainingSessoinMapsPane
+                            layout.show(getContentPane(), "TrainingSessionMapPane");
+                            newTrainingSessionMapPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         }
                     }
                 });
@@ -457,16 +476,68 @@ public class MainFrame extends JFrame {
 
                         } else if ("CancelTrainingSession".equals(command)) {
                         	//cancel trainingSession
-                        	
+                        	newTrainingSessionPoeplePane.updateCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         } else if ("Info".equals(command)) {
                             //show TrainingSessoinInfoPane
                             layout.show(getContentPane(), "TrainingSessionInfoPane");
+                            newTrainingSessionInfoPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         } else if ("EnlistedPeople".equals(command)) {
                             //show TrainingSessoinEnlistedPeoplePane
                             layout.show(getContentPane(), "TrainingSessionPoeplePane");
+                            newTrainingSessionPoeplePane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         } else if ("Books".equals(command)) {
                             //show TrainingSessoinBooksPane
                             layout.show(getContentPane(), "TrainingSessionBookPane");
+                            newTrainingSessionBookPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
+                        } else if ("Map".equals(command)) {
+                            //show TrainingSessoinMapsPane
+                            layout.show(getContentPane(), "TrainingSessionMapPane");
+                            newTrainingSessionMapPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
+                        }
+                        
+                    }
+                });
+        		
+        		newTrainingSessionMapPane.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String command = e.getActionCommand();
+                        System.out.println(command);
+                        if ("TrainingMenu".equals(command)) {
+                        	//show trainingPane
+                        	layout.show(getContentPane(), "trainingPanel");
+                        } else if ("TrainingSessionMenu".equals(command)) {
+                        	//show trainingSessionPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+                        } else	if ("EmployeesMenu".equals(command)) {
+                        	//show employeesPane
+                        	layout.show(getContentPane(), "employeePanel");
+                        } else if ("StatisticsMenu".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "statisticsPanel");
+                        } else if ("BackToTrainingSessoin".equals(command)) {
+                        	//show TrainingSessoinPane
+                        	layout.show(getContentPane(), "trainingSessionPanel");
+
+                        } else if ("CancelTrainingSession".equals(command)) {
+                        	//cancel trainingSession
+                        	newTrainingSessionMapPane.updateCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
+                        } else if ("Info".equals(command)) {
+                            //show TrainingSessoinInfoPane
+                            layout.show(getContentPane(), "TrainingSessionInfoPane");
+                            newTrainingSessionInfoPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
+                        } else if ("EnlistedPeople".equals(command)) {
+                            //show TrainingSessoinEnlistedPeoplePane
+                            layout.show(getContentPane(), "TrainingSessionPoeplePane");
+                            newTrainingSessionPoeplePane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
+                        } else if ("Books".equals(command)) {
+                            //show TrainingSessoinBooksPane
+                            layout.show(getContentPane(), "TrainingSessionBookPane");
+                            newTrainingSessionBookPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
+                        } else if ("Map".equals(command)) {
+                            //show TrainingSessoinMapsPane
+                            layout.show(getContentPane(), "TrainingSessionMapPane");
+                            newTrainingSessionMapPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         }
                         
                     }
@@ -496,16 +567,23 @@ public class MainFrame extends JFrame {
 
                         } else if ("CancelTrainingSession".equals(command)) {
                         	//cancel trainingSession
-                        	
+                        	newTrainingSessionInfoPane.updateCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         } else if ("Info".equals(command)) {
                             //show TrainingSessoinInfoPane
                             layout.show(getContentPane(), "TrainingSessionInfoPane");
+                            newTrainingSessionInfoPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         } else if ("EnlistedPeople".equals(command)) {
                             //show TrainingSessoinEnlistedPeoplePane
                             layout.show(getContentPane(), "TrainingSessionPoeplePane");
+                            newTrainingSessionPoeplePane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         } else if ("Books".equals(command)) {
                             //show TrainingSessoinBooksPane
                             layout.show(getContentPane(), "TrainingSessionBookPane");
+                            newTrainingSessionBookPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
+                        } else if ("Map".equals(command)) {
+                            //show TrainingSessoinMapsPane
+                            layout.show(getContentPane(), "TrainingSessionMapPane");
+                            newTrainingSessionMapPane.setBtnCancelTrainingSession(trainingSessionPanel.getTrainingSessionID());
                         }
                     }
                 });
@@ -691,7 +769,8 @@ public class MainFrame extends JFrame {
                 		    	   book = testBooks.get(0);
                 		    	 
                 		    	  book.save();
-                		    	  trainingBooks=new TrainingBooks(trainingId, book.getIsbn());
+                		    	// TODO ik krijg hier een error
+                		    	 // trainingBooks=new TrainingBooks(trainingId, book.getIsbn());
                 		    	  trainingBooks.save();
                 		        // Succes
                 		      } catch (IOException e1) {
@@ -922,6 +1001,14 @@ public class MainFrame extends JFrame {
 		       return sDate;
 		
 		    }
+
+	public TrainingSession getSession() {
+		return session;
+	}
+
+	public void setSession(TrainingSession session) {
+		this.session = session;
+	}
 
 	
 }
