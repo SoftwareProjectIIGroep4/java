@@ -110,7 +110,7 @@ public class NewTrainingSessionPane extends JPanel {
 	        add(lblNewLabel_1);
 	       
 		
-		btnBack = new JButton("<-  Back");
+		btnBack = new JButton("Back");
 		btnBack.setActionCommand("backToTrainingSession");
 		btnBack.setBounds(30, 100, 110, 50);
 		add(btnBack);
@@ -337,27 +337,27 @@ public class NewTrainingSessionPane extends JPanel {
 		add(txtCountry);
 		
 		JLabel lblBackBorder = new JLabel("");
-		lblBackBorder.setBounds(253, 195, 825, 486);
+		lblBackBorder.setBounds(263, 200, 797, 465);
 		lblBackBorder.setBorder(border);
 		add(lblBackBorder);
 
 		btnAddTeacher = new JButton("Add Teacher");
 		btnAddTeacher.setActionCommand("addTeacher");
-		btnAddTeacher.setBounds(1102, 231, 117, 54);
+		btnAddTeacher.setBounds(55, 262, 117, 54);
 		add(btnAddTeacher);
 		
 		btnAddBook = new JButton("Add Book");
 		btnAddBook.setActionCommand("addBook");
-		btnAddBook.setBounds(1102, 371, 117, 50);
+		btnAddBook.setBounds(55, 371, 117, 50);
 		add(btnAddBook);
 		
 		btnaddSurvey = new JButton("Add Survey");
 		btnaddSurvey.setActionCommand("addSurvey");
-		btnaddSurvey.setBounds(1102, 499, 117, 54);
+		btnaddSurvey.setBounds(55, 479, 117, 54);
 		add(btnaddSurvey);
 		
 		JLabel lblNewLabel_2 = new JLabel("(YYYY-MM-DD)");
-		lblNewLabel_2.setBounds(370, 282, 72, 14);
+		lblNewLabel_2.setBounds(370, 282, 110, 14);
 		add(lblNewLabel_2);
 
 	}

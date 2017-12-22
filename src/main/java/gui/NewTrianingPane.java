@@ -50,7 +50,20 @@ public class NewTrianingPane extends JPanel {
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 	        
-		  btnTraining = new JButton("Training"); 
+		  btnTraining = new JButton("Training");
+		  btnTraining.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTitle.setText("");
+					txtNumberOfDays.setText("");
+					txtPrice.setText("");
+					epDescription.setText("");
+					epDescriptionExam.setText("");
+					epDescriptionPayement.setText("");
+					
+				}
+			});
 		  btnTraining.setBackground(Color.WHITE);
 		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		  btnTraining.setOpaque(true);
@@ -59,6 +72,19 @@ public class NewTrianingPane extends JPanel {
 	        add(btnTraining);
 	        
 	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTitle.setText("");
+					txtNumberOfDays.setText("");
+					txtPrice.setText("");
+					epDescription.setText("");
+					epDescriptionExam.setText("");
+					epDescriptionPayement.setText("");
+					
+				}
+			});
 	        btnTrainingsession.setBackground(Color.WHITE);
 	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnTrainingsession.setOpaque(true);
@@ -67,6 +93,19 @@ public class NewTrianingPane extends JPanel {
 	        add(btnTrainingsession);
 	        
 	        btnEmployees = new JButton("Employees");
+	        btnEmployees.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTitle.setText("");
+					txtNumberOfDays.setText("");
+					txtPrice.setText("");
+					epDescription.setText("");
+					epDescriptionExam.setText("");
+					epDescriptionPayement.setText("");
+					
+				}
+			});
 	        btnEmployees.setBackground(Color.WHITE);
 	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnEmployees.setOpaque(true);
@@ -75,6 +114,19 @@ public class NewTrianingPane extends JPanel {
 	        add(btnEmployees);
 	        
 	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTitle.setText("");
+					txtNumberOfDays.setText("");
+					txtPrice.setText("");
+					epDescription.setText("");
+					epDescriptionExam.setText("");
+					epDescriptionPayement.setText("");
+					
+				}
+			});
 	        btnStatistics.setBackground(Color.WHITE);
 	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnStatistics.setOpaque(true);
@@ -92,19 +144,45 @@ public class NewTrianingPane extends JPanel {
 	        lblNewLabel_1.setOpaque(true);
 	        add(lblNewLabel_1);
 		
-		btnBack = new JButton("<-  Back");
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				txtTitle.setText("");
+				txtNumberOfDays.setText("");
+				txtPrice.setText("");
+				epDescription.setText("");
+				epDescriptionExam.setText("");
+				epDescriptionPayement.setText("");
+				
+			}
+		});
 		btnBack.setBounds(30, 100, 110, 50);
 		btnBack.setActionCommand("BackToTraining");
 		add(btnBack);
 		
 		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				txtTitle.setText("");
+				txtNumberOfDays.setText("");
+				txtPrice.setText("");
+				epDescription.setText("");
+				epDescriptionExam.setText("");
+				epDescriptionPayement.setText("");
+				
+			}
+		});
 		btnSave.setBounds(170, 100, 110, 50);
 		btnSave.setActionCommand("SaveTraining");
 		add(btnSave);
 		
 		
 		lblAddNewTraining = new JLabel("Add new training");
-		lblAddNewTraining.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblAddNewTraining.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblAddNewTraining.setBounds(40, 161, 140, 14);
 		add(lblAddNewTraining);
 		
