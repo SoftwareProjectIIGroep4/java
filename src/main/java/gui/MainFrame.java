@@ -738,6 +738,9 @@ public class MainFrame extends JFrame {
                         } else if ("StatisticsMenu".equals(command)) {
                         	//show statisticsSessionPane
                         	layout.show(getContentPane(), "statisticsPanel");
+                        } else if ("backToNewTrainingSesion".equals(command)) {
+                        	//show newTrainingSessionPane
+                        	layout.show(getContentPane(), "NewTrainingSessionPane");
                         } else if ("addTeacher".equals(command)) {
                         	if (addTeacherPanel.getTeacherLastnameSearch().equals("")||
                         		addTeacherPanel.getTeacherFirstnameSearch().equals("")||	
@@ -796,6 +799,9 @@ public class MainFrame extends JFrame {
                         	trainingBooks=null;
                         	//show statisticsSessionPane
                         	layout.show(getContentPane(), "statisticsPanel");
+                        } else if ("backToNewTrainingSessio".equals(command)) {
+                        	//show statisticsSessionPane
+                        	layout.show(getContentPane(), "NewTrainingSessionPane");
                         } else if ("addBookToTrainingsession".equals(command)) {
                         	JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
                 		    try {

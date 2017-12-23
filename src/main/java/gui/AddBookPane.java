@@ -31,6 +31,7 @@ public class AddBookPane extends JPanel {
 	private JButton jtbSettings;
 	private Settings settings;
 	public JLabel companyName;
+	private JButton btnBackToNewTrainingsessio;
 	
 	/**
 	 * Create the panel.
@@ -60,7 +61,7 @@ public class AddBookPane extends JPanel {
 		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbSettings.setOpaque(true);
 	        jtbSettings.setActionCommand("SettingsMenu");
-	        jtbSettings.setBounds(1190, 12, 70, 50);
+	        jtbSettings.setBounds(1175, 0, 105, 75);
 	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
@@ -97,32 +98,38 @@ public class AddBookPane extends JPanel {
 	        
 	        lblBookTitle = new JLabel("Book title:");
 	        lblBookTitle.setFont(new Font("Tahoma", Font.BOLD, 14));
-	        lblBookTitle.setBounds(133, 182, 109, 34);
+	        lblBookTitle.setBounds(124, 215, 109, 34);
 	        add(lblBookTitle);
 	        
 	        lblBookAuthor = new JLabel("Author:");
 	        lblBookAuthor.setFont(new Font("Tahoma", Font.BOLD, 14));
-	        lblBookAuthor.setBounds(133, 245, 109, 34);
+	        lblBookAuthor.setBounds(133, 267, 109, 34);
 	        add(lblBookAuthor);
 	        
 	        txtBookTitle = new JTextField();
-	        txtBookTitle.setBounds(252, 184, 133, 34);
+	        txtBookTitle.setBounds(255, 217, 133, 34);
 	        add(txtBookTitle);
 	        txtBookTitle.setColumns(10);
 	        
 	        txtBookAuthor = new JTextField();
-	        txtBookAuthor.setBounds(252, 247, 133, 34);
+	        txtBookAuthor.setBounds(255, 269, 133, 34);
 	        add(txtBookAuthor);
 	        txtBookAuthor.setColumns(10);
 	        
 	        btnAddBookToTrainingSession = new JButton("Add Book");
 	        btnAddBookToTrainingSession.setActionCommand("addBookToTrainingsession");
-	        btnAddBookToTrainingSession.setBounds(460, 212, 160, 45);
+	        btnAddBookToTrainingSession.setBounds(459, 240, 160, 45);
 	        add(btnAddBookToTrainingSession);
+	        
+	        btnBackToNewTrainingsessio = new JButton("Back");
+	        btnBackToNewTrainingsessio.setActionCommand("backToNewTrainingSessio");
+	        btnBackToNewTrainingsessio.setBounds(30, 106, 123, 41);
+	        add(btnBackToNewTrainingsessio);
 	}
 	
 	public void addActionListener(ActionListener listener) {
 		btnAddBookToTrainingSession.addActionListener(listener);
+		btnBackToNewTrainingsessio.addActionListener(listener);
 		btnTraining.addActionListener(listener);
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
@@ -137,5 +144,4 @@ public class AddBookPane extends JPanel {
 	public String getBookAuthorTrainingsession() {
         return txtBookAuthor.getText();
     }
-
 }

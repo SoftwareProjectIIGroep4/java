@@ -69,7 +69,6 @@ public class LoginPane extends JPanel {
 		});
 	
 		txtEmail.selectAll();
-		txtEmail.setToolTipText("Vuur je email in.");
 		txtEmail.setBounds(526, 249, 192, 20);
 		txtEmail.setColumns(10);
 		
