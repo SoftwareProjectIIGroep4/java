@@ -877,7 +877,7 @@ public class MainFrame extends JFrame {
                         	}
                         	else {
                         		System.out.println(addSurveyPanel.getAddQuestion());
-                        		surveyQuestions.add(new SurveyQuestion(addSurveyPanel.getAddQuestion()));
+                        		//surveyQuestions.add(new SurveyQuestion(addSurveyPanel.getAddQuestion()));
                         		
                         		addSurveyPanel.gettableQuestionsSurveyModel().addRow(new Object[]{addSurveyPanel.getAddQuestion()});
                         		new AddSurveyPane();
@@ -924,8 +924,15 @@ public class MainFrame extends JFrame {
                         	}
                         	
                         }else if ("confirmSurvey".equals(command)) {
-                        	Survey survey=new Survey();                       
-
+                        	
+                        	Survey survey=new Survey();     
+                        	for (int i=1;i<addSurveyPanel.gettableQuestionsSurveyModel().getRowCount();i++) {
+                            	//surveyQuestions.add(new SurveyQuestion(addSurveyPanel.getAddQuestion()));
+                        		surveyQuestions.add(new SurveyQuestion(addSurveyPanel.gettableQuestionsSurveyModel().getValueAt(i, 0).toString()));
+                        	}
+                        	
+                    		
+                    		new AddSurveyPane();
                         	try {
 								survey.save();
 							} catch (URISyntaxException e1) {
