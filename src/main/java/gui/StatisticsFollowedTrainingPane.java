@@ -193,24 +193,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnStatistics.setBounds(912, 0, 264, 75);
 		add(btnStatistics);
 
-		/**		jtbTrainingRequests = new JButton("Training requests");
-		/* jtbTrainingRequests.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTrainingRequests.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTrainingRequests.setBorder(null);
-	            }
-	        });
-		jtbTrainingRequests.setBackground(Color.WHITE);
-		jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTrainingRequests.setOpaque(true);
-		jtbTrainingRequests.setActionCommand("TrainingRequestsMenu");
-		jtbTrainingRequests.setBounds(979, 0, 211, 75);
-		add(jtbTrainingRequests); */
-
 		JLabel lblUitleg = new JLabel("Write employeeID to get information");
 		lblUitleg.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblUitleg.setBounds(44, 222, 260, 33);

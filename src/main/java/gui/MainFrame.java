@@ -886,53 +886,8 @@ public class MainFrame extends JFrame {
                         	}
                         	//add question to survey
                         	
-
-                        } else if ("deleteQuestion".equals(command)) {
-                        	
-                        	if (addSurveyPanel.getAddQuestion().equals("")) {
-                        		//FOUT?
-                        	}
-                        	else {
-                        		
-                        		for (int i =0;i<surveyQuestions.size();i++) {
-                        			if(surveyQuestions.get(i).getContent().equals(addSurveyPanel.getAddQuestion())) {
-                        				surveyQuestions.remove(i);
-                        			}
-                        		}
-                        		addSurveyPanel.gettableQuestionsSurveyModel().removeRow(1);
-                        		if (addSurveyPanel.gettableQuestionsSurveyModel().getRowCount() > 0) {
-                                    for (int i = addSurveyPanel.gettableQuestionsSurveyModel().getRowCount() - 1; i > -1; i--) {
-                                    	if (addSurveyPanel.gettableQuestionsSurveyModel().getValueAt(i, 0)==addSurveyPanel.getAddQuestion()) {
-                                    	addSurveyPanel.gettableQuestionsSurveyModel().removeRow(i);
-                                    	}
-                                    }
-                                }
-                        		
-                        	}
-                        	//delete question from survey
-                        	
-                        } else if ("updateQuestion".equals(command)) {
-                        	if (addSurveyPanel.getAddQuestion().equals("")) {
-                        		//FOUT?
-                        	}
-                        	else {
-                        		for (int i =0;i<surveyQuestions.size();i++) {
-                        			if(surveyQuestions.get(i).getContent().equals(addSurveyPanel.getAddQuestion())) {
-                        				surveyQuestions.set(i, new SurveyQuestion(addSurveyPanel.getAddQuestion()));
-                        			}
-                        		}
-                        	}
-                        	
-                        }else if ("confirmSurvey".equals(command)) {
-                        	
-                        	Survey survey=new Survey();     
-                        	for (int i=1;i<addSurveyPanel.gettableQuestionsSurveyModel().getRowCount();i++) {
-                            	//surveyQuestions.add(new SurveyQuestion(addSurveyPanel.getAddQuestion()));
-                        		surveyQuestions.add(new SurveyQuestion(addSurveyPanel.gettableQuestionsSurveyModel().getValueAt(i, 0).toString()));
-                        	}
-                        	
-                    		
-                    		new AddSurveyPane();
+                        } else if ("confirmSurvey".equals(command)) {
+                        	Survey survey=new Survey();                       
                         	try {
 								survey.save();
 							} catch (URISyntaxException e1) {
