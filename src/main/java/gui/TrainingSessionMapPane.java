@@ -289,8 +289,9 @@ public class TrainingSessionMapPane extends JPanel {
 				 String pathUrl = "https://maps.googleapis.com/maps/api/staticmap?zoom=14&center=" + address
 						 		+ "&size=1100x430&markers=color:red%7Clabel:A%7C" + address
 						 		+ "&key=AIzaSyBNGYCltDm0bAbk0OWAkD1Mi7VXbat_vIc";
+				 System.out.println(pathUrl);
 				 URL url = new URL(pathUrl);
-				 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+				 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 				 connection.connect();
 			     InputStream in = connection.getInputStream();
 			     image = ImageIO.read(in);

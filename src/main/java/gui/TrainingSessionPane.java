@@ -142,7 +142,7 @@ public class TrainingSessionPane extends JPanel {
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
 					entry.getValue().getDate().substring(0, 9) ,
 					String.valueOf(entry.getValue().getStartHour()),
-					String.valueOf(entry.getValue().getAddressId()),
+					String.valueOf(entry.getValue().getAddressId())
 					}
 			);
 		}
@@ -190,7 +190,6 @@ public class TrainingSessionPane extends JPanel {
 					trainingSessionID = teStrings[1];
 					addressID = teStrings[6];
 					trainingID = teStrings[0];
-					//System.out.println(trainingID);
 				}
 			} 
 		});
@@ -224,6 +223,7 @@ public class TrainingSessionPane extends JPanel {
 	}
 	public int getTrainingSessionID() {
 		return Integer.parseInt(trainingSessionID);
+		
 	}
 	public int getAddressID() {
 		return Integer.parseInt(addressID);
