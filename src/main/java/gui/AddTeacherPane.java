@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.ExecutionException;
 
@@ -63,15 +64,35 @@ public class AddTeacherPane extends JPanel {
 	        jtbSettings.setBounds(1175, 0, 105, 75);
 	        add(jtbSettings);
 	        
-		  btnTraining = new JButton("Training"); 
-		  btnTraining.setBackground(Color.WHITE);
-		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
-		  btnTraining.setOpaque(true);
-		  btnTraining.setActionCommand("TrainingMenu");
-		  btnTraining.setBounds(124, 0, 264, 75);
+	        btnTraining = new JButton("Training"); 
+	        btnTraining.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
+	        btnTraining.setBackground(Color.WHITE);
+	        btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
+	        btnTraining.setOpaque(true);
+		  	btnTraining.setActionCommand("TrainingMenu");
+		  	btnTraining.setBounds(124, 0, 264, 75);
 	        add(btnTraining);
 	        
 	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
 	        btnTrainingsession.setBackground(Color.WHITE);
 	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnTrainingsession.setOpaque(true);
@@ -80,6 +101,16 @@ public class AddTeacherPane extends JPanel {
 	        add(btnTrainingsession);
 	        
 	        btnEmployees = new JButton("Employees");
+	        btnEmployees.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
 	        btnEmployees.setBackground(Color.WHITE);
 	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnEmployees.setOpaque(true);
@@ -88,6 +119,16 @@ public class AddTeacherPane extends JPanel {
 	        add(btnEmployees);
 	        
 	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
 	        btnStatistics.setBackground(Color.WHITE);
 	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnStatistics.setOpaque(true);
@@ -136,11 +177,31 @@ public class AddTeacherPane extends JPanel {
 	        txtTeacherPhoneNumber.setColumns(10);
 	        
 	        btnSubmitAddTeacher = new JButton("Add teacher");
+	        btnSubmitAddTeacher.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
 	        btnSubmitAddTeacher.setActionCommand("addTeacher");
 	        btnSubmitAddTeacher.setBounds(504, 281, 123, 51);
 	        add(btnSubmitAddTeacher);
 	        
 	        btnBackToNewTrainingsesion = new JButton("Back");
+	        btnBackToNewTrainingsesion.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
 	        btnBackToNewTrainingsesion.setActionCommand("backToNewTrainingSesion");
 	        btnBackToNewTrainingsesion.setBounds(30, 106, 123, 41);
 	        add(btnBackToNewTrainingsesion);

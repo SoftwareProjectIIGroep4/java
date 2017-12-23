@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.ExecutionException;
 
@@ -65,6 +66,14 @@ public class AddBookPane extends JPanel {
 	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
+		  btnTraining.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 		  btnTraining.setBackground(Color.WHITE);
 		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		  btnTraining.setOpaque(true);
@@ -73,6 +82,14 @@ public class AddBookPane extends JPanel {
 	        add(btnTraining);
 	        
 	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 	        btnTrainingsession.setBackground(Color.WHITE);
 	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnTrainingsession.setOpaque(true);
@@ -81,6 +98,14 @@ public class AddBookPane extends JPanel {
 	        add(btnTrainingsession);
 	        
 	        btnEmployees = new JButton("Employees");
+	        btnEmployees.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 	        btnEmployees.setBackground(Color.WHITE);
 	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnEmployees.setOpaque(true);
@@ -89,6 +114,14 @@ public class AddBookPane extends JPanel {
 	        add(btnEmployees);
 	        
 	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 	        btnStatistics.setBackground(Color.WHITE);
 	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnStatistics.setOpaque(true);
@@ -117,11 +150,27 @@ public class AddBookPane extends JPanel {
 	        txtBookAuthor.setColumns(10);
 	        
 	        btnAddBookToTrainingSession = new JButton("Add Book");
+	        btnAddBookToTrainingSession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 	        btnAddBookToTrainingSession.setActionCommand("addBookToTrainingsession");
 	        btnAddBookToTrainingSession.setBounds(459, 240, 160, 45);
 	        add(btnAddBookToTrainingSession);
 	        
 	        btnBackToNewTrainingsessio = new JButton("Back");
+	        btnBackToNewTrainingsessio.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 	        btnBackToNewTrainingsessio.setActionCommand("backToNewTrainingSessio");
 	        btnBackToNewTrainingsessio.setBounds(30, 106, 123, 41);
 	        add(btnBackToNewTrainingsessio);

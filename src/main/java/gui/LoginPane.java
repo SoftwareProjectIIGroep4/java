@@ -39,36 +39,10 @@ public class LoginPane extends JPanel {
 		btnLogin.setBounds(549, 381, 149, 50);
 		
 		txtPassword = new JPasswordField ();
-		txtPassword.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				txtPassword.selectAll();
-			}
-		});
-		txtPassword.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtPassword.selectAll();
-			}
-		});
 		txtPassword.setBounds(526, 338, 192, 20);
 		txtPassword.setColumns(10);
 		
 		txtEmail = new JTextField();
-		txtEmail.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				txtPassword.selectAll();
-			}
-		});
-		txtEmail.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				txtEmail.selectAll();
-			}
-		});
-	
-		txtEmail.selectAll();
 		txtEmail.setBounds(526, 249, 192, 20);
 		txtEmail.setColumns(10);
 		

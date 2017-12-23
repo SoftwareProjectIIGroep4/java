@@ -140,7 +140,7 @@ public class TrainingSessionMapPane extends JPanel {
 	        btnStatistics.setBounds(912, 0, 264, 75);
 	        add(btnStatistics);
 		
-		btnBack = new JButton("<-  Back");
+		btnBack = new JButton("Back");
 		btnBack.setBounds(30, 100, 110, 50);
 		btnBack.setActionCommand("BackToTrainingSessoin");
 		add(btnBack);

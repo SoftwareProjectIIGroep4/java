@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -104,6 +105,14 @@ public class AddSurveyPane extends JPanel {
 	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
+		  btnTraining.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtAddQuestion.setText("");
+					tableQuestionsSurveyModel.getDataVector().removeAllElements();
+				}
+			});
 		  btnTraining.setBackground(Color.WHITE);
 		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		  btnTraining.setOpaque(true);
@@ -112,6 +121,14 @@ public class AddSurveyPane extends JPanel {
 	        add(btnTraining);
 	        
 	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtAddQuestion.setText("");
+					tableQuestionsSurveyModel.getDataVector().removeAllElements();
+				}
+			});
 	        btnTrainingsession.setBackground(Color.WHITE);
 	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnTrainingsession.setOpaque(true);
@@ -120,6 +137,14 @@ public class AddSurveyPane extends JPanel {
 	        add(btnTrainingsession);
 	        
 	        btnEmployees = new JButton("Employees");
+	        btnEmployees.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtAddQuestion.setText("");
+					tableQuestionsSurveyModel.getDataVector().removeAllElements();
+				}
+			});
 	        btnEmployees.setBackground(Color.WHITE);
 	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnEmployees.setOpaque(true);
@@ -128,6 +153,14 @@ public class AddSurveyPane extends JPanel {
 	        add(btnEmployees);
 	        
 	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtAddQuestion.setText("");
+					tableQuestionsSurveyModel.getDataVector().removeAllElements();
+				}
+			});
 	        btnStatistics.setBackground(Color.WHITE);
 	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnStatistics.setOpaque(true);
@@ -221,7 +254,7 @@ public class AddSurveyPane extends JPanel {
 
 			}
 			
-			DefaultTableModel modelHistoryQuestionsSurvey = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersHistoryQuestions)
+			modelHistoryQuestionsSurvey = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersHistoryQuestions)
 			{
 			    @Override
 			    public boolean isCellEditable(int row, int column) {
@@ -274,11 +307,27 @@ public class AddSurveyPane extends JPanel {
 			});
 			
 			btnConfirmSurvey = new JButton("Confirm survey");
+			btnConfirmSurvey.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtAddQuestion.setText("");
+					tableQuestionsSurveyModel.getDataVector().removeAllElements();
+				}
+			});
 			btnConfirmSurvey.setActionCommand("confirmSurvey");
 			btnConfirmSurvey.setBounds(219, 106, 203, 41);			
 	        add(btnConfirmSurvey);
 	        
 	        btnBackToNewTrainingsession = new JButton("Back");
+	        btnBackToNewTrainingsession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtAddQuestion.setText("");
+					tableQuestionsSurveyModel.getDataVector().removeAllElements();
+				}
+			});
 	        btnBackToNewTrainingsession.setActionCommand("backToNewTrainingSession");
 	        btnBackToNewTrainingsession.setBounds(30, 106, 123, 41);
 	        add(btnBackToNewTrainingsession);
