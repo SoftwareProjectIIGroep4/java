@@ -81,7 +81,7 @@ public class TrainingSessionInfoPane extends JPanel {
 		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbSettings.setOpaque(true);
 	        jtbSettings.setActionCommand("SettingsMenu");
-	        jtbSettings.setBounds(1190, 12, 70, 50);
+	        jtbSettings.setBounds(1175, 0, 105, 75);
 	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
