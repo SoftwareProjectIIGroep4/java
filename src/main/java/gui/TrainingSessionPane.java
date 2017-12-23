@@ -188,9 +188,9 @@ public class TrainingSessionPane extends JPanel {
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
 					//doe iets hier
 					String[] teStrings=data.get(selectedRow);
-					trainingSessionID = teStrings[0];
-					addressID = teStrings[5];
-					trainingID = teStrings[6];
+					trainingSessionID = teStrings[1];
+					addressID = teStrings[6];
+					trainingID = teStrings[7];
 					//System.out.println(trainingID);
 				}
 			} 
