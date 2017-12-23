@@ -31,6 +31,7 @@ public class AddTeacherPane extends JPanel {
 	private JButton jtbSettings;
 	private Settings settings;
 	public JLabel companyName;
+	private JButton btnBackToNewTrainingsesion;
 	
 	/**
 	 * Create the panel.
@@ -138,10 +139,16 @@ public class AddTeacherPane extends JPanel {
 	        btnSubmitAddTeacher.setActionCommand("addTeacher");
 	        btnSubmitAddTeacher.setBounds(504, 281, 123, 51);
 	        add(btnSubmitAddTeacher);
+	        
+	        btnBackToNewTrainingsesion = new JButton("Back");
+	        btnBackToNewTrainingsesion.setActionCommand("backToNewTrainingSesion");
+	        btnBackToNewTrainingsesion.setBounds(30, 106, 123, 41);
+	        add(btnBackToNewTrainingsesion);
 	}
 	
 	public void addActionListener(ActionListener listener) {
 		btnSubmitAddTeacher.addActionListener(listener);
+		btnBackToNewTrainingsesion.addActionListener(listener);
 		btnTraining.addActionListener(listener);
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
