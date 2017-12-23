@@ -3,32 +3,21 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -39,12 +28,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import com.fasterxml.jackson.databind.util.TypeKey;
-
 import dataAccess.Cache;
 import dataAccess.EmployeeAccess;
-import models.Address;
 import models.Employee;
+import models.Settings;
 import models.TrainingInfo;
 import models.TrainingSession;
 
@@ -62,6 +49,9 @@ public class TrainingSessionPoeplePane extends JPanel {
 	private JButton btnStatistics;
 	private JButton btnTrainingsession;
 	private JButton btnMaps;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
 	
 
 	public TrainingSessionPoeplePane() {
@@ -85,6 +75,26 @@ public class TrainingSessionPoeplePane extends JPanel {
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+		  try {
+				settings = Cache.settingsCache.get(1);
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+	        companyName.setBounds(10, 0, 110, 75);
+	        companyName.setOpaque(true);
+	        add(companyName);
+		  
+		  	jtbSettings = new JButton("Settings");
+		  	jtbSettings.setBackground(Color.WHITE);
+		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+	        jtbSettings.setOpaque(true);
+	        jtbSettings.setActionCommand("SettingsMenu");
+	        jtbSettings.setBounds(1190, 12, 70, 50);
+	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
 		  btnTraining.setBackground(Color.WHITE);
@@ -117,16 +127,6 @@ public class TrainingSessionPoeplePane extends JPanel {
 	        btnStatistics.setActionCommand("StatisticsMenu");
 	        btnStatistics.setBounds(912, 0, 264, 75);
 	        add(btnStatistics);
-	        
-	        JLabel lblNewLabel = new JLabel("logo");
-	        lblNewLabel.setBounds(0, 0, 133, 75);
-	        lblNewLabel.setOpaque(true);
-	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
 		
 		btnBack = new JButton("Back");
 		btnBack.setBounds(30, 100, 110, 50);
@@ -257,6 +257,7 @@ public class TrainingSessionPoeplePane extends JPanel {
 		btnEnlistedPeople.addActionListener(listener);
 		btnBooks.addActionListener(listener);
 		btnMaps.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
     }
 	
 	public void setListEmployee(int id) {

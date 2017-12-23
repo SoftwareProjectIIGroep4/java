@@ -1,26 +1,24 @@
 package gui;
 
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.RenderingHints.Key;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutionException;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -32,20 +30,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import dataAccess.Cache;
-import dataAccess.SurveyQuestionAcces;
-import models.Address;
+import models.Settings;
 import models.SurveyQuestion;
-import models.Survey;
-import models.SurveyAnswer;
-import models.TrainingInfo;
-import models.TrainingSession;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ActionEvent;
 
 public class AddSurveyPane extends JPanel {
 
@@ -66,6 +52,9 @@ public class AddSurveyPane extends JPanel {
 	private JButton btnBackToNewTrainingsession;
 	private ListSelectionModel selectedRowQuestionsSurvey;
 	private ListSelectionModel selectedRowHistoryQuestions;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
 	
 	public DefaultTableModel gettableQuestionsSurveyModel() {
 		 return this.tableQuestionsSurveyModel;
@@ -93,6 +82,26 @@ public class AddSurveyPane extends JPanel {
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+		  	try {
+				settings = Cache.settingsCache.get(1);
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+	        companyName.setBounds(10, 0, 110, 75);
+	        companyName.setOpaque(true);
+	        add(companyName);
+		  
+		  	jtbSettings = new JButton("Settings");
+		  	jtbSettings.setBackground(Color.WHITE);
+		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+	        jtbSettings.setOpaque(true);
+	        jtbSettings.setActionCommand("SettingsMenu");
+	        jtbSettings.setBounds(1190, 12, 70, 50);
+	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
 		  btnTraining.setBackground(Color.WHITE);
@@ -125,16 +134,6 @@ public class AddSurveyPane extends JPanel {
 	        btnStatistics.setActionCommand("StatisticsMenu");
 	        btnStatistics.setBounds(912, 0, 264, 75);
 	        add(btnStatistics);
-	        
-	        JLabel lblNewLabel = new JLabel("logo");
-	        lblNewLabel.setBounds(0, 0, 133, 75);
-	        lblNewLabel.setOpaque(true);
-	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
 	        
 	        Object [] columnHeaderQuestionsSurvey = {"Questions for the survey"};
 	        List<String[]> data1 = new ArrayList<String[]>();	       
@@ -309,6 +308,7 @@ public class AddSurveyPane extends JPanel {
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
     }
 	
 	public String getAddQuestion() {
