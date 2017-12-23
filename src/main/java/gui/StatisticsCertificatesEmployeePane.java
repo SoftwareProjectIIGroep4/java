@@ -105,7 +105,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 	  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
         jtbSettings.setOpaque(true);
         jtbSettings.setActionCommand("SettingsMenu");
-        jtbSettings.setBounds(1190, 12, 70, 50);
+        jtbSettings.setBounds(1175, 0, 105, 75);
         add(jtbSettings);
 
 		btnTraining = new JButton("Training");
@@ -139,7 +139,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 		btnTrainingsession.setOpaque(true);
 		btnTrainingsession.setActionCommand("TrainingSessionMenu");
-		btnTrainingsession.setBounds(388, 0, 264, 75);
+		btnTrainingsession.setBounds(387, 0, 264, 75);
 		add(btnTrainingsession);
 
 		btnEmployees = new JButton("Employees");
@@ -156,7 +156,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEmployees.setOpaque(true);
 		btnEmployees.setActionCommand("EmployeesMenu");
-		btnEmployees.setBounds(652, 0, 264, 75);
+		btnEmployees.setBounds(650, 0, 264, 75);
 		add(btnEmployees);
 
 		btnStatistics = new JButton("Statistics");
@@ -173,7 +173,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		btnStatistics.setOpaque(true);
 		btnStatistics.setActionCommand("StatisticsMenu");
-		btnStatistics.setBounds(916, 0, 264, 75);
+		btnStatistics.setBounds(912, 0, 264, 75);
 		add(btnStatistics);
 
 		JLabel lblUitlegCert = new JLabel("Write employeeID to get information");

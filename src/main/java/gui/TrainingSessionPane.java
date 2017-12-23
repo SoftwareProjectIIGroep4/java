@@ -94,7 +94,7 @@ public class TrainingSessionPane extends JPanel {
 		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbSettings.setOpaque(true);
 	        jtbSettings.setActionCommand("SettingsMenu");
-	        jtbSettings.setBounds(1190, 12, 70, 50);
+	        jtbSettings.setBounds(1175, 0, 105, 75);
 	        add(jtbSettings);
 	        
 	        jtbTraining = new JButton("Training"); 
@@ -143,7 +143,6 @@ public class TrainingSessionPane extends JPanel {
 					entry.getValue().getDate().substring(0, 9) ,
 					String.valueOf(entry.getValue().getStartHour()),
 					String.valueOf(entry.getValue().getAddressId()),
-					String.valueOf(entry.getValue().getTrainingId())
 					}
 			);
 		}
@@ -188,9 +187,9 @@ public class TrainingSessionPane extends JPanel {
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
 					//doe iets hier
 					String[] teStrings=data.get(selectedRow);
-					trainingSessionID = teStrings[0];
-					addressID = teStrings[5];
-					trainingID = teStrings[6];
+					trainingSessionID = teStrings[1];
+					addressID = teStrings[6];
+					trainingID = teStrings[0];
 					//System.out.println(trainingID);
 				}
 			} 

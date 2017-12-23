@@ -1,7 +1,8 @@
-package gui;
+ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -75,10 +76,26 @@ public class NewTrainingSessionPane extends JPanel {
 		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbSettings.setOpaque(true);
 	        jtbSettings.setActionCommand("SettingsMenu");
-	        jtbSettings.setBounds(1190, 12, 70, 50);
+	        jtbSettings.setBounds(1175, 0, 105, 75);
 	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
+		  btnTraining.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTitle.setText("");
+					txtDate.setText("");
+					txtStartHour.setText("");
+					txtEndHour.setText("");
+					txtAdministrativeArea.setText("");
+					txtLocality.setText("");
+					txtPostalCode.setText("");
+					txtStreetAddress.setText("");
+					txtPremise.setText("");
+					txtCountry.setText("");	
+				}
+			});
 		  btnTraining.setBackground(Color.WHITE);
 		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		  btnTraining.setOpaque(true);
@@ -87,6 +104,22 @@ public class NewTrainingSessionPane extends JPanel {
 	        add(btnTraining);
 	        
 	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTitle.setText("");
+					txtDate.setText("");
+					txtStartHour.setText("");
+					txtEndHour.setText("");
+					txtAdministrativeArea.setText("");
+					txtLocality.setText("");
+					txtPostalCode.setText("");
+					txtStreetAddress.setText("");
+					txtPremise.setText("");
+					txtCountry.setText("");	
+				}
+			});
 	        btnTrainingsession.setBackground(Color.WHITE);
 	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnTrainingsession.setOpaque(true);
@@ -95,6 +128,22 @@ public class NewTrainingSessionPane extends JPanel {
 	        add(btnTrainingsession);
 	        
 	        btnEmployees = new JButton("Employees");
+	        btnEmployees.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTitle.setText("");
+					txtDate.setText("");
+					txtStartHour.setText("");
+					txtEndHour.setText("");
+					txtAdministrativeArea.setText("");
+					txtLocality.setText("");
+					txtPostalCode.setText("");
+					txtStreetAddress.setText("");
+					txtPremise.setText("");
+					txtCountry.setText("");	
+				}
+			});
 	        btnEmployees.setBackground(Color.WHITE);
 	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnEmployees.setOpaque(true);
@@ -103,6 +152,22 @@ public class NewTrainingSessionPane extends JPanel {
 	        add(btnEmployees);
 	        
 	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTitle.setText("");
+					txtDate.setText("");
+					txtStartHour.setText("");
+					txtEndHour.setText("");
+					txtAdministrativeArea.setText("");
+					txtLocality.setText("");
+					txtPostalCode.setText("");
+					txtStreetAddress.setText("");
+					txtPremise.setText("");
+					txtCountry.setText("");	
+				}
+			});
 	        btnStatistics.setBackground(Color.WHITE);
 	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnStatistics.setOpaque(true);
@@ -112,11 +177,43 @@ public class NewTrainingSessionPane extends JPanel {
 	       
 		
 		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				txtTitle.setText("");
+				txtDate.setText("");
+				txtStartHour.setText("");
+				txtEndHour.setText("");
+				txtAdministrativeArea.setText("");
+				txtLocality.setText("");
+				txtPostalCode.setText("");
+				txtStreetAddress.setText("");
+				txtPremise.setText("");
+				txtCountry.setText("");	
+			}
+		});
 		btnBack.setActionCommand("backToTrainingSession");
 		btnBack.setBounds(30, 100, 110, 50);
 		add(btnBack);
 		
 		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				txtTitle.setText("");
+				txtDate.setText("");
+				txtStartHour.setText("");
+				txtEndHour.setText("");
+				txtAdministrativeArea.setText("");
+				txtLocality.setText("");
+				txtPostalCode.setText("");
+				txtStreetAddress.setText("");
+				txtPremise.setText("");
+				txtCountry.setText("");	
+			}
+		});
 		btnSave.setActionCommand("SaveTrainingSession");
 		btnSave.setBounds(170, 100, 110, 50);
 		add(btnSave);

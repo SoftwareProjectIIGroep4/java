@@ -105,7 +105,7 @@ public class TrainingSessionMapPane extends JPanel {
 		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
 	        jtbSettings.setOpaque(true);
 	        jtbSettings.setActionCommand("SettingsMenu");
-	        jtbSettings.setBounds(1190, 12, 70, 50);
+	        jtbSettings.setBounds(1175, 0, 105, 75);
 	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
@@ -140,7 +140,7 @@ public class TrainingSessionMapPane extends JPanel {
 	        btnStatistics.setBounds(912, 0, 264, 75);
 	        add(btnStatistics);
 		
-		btnBack = new JButton("<-  Back");
+		btnBack = new JButton("Back");
 		btnBack.setBounds(30, 100, 110, 50);
 		btnBack.setActionCommand("BackToTrainingSessoin");
 		add(btnBack);
