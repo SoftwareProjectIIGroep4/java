@@ -282,14 +282,12 @@ public class TrainingSessionMapPane extends JPanel {
 			}
 		}
 		System.out.println("test2");
-		System.out.println(address);
 		if(address != null) {
 			//https://stackoverflow.com/questions/13448368/trying-to-display-url-image-in-jframe
 			 try {
 				 String pathUrl = "https://maps.googleapis.com/maps/api/staticmap?zoom=14&center=" + address
 						 		+ "&size=1100x430&markers=color:red%7Clabel:A%7C" + address
 						 		+ "&key=AIzaSyBNGYCltDm0bAbk0OWAkD1Mi7VXbat_vIc";
-				 System.out.println(pathUrl);
 				 URL url = new URL(pathUrl);
 				 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 				 connection.connect();
