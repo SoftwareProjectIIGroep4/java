@@ -3,11 +3,15 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -26,6 +29,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+
+import dataAccess.BookAccess;
+import dataAccess.Cache;
+import models.Book;
+import models.Settings;
+import models.TrainingSession;
 
 public class TrainingSessionBookPane extends JPanel {
 	private int selectedRow;
@@ -44,15 +53,52 @@ public class TrainingSessionBookPane extends JPanel {
 	private JButton btnEmployees;
 	private JButton btnStatistics;
 	private JButton btnTrainingsession;
+	private JButton btnMaps;
+	private MainFrame mainFrame;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
 
 	/**
 	 * Create the panel.
 	 */
 	public TrainingSessionBookPane() {
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				
+		//ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
+		//ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+		ConcurrentMap<Long, Book> ListBook=dataAccess.Cache.bookCache.asMap();
+		
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+		  try {
+				settings = Cache.settingsCache.get(1);
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+	        companyName.setBounds(10, 0, 110, 75);
+	        companyName.setOpaque(true);
+	        add(companyName);
+		  
+		  	jtbSettings = new JButton("Settings");
+		  	jtbSettings.setBackground(Color.WHITE);
+		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+	        jtbSettings.setOpaque(true);
+	        jtbSettings.setActionCommand("SettingsMenu");
+	        jtbSettings.setBounds(1190, 12, 70, 50);
+	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
 		  btnTraining.addActionListener(new ActionListener() {
@@ -117,16 +163,6 @@ public class TrainingSessionBookPane extends JPanel {
 	        btnStatistics.setActionCommand("StatisticsMenu");
 	        btnStatistics.setBounds(912, 0, 264, 75);
 	        add(btnStatistics);
-	        
-	        JLabel lblNewLabel = new JLabel("logo");
-	        lblNewLabel.setBounds(0, 0, 133, 75);
-	        lblNewLabel.setOpaque(true);
-	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
 		
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
@@ -163,7 +199,7 @@ public class TrainingSessionBookPane extends JPanel {
 		btnInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		btnInfo.setOpaque(true);
-		btnInfo.setBounds(450, 165, 100, 50);
+		btnInfo.setBounds(440, 165, 100, 50);
 		btnInfo.setActionCommand("Info");
 		add(btnInfo);
 		
@@ -171,17 +207,25 @@ public class TrainingSessionBookPane extends JPanel {
 		btnEnlistedPeople.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEnlistedPeople.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEnlistedPeople.setOpaque(true);
-		btnEnlistedPeople.setBounds(550, 165, 200, 50);
+		btnEnlistedPeople.setBounds(540, 165, 200, 50);
 		btnEnlistedPeople.setActionCommand("EnlistedPeople");
 		add(btnEnlistedPeople);
 		
 		btnBooks = new JButton("Books");
 		btnBooks.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnBooks.setBounds(750, 165, 100, 50);
+		btnBooks.setBounds(740, 165, 100, 50);
 		btnBooks.setHorizontalAlignment(SwingConstants.CENTER);
 		btnBooks.setOpaque(true);
 		btnBooks.setActionCommand("Books");
 		add(btnBooks);
+		
+		btnMaps = new JButton("Map");
+		btnMaps.setOpaque(true);
+		btnMaps.setHorizontalAlignment(SwingConstants.CENTER);
+		btnMaps.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnMaps.setActionCommand("Map");
+		btnMaps.setBounds(840, 165, 100, 50);
+		add(btnMaps);
 		
 		txtSearch = new JTextField();
 		txtSearch.setBounds(100, 230, 250, 20);
@@ -200,13 +244,13 @@ public class TrainingSessionBookPane extends JPanel {
 		};
 		tbBook = new JTable(data, columnHeadersBook);
 		tableModel = new DefaultTableModel(data, columnHeadersBook) {
-
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
 		    }
 		};
+		tbBook = new JTable(tableModel);
 		tbBook.setModel(tableModel);
 		tbBook.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -261,6 +305,8 @@ public class TrainingSessionBookPane extends JPanel {
 		btnInfo.addActionListener(listener);
 		btnEnlistedPeople.addActionListener(listener);
 		btnBooks.addActionListener(listener);
+		btnMaps.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
     }
 	
 	public String getSearch() {
@@ -269,4 +315,102 @@ public class TrainingSessionBookPane extends JPanel {
 	public int getSelectedRow() {
 		return selectedRow;
 	}
+	public void setListBook(int id) {
+		try {
+			Object [] columnHeadersBook = {"id","Title",/*"Author",*/"Price","Publisher"};
+			System.out.println("toon trainingID" + String.valueOf(id));
+			HashMap<Long, Book> ListBook = BookAccess.getBooksByTrainingId(id);
+			System.out.println("toon toString book" + ListBook.toString());
+			 List<String[]> data = new ArrayList<String[]>();
+				for (Long  entry : ListBook.keySet()) {
+					System.out.println("book1");
+					data.add(new String[] {
+							String.valueOf(ListBook.get(entry).getIsbn()),
+							//String.valueOf(ListBook.get(entry).getBookID()),
+							ListBook.get(entry).getUrl(),
+							//ListBook.get(entry).getAuthor(),
+							//String.valueOf(ListBook.get(entry).getPrice()),
+							//ListBook.get(entry).getPublisher()
+							
+							}
+					);
+					System.out.println("test book voor de print out");
+					
+					System.out.println("test" + ListBook.get(entry).getUrl());
+				}
+				DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersBook) {
+
+
+					@Override
+				    public boolean isCellEditable(int row, int column) {
+				       //all cells false
+				       return false;
+				    }
+				};
+				tbBook.setModel(tableModel);
+		} catch (Exception exp) {
+			System.out.println("book�nope");
+			exp.printStackTrace();
+      
+		}
+				System.out.println("book4");
+	}
+	
+	public void setBtnCancelTrainingSession(int id) {	
+		TrainingSession session = null;
+        try {
+			session = Cache.trainingSessionCache.get(id);
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		if(session.isCancelled() == true) {
+			System.out.println("true");
+			btnCancelTrainingSession.setText("Uncancel training session");
+		} else {
+			System.out.println("false");
+			btnCancelTrainingSession.setText("Cancel training session");
+		}
+	}
+	
+	public void updateCancelTrainingSession(int id) {	
+		TrainingSession session = null;
+        try {
+			session = Cache.trainingSessionCache.get(id);
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+		if(session.isCancelled() == true) {
+			System.out.println("true");
+			btnCancelTrainingSession.setText("Uncancel training session");
+			session.setCanceled(false);
+			try {
+				session.save();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			
+			System.out.println("false");
+			btnCancelTrainingSession.setText("Cancel training session");
+			session.setCanceled(true);
+			try {
+				session.save();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
 }

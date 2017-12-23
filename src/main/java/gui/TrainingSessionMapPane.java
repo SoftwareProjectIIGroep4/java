@@ -3,32 +3,46 @@ package gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import dataAccess.Cache;
+import models.Address;
 import models.Settings;
 import models.TrainingInfo;
 import models.TrainingSession;
- 
-public class TrainingSessionInfoPane extends JPanel {
+
+
+public class TrainingSessionMapPane extends JPanel {
 	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+	ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
+	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
+	ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 
 	private JButton btnBack;
-	private JTextArea txtGeneralInfo;
-	private JTextArea txtExamInfo;
-	private JTextArea txtPaymentInfo;
 	private JButton btnCancelTrainingSession;
 	private JLabel lblTrainingSessionTitle;
 	private JButton btnInfo;
@@ -39,32 +53,42 @@ public class TrainingSessionInfoPane extends JPanel {
 	private JButton btnStatistics;
 	private JButton btnTrainingsession;
 	private JButton btnMaps;
+	private JLabel lblMaps;
+	private BufferedImage image;
+	private JTextField textField;
+	private String streetAddress;
+	private String postalCode;
+	private String locality;
+	private String administrativeArea;
+	private String premise;
+	private String country;
+	private JLabel lbl1;
+	private JLabel lblStreetAddress;
+	private JLabel lbl2;
+	private JLabel lblPostalCode;
+	private JLabel lbl3;
+	private JLabel lblLocality;
+	private JLabel lbl4;
+	private JLabel lblAdministrativeArea;
+	private JLabel lbl5;
+	private JLabel lblPremise;
+	private JLabel lbl6;
+	private JLabel lblCountry;
 	private JButton jtbSettings;
 	private Settings settings;
 	public JLabel companyName;
 	
-	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		
-	ConcurrentMap<Integer, TrainingSession> listTrainingssessions=dataAccess.Cache.trainingSessionCache.asMap();
-	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();	
-	
-	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Create the panel.
 	 */
-	public TrainingSessionInfoPane() {
-		
-		
+	public TrainingSessionMapPane() {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		  
-		  try {
+		  	try {
 				settings = Cache.settingsCache.get(1);
 			} catch (ExecutionException e) {
 				// TODO Auto-generated catch block
@@ -116,7 +140,7 @@ public class TrainingSessionInfoPane extends JPanel {
 	        btnStatistics.setBounds(912, 0, 264, 75);
 	        add(btnStatistics);
 		
-		btnBack = new JButton("Back");
+		btnBack = new JButton("<-  Back");
 		btnBack.setBounds(30, 100, 110, 50);
 		btnBack.setActionCommand("BackToTrainingSessoin");
 		add(btnBack);
@@ -163,40 +187,64 @@ public class TrainingSessionInfoPane extends JPanel {
 		btnMaps.setBounds(840, 165, 100, 50);
 		add(btnMaps);
 		
-		JLabel lblGeneralInfo = new JLabel("General info");
-		lblGeneralInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblGeneralInfo.setBounds(30, 230, 150, 20);
-		add(lblGeneralInfo);
+		lblMaps = new JLabel();
+		lblMaps.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMaps.setBounds(52, 230, 650, 430);
+		add(lblMaps);
 		
-		txtGeneralInfo = new JTextArea();
-		txtGeneralInfo.setEditable(false);
-		txtGeneralInfo.setBounds(30, 264, 390, 400);
-		add(txtGeneralInfo);
+		lbl1 = new JLabel("Street address:");
+		lbl1.setBounds(740, 250, 133, 14);
+		add(lbl1);
 		
-		JLabel lblExamInfo = new JLabel("Exam info");
-		lblExamInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblExamInfo.setBounds(435, 230, 150, 20);
-		add(lblExamInfo);
+		lblStreetAddress = new JLabel("");
+		lblStreetAddress.setBounds(740, 275, 476, 14);
+		add(lblStreetAddress);
 		
-		txtExamInfo = new JTextArea();
-		txtExamInfo.setEditable(false);
-		txtExamInfo.setBounds(435, 264, 390, 400);
-		add(txtExamInfo);
+		lbl2 = new JLabel("Postal Code:");
+		lbl2.setBounds(740, 300, 184, 14);
+		add(lbl2);
 		
-		JLabel lblPaymentInfo = new JLabel("Payment info");
-		lblPaymentInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPaymentInfo.setBounds(840, 233, 100, 14);
-		add(lblPaymentInfo);
+		lblPostalCode = new JLabel("");
+		lblPostalCode.setBounds(740, 325, 476, 14);
+		add(lblPostalCode);
 		
-		txtPaymentInfo = new JTextArea();
-		txtPaymentInfo.setEditable(false);
-		txtPaymentInfo.setBounds(840, 264, 390, 400);
-		add(txtPaymentInfo);
+		lbl3 = new JLabel("Locality:");
+		lbl3.setBounds(740, 350, 229, 14);
+		add(lbl3);
 		
+		lblLocality = new JLabel("");
+		lblLocality.setBounds(740, 375, 476, 14);
+		add(lblLocality);
+		
+		lbl4 = new JLabel("Administrative Area: ");
+		lbl4.setBounds(740, 400, 200, 14);
+		add(lbl4);
+		
+		lblAdministrativeArea = new JLabel("");
+		lblAdministrativeArea.setBounds(740, 425, 476, 14);
+		add(lblAdministrativeArea);
+		
+		lbl5 = new JLabel("Premise: ");
+		lbl5.setBounds(740, 450, 229, 14);
+		add(lbl5);
+		
+		lblPremise = new JLabel("");
+		lblPremise.setBounds(740, 475, 476, 14);
+		add(lblPremise);
+		
+		lbl6 = new JLabel("Country: ");
+		lbl6.setBounds(740, 500, 229, 14);
+		add(lbl6);
+		
+		lblCountry = new JLabel("");
+		lblCountry.setBounds(740, 525, 46, 14);
+		add(lblCountry);
+
 		JLabel lblBackBorder = new JLabel("");
 		lblBackBorder.setBounds(20, 220, 1220, 450);
 		lblBackBorder.setBorder(border);
 		add(lblBackBorder);
+
 	}
 	
 	public void addActionListener(ActionListener listener) {
@@ -212,49 +260,49 @@ public class TrainingSessionInfoPane extends JPanel {
 		btnMaps.addActionListener(listener);
 		jtbSettings.addActionListener(listener);
     }
-	
-	public String getGeneralInfo() {
-        return txtGeneralInfo.getText();
-    }
-	public void setGeneralInfo(int id) {
-		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
-			if (entry.getValue().getTrainingSessionId()==id) {
-				for (Map.Entry<Integer, TrainingInfo>  entry2 : listTraingInfo.entrySet()) {
-					if (entry2.getValue().getTrainingId()==entry.getValue().getTrainingId()) {
-						txtGeneralInfo.setText(entry2.getValue().getInfoGeneral());
-					}
-				}		
+	public void setImage(int id) {
+		String address = null;
+		System.out.println("test1");
+		for (Map.Entry<Integer, Address>  entry : ListAdress.entrySet()) {
+			if (entry.getValue().getAddressId()==id) {
+				if (entry.getValue().getPremise() == null) {
+					address = entry.getValue().getStreetAddress().replaceAll("\\s+","+") + "," + String.valueOf(entry.getValue().getPostalCode()) 
+					+  "," + entry.getValue().getLocality() + "," + entry.getValue().getCountry();
+				} else {
+					address = entry.getValue().getStreetAddress().replaceAll("\\s+","+") + "," + String.valueOf(entry.getValue().getPostalCode()) 
+					+  "," + entry.getValue().getLocality() + "," + entry.getValue().getCountry();
+				}
+				
+				lblStreetAddress.setText(entry.getValue().getStreetAddress());
+				lblPostalCode.setText(String.valueOf(entry.getValue().getPostalCode()));
+				lblLocality.setText(entry.getValue().getLocality());
+				lblAdministrativeArea.setText(entry.getValue().getAdministrativeArea());
+				lblPremise.setText(entry.getValue().getPremise());
+				lblCountry.setText(entry.getValue().getCountry());
 			}
 		}
-    }
-	public String getExamInfo() {
-        return txtExamInfo.getText();
-    }
-	public void setExamInfo(int id) {
-		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
-			if (entry.getValue().getTrainingSessionId()==id) {
-				for (Map.Entry<Integer, TrainingInfo>  entry2 : listTraingInfo.entrySet()) {
-					if (entry2.getValue().getTrainingId()==entry.getValue().getTrainingId()) {
-						txtExamInfo.setText(entry2.getValue().getInfoExam());
-					}
-				}		
-			}
+		System.out.println("test2");
+		System.out.println(address);
+		if(address != null) {
+			//https://stackoverflow.com/questions/13448368/trying-to-display-url-image-in-jframe
+			 try {
+				 String pathUrl = "https://maps.googleapis.com/maps/api/staticmap?zoom=14&center=" + address
+						 		+ "&size=1100x430&markers=color:red%7Clabel:A%7C" + address
+						 		+ "&key=AIzaSyBNGYCltDm0bAbk0OWAkD1Mi7VXbat_vIc";
+				 URL url = new URL(pathUrl);
+				 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+				 connection.connect();
+			     InputStream in = connection.getInputStream();
+			     image = ImageIO.read(in);
+  
+			     } catch (Exception exp) {
+			     	 System.out.println("nope");
+			          exp.printStackTrace();     
+			     }
+			 //lblMaps = new JLabel(new ImageIcon(image));
+			 lblMaps.setIcon(new ImageIcon(image));
 		}
-    }
-	public String getPaymentInfo() {
-        return txtPaymentInfo.getText();
-    }
-	public void setPaymentInfo(int id) {
-		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
-			if (entry.getValue().getTrainingSessionId()==id) {
-				for (Map.Entry<Integer, TrainingInfo>  entry2 : listTraingInfo.entrySet()) {
-					if (entry2.getValue().getTrainingId()==entry.getValue().getTrainingId()) {
-						txtPaymentInfo.setText(entry2.getValue().getInfoPayment());
-					}
-				}		
-			}
-		}
-    }
+	}
 	
 	public void setBtnCancelTrainingSession(int id) {	
 		TrainingSession session = null;
@@ -273,6 +321,7 @@ public class TrainingSessionInfoPane extends JPanel {
 			btnCancelTrainingSession.setText("Cancel training session");
 		}
 	}
+	
 	public void updateCancelTrainingSession(int id) {	
 		TrainingSession session = null;
         try {

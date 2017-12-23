@@ -2,28 +2,21 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -34,16 +27,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import dataAccess.TrainingInfoAccess;
-import dataAccess.TrainingSessionAccess;
+import dataAccess.Cache;
 import models.Address;
+import models.Settings;
 import models.TrainingInfo;
 import models.TrainingSession;
-
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ActionEvent;
 
 public class TrainingSessionPane extends JPanel {
 
@@ -53,10 +41,21 @@ public class TrainingSessionPane extends JPanel {
 	private JButton jtbTrainingSession;
 	private JButton jtbTrainingRequests;
 	private JTable tbSession;
+	private JTextField txtFromTrainingSession;
+	private JTextField txtUntilTrainingSession;
+	private JButton btnAddTrainingSession;
+	private JButton btnShowTrainingSession;
 	private DefaultTableModel modelSession;
 	private DefaultTableModel tableModel;
+	private String trainingSessionID;
+	private String addressID;
+	private String trainingID;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
+	
 
-	private JButton btnShowTrainingSession;
+	
 
 
 	/*
@@ -71,14 +70,32 @@ public class TrainingSessionPane extends JPanel {
 		ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
 		ConcurrentMap<Integer, Address> ListAdress=dataAccess.Cache.addressCache.asMap();
 
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+		  try {
+				settings = Cache.settingsCache.get(1);
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+	        companyName.setBounds(10, 0, 110, 75);
+	        companyName.setOpaque(true);
+	        add(companyName);
+		  
+		  	jtbSettings = new JButton("Settings");
+		  	jtbSettings.setBackground(Color.WHITE);
+		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+	        jtbSettings.setOpaque(true);
+	        jtbSettings.setActionCommand("SettingsMenu");
+	        jtbSettings.setBounds(1190, 12, 70, 50);
+	        add(jtbSettings);
 	        
 	        jtbTraining = new JButton("Training"); 
 	        jtbTraining.setBackground(Color.WHITE);
@@ -111,33 +128,29 @@ public class TrainingSessionPane extends JPanel {
 	        jtbStatistics.setActionCommand("StatisticsMenu");
 	        jtbStatistics.setBounds(912, 0, 264, 75);
 	        add(jtbStatistics);
-	        
-	        JLabel lblNewLabel = new JLabel("logo");
-	        lblNewLabel.setBounds(0, 0, 133, 75);
-	        lblNewLabel.setOpaque(true);
-	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
-				
-		Object [] columnHeadersSession = {"Training name","City","Date","Hour"};
+		
+		Object [] columnHeadersSession = {"Training ID","traingsession ID", "Training name","City","Date","Hour"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data = new ArrayList<String[]>();
+		
 		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
 			data.add(new String[] {
-
+					String.valueOf(entry.getValue().getTrainingId()),
+					String.valueOf(entry.getValue().getTrainingSessionId()),
 					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
-					String.valueOf(entry.getValue().getDate()) ,
-					String.valueOf(entry.getValue().getStartHour())}
+					entry.getValue().getDate().substring(0, 9) ,
+					String.valueOf(entry.getValue().getStartHour()),
+					String.valueOf(entry.getValue().getAddressId()),
+					String.valueOf(entry.getValue().getTrainingId())
+					}
 			);
-}
+		}
 		DefaultTableModel tableModel = new DefaultTableModel(data.toArray(new Object[][] {}), columnHeadersSession) {
 
-		    @Override
+
+			@Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
@@ -174,16 +187,21 @@ public class TrainingSessionPane extends JPanel {
 					//GET ROW
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
 					//doe iets hier
+					String[] teStrings=data.get(selectedRow);
+					trainingSessionID = teStrings[0];
+					addressID = teStrings[5];
+					trainingID = teStrings[6];
+					//System.out.println(trainingID);
 				}
-			}
+			} 
 		});
-		
+
 		btnShowTrainingSession = new JButton("Show training session");
 		btnShowTrainingSession.setActionCommand("goToTrainingSessionInfo");
 		btnShowTrainingSession.setBounds(1072,138,160,64);
 		add(btnShowTrainingSession);
 		
-		JLabel lblNewLabel_2 = new JLabel("List of trainings");
+		JLabel lblNewLabel_2 = new JLabel("List of trainingssessions");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(31, 86, 278, 28);
 		add(lblNewLabel_2);
@@ -196,6 +214,7 @@ public class TrainingSessionPane extends JPanel {
 		jtbStatistics.addActionListener(listener);
 		jtbEmployees.addActionListener(listener);
 		jtbTrainingSession.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
     }
 	
 	
@@ -203,5 +222,14 @@ public class TrainingSessionPane extends JPanel {
 		
 		tableModel.addRow(row);
 	
+	}
+	public int getTrainingSessionID() {
+		return Integer.parseInt(trainingSessionID);
+	}
+	public int getAddressID() {
+		return Integer.parseInt(addressID);
+	}
+	public int getTrainingID() {
+		return Integer.parseInt(trainingID);
 	}
 }

@@ -11,6 +11,8 @@ import models.Address;
 import models.Certificate;
 import models.Employee;
 import models.Faq;
+import models.FollowingTraining;
+import models.Settings;
 import models.Teacher;
 import models.TrainingInfo;
 import models.TrainingSession;
@@ -63,6 +65,7 @@ public class Cache {
 					return EmployeeAccess.get(key);
 				}
 			});
+	
 	public static LoadingCache<Integer, Certificate> certificateCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Certificate>() {
 
@@ -95,6 +98,16 @@ public class Cache {
 					return TrainingInfoAccess.get(key);
 				}
 			});
+
+	/*
+	 public static LoadingCache<Integer,FollowingTraining> followingTraingCache = CacheBuilder.newBuilder().maximumSize(100)
+					.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, FollowingTraining>() {
+                @Override
+                public FollowingTraining load(Integer key) throws Exception {
+                    return FollowingTraingAcces.get(key);
+                }
+            });
+    */
 	
 	public static LoadingCache<Integer, TrainingSession> trainingSessionCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, TrainingSession>() {
@@ -112,10 +125,10 @@ public class Cache {
 		surveyAnswerCache.putAll(SurveyAnswerAcces.getAllSurveyAnswers());
 	}	
 
-	public static LoadingCache<Integer, Book> bookCache = CacheBuilder.newBuilder().maximumSize(100)
-			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Book>() {
+	public static LoadingCache<Long, Book> bookCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Long, Book>() {
 				@Override
-				public Book load(Integer key) throws Exception {
+				public Book load(Long key) throws Exception {
 					return BookAccess.get(key);
 				}
 			});
@@ -126,6 +139,20 @@ public class Cache {
 					return TrainingBookAcces.get(key);
 				}
 			});
+	
+	public static LoadingCache<Integer, Settings> settingsCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Settings>() {
+
+				@Override
+				public Settings load(Integer key) throws Exception {
+					return SettingsAccess.get();
+				}
+			});
+	
+	public static void loadSettings() throws IOException, URISyntaxException {
+		settingsCache.put(1, SettingsAccess.get());
+	}
+	
 	public static void loadAllTrainingBooks() throws IOException, URISyntaxException {
 		trainingBookCache.putAll(TrainingBookAcces.getAll());
 	}
@@ -170,6 +197,5 @@ public class Cache {
 	public static void loadAllBooks() throws IOException, URISyntaxException {
 		bookCache.putAll(BookAccess.getAll());
 	}
-	
-	
+
 }
