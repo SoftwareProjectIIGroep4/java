@@ -318,6 +318,34 @@ public class NewTrianingPane extends JPanel {
 	public void setDescription(String text) {
 		epDescription.setText(text);
     }
+	
+
+	public JTextField getTxtTitle() {
+		return txtTitle;
+	}
+
+	public void setTxtTitle(JTextField txtTitle) {
+		this.txtTitle = txtTitle;
+		
+	}
+
+	public JTextField getTxtNumberOfDays() {
+		return txtNumberOfDays;
+	}
+
+	public void setTxtNumberOfDays(String txtNumberOfDays) {
+		//this.txtNumberOfDays = txtNumberOfDays;
+		this.txtNumberOfDays.setText(txtNumberOfDays);
+	}
+
+	public JTextField getTxtPrice() {
+		return txtPrice;
+	}
+
+	public void setTxtPrice(JTextField txtPrice) {
+		
+		//this.txtPrice.setText(txtPrice);
+	}
 
 	public int getSurveyId() {
 		// TODO Auto-generated method stub
