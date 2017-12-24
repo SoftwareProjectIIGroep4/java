@@ -5,6 +5,11 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -23,25 +28,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentMap;
-
-import dataAccess.EmployeeAccess;
+import dataAccess.Cache;
 import dataAccess.StatisticsAccess;
-import dataAccess.TrainingInfoAccess;
-import dataAccess.TrainingSessionAccess;
-import dataAccess.UserAccess;
 import models.EmpHighTrainingCount;
-import models.Employee;
-import models.TrainingInfo;
-import models.TrainingSession;
+import models.Settings;
 
 public class StatisticsTrainingParticipationPane extends JPanel {
 
@@ -60,6 +50,9 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 	private JButton btnParticipationBackStatistics;
 	private JLabel lblFirstName;
 	private JLabel lblLastname;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
 	
 	
 	/**
@@ -74,6 +67,26 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+		  	try {
+				settings = Cache.settingsCache.get(1);
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+	        companyName.setBounds(10, 0, 110, 75);
+	        companyName.setOpaque(true);
+	        add(companyName);
+		  
+		  	jtbSettings = new JButton("Settings");
+		  	jtbSettings.setBackground(Color.WHITE);
+		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+	        jtbSettings.setOpaque(true);
+	        jtbSettings.setActionCommand("SettingsMenu");
+	        jtbSettings.setBounds(1175, 0, 105, 75);
+	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
 		  btnTraining.addActionListener(new ActionListener() {
@@ -142,16 +155,6 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 	        btnStatistics.setActionCommand("StatisticsMenu");
 	        btnStatistics.setBounds(912, 0, 264, 75);
 	        add(btnStatistics);
-	        
-	        JLabel lblNewLabel = new JLabel("logo");
-	        lblNewLabel.setBounds(0, 0, 133, 75);
-	        lblNewLabel.setOpaque(true);
-	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
 	        
 	        JLabel lblUitlegPart = new JLabel("Write year to retrieve data");
 	        lblUitlegPart.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -323,6 +326,7 @@ public class StatisticsTrainingParticipationPane extends JPanel {
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
     }
 	
 }			

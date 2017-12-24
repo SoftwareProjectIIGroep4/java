@@ -12,6 +12,7 @@ import models.Certificate;
 import models.Employee;
 import models.Faq;
 import models.FollowingTraining;
+import models.Settings;
 import models.Teacher;
 import models.TrainingInfo;
 import models.TrainingSession;
@@ -138,6 +139,20 @@ public class Cache {
 					return TrainingBookAcces.get(key);
 				}
 			});
+	
+	public static LoadingCache<Integer, Settings> settingsCache = CacheBuilder.newBuilder().maximumSize(100)
+			.expireAfterAccess(30, TimeUnit.MINUTES).build(new CacheLoader<Integer, Settings>() {
+
+				@Override
+				public Settings load(Integer key) throws Exception {
+					return SettingsAccess.get();
+				}
+			});
+	
+	public static void loadSettings() throws IOException, URISyntaxException {
+		settingsCache.put(1, SettingsAccess.get());
+	}
+	
 	public static void loadAllTrainingBooks() throws IOException, URISyntaxException {
 		trainingBookCache.putAll(TrainingBookAcces.getAll());
 	}

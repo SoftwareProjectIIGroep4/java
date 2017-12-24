@@ -2,28 +2,21 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -34,16 +27,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import dataAccess.TrainingInfoAccess;
-import dataAccess.TrainingSessionAccess;
+import dataAccess.Cache;
 import models.Address;
+import models.Settings;
 import models.TrainingInfo;
 import models.TrainingSession;
-
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ActionEvent;
 
 public class TrainingSessionPane extends JPanel {
 
@@ -62,6 +50,9 @@ public class TrainingSessionPane extends JPanel {
 	private String trainingSessionID;
 	private String addressID;
 	private String trainingID;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
 	
 
 	
@@ -85,6 +76,26 @@ public class TrainingSessionPane extends JPanel {
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+		  try {
+				settings = Cache.settingsCache.get(1);
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+	        companyName.setBounds(10, 0, 110, 75);
+	        companyName.setOpaque(true);
+	        add(companyName);
+		  
+		  	jtbSettings = new JButton("Settings");
+		  	jtbSettings.setBackground(Color.WHITE);
+		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+	        jtbSettings.setOpaque(true);
+	        jtbSettings.setActionCommand("SettingsMenu");
+	        jtbSettings.setBounds(1175, 0, 105, 75);
+	        add(jtbSettings);
 	        
 	        jtbTraining = new JButton("Training"); 
 	        jtbTraining.setBackground(Color.WHITE);
@@ -117,26 +128,21 @@ public class TrainingSessionPane extends JPanel {
 	        jtbStatistics.setActionCommand("StatisticsMenu");
 	        jtbStatistics.setBounds(912, 0, 264, 75);
 	        add(jtbStatistics);
-	        
-	        JLabel lblNewLabel = new JLabel("logo");
-	        lblNewLabel.setBounds(0, 0, 133, 75);
-	        lblNewLabel.setOpaque(true);
-	        add(lblNewLabel);
 		
-		Object [] columnHeadersSession = {"Training ID", "Training name","City","Date","Hour"};
+		Object [] columnHeadersSession = {"Training ID","traingsession ID", "Training name","City","Date","Hour"};
 		DefaultTableModel modelSession = new DefaultTableModel();
 		modelSession.setColumnIdentifiers(columnHeadersSession);
 		List<String[]> data = new ArrayList<String[]>();
 		
 		for (Map.Entry<Integer, TrainingSession>  entry : listTrainingssessions.entrySet()) {
 			data.add(new String[] {
+					String.valueOf(entry.getValue().getTrainingId()),
 					String.valueOf(entry.getValue().getTrainingSessionId()),
 					listTraingInfo.get(entry.getValue().getTrainingId()).getName(), 
 					String.valueOf(ListAdress.get(entry.getValue().getAddressId()).getLocality()), 
-					String.valueOf(entry.getValue().getDate()) ,
+					entry.getValue().getDate().substring(0, 9) ,
 					String.valueOf(entry.getValue().getStartHour()),
 					String.valueOf(entry.getValue().getAddressId()),
-					String.valueOf(entry.getValue().getTrainingId())
 					}
 			);
 		}
@@ -181,9 +187,9 @@ public class TrainingSessionPane extends JPanel {
 					int selectedRow = selectedRowBook.getMinSelectionIndex();
 					//doe iets hier
 					String[] teStrings=data.get(selectedRow);
-					trainingSessionID = teStrings[0];
-					addressID = teStrings[5];
-					trainingID = teStrings[6];
+					trainingSessionID = teStrings[1];
+					addressID = teStrings[6];
+					trainingID = teStrings[0];
 					//System.out.println(trainingID);
 				}
 			} 
@@ -194,7 +200,7 @@ public class TrainingSessionPane extends JPanel {
 		btnShowTrainingSession.setBounds(1072,138,160,64);
 		add(btnShowTrainingSession);
 		
-		JLabel lblNewLabel_2 = new JLabel("List of trainings");
+		JLabel lblNewLabel_2 = new JLabel("List of trainingssessions");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(31, 86, 278, 28);
 		add(lblNewLabel_2);
@@ -207,6 +213,7 @@ public class TrainingSessionPane extends JPanel {
 		jtbStatistics.addActionListener(listener);
 		jtbEmployees.addActionListener(listener);
 		jtbTrainingSession.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
     }
 	
 	

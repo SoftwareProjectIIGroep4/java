@@ -1,20 +1,20 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.Font;
-import javax.swing.JButton;
+import dataAccess.Cache;
+import models.Settings;
 
 public class StatisticsPane extends JPanel {
 
@@ -26,6 +26,9 @@ public class StatisticsPane extends JPanel {
 	private JButton btnParticipationTrainingsEmployeeStatistics;
 	private JButton btnParticipationMaxEmployeeStatistics;
 	private JButton btnCertEmployeeStatistics;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
 	
 	/**
 	 * Create the panel.
@@ -36,6 +39,26 @@ public class StatisticsPane extends JPanel {
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+		  try {
+				settings = Cache.settingsCache.get(1);
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+	        companyName.setBounds(10, 0, 110, 75);
+	        companyName.setOpaque(true);
+	        add(companyName);
+		  
+		  	jtbSettings = new JButton("Settings");
+		  	jtbSettings.setBackground(Color.WHITE);
+		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+	        jtbSettings.setOpaque(true);
+	        jtbSettings.setActionCommand("SettingsMenu");
+	        jtbSettings.setBounds(1175, 0, 105, 75);
+	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
 		  btnTraining.setBackground(Color.WHITE);
@@ -68,16 +91,6 @@ public class StatisticsPane extends JPanel {
 	        btnStatistics.setActionCommand("StatisticsMenu");
 	        btnStatistics.setBounds(912, 0, 264, 75);
 	        add(btnStatistics);
-	        
-	        JLabel lblNewLabel = new JLabel("logo");
-	        lblNewLabel.setBounds(0, 0, 133, 75);
-	        lblNewLabel.setOpaque(true);
-	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
         
         lblNewLabel_2 = new JLabel("Choose an option to consult statistics");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -109,5 +122,6 @@ public class StatisticsPane extends JPanel {
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
     }
 }

@@ -2,31 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Component;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
-
-import dataAccess.AddressAccess;
-import dataAccess.EmployeeAccess;
-import dataAccess.TrainingInfoAccess;
-import dataAccess.TrainingSessionAccess;
-import models.Employee;
-import models.TrainingInfo;
-import models.TrainingSession;
-
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -37,11 +14,34 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
-import javax.swing.JTextArea;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
+
+import dataAccess.AddressAccess;
+import dataAccess.Cache;
+import dataAccess.EmployeeAccess;
+import dataAccess.TrainingInfoAccess;
+import dataAccess.TrainingSessionAccess;
+import models.Employee;
+import models.Settings;
+import models.TrainingInfo;
+import models.TrainingSession;
 
 public class StatisticsFollowedTrainingPane extends JPanel {
 
@@ -66,6 +66,9 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 	private JLabel lblTotalOfPriceFixed;
 	private JLabel lblTotalOfDays;
 	private JLabel lblTotalOfPrice;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
 
 
 	/**
@@ -81,6 +84,26 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 
 
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+	  	try {
+			settings = Cache.settingsCache.get(1);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+        companyName.setBounds(10, 0, 110, 75);
+        companyName.setOpaque(true);
+        add(companyName);
+	  
+	  	jtbSettings = new JButton("Settings");
+	  	jtbSettings.setBackground(Color.WHITE);
+	  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+        jtbSettings.setOpaque(true);
+        jtbSettings.setActionCommand("SettingsMenu");
+        jtbSettings.setBounds(1175, 0, 105, 75);
+        add(jtbSettings);
 
 		btnTraining = new JButton("Training");
 		btnTraining.addActionListener(new ActionListener() {
@@ -169,34 +192,6 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnStatistics.setActionCommand("StatisticsMenu");
 		btnStatistics.setBounds(912, 0, 264, 75);
 		add(btnStatistics);
-
-		/**		jtbTrainingRequests = new JButton("Training requests");
-		/* jtbTrainingRequests.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                jtbTrainingRequests.setBorder(border);
-	            }
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                jtbTrainingRequests.setBorder(null);
-	            }
-	        });
-		jtbTrainingRequests.setBackground(Color.WHITE);
-		jtbTrainingRequests.setHorizontalAlignment(SwingConstants.CENTER);
-		jtbTrainingRequests.setOpaque(true);
-		jtbTrainingRequests.setActionCommand("TrainingRequestsMenu");
-		jtbTrainingRequests.setBounds(979, 0, 211, 75);
-		add(jtbTrainingRequests); */
-
-		JLabel lblNewLabel = new JLabel("logo");
-		lblNewLabel.setBounds(0, 0, 133, 75);
-		lblNewLabel.setOpaque(true);
-		add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("Profiel");
-		lblNewLabel_1.setBounds(1190, 0, 75, 75);
-		lblNewLabel_1.setOpaque(true);
-		add(lblNewLabel_1);
 
 		JLabel lblUitleg = new JLabel("Write employeeID to get information");
 		lblUitleg.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -447,6 +442,7 @@ public class StatisticsFollowedTrainingPane extends JPanel {
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
 	}
 
 }

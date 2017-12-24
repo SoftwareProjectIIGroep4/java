@@ -1,20 +1,14 @@
 package gui;
 
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-//import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,52 +16,43 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import dataAccess.Cache;
-import dataAccess.CertificateAccess;
-import dataAccess.EmployeeAccess;
-import dataAccess.TrainingInfoAccess;
-import dataAccess.TrainingSessionAccess;
-import models.Certificate;
-import models.Employee;
-import models.TrainingInfo;
-import models.TrainingSession;
-import models.UserCertificate;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
-import javax.swing.border.LineBorder;
-
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.canvas.draw.DottedLine;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Image;
 //import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.element.Paragraph;
+
+import dataAccess.Cache;
+import dataAccess.CertificateAccess;
+import dataAccess.EmployeeAccess;
+import dataAccess.TrainingInfoAccess;
+import models.Certificate;
+import models.Employee;
+import models.Settings;
+import models.TrainingInfo;
+import models.UserCertificate;
 
 
 public class ExtraInfoEmployee extends JPanel {
@@ -91,6 +76,9 @@ public class ExtraInfoEmployee extends JPanel {
 	private JLabel lblLastName;
 	private JLabel lblShowImageIcon;
 	private DefaultTableModel tableModel;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
 
 	/**
 	 * Create the panel.
@@ -112,6 +100,26 @@ public class ExtraInfoEmployee extends JPanel {
 
 
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		
+		try {
+			settings = Cache.settingsCache.get(1);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+        companyName.setBounds(10, 0, 110, 75);
+        companyName.setOpaque(true);
+        add(companyName);
+	  
+	  	jtbSettings = new JButton("Settings");
+	  	jtbSettings.setBackground(Color.WHITE);
+	  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+        jtbSettings.setOpaque(true);
+        jtbSettings.setActionCommand("SettingsMenu");
+        jtbSettings.setBounds(1175, 0, 105, 75);
+        add(jtbSettings);
 
 
 		btnTraining = new JButton("Training");
@@ -207,18 +215,6 @@ public class ExtraInfoEmployee extends JPanel {
 		jtbTrainingRequests.setActionCommand("TrainingRequestsMenu");
 		jtbTrainingRequests.setBounds(979, 0, 211, 75);
 		add(jtbTrainingRequests); */
-
-		JLabel lblNewLabel = new JLabel("logo");
-		lblNewLabel.setBounds(0, 0, 133, 75);
-		lblNewLabel.setOpaque(true);
-		add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("Profiel");
-		lblNewLabel_1.setBounds(1190, 0, 75, 75);
-		lblNewLabel_1.setOpaque(true);
-		add(lblNewLabel_1);
-
-
 
 		JLabel employeeLabel = new JLabel("Employee search by ID: ");
 		employeeLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -644,5 +640,6 @@ public class ExtraInfoEmployee extends JPanel {
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingSession.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
 	}
 }

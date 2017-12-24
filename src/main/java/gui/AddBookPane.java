@@ -1,20 +1,22 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JButton;
+
+import dataAccess.Cache;
+import models.Settings;
 
 public class AddBookPane extends JPanel {
 
@@ -27,6 +29,10 @@ public class AddBookPane extends JPanel {
 	private JTextField txtBookTitle;
 	private JTextField txtBookAuthor;
 	private JButton btnAddBookToTrainingSession;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
+	private JButton btnBackToNewTrainingsessio;
 	
 	/**
 	 * Create the panel.
@@ -38,8 +44,36 @@ public class AddBookPane extends JPanel {
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+		  	try {
+				settings = Cache.settingsCache.get(1);
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+	        companyName.setBounds(10, 0, 110, 75);
+	        companyName.setOpaque(true);
+	        add(companyName);
+		  
+		  	jtbSettings = new JButton("Settings");
+		  	jtbSettings.setBackground(Color.WHITE);
+		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+	        jtbSettings.setOpaque(true);
+	        jtbSettings.setActionCommand("SettingsMenu");
+	        jtbSettings.setBounds(1175, 0, 105, 75);
+	        add(jtbSettings);
 	        
 		  btnTraining = new JButton("Training"); 
+		  btnTraining.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 		  btnTraining.setBackground(Color.WHITE);
 		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
 		  btnTraining.setOpaque(true);
@@ -48,6 +82,14 @@ public class AddBookPane extends JPanel {
 	        add(btnTraining);
 	        
 	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 	        btnTrainingsession.setBackground(Color.WHITE);
 	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnTrainingsession.setOpaque(true);
@@ -56,6 +98,14 @@ public class AddBookPane extends JPanel {
 	        add(btnTrainingsession);
 	        
 	        btnEmployees = new JButton("Employees");
+	        btnEmployees.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 	        btnEmployees.setBackground(Color.WHITE);
 	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnEmployees.setOpaque(true);
@@ -64,6 +114,14 @@ public class AddBookPane extends JPanel {
 	        add(btnEmployees);
 	        
 	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 	        btnStatistics.setBackground(Color.WHITE);
 	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnStatistics.setOpaque(true);
@@ -71,48 +129,61 @@ public class AddBookPane extends JPanel {
 	        btnStatistics.setBounds(912, 0, 264, 75);
 	        add(btnStatistics);
 	        
-	        JLabel lblNewLabel = new JLabel("logo");
-	        lblNewLabel.setBounds(0, 0, 133, 75);
-	        lblNewLabel.setOpaque(true);
-	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
-	        
 	        lblBookTitle = new JLabel("Book title:");
 	        lblBookTitle.setFont(new Font("Tahoma", Font.BOLD, 14));
-	        lblBookTitle.setBounds(133, 182, 109, 34);
+	        lblBookTitle.setBounds(124, 215, 109, 34);
 	        add(lblBookTitle);
 	        
 	        lblBookAuthor = new JLabel("Author:");
 	        lblBookAuthor.setFont(new Font("Tahoma", Font.BOLD, 14));
-	        lblBookAuthor.setBounds(133, 245, 109, 34);
+	        lblBookAuthor.setBounds(133, 267, 109, 34);
 	        add(lblBookAuthor);
 	        
 	        txtBookTitle = new JTextField();
-	        txtBookTitle.setBounds(252, 184, 133, 34);
+	        txtBookTitle.setBounds(255, 217, 133, 34);
 	        add(txtBookTitle);
 	        txtBookTitle.setColumns(10);
 	        
 	        txtBookAuthor = new JTextField();
-	        txtBookAuthor.setBounds(252, 247, 133, 34);
+	        txtBookAuthor.setBounds(255, 269, 133, 34);
 	        add(txtBookAuthor);
 	        txtBookAuthor.setColumns(10);
 	        
 	        btnAddBookToTrainingSession = new JButton("Add Book");
+	        btnAddBookToTrainingSession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
 	        btnAddBookToTrainingSession.setActionCommand("addBookToTrainingsession");
-	        btnAddBookToTrainingSession.setBounds(460, 212, 160, 45);
+	        btnAddBookToTrainingSession.setBounds(459, 240, 160, 45);
 	        add(btnAddBookToTrainingSession);
+	        
+	        btnBackToNewTrainingsessio = new JButton("Back");
+	        btnBackToNewTrainingsessio.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtBookTitle.setText("");
+					txtBookAuthor.setText("");
+				}
+			});
+	        btnBackToNewTrainingsessio.setActionCommand("backToNewTrainingSessio");
+	        btnBackToNewTrainingsessio.setBounds(30, 106, 123, 41);
+	        add(btnBackToNewTrainingsessio);
 	}
 	
 	public void addActionListener(ActionListener listener) {
 		btnAddBookToTrainingSession.addActionListener(listener);
+		btnBackToNewTrainingsessio.addActionListener(listener);
 		btnTraining.addActionListener(listener);
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
     }
 	
 	public String getBookTitleTrainingsession() {
@@ -122,5 +193,4 @@ public class AddBookPane extends JPanel {
 	public String getBookAuthorTrainingsession() {
         return txtBookAuthor.getText();
     }
-
 }

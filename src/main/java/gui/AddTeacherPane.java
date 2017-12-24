@@ -1,35 +1,22 @@
 package gui;
 
-import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutionException;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ActionEvent;
+
+import dataAccess.Cache;
+import models.Settings;
 
 public class AddTeacherPane extends JPanel {
 
@@ -42,6 +29,10 @@ public class AddTeacherPane extends JPanel {
 	private JTextField txtTeacherEmail;
 	private JTextField txtTeacherPhoneNumber;
 	private JButton btnSubmitAddTeacher;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
+	private JButton btnBackToNewTrainingsesion;
 	
 	/**
 	 * Create the panel.
@@ -52,16 +43,56 @@ public class AddTeacherPane extends JPanel {
 		setLayout(null);
 		
 		  Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+		  	try {
+				settings = Cache.settingsCache.get(1);
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        
-		  btnTraining = new JButton("Training"); 
-		  btnTraining.setBackground(Color.WHITE);
-		  btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
-		  btnTraining.setOpaque(true);
-		  btnTraining.setActionCommand("TrainingMenu");
-		  btnTraining.setBounds(124, 0, 264, 75);
+	        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+	        companyName.setBounds(10, 0, 110, 75);
+	        companyName.setOpaque(true);
+	        add(companyName);
+		  
+		  	jtbSettings = new JButton("Settings");
+		  	jtbSettings.setBackground(Color.WHITE);
+		  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+	        jtbSettings.setOpaque(true);
+	        jtbSettings.setActionCommand("SettingsMenu");
+	        jtbSettings.setBounds(1175, 0, 105, 75);
+	        add(jtbSettings);
+	        
+	        btnTraining = new JButton("Training"); 
+	        btnTraining.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
+	        btnTraining.setBackground(Color.WHITE);
+	        btnTraining.setHorizontalAlignment(SwingConstants.CENTER);
+	        btnTraining.setOpaque(true);
+		  	btnTraining.setActionCommand("TrainingMenu");
+		  	btnTraining.setBounds(124, 0, 264, 75);
 	        add(btnTraining);
 	        
 	        btnTrainingsession = new JButton("Training session");
+	        btnTrainingsession.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
 	        btnTrainingsession.setBackground(Color.WHITE);
 	        btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnTrainingsession.setOpaque(true);
@@ -70,6 +101,16 @@ public class AddTeacherPane extends JPanel {
 	        add(btnTrainingsession);
 	        
 	        btnEmployees = new JButton("Employees");
+	        btnEmployees.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
 	        btnEmployees.setBackground(Color.WHITE);
 	        btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnEmployees.setOpaque(true);
@@ -78,22 +119,22 @@ public class AddTeacherPane extends JPanel {
 	        add(btnEmployees);
 	        
 	        btnStatistics = new JButton("Statistics");
+	        btnStatistics.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
 	        btnStatistics.setBackground(Color.WHITE);
 	        btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 	        btnStatistics.setOpaque(true);
 	        btnStatistics.setActionCommand("StatisticsMenu");
 	        btnStatistics.setBounds(912, 0, 264, 75);
 	        add(btnStatistics);
-	        
-	        JLabel lblNewLabel = new JLabel("logo");
-	        lblNewLabel.setBounds(0, 0, 133, 75);
-	        lblNewLabel.setOpaque(true);
-	        add(lblNewLabel);
-	        
-	        JLabel lblNewLabel_1 = new JLabel("Profiel");
-	        lblNewLabel_1.setBounds(1186, 0, 85, 75);
-	        lblNewLabel_1.setOpaque(true);
-	        add(lblNewLabel_1);
 	        
 	        JLabel lblTeacherFirstName = new JLabel("First name:");
 	        lblTeacherFirstName.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -136,17 +177,44 @@ public class AddTeacherPane extends JPanel {
 	        txtTeacherPhoneNumber.setColumns(10);
 	        
 	        btnSubmitAddTeacher = new JButton("Add teacher");
+	        btnSubmitAddTeacher.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
 	        btnSubmitAddTeacher.setActionCommand("addTeacher");
 	        btnSubmitAddTeacher.setBounds(504, 281, 123, 51);
 	        add(btnSubmitAddTeacher);
+	        
+	        btnBackToNewTrainingsesion = new JButton("Back");
+	        btnBackToNewTrainingsesion.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					txtTeacherFirstName.setText("");
+					txtTeacherLastName.setText("");
+					txtTeacherEmail.setText("");
+					txtTeacherPhoneNumber.setText("");
+				}
+			});
+	        btnBackToNewTrainingsesion.setActionCommand("backToNewTrainingSesion");
+	        btnBackToNewTrainingsesion.setBounds(30, 106, 123, 41);
+	        add(btnBackToNewTrainingsesion);
 	}
 	
 	public void addActionListener(ActionListener listener) {
 		btnSubmitAddTeacher.addActionListener(listener);
+		btnBackToNewTrainingsesion.addActionListener(listener);
 		btnTraining.addActionListener(listener);
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
     }
 	public String getTeacherFirstnameSearch() {
         return txtTeacherFirstName.getText();

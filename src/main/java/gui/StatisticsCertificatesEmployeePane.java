@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -40,12 +41,12 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 
+import dataAccess.Cache;
 import dataAccess.CertificateAccess;
 import dataAccess.EmployeeAccess;
-import dataAccess.TrainingInfoAccess;
 import models.Certificate;
 import models.Employee;
-import models.TrainingInfo;
+import models.Settings;
 
 public class StatisticsCertificatesEmployeePane extends JPanel {
 
@@ -65,6 +66,9 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 	private JLabel lblNameFixed;
 	private JLabel lblName;
 	private JLabel lblFirstName;
+	private JButton jtbSettings;
+	private Settings settings;
+	public JLabel companyName;
 
 
 
@@ -83,6 +87,26 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 
 
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		  
+	  	try {
+			settings = Cache.settingsCache.get(1);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        companyName = new JLabel(settings.getCompanyName()); //uit cache halen f
+        companyName.setBounds(10, 0, 110, 75);
+        companyName.setOpaque(true);
+        add(companyName);
+	  
+	  	jtbSettings = new JButton("Settings");
+	  	jtbSettings.setBackground(Color.WHITE);
+	  	jtbSettings.setHorizontalAlignment(SwingConstants.CENTER);
+        jtbSettings.setOpaque(true);
+        jtbSettings.setActionCommand("SettingsMenu");
+        jtbSettings.setBounds(1175, 0, 105, 75);
+        add(jtbSettings);
 
 		btnTraining = new JButton("Training");
 		btnTraining.addActionListener(new ActionListener() {
@@ -115,7 +139,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnTrainingsession.setHorizontalAlignment(SwingConstants.CENTER);
 		btnTrainingsession.setOpaque(true);
 		btnTrainingsession.setActionCommand("TrainingSessionMenu");
-		btnTrainingsession.setBounds(388, 0, 264, 75);
+		btnTrainingsession.setBounds(387, 0, 264, 75);
 		add(btnTrainingsession);
 
 		btnEmployees = new JButton("Employees");
@@ -132,7 +156,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnEmployees.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEmployees.setOpaque(true);
 		btnEmployees.setActionCommand("EmployeesMenu");
-		btnEmployees.setBounds(652, 0, 264, 75);
+		btnEmployees.setBounds(650, 0, 264, 75);
 		add(btnEmployees);
 
 		btnStatistics = new JButton("Statistics");
@@ -149,18 +173,8 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		btnStatistics.setOpaque(true);
 		btnStatistics.setActionCommand("StatisticsMenu");
-		btnStatistics.setBounds(916, 0, 264, 75);
+		btnStatistics.setBounds(912, 0, 264, 75);
 		add(btnStatistics);
-
-		JLabel lblNewLabel = new JLabel("logo");
-		lblNewLabel.setBounds(0, 0, 133, 75);
-		lblNewLabel.setOpaque(true);
-		add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("Profiel");
-		lblNewLabel_1.setBounds(1190, 0, 75, 75);
-		lblNewLabel_1.setOpaque(true);
-		add(lblNewLabel_1);
 
 		JLabel lblUitlegCert = new JLabel("Write employeeID to get information");
 		lblUitlegCert.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -436,6 +450,7 @@ public class StatisticsCertificatesEmployeePane extends JPanel {
 		btnStatistics.addActionListener(listener);
 		btnEmployees.addActionListener(listener);
 		btnTrainingsession.addActionListener(listener);
+		jtbSettings.addActionListener(listener);
 	}
 
 	public String getEmployeeIDCertTraining() {
