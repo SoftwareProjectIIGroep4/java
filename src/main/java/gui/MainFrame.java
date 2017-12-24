@@ -248,6 +248,7 @@ public class MainFrame extends JFrame {
                 } else if ("goToSelectTraining".equals(command)) {
                 	setKeeper(trainingPanel.getTabelID());
                 	trainingId=keeper;
+                	newSelectTrainingPane.getTableModel().setRowCount(0);
                 	
                 	
                 	ConcurrentMap<Integer, TrainingInfo> listTraingInfo=dataAccess.Cache.trainingInfoCache.asMap();
@@ -347,10 +348,7 @@ public class MainFrame extends JFrame {
                     			)
                     		
                     	{
-                    		System.out.println(newNewTrainingSessionPanel.getDate());
-                    		System.out.println(surveyId);
-                    		System.out.println(teacherId);
-                    		System.out.println(trainingId);
+                    		
                     		
              
                     	} else {
@@ -399,6 +397,7 @@ public class MainFrame extends JFrame {
                     	surveyId=-1;
                     	teacherId=-1;
                     	bookId=-1;
+                    	trainingId=-1;
                     	
                     	
                     	//save de data voor training session gebruik getters
@@ -656,7 +655,28 @@ public class MainFrame extends JFrame {
                         	newSelectTrainingPane.getTableModel().setRowCount(0);
                         	
                         	layout.show(getContentPane(), "NewTrainingSessionPane");
-                        }
+                        }else if ("goToAddTraining".equals(command)) {
+                        	TrainingInfo tIfo=new TrainingInfo();
+                        	trainingId=trainingPanel.getTabelID();
+                        	try {
+								tIfo=dataAccess.TrainingInfoAccess.get(trainingId);
+							} catch (IOException | URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+                        	newNewTrianingPane.setTitle(tIfo.getName());
+                        	newNewTrianingPane.setDescription(tIfo.getInfoGeneral());
+                        	newNewTrianingPane.setTxtNumberOfDays(String.valueOf(tIfo.getNumberOfDays()));
+                        	newNewTrianingPane.setPrice(String.valueOf(tIfo.getPrice()));
+                        	newNewTrianingPane.setDescriptionExam(String.valueOf(tIfo.getInfoExam()));
+                        	newNewTrianingPane.setDescriptionPayement(String.valueOf(tIfo.getInfoPayment()));
+                        	
+                        	
+                        	
+							layout.show(getContentPane(), "NewTrianingPane");
+							
+						}
+                        
                         
                     } 
                 });
@@ -684,6 +704,7 @@ public class MainFrame extends JFrame {
                         	layout.show(getContentPane(), "trainingPanel");
                         } else if ("SaveTraining".equals(command)) {
                         	//cancel trainingSession
+                        	
                         	if(newNewTrianingPane.getTitle().equals("")|| 
                         	newNewTrianingPane.getDescription().equals("")|| 
                         	newNewTrianingPane.getNumberOfDays()==0|| 
@@ -692,8 +713,29 @@ public class MainFrame extends JFrame {
                         	newNewTrianingPane.getPrice()==0) {
                         		
                         		
-                        		
+                
                         		//open een error message
+                        	}
+                        	else if (trainingId!=-1){
+                        		TrainingInfo trainingInfo = new TrainingInfo(newNewTrianingPane.getTitle(), 
+                            			newNewTrianingPane.getDescription(), 
+                            			newNewTrianingPane.getNumberOfDays(), 
+                            			newNewTrianingPane.getDescriptionExam(),
+                            			newNewTrianingPane.getDescriptionPayement(),
+                            			newNewTrianingPane.getPrice(),
+                            			newNewTrianingPane.getSurveyId());
+                        		trainingInfo.setTrainingId(trainingId);
+                        		try {
+    								dataAccess.TrainingInfoAccess.update(trainingInfo);
+    							} catch (URISyntaxException e1) {
+    								// TODO Auto-generated catch block
+    								e1.printStackTrace();
+    							} catch (IOException e1) {
+    								// TODO Auto-generated catch block
+    								e1.printStackTrace();
+    							}
+                        		trainingId=-1;
+                        		
                         	}
                         	else {
                         	TrainingInfo trainingInfo = new TrainingInfo(newNewTrianingPane.getTitle(), 
