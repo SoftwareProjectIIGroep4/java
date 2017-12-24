@@ -31,6 +31,7 @@ public class SelectTrainingPane extends JPanel {
 	private JTable tbTraining;
 	private JButton btnBack;
 	private JButton btnMakeTrainingSession;
+	private JButton btnPasAan;
 	private int selectedRow;
 	private DefaultTableModel modelTraining,tableModel;
 	TrainingPane trainingPane;
@@ -64,6 +65,11 @@ public class SelectTrainingPane extends JPanel {
 		btnMakeTrainingSession.setBounds(1071, 90, 172, 60);
 		btnMakeTrainingSession.setActionCommand("MakeTrainingSession");
 		add(btnMakeTrainingSession);
+
+		btnPasAan = new JButton("Pas geselecteerde training aan");
+		btnPasAan.setActionCommand("goToAddTraining");
+		btnPasAan.setBounds(1071, 261, 172, 60);
+		add(btnPasAan);
 		
 		Object [] columnHeadersTraining = {"Title","Number of Days","Price"};
 		modelTraining = new DefaultTableModel();
@@ -129,11 +135,14 @@ public class SelectTrainingPane extends JPanel {
 		lblBackBorder.setBounds(10, 47, 1030, 580);
 		lblBackBorder.setBorder(border);
 		add(lblBackBorder);
+		
 	}
 	
 	public void addActionListener(ActionListener listener) {
 		btnBack.addActionListener(listener);
 		btnMakeTrainingSession.addActionListener(listener);
+		btnPasAan.addActionListener(listener);
+		
     }
 	
 	public int getSelectedRow() {
@@ -159,9 +168,4 @@ public class SelectTrainingPane extends JPanel {
 	public void setTableModel(DefaultTableModel tableModel) {
 		this.tableModel = tableModel;
 	}
-
-	
-
-	
-
 }
